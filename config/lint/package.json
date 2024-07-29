@@ -6,6 +6,10 @@
     "lintstaged.js",
     "stylelint.js"
   ],
+  "scripts": {
+    "clean": "rd/s/q node_modules",
+    "clean:mac": "rm -rf ./node_modules"
+  },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.2.2"
   }

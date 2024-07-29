@@ -4,7 +4,7 @@ module.exports = {
     tailwindcss: {},
     autoprefixer: {
       overrideBrowserslist: ['Chrome > 64'],
-      grid: true
-    }
-  }
+      grid: true,
+    },
+  },
 }

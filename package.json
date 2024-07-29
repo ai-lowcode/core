@@ -11,6 +11,7 @@
     "npm": ">=9.4.0"
   },
   "scripts": {
+    "test": "vitest",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky install",

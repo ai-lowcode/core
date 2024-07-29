@@ -1,0 +1,75 @@
+{
+  "disableEmoji": false,
+  "format": "{type}{scope}: {emoji}{subject}",
+  "list": ["feat", "fix", "docs", "style", "chore", "ci", "perf", "refactor", "test", "build", "init"],
+  "maxMessageLength": 64,
+  "minMessageLength": 3,
+  "questions": ["type", "scope", "subject"],
+  "scopes": [],
+  "types": {
+    "feat": {
+      "description": "新功能",
+      "emoji": "✨",
+      "value": "feat"
+    },
+    "fix": {
+      "description": "Bug 修复",
+      "emoji": "🐛",
+      "value": "fix"
+    },
+    "docs": {
+      "description": "文档",
+      "emoji": "✏️",
+      "value": "docs"
+    },
+    "style": {
+      "description": "风格",
+      "emoji": "💄",
+      "value": "style"
+    },
+    "chore": {
+      "description": "构建/工程依赖/工具",
+      "emoji": "🚀",
+      "value": "chore"
+    },
+    "ci": {
+      "description": "CI配置",
+      "emoji": "🎡",
+      "value": "ci"
+    },
+    "perf": {
+      "description": "性能优化",
+      "emoji": "⚡️",
+      "value": "perf"
+    },
+    "refactor": {
+      "description": "代码重构",
+      "emoji": "♻️",
+      "value": "refactor"
+    },
+    "test": {
+      "description": "测试",
+      "emoji": "✅",
+      "value": "test"
+    },
+    "build": {
+      "description": "打包构建",
+      "emoji": "📦‍",
+      "value": "build"
+    },
+    "init": {
+      "description": "初始化",
+      "emoji": "🎉",
+      "value": "init"
+    },
+    "messages": {
+      "type": "Select·the·type·of·change·that·you're·committing:",
+      "customScope": "Select the scope this component affects:",
+      "subject": "Write a short, imperative mood description of the change:\n",
+      "body": "Provide a longer description of the change:\n ",
+      "breaking": "List any breaking changes:\n",
+      "footer": "Issues this commit closes, e.g #123:",
+      "confirmCommit": "The packages that this commit has affected\n"
+    }
+  }
+}

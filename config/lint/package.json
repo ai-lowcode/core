@@ -1,0 +1,13 @@
+{
+  "name": "@al-config/lint",
+  "version": "1.0.0",
+  "files": [
+    "commitlint.js",
+    "lintstaged.js",
+    "prettier.js",
+    "stylelint.js"
+  ],
+  "devDependencies": {
+    "@commitlint/config-conventional": "^19.2.2"
+  }
+}

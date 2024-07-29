@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    /* 目标语言的版本 */
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    /* 指定生成代码的模板标准 */
+    "module": "esnext",
+    /* 生成目标文件的sourceMap文件 */
+    "sourceMap": true,
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "nodenext",
+    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
+    "baseUrl": "."
+  },
+  "exclude": ["node_modules", "dist"]
+}

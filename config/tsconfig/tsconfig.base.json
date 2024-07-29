@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    // 目标语言的版本
+    "target": "esnext",
+    // TS需要引用的库，即声明文件，es5 默认引用dom、es5、scripthost
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    // 用于解析非绝对模块名的基本目录
+    "baseUrl": ".",
+    // 生成代码的模板标准
+    "module": "esnext",
+
+    // 指定模块解析策略
+    "moduleResolution": "nodenext",
+    // 是否解析 JSON 模块
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+
+    // 是否启动所有严格检查的总开关
+    "strict": true,
+    // 检查switch中是否含有case没有使用break跳出
+    "noFallthroughCasesInSwitch": true,
+    // 是否检查未使用的局部变量
+    "noUnusedLocals": true,
+    // 是否检查未使用的参数
+    "noUnusedParameters": true,
+    // 生成声明文件，开启后会自动生成声明文件
+    "declaration": true,
+    // 为声明文件生成sourceMap
+    "declarationMap": true,
+    // 只生成声明文件，而不会生成js文件
+    "emitDeclarationOnly": true,
+    // 发送错误时不输出任何文件
+    "noEmitOnError": true,
+    // 生成目标文件的sourceMap文件
+    "sourceMap": true,
+    // 是否允许从没有默认导出的模块中默认导入
+    "allowSyntheticDefaultImports": true,
+    // 是否将每个文件转换为单独的模块
+    // "isolatedModules": true,
+    // 允许export=导出，由import from 导入
+    "esModuleInterop": true,
+    // 是否跳过声明文件的类型检查
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules", "dist"]
+}

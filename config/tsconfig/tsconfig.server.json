@@ -3,14 +3,14 @@
   "display": "Server",
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     "target": "esnext",
-    "sourceMap": false,
     "lib": ["ESNext", "DOM"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "typeRoots": ["node_modules/@types/", "types"],
     "types": ["node"],
-    "typeRoots": ["node_modules/@types/", "types"]
+    "declaration": true,
+    "sourceMap": false
   }
 }

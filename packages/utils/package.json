@@ -1,0 +1,15 @@
+{
+  "name": "@ai-lowcode/utils",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "scripts": {
+    "clean": "rd/s/q node_modules",
+    "clean:mac": "rm -rf ./node_modules"
+  },
+  "dependencies": {
+    "nprogress": "^0.2.0"
+  },
+  "devDependencies": {
+    "@types/nprogress": "^0.2.3"
+  }
+}

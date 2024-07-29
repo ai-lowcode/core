@@ -2,6 +2,7 @@
   "name": "ailowcode",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "pnpm@9.4.0",
   "description": "a ai lowcode project",
   "author": "A.L",
   "license": "MIT",
@@ -17,8 +18,8 @@
     "stylelint": "stylelint \"**/*.{html,vue,css,scss}\"",
     "prepare": "husky install",
     "cmt": "git add . && git-cz",
-    "clean": "rd/s/q node_modules",
-    "clean:mac": "rm -rf ./node_modules"
+    "clean": "pnpm turbo clean && rd/s/q node_modules",
+    "clean:mac": "pnpm turbo clean:mac && rm -rf ./node_modules"
   },
   "devDependencies": {
     "@al-config/lint": "workspace:^",
@@ -28,19 +29,19 @@
     "@microsoft/api-extractor": "^7.47.4",
     "@types/node": "^22.0.0",
     "@vitejs/plugin-vue": "^5.1.1",
-    "stylelint": "^16.8.0",
     "eslint": "^9.8.0",
     "git-cz": "^4.9.0",
     "husky": "^9.1.3",
     "lint-staged": "^15.2.7",
+    "stylelint": "^16.8.0",
     "ts-node": "^10.9.2",
     "turbo": "^2.0.9",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5"
+    "vite": "^5.3.5",
+    "vitest": "^2.0.4"
   },
   "lint-staged": {
-    "**/**/*.{js,jsx,ts,tsx}": "pnpm lint:fix",
-    "**/**/*.{vue,js,ts,jsx,tsx}": "pnpm prettier:fix"
+    "**/**/*.{vue,js,jsx,ts,tsx}": "pnpm lint:fix"
   },
   "config": {
     "commitizen": {

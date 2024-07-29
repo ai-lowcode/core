@@ -11,7 +11,7 @@ module.exports = {
     'type-enum': [
       2,
       'always',
-      ['feat', 'fix', 'docs', 'style', 'chore', 'ci', 'perf', 'refactor', 'test', 'build', 'init']
+      ['feat', 'fix', 'docs', 'style', 'chore', 'ci', 'perf', 'refactor', 'test', 'build', 'init'],
     ],
     // type不能为空
     'type-empty': [2, 'never'],
@@ -22,6 +22,6 @@ module.exports = {
     'scope-empty': [0],
     'scope-case': [0],
     'subject-full-stop': [0],
-    'subject-case': [0]
-  }
+    'subject-case': [0],
+  },
 }

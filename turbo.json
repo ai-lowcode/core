@@ -1,0 +1,32 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "serve": {
+      "cache": false,
+      "persistent": true
+    },
+    "serve:test": {
+      "cache": false,
+      "persistent": true
+    },
+    "serve:prod": {
+      "cache": false,
+      "persistent": true
+    },
+    "build": {
+      "outputs": ["dist/**"]
+    },
+    "build:dev": {
+      "outputs": ["dist/**"]
+    },
+    "build:test": {
+      "outputs": ["dist/**"]
+    },
+    "clean": {
+      "cache": false
+    },
+    "clean:mac": {
+      "cache": false
+    }
+  }
+}

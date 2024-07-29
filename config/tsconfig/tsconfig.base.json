@@ -3,14 +3,14 @@
     // 目标语言的版本
     "target": "esnext",
     // TS需要引用的库，即声明文件，es5 默认引用dom、es5、scripthost
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["DOM", "ESNext", "DOM.Iterable"],
     // 用于解析非绝对模块名的基本目录
     "baseUrl": ".",
     // 生成代码的模板标准
     "module": "esnext",
 
     // 指定模块解析策略
-    "moduleResolution": "nodenext",
+    "moduleResolution": "Bundler",
     // 是否解析 JSON 模块
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
@@ -40,7 +40,8 @@
     // 允许export=导出，由import from 导入
     "esModuleInterop": true,
     // 是否跳过声明文件的类型检查
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["vite/client", "vitest/globals", "node"]
   },
   "exclude": ["node_modules", "dist"]
 }

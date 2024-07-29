@@ -1,5 +1,7 @@
 {
   "name": "@al-config/vite",
   "version": "1.0.0",
-  "files": []
+  "files": [
+    "vite.base.config.ts"
+  ]
 }

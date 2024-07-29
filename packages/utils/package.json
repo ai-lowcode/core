@@ -1,6 +1,7 @@
 {
   "name": "@ai-lowcode/utils",
   "version": "1.0.0",
+  "type": "module",
   "main": "./src/index.ts",
   "scripts": {
     "clean": "rd/s/q node_modules",
@@ -10,6 +11,9 @@
     "nprogress": "^0.2.0"
   },
   "devDependencies": {
-    "@types/nprogress": "^0.2.3"
+    "@al-config/vite": "workspace:^",
+    "@types/nprogress": "^0.2.3",
+    "vite": "^5.3.5",
+    "vitest": "^2.0.4"
   }
 }

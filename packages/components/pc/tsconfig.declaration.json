@@ -1,0 +1,9 @@
+{
+  "extends": "@al-config/tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "temp",
+    "stripInternal": true
+  }
+}

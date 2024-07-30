@@ -1,0 +1,19 @@
+{
+  "name": "@ai-lowcode/components-pc",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "scripts": {
+    "clean": "rd/s/q node_modules",
+    "clean:mac": "rm -rf ./node_modules"
+  },
+  "dependencies": {
+    "vue": "^3.4.34"
+  },
+  "devDependencies": {
+    "@al-config/tsconfig": "workspace:^",
+    "@al-config/vite": "workspace:^",
+    "vite": "^5.3.5",
+    "vitest": "^2.0.4"
+  }
+}

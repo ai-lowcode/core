@@ -7,8 +7,17 @@
     "clean": "rd/s/q node_modules",
     "clean:mac": "rm -rf ./node_modules"
   },
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "hotkeys-js": "^3.13.7",
+    "localforage": "^1.10.0",
+    "mitt": "^3.0.1",
+    "vue": "^3.4.34"
+  },
   "devDependencies": {
+    "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",
+    "@types/crypto-js": "^4.2.2",
     "vite": "^5.3.5",
     "vitest": "^2.0.4"
   }

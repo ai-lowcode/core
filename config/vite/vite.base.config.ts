@@ -1,9 +1,10 @@
-import { cwd, env } from 'node:process'
-import { resolve } from 'node:path'
 import { readFile } from 'node:fs/promises'
+import { resolve } from 'node:path'
+import { cwd, env } from 'node:process'
+
+import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import type { LibraryFormats } from 'vite'
-import vue from '@vitejs/plugin-vue'
 
 interface Options {
   name: string

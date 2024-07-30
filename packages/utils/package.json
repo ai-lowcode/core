@@ -11,6 +11,7 @@
     "nprogress": "^0.2.0"
   },
   "devDependencies": {
+    "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",
     "@types/nprogress": "^0.2.3",
     "vite": "^5.3.5",

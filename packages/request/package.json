@@ -6,7 +6,11 @@
     "clean": "rd/s/q node_modules",
     "clean:mac": "rm -rf ./node_modules"
   },
+  "dependencies": {
+    "axios": "^1.7.2"
+  },
   "devDependencies": {
+    "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",
     "vite": "^5.3.5",
     "vitest": "^2.0.4"

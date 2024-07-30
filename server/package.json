@@ -121,6 +121,7 @@
     "@types/multer": "^1.4.11",
     "@types/node": "^20.14.2",
     "@types/passport-jwt": "^4.0.1",
+    "@types/pluralize": "^0.0.33",
     "@types/qs": "^6.9.15",
     "@types/supertest": "^6.0.2",
     "@types/ua-parser-js": "^0.7.39",

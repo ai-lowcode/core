@@ -1,9 +1,9 @@
 # project custom
 build
 dist
-# package-lock.json
-# yarn.lock
-# pnpm-lock.yaml
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 deploy-space/packages
 deploy-space/.env
 

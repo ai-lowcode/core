@@ -104,3 +104,6 @@ codealike.json
 .node
 
 .must.config.js
+
+# vitepress
+.vitepress/cache

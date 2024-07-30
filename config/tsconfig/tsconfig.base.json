@@ -13,6 +13,7 @@
     "moduleResolution": "Bundler",
     // 是否解析 JSON 模块
     "resolveJsonModule": true,
+    "types": ["vite/client", "vitest/globals", "node"],
     "allowImportingTsExtensions": true,
 
     // 是否启动所有严格检查的总开关
@@ -40,8 +41,7 @@
     // 允许export=导出，由import from 导入
     "esModuleInterop": true,
     // 是否跳过声明文件的类型检查
-    "skipLibCheck": true,
-    "types": ["vite/client", "vitest/globals", "node"]
+    "skipLibCheck": true
   },
   "exclude": ["node_modules", "dist"]
 }

@@ -1,7 +1,7 @@
 {
   "name": "@ai-lowcode/utils",
-  "version": "1.0.0",
   "type": "module",
+  "version": "1.0.0",
   "main": "./src/index.ts",
   "scripts": {
     "clean": "rd/s/q node_modules",

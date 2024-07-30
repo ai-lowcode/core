@@ -2,7 +2,6 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: '/ai-lowcode/',
   title: 'ai-lowcode docs',
   description: 'a ai-lowcode project',
   themeConfig: {

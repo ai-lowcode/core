@@ -3,6 +3,5 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "include": ["src", "vite.config.ts"],
-  "ts-node": { "esm": true }
+  "include": ["src"]
 }

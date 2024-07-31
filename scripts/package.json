@@ -1,7 +1,7 @@
 {
   "name": "@al-config/scripts",
-  "private": true,
   "type": "module",
+  "private": true,
   "bin": {
     "rollup-dts": "rollup-dts.js"
   },
@@ -10,8 +10,8 @@
     "clean:mac": "rimraf node_modules"
   },
   "devDependencies": {
-    "@pnpm/workspace.find-packages": "^1.1.12",
     "@microsoft/api-extractor": "^7.47.4",
+    "@pnpm/workspace.find-packages": "^1.1.12",
     "execa": "^8.0.1",
     "minimist": "^1.2.8"
   }

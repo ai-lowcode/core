@@ -14,9 +14,9 @@
     "element-plus": "^2.7.8"
   },
   "devDependencies": {
+    "@al-config/scripts": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",
-    "@al-config/scripts": "workspace:^",
     "vite": "^5.3.5",
     "vitest": "^2.0.4"
   }

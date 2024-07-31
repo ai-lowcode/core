@@ -107,3 +107,6 @@ codealike.json
 
 # vitepress
 .vitepress/cache
+
+# turbo
+.turbo

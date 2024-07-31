@@ -1,7 +1,29 @@
 {
   "name": "@al-config/vite",
   "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
-    "vite.base.config.ts"
-  ]
+    "dist"
+  ],
+  "scripts": {
+    "stub": "pnpm unbuild --stub",
+    "clean": "rimraf node_modules",
+    "clean:mac": "rimraf node_modules"
+  },
+  "devDependencies": {
+    "@al-config/tsconfig": "workspace:^",
+    "unbuild": "^2.0.0"
+  }
 }

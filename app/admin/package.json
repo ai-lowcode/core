@@ -11,11 +11,10 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "clean": "rd/s/q node_modules",
-    "clean:mac": "rm -rf ./node_modules"
+    "clean": "rimraf node_modules",
+    "clean:mac": "rimraf node_modules"
   },
   "dependencies": {
-    "element-plus": "^2.7.8",
     "pinia": "^2.2.0",
     "vue": "^3.4.34",
     "vue-router": "4"

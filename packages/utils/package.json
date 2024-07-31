@@ -4,8 +4,11 @@
   "version": "1.0.0",
   "main": "./src/index.ts",
   "scripts": {
-    "clean": "rd/s/q node_modules",
-    "clean:mac": "rm -rf ./node_modules"
+    "build": "vite build",
+    "build:all": "vite build && pnpm build:dts",
+    "build:dts": "tsc -p tsconfig.declaration.json && rollup-dts",
+    "clean": "rimraf node_modules",
+    "clean:mac": "rimraf node_modules"
   },
   "dependencies": {
     "nprogress": "^0.2.0"

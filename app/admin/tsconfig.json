@@ -18,8 +18,7 @@
     "resolveJsonModule": true,
     "types": [
       "node",
-      "vite/client",
-      "element-plus/global"
+      "vite/client"
     ],
     "allowJs": false,
     "strict": false,

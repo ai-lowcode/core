@@ -1,0 +1,23 @@
+{
+  "name": "@ai-lowcode/element-plus",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "vite build",
+    "build:all": "vite build && pnpm build:dts",
+    "build:dts": "tsc -p tsconfig.declaration.json && rollup-dts",
+    "clean": "rimraf node_modules",
+    "clean:mac": "rimraf node_modules"
+  },
+  "dependencies": {
+    "element-plus": "^2.7.8"
+  },
+  "devDependencies": {
+    "@al-config/tsconfig": "workspace:^",
+    "@al-config/vite": "workspace:^",
+    "@al-config/scripts": "workspace:^",
+    "vite": "^5.3.5",
+    "vitest": "^2.0.4"
+  }
+}

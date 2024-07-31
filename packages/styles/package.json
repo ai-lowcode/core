@@ -2,8 +2,8 @@
   "name": "@ai-lowcode/styles",
   "version": "1.0.0",
   "scripts": {
-    "clean": "rd/s/q node_modules",
-    "clean:mac": "rm -rf ./node_modules"
+    "clean": "rimraf node_modules",
+    "clean:mac": "rimraf node_modules"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.7"

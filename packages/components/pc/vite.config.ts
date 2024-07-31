@@ -1,9 +1,9 @@
-import baseConfigFn from '@al-config/vite/vite.base.config'
+import { definePkgConfig } from '@al-config/vite'
 import { defineConfig } from 'vite'
 
 export default defineConfig(async () => {
-  return baseConfigFn({
-    name: 'AiLowcodeHooks',
+  return definePkgConfig({
+    name: 'AiLowcodeComponentsPc',
     defaultFormats: ['es', 'cjs'],
   })
 })

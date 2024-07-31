@@ -2,7 +2,6 @@ import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { cwd, env } from 'node:process'
 
-import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import type { LibraryFormats } from 'vite'
 
@@ -16,12 +15,12 @@ interface Options {
 const resolvePath = (path: string) => resolve(cwd(), path)
 const isProduction = !!env.PROD
 
-export default async ({
+export async function definePkgConfig({
   name,
   entry = 'src/index.ts',
   defaultFormats = ['es'],
   externalDeps = true,
-}: Options) => {
+}: Options) {
   const formats = (env.FORMATS?.split(',') ?? defaultFormats) as LibraryFormats[]
 
   const { peerDependencies = {}, dependencies = {} } = await getPackageJson(
@@ -47,7 +46,6 @@ export default async ({
         external: externals,
       },
     },
-    plugins: [vue()],
   })
 }
 

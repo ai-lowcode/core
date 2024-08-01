@@ -2,15 +2,21 @@
   "name": "@ai-lowcode/request",
   "version": "1.0.0",
   "description": "element-plus for ai-lowcode",
+  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "repository": {
+    "type": "http",
+    "url": "https://github.com/ai-lowcode/core"
+  },
+  "bugs": "https://github.com/ai-lowcode/core/issues",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
+      "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
   },
   "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -24,6 +30,8 @@
     "clean:dist": "rimraf dist"
   },
   "dependencies": {
+    "@ai-lowcode/element-plus": "workspace:^",
+    "@ai-lowcode/hooks": "workspace:^",
     "axios": "^1.7.2"
   },
   "devDependencies": {
@@ -35,11 +43,5 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  },
-  "repository": {
-    "type": "http",
-    "url": "https://github.com/ai-lowcode/core"
-  },
-  "bugs": "https://github.com/ai-lowcode/core/issues",
-  "homepage": "https://github.com/ai-lowcode/core/#readme"
+  }
 }

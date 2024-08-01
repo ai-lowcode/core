@@ -1,13 +1,15 @@
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
-import HomeView from '../views/system/home/index.vue'
+import HomeView from '@/views/system/home/index.vue'
+
+import LoginView from '@/views/system/login/index.vue'
 
 const routes = [
   { path: '/', component: HomeView },
-  { path: '/12', component: HomeView },
+  { path: '/login', component: LoginView },
 ]
 
 export const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 })

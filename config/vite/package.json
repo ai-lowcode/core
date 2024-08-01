@@ -1,8 +1,13 @@
 {
   "name": "@al-config/vite",
-  "type": "module",
   "version": "1.0.0",
   "license": "MIT",
+  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "repository": {
+    "type": "http",
+    "url": "https://github.com/ai-lowcode/core"
+  },
+  "bugs": "https://github.com/ai-lowcode/core/issues",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -29,11 +34,5 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  },
-  "repository": {
-    "type": "http",
-    "url": "https://github.com/ai-lowcode/core"
-  },
-  "bugs": "https://github.com/ai-lowcode/core/issues",
-  "homepage": "https://github.com/ai-lowcode/core/#readme"
+  }
 }

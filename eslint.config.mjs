@@ -23,6 +23,8 @@ export default antfu(
       'ts/no-unused-expressions': 'off',
       'regexp/no-useless-quantifier': 'off',
       'ts/no-unsafe-function-type': 'off',
+      'vue/no-parsing-error': 'off',
+      'vue/valid-attribute-name': 'off',
 
       'import/order': [
         2,

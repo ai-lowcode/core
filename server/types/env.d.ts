@@ -4,8 +4,7 @@ declare global {
     interface ProcessEnv {
       APP_NAME: 'Nest Admin'
       APP_PORT: '7001'
-      // eslint-disable-next-line no-template-curly-in-string
-      APP_BASE_URL: 'http://localhost:${APP_PORT}'
+      APP_BASE_URL: `http://localhost:${APP_PORT}`
       APP_LOCALE: 'zh-CN'
       PROJECT_DIR: '/nest-admin'
       MULTI_DEVICE_LOGIN: 'true'

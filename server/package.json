@@ -9,7 +9,6 @@
     "pnpm": ">=8"
   },
   "scripts": {
-    "postinstall": "npm run gen-env-types",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "dev": "npm run start",

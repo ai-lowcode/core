@@ -1,14 +1,11 @@
-import { CreateAxiosOptionsType } from '@fastsun/model'
-
 import { AlAxios } from './axios'
+import { CreateAxiosOptionsType } from './types.ts'
 
 // 全局请求默认配置
 const defaultOptions: CreateAxiosOptionsType = {
   timeout: 100000,
   requestOptions: {
-    withTenantId: true,
     withToken: true,
-    withXAppId: true,
     isShowErrorMessage: true,
   },
 }

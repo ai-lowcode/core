@@ -10,13 +10,13 @@
     "clean": "rimraf node_modules",
     "clean:mac": "rimraf node_modules"
   },
+  "dependencies": {
+    "@inquirer/prompts": "^5.3.6"
+  },
   "devDependencies": {
     "@microsoft/api-extractor": "^7.47.4",
     "@pnpm/workspace.find-packages": "^1.1.12",
     "execa": "^8.0.1",
     "minimist": "^1.2.8"
-  },
-  "dependencies": {
-    "@inquirer/prompts": "^5.3.6"
   }
 }

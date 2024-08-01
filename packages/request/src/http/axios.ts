@@ -1,17 +1,10 @@
-import {
-  CommonResultType,
-  CreateAxiosOptionsType,
-  RequestConfigType,
-  RequestMethodEnum,
-  RequestOptionsType,
-  ResponseCodeEnum,
-  SystemArchEnum,
-  UploadFileParamsType,
-} from '@fastsun/model'
-import { webStorage } from '@fastsun/utils'
+import { AlLoadingService, AlMessage } from '@ai-lowcode/element-plus'
+import { webStorage } from '@ai-lowcode/hooks'
 import axios from 'axios'
 import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
-import { ElLoadingService, ElMessage } from 'element-plus'
+
+import { RequestMethodEnum, ResponseCodeEnum } from './enums.ts'
+import { CommonResultType, CreateAxiosOptionsType, RequestConfigType, RequestOptionsType } from './types.ts'
 
 /**
  * 请求类
@@ -27,7 +20,7 @@ export class AlAxios {
   private currentOptions: RequestOptionsType = {}
 
   // 加载动画
-  loading: ReturnType<typeof ElLoadingService> | null = null
+  loading: ReturnType<typeof AlLoadingService> | null = null
 
   constructor(options: CreateAxiosOptionsType) {
     this.axiosInstance = axios.create(options)
@@ -60,13 +53,13 @@ export class AlAxios {
       // 请求拦截器配置处理
       this.axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig & RequestConfigType) => {
         // 合并请求选项
-        const { withToken, withTenantId, withXAppId, isShowLoading, loadingMessageText, joinParamsToUrl, headers } = {
+        const { withToken, isShowLoading, loadingMessageText, joinParamsToUrl, headers } = {
           ...requestOptions,
           ...config.requestOptions,
         }
         // 处理loading
         isShowLoading
-        && (this.loading = ElLoadingService({
+        && (this.loading = AlLoadingService({
           lock: true,
           text: loadingMessageText || '加载中...',
           background: 'rgba(0, 0, 0, 0.7)',
@@ -80,16 +73,12 @@ export class AlAxios {
         config.headers = Object.assign(config.headers, headers)
 
         const envConfig = webStorage.getStorageFromKey('envConfig')
-        const appConfig = webStorage.getStorageFromKey('app')
-        const IsSingle
-                    = envConfig?.SYSTEM_ARCH === SystemArchEnum.ZSINGLE || appConfig?.appForm === SystemArchEnum.ZSINGLE
+        const token = webStorage.getStorageFromKey('token')
         // 处理请求路径(适配单体地址情况)
         const regex = /^(http|https):\/\//i
         config.url = regex.test(config.url!)
           ? config.url
-          : IsSingle && envConfig.TENANT_ID !== 'application'
-            ? (appConfig?.serverAddress || envConfig.BASE_URL) + config.url
-            : envConfig.BASE_URL + config.url
+          : envConfig.BASE_URL + config.url
 
         // 将请求参数处理成为params形式
         if (joinParamsToUrl) {
@@ -103,21 +92,7 @@ export class AlAxios {
         withToken
         && (config.headers.Authorization
                     = config.headers.Authorization
-                    || `Bearer ${IsSingle && envConfig.TENANT_ID !== 'application' ? appConfig?.token || webStorage.getStorageFromKey('token') : webStorage.getStorageFromKey('token')}`)
-        // 处理 X-App-Id
-        withXAppId
-        && (config.headers['X-App-Id']
-                    = config.headers['X-App-Id']
-                    || (IsSingle && envConfig.TENANT_ID !== 'application'
-                      ? appConfig?.code || envConfig.APP_ID
-                      : envConfig.APP_ID))
-        // 处理 X-Tenant-Id
-        withTenantId
-        && (config.headers['X-Tenant-Id']
-                    = config.headers['X-Tenant-Id']
-                    || (IsSingle && envConfig.TENANT_ID !== 'application'
-                      ? appConfig?.code || envConfig.TENANT_ID
-                      : envConfig.TENANT_ID))
+                    || `Bearer ${token}`)
 
         return config
       }, undefined)
@@ -132,13 +107,13 @@ export class AlAxios {
         if (response.data?.code === ResponseCodeEnum.SUCCESS) {
           // 处理请求成功的消息提醒
           isShowSuccessMessage
-          && (successMessageText ? ElMessage.success(successMessageText) : ElMessage.success('请求成功'))
+          && (successMessageText ? AlMessage.success(successMessageText) : AlMessage.success('请求成功'))
         }
 
         if (response.data?.code !== ResponseCodeEnum.SUCCESS) {
           // 处理请求失败的消息提醒
           isShowErrorMessage
-          && (errorMessageText ? ElMessage.error(errorMessageText) : ElMessage.error(response.data?.message))
+          && (errorMessageText ? AlMessage.error(errorMessageText) : AlMessage.error(response.data?.message))
         }
 
         return response
@@ -146,7 +121,7 @@ export class AlAxios {
     }
     catch (e) {
       console.log(e)
-      ElMessage.error('接口请求失败')
+      AlMessage.error('接口请求失败')
     }
   }
 
@@ -177,7 +152,7 @@ export class AlAxios {
       })
     }
     catch (e) {
-      ElMessage.error('接口请求失败')
+      AlMessage.error('接口请求失败')
       return new Promise(() => {})
     }
   }
@@ -231,33 +206,6 @@ export class AlAxios {
         url,
         data,
         method: RequestMethodEnum.DELETE,
-      },
-      options,
-    )
-  }
-
-  /**
-   * 文件上传
-   * @param {RequestConfigType} config 请求配置
-   * @param {UploadFileParamsType} params 请求参数
-   * @param {RequestOptionsType} options 请求选项
-   * @returns 请求结果
-   */
-  uploadFile<T = any>(
-    config: RequestConfigType,
-    params: UploadFileParamsType,
-    options?: RequestOptionsType,
-  ): Promise<CommonResultType<T>> {
-    return this.request<T>(
-      {
-        ...config,
-        method: RequestMethodEnum.POST,
-        data: {
-          dto: params.data,
-        },
-        headers: {
-          'Content-Type': 'application/json',
-        },
       },
       options,
     )

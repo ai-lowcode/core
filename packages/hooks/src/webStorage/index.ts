@@ -9,7 +9,7 @@ const config: globalConfig = {
 }
 
 class WebStorage {
-  setStorage = (key: keyof any, value: any, expire: number = 24 * 60): boolean => {
+  setStorage = (key: keyof Record<string, any>, value: any, expire: number = 24 * 60): boolean => {
     // 设定值
     if (value === '' || value === null || value === undefined) {
       // 空值重置
@@ -34,7 +34,7 @@ class WebStorage {
     return true
   }
 
-  getStorageFromKey = (key: keyof any) => {
+  getStorageFromKey = (key: keyof Record<any, any>) => {
     // 获取指定值
     if (config.prefix) {
       key = this.autoAddPreFix(key) as keyof any
@@ -83,7 +83,7 @@ class WebStorage {
       return window[config.type].length
   }
 
-  removeStorageFromKey = (key: keyof any) => {
+  removeStorageFromKey = (key: keyof Record<any, any>) => {
     // 删除值
     if (config.prefix) {
       key = this.autoAddPreFix(key) as keyof any

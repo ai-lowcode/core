@@ -78,6 +78,9 @@ async function run() {
     if (manifest?.scripts?.['build:dts']) {
       await execa('pnpm', ['--filter', manifest.name, 'build:dts'], {
         stdio: 'inherit',
+        env: {
+          PROD: prod,
+        },
       })
     }
   })

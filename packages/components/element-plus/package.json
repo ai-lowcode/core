@@ -3,20 +3,30 @@
   "type": "module",
   "version": "1.0.0",
   "description": "element-plus for ai-lowcode",
+  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "repository": {
+    "type": "http",
+    "url": "https://github.com/ai-lowcode/core"
+  },
+  "bugs": "https://github.com/ai-lowcode/core/issues",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": "./dist/ai-lowcode-element-plus.js",
+      "require": "./dist/ai-lowcode-element-plus.cjs"
+    },
+    "./css": {
+      "import": "./dist/style.css"
     }
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "main": "./dist/ai-lowcode-element-plus.cjs",
+  "module": "./dist/ai-lowcode-element-plus.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
+    "serve": "vite build --watch",
     "build": "vite build",
     "build:all": "vite build && pnpm build:dts",
     "build:dts": "rimraf temp && tsc -p tsconfig.declaration.json && rollup-dts",
@@ -37,11 +47,5 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  },
-  "repository": {
-    "type": "http",
-    "url": "https://github.com/ai-lowcode/core"
-  },
-  "bugs": "https://github.com/ai-lowcode/core/issues",
-  "homepage": "https://github.com/ai-lowcode/core/#readme"
+  }
 }

@@ -3,7 +3,8 @@
   "type": "module",
   "private": true,
   "bin": {
-    "rollup-dts": "rollup-dts.js"
+    "rollup-dts": "rollup-dts.js",
+    "build-pkg": "build.js"
   },
   "scripts": {
     "clean": "rimraf node_modules",
@@ -14,5 +15,8 @@
     "@pnpm/workspace.find-packages": "^1.1.12",
     "execa": "^8.0.1",
     "minimist": "^1.2.8"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^5.3.6"
   }
 }

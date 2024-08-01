@@ -2,13 +2,27 @@
   "name": "@ai-lowcode/hooks",
   "type": "module",
   "version": "1.0.0",
-  "main": "./src/index.ts",
+  "description": "element-plus for ai-lowcode",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "vite build",
     "build:all": "vite build && pnpm build:dts",
-    "build:dts": "tsc -p tsconfig.declaration.json && rollup-dts",
+    "build:dts": "rimraf temp && tsc -p tsconfig.declaration.json && rollup-dts",
     "clean": "rimraf node_modules",
-    "clean:mac": "rimraf node_modules"
+    "clean:mac": "rimraf node_modules",
+    "clean:dist": "rimraf dist"
   },
   "dependencies": {
     "crypto-js": "^4.2.0",
@@ -23,5 +37,15 @@
     "@types/crypto-js": "^4.2.2",
     "vite": "^5.3.5",
     "vitest": "^2.0.4"
-  }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "http",
+    "url": "https://github.com/ai-lowcode/core"
+  },
+  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "homepage": "https://github.com/ai-lowcode/core/#readme"
 }

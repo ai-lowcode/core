@@ -2,8 +2,19 @@
   "name": "@ai-lowcode/types",
   "version": "1.0.0",
   "main": "./src/index.ts",
+  "description": "element-plus for ai-lowcode",
   "scripts": {
     "clean": "rimraf node_modules",
     "clean:mac": "rimraf node_modules"
-  }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "http",
+    "url": "https://github.com/ai-lowcode/core"
+  },
+  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "homepage": "https://github.com/ai-lowcode/core/#readme"
 }

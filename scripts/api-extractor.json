@@ -23,6 +23,7 @@
   "docModel": {
     "enabled": false
   },
+
   "tsdocMetadata": {
     "enabled": false
   },

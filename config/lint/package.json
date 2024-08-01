@@ -1,6 +1,7 @@
 {
   "name": "@al-config/lint",
   "version": "1.0.0",
+  "description": "element-plus for ai-lowcode",
   "files": [
     "commitlint.js",
     "lintstaged.js",

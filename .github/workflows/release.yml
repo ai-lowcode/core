@@ -29,10 +29,11 @@ jobs:
 
       # 设置 Node
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
-          cache: 'pnpm'
+          node-version: 18
+      - name: Install PNPM
+        run: npm i -g pnpm
       # 安装依赖
       - name: Install dependencies
         run: pnpm install

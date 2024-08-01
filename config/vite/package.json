@@ -2,7 +2,6 @@
   "name": "@al-config/vite",
   "type": "module",
   "version": "1.0.0",
-  "private": true,
   "license": "MIT",
   "exports": {
     ".": {
@@ -18,12 +17,23 @@
     "dist"
   ],
   "scripts": {
-    "stub": "pnpm unbuild --stub",
+    "build": "pnpm unbuild --stub",
     "clean": "rimraf node_modules",
-    "clean:mac": "rimraf node_modules"
+    "clean:mac": "rimraf node_modules",
+    "clean:dist": "rimraf dist"
   },
   "devDependencies": {
     "@al-config/tsconfig": "workspace:^",
     "unbuild": "^2.0.0"
-  }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "http",
+    "url": "https://github.com/ai-lowcode/core"
+  },
+  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "homepage": "https://github.com/ai-lowcode/core/#readme"
 }

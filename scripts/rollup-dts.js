@@ -43,11 +43,10 @@ async function run() {
   }
   else {
     console.error(
-      `🚨类型声明文件生成失败：${
-             +`\n\t${extractorResult.errorCount} errors`
-             }\n\tand ${extractorResult.warningCount} warnings`,
+          `🚨类型声明文件生成失败：${
+              +`\n\t${extractorResult.errorCount} errors`
+          }\n\tand ${extractorResult.warningCount} warnings`,
     )
-    await rimraf(join(libPath, 'temp'))
     exit(1)
   }
 }

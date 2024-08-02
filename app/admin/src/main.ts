@@ -8,14 +8,16 @@ import App from './App.vue'
 
 import '@/assets/css/tailwind.css'
 
-import { router } from '@/router'
+import { setupRouter } from '@/router'
+import { setupStorage } from '@/setup/setupStorage'
 import { setupStore } from '@/store'
 
 const app = createApp(App)
 
 function setupApp() {
   setupStore(app)
-  app.use(router)
+  setupRouter(app)
+  setupStorage()
   app.mount('#app')
 }
 

@@ -77,6 +77,12 @@ importers:
       '@ai-lowcode/element-plus':
         specifier: workspace:^
         version: link:../../packages/components/element-plus
+      '@ai-lowcode/hooks':
+        specifier: workspace:^
+        version: link:../../packages/hooks
+      '@ai-lowcode/request':
+        specifier: workspace:^
+        version: link:../../packages/request
       '@ai-lowcode/styles':
         specifier: workspace:^
         version: link:../../packages/styles
@@ -155,6 +161,9 @@ importers:
 
   packages/components/element-plus:
     dependencies:
+      '@element-plus/icons-vue':
+        specifier: ^2.3.1
+        version: 2.3.1(vue@3.4.34(typescript@5.5.4))
       element-plus:
         specifier: ^2.7.8
         version: 2.7.8(vue@3.4.34(typescript@5.5.4))

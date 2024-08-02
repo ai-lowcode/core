@@ -17,6 +17,8 @@
   "dependencies": {
     "@ai-lowcode/element-plus": "workspace:^",
     "@ai-lowcode/styles": "workspace:^",
+    "@ai-lowcode/hooks": "workspace:^",
+    "@ai-lowcode/request": "workspace:^",
     "pinia": "^2.2.0",
     "vue": "^3.4.34",
     "vue-router": "4"

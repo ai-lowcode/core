@@ -72,13 +72,13 @@ export class AlAxios {
         // 合并请求头
         config.headers = Object.assign(config.headers, headers)
 
-        const envConfig = webStorage.getStorageFromKey('envConfig')
+        const globalConfig = webStorage.getStorageFromKey('config')
         const token = webStorage.getStorageFromKey('token')
         // 处理请求路径(适配单体地址情况)
         const regex = /^(http|https):\/\//i
         config.url = regex.test(config.url!)
           ? config.url
-          : envConfig.BASE_URL + config.url
+          : globalConfig.GLOBAL_URL + config.url
 
         // 将请求参数处理成为params形式
         if (joinParamsToUrl) {
@@ -188,6 +188,24 @@ export class AlAxios {
         url,
         data,
         method: RequestMethodEnum.POST,
+      },
+      options,
+    )
+  }
+
+  /**
+   * PUT请求
+   * @param {string} url 请求路径
+   * @param {*} data 请求参数
+   * @param {RequestOptionsType} options 请求选项
+   * @returns 请求结果
+   */
+  put<T = any>(url: string, data: any, options?: RequestOptionsType): Promise<CommonResultType<T>> {
+    return this.request<T>(
+      {
+        url,
+        data,
+        method: RequestMethodEnum.PUT,
       },
       options,
     )

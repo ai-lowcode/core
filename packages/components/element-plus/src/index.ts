@@ -1,5 +1,6 @@
 import 'element-plus/dist/index.css'
 
+export * from './element-plus-icon'
 export * from './auto-complete'
 export * from './avatar'
 export * from './badge'

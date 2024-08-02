@@ -1,5 +1,6 @@
 {
   "name": "@ai-lowcode/request",
+  "type": "module",
   "version": "1.0.0",
   "description": "element-plus for ai-lowcode",
   "homepage": "https://github.com/ai-lowcode/core/#readme",
@@ -11,12 +12,12 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": "./dist/ai-lowcode-request.js",
+      "require": "./dist/ai-lowcode-request.cjs"
     }
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/ai-lowcode-request.cjs",
+  "module": "./dist/ai-lowcode-request.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

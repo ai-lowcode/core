@@ -22,3 +22,5 @@ function createAxios(options: Partial<CreateAxiosOptionsType> = {}) {
 const AlHttp = createAxios()
 
 export { AlHttp, createAxios }
+export * from './types.ts'
+export * from './enums.ts'

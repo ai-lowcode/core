@@ -14,4 +14,4 @@ NProgress.configure({
   minimum: 0.3,
 })
 
-export default NProgress
+export const nProgress = NProgress

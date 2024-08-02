@@ -7,7 +7,7 @@ export enum ContentTypeEnum {
    */
   JSON = 'application/json;charset=UTF-8',
   /**
-   * urlcode格式
+   * url code格式
    */
   FORM_URLENCODED = 'application/x-www-form-urlencoded;charset=UTF-8',
   /**
@@ -45,7 +45,7 @@ export enum ResponseCodeEnum {
   /**
    * 请求成功
    */
-  SUCCESS = 0,
+  SUCCESS = 200,
   /**
    * 请求失败
    */

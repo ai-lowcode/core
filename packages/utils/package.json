@@ -26,6 +26,7 @@
     "build": "vite build",
     "build:all": "vite build && pnpm build:dts",
     "build:dts": "rimraf temp && tsc -p tsconfig.declaration.json && rollup-dts",
+    "test": "vitest",
     "clean": "rimraf node_modules",
     "clean:mac": "rimraf node_modules",
     "clean:dist": "rimraf dist"

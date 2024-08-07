@@ -1,1 +1,7 @@
 export * from './progress'
+export * from './treeToArray'
+export * from './is'
+export * from './unique'
+export * from './deepExtend'
+export * from './toCase'
+export * from './json'

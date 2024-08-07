@@ -2,16 +2,8 @@ import { App } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 import { createPermissionGuard } from '@/router/guard'
+import { routes } from '@/router/routes'
 import { ROUTER_WHITE_LIST, RouteNameEnum } from '@/router/types'
-import HomeView from '@/views/system/home/index.vue'
-
-import LoginView from '@/views/system/login/index.vue'
-
-const routes = [
-  { path: '/', component: HomeView, name: 'home' },
-  { path: '/1212', component: HomeView, name: 'home' },
-  { path: '/login', component: LoginView, name: 'login' },
-]
 
 const router = createRouter({
   history: createWebHashHistory(),

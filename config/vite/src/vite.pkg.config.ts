@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { cwd, env } from 'node:process'
 
-import { defineConfig } from 'vite'
+import { UserConfig, defineConfig } from 'vite'
 import type { LibraryFormats } from 'vite'
 
 interface Options {
@@ -10,6 +10,7 @@ interface Options {
   entry?: string
   defaultFormats?: LibraryFormats[]
   externalDeps?: boolean
+  options?: UserConfig
 }
 
 const resolvePath = (path: string) => resolve(cwd(), path)
@@ -20,6 +21,7 @@ export async function definePkgConfig({
   entry = 'src/index.ts',
   defaultFormats = ['es'],
   externalDeps = true,
+  options = {},
 }: Options) {
   const formats = (env.FORMATS?.split(',') ?? defaultFormats) as LibraryFormats[]
 
@@ -46,6 +48,7 @@ export async function definePkgConfig({
         external: externals,
       },
     },
+    ...options,
   })
 }
 

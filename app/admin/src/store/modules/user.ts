@@ -6,6 +6,7 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import { resetRouter } from '@/router'
+import { generatorRouter } from '@/router/generator-router'
 import { RouteNameEnum } from '@/router/types'
 
 const useUserStore = defineStore('user', () => {
@@ -88,7 +89,7 @@ const useUserStore = defineStore('user', () => {
       handleMenuStorage({
         menu,
       })
-      // generatorRouter(menu)
+      generatorRouter(menu)
     }
   }
 

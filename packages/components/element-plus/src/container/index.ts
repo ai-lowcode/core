@@ -1,1 +1,5 @@
 export { ElContainer as AlContainer } from 'element-plus'
+export { ElHeader as AlHeader } from 'element-plus'
+export { ElAside as AlAside } from 'element-plus'
+export { ElMain as AlMain } from 'element-plus'
+export { ElFooter as AlFooter } from 'element-plus'

@@ -67,7 +67,7 @@ importers:
         version: 5.3.5(@types/node@22.0.0)(sass@1.77.8)(terser@5.31.3)
       vitepress:
         specifier: ^1.3.1
-        version: 1.3.1(@algolia/client-search@4.24.0)(@types/node@22.0.0)(async-validator@4.2.5)(axios@1.7.2)(nprogress@0.2.0)(postcss@8.4.40)(sass@1.77.8)(search-insights@2.15.0)(terser@5.31.3)(typescript@5.5.4)
+        version: 1.3.1(@algolia/client-search@4.24.0)(@types/node@22.0.0)(async-validator@4.2.5)(axios@1.7.2)(nprogress@0.2.0)(postcss@8.4.40)(sass@1.77.8)(search-insights@2.15.0)(sortablejs@1.14.0)(terser@5.31.3)(typescript@5.5.4)
       vitest:
         specifier: ^2.0.4
         version: 2.0.4(@types/node@22.0.0)(sass@1.77.8)(terser@5.31.3)
@@ -86,6 +86,9 @@ importers:
       '@ai-lowcode/styles':
         specifier: workspace:^
         version: link:../../packages/styles
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       pinia:
         specifier: ^2.2.0
         version: 2.2.0(typescript@5.5.4)(vue@3.4.34(typescript@5.5.4))
@@ -105,12 +108,27 @@ importers:
       '@al-config/tsconfig':
         specifier: workspace:^
         version: link:../../config/tsconfig
+      '@antfu/eslint-config':
+        specifier: ^2.24.0
+        version: 2.24.0(@vue/compiler-sfc@3.4.34)(eslint@9.8.0)(typescript@5.5.4)(vitest@2.0.4(@types/node@22.0.0)(sass@1.77.8)(terser@5.31.3))
+      '@iconify/json':
+        specifier: ^2.2.233
+        version: 2.2.233
+      '@iconify/vue':
+        specifier: ^4.1.2
+        version: 4.1.2(vue@3.4.34(typescript@5.5.4))
+      '@types/lodash':
+        specifier: ^4.17.4
+        version: 4.17.7
       '@vitejs/plugin-vue':
         specifier: ^5.1.1
         version: 5.1.1(vite@5.3.5(@types/node@22.0.0)(sass@1.77.8)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.40)
+      eslint:
+        specifier: ^9.8.0
+        version: 9.8.0
       postcss:
         specifier: ^8.4.40
         version: 8.4.40
@@ -202,6 +220,116 @@ importers:
       vitest:
         specifier: ^2.0.4
         version: 2.0.4(@types/node@22.0.0)(sass@1.77.8)(terser@5.31.3)
+
+  packages/core:
+    dependencies:
+      crypto-js:
+        specifier: ^4.2.0
+        version: 4.2.0
+      hotkeys-js:
+        specifier: ^3.13.7
+        version: 3.13.7
+      localforage:
+        specifier: ^1.10.0
+        version: 1.10.0
+      mitt:
+        specifier: ^3.0.1
+        version: 3.0.1
+      vue:
+        specifier: ^3.4.34
+        version: 3.4.34(typescript@5.5.4)
+    devDependencies:
+      '@al-config/tsconfig':
+        specifier: workspace:^
+        version: link:../../config/tsconfig
+      '@al-config/vite':
+        specifier: workspace:^
+        version: link:../../config/vite
+      '@types/crypto-js':
+        specifier: ^4.2.2
+        version: 4.2.2
+      vite:
+        specifier: ^5.3.5
+        version: 5.3.5(@types/node@22.0.0)(sass@1.77.8)(terser@5.31.3)
+      vitest:
+        specifier: ^2.0.4
+        version: 2.0.4(@types/node@22.0.0)(sass@1.77.8)(terser@5.31.3)
+
+  packages/designer:
+    dependencies:
+      '@ai-lowcode/element-plus':
+        specifier: workspace:^
+        version: link:../components/element-plus
+      '@ai-lowcode/hooks':
+        specifier: workspace:^
+        version: link:../hooks
+      '@ai-lowcode/request':
+        specifier: workspace:^
+        version: link:../request
+      '@ai-lowcode/styles':
+        specifier: workspace:^
+        version: link:../styles
+      '@ai-lowcode/utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@form-create/component-wangeditor':
+        specifier: ^3.1
+        version: 3.1.20
+      '@form-create/element-ui':
+        specifier: ^3.1.27
+        version: 3.2.3(vue@3.4.34(typescript@5.5.4))
+      '@form-create/utils':
+        specifier: ^3.1.23
+        version: 3.2.0
+      codemirror:
+        specifier: ^5.0.1
+        version: 5.65.17
+      element-plus:
+        specifier: ^2.7.8
+        version: 2.7.8(vue@3.4.34(typescript@5.5.4))
+      vuedraggable:
+        specifier: 4.1.0
+        version: 4.1.0(vue@3.4.34(typescript@5.5.4))
+    devDependencies:
+      '@al-config/lint':
+        specifier: workspace:^
+        version: link:../../config/lint
+      '@al-config/tsconfig':
+        specifier: workspace:^
+        version: link:../../config/tsconfig
+      '@al-config/vite':
+        specifier: workspace:^
+        version: link:../../config/vite
+      '@antfu/eslint-config':
+        specifier: ^2.24.0
+        version: 2.24.0(@vue/compiler-sfc@3.4.34)(eslint@9.8.0)(typescript@5.5.4)(vitest@2.0.4(@types/node@22.0.0)(sass@1.77.8)(terser@5.31.3))
+      '@iconify/json':
+        specifier: ^2.2.233
+        version: 2.2.233
+      '@iconify/vue':
+        specifier: ^4.1.2
+        version: 4.1.2(vue@3.4.34(typescript@5.5.4))
+      autoprefixer:
+        specifier: ^10.4.19
+        version: 10.4.19(postcss@8.4.40)
+      eslint:
+        specifier: ^9.8.0
+        version: 9.8.0
+      postcss:
+        specifier: ^8.4.40
+        version: 8.4.40
+      tailwindcss:
+        specifier: ^3.4.7
+        version: 3.4.7(ts-node@10.9.2(@types/node@22.0.0)(typescript@5.5.4))
+      vite:
+        specifier: ^5.3.5
+        version: 5.3.5(@types/node@22.0.0)(sass@1.77.8)(terser@5.31.3)
+      vitest:
+        specifier: ^2.0.4
+        version: 2.0.4(@types/node@22.0.0)(sass@1.77.8)(terser@5.31.3)
+      vue:
+        specifier: ^3.4.34
+        version: 3.4.34(typescript@5.5.4)
 
   packages/hooks:
     dependencies:
@@ -1342,6 +1470,10 @@ packages:
   '@babel/regjsgen@0.8.0':
     resolution: {integrity: sha512-x/rqGMdzj+fWZvCOYForTghzbtqPDZ5gPwaoNGHdgDfF2QA/XZbCBp4Moo5scrkAMPhB7z26XM/AaHuIJdgauA==}
 
+  '@babel/runtime-corejs3@7.25.0':
+    resolution: {integrity: sha512-BOehWE7MgQ8W8Qn0CQnMtg2tHPHPulcS/5AVpFvs2KCK1ET+0WqZqPvnpRpFN81gYoFopdIEJX9Sgjw3ZBccPg==}
+    engines: {node: '>=6.9.0'}
+
   '@babel/runtime@7.25.0':
     resolution: {integrity: sha512-7dRy4DwXwtzBrPbZflqxnvfxLF8kdZXPkhymtDeFoFqE6ldzjQFgYTtYIFARcLEYDrqfBfYcZt1WqFxRoyC9Rw==}
     engines: {node: '>=6.9.0'}
@@ -2181,6 +2313,46 @@ packages:
   '@foliojs-fork/restructure@2.0.2':
     resolution: {integrity: sha512-59SgoZ3EXbkfSX7b63tsou/SDGzwUEK6MuB5sKqgVK1/XE0fxmpsOb9DQI8LXW3KfGnAjImCGhhEb7uPPAUVNA==}
 
+  '@form-create/component-elm-checkbox@3.2.0':
+    resolution: {integrity: sha512-6F6iWzTf0+km4cGKTS8GGe8vXl7Goao2GdmwZWBOG0tsMrx52m/ZGgcWCYHqKx3zkibPpXdqyxuMnLYvb1epfw==}
+
+  '@form-create/component-elm-frame@3.2.0':
+    resolution: {integrity: sha512-XJnYRwZBaViqSF4oQpPucmQiMctG9mAPeNpggUJG8rYZv/IxPb4qNovWaZsqfiCY8wyKtRTkWqqZFe9r9ubGUg==}
+
+  '@form-create/component-elm-group@3.2.0':
+    resolution: {integrity: sha512-3Vjdi/zro0HCOnsb2LgQQy7V+vcJxJNrDMn0npYjqARN/ragovHrdSAUqIZ4Ixelo/q3+6vr488tW/SCQjFUSg==}
+
+  '@form-create/component-elm-radio@3.2.0':
+    resolution: {integrity: sha512-oIdkRxFQmwcN2fZDZul0qgIPHjb/0RvrmnZsDU2PYG7aJjxfGY1ZTdtyW21q3Un1ug7FircwqZK7zlbrVXMOWw==}
+
+  '@form-create/component-elm-select@3.2.0':
+    resolution: {integrity: sha512-jzrrUyLSVDRZHTap3MYVqNub/A00X+hpLn2DCiFj6hNPZC63fuScHhIKWjkQSF4KBDGPYNfi69kFI7SCYPhhjQ==}
+
+  '@form-create/component-elm-tree@3.2.0':
+    resolution: {integrity: sha512-7Cc6XaRcIc88XuOVs8pVHg9uuoByGqa56f8bQy05GsyQTBESV7tIXY78qWXCuDvc+MzE9BtTD7EEdK1YONqYmQ==}
+
+  '@form-create/component-elm-upload@3.2.0':
+    resolution: {integrity: sha512-gg/195vj5PDi1U+0KBOXArTzYnwW63fxlRHyNpb8uolD+Bf9mGwAyLu9V1IfjFSyR33zw6ftQ7K8Q5W2HvN6CA==}
+
+  '@form-create/component-subform@3.1.34':
+    resolution: {integrity: sha512-OJcFH/7MTHx7JLEjDK/weS27qfuFWAI+OK+gXTJ2jIt9aZkGWF/EWkjetiJLt5a0KMw4Z15wOS2XCY9pVK9vlA==}
+
+  '@form-create/component-wangeditor@3.1.20':
+    resolution: {integrity: sha512-lAjpltmYfr3a2AeXasCehGsZNL/1WB6vWqqV9TIsJ4pleTr0/D/oPwEYQjfv+gG+NoB2Sa25SRGhtlnephjyhg==}
+
+  '@form-create/core@3.2.3':
+    resolution: {integrity: sha512-D0h4ZTmy8j7SC96elPB5K8Ov8usn1gz9jRxIDUPXPDvdRY8yPzsL/fB0AED4VGGcp809v092hUEnrvsFgMiddQ==}
+    peerDependencies:
+      vue: ^3.1.0
+
+  '@form-create/element-ui@3.2.3':
+    resolution: {integrity: sha512-i9wRyihgrI6Nnq1kw8va3gwu1tA84s+VLhQeu+dCSs9iOfn9ZhleSQ3Eb7cPVxZF9i1p8z9dht6LEL6Hj7PdrA==}
+    peerDependencies:
+      vue: ^3.1.0
+
+  '@form-create/utils@3.2.0':
+    resolution: {integrity: sha512-fqc7/l+US76NhloxMF3xE7UafYgxA8jU+t5WrAhmjaIAJ0vUNp6ScL/kdwN4nfOvjByZ/Q8BFQT0wqrp4lcgtw==}
+
   '@gwhitney/detect-indent@7.0.1':
     resolution: {integrity: sha512-7bQW+gkKa2kKZPeJf6+c6gFK9ARxQfn+FKy9ScTBppyKRWH2KzsmweXUoklqeEiHiNVWaeP5csIdsNq6w7QhzA==}
     engines: {node: '>=12.20'}
@@ -2192,6 +2364,17 @@ packages:
   '@humanwhocodes/retry@0.3.0':
     resolution: {integrity: sha512-d2CGZR2o7fS6sWB7DG/3a95bGKQyHMACZ5aW8qGkkqQpUoZV6C0X7Pc7l4ZNMZkfNBf4VWNe9E1jRsf0G146Ew==}
     engines: {node: '>=18.18'}
+
+  '@iconify/json@2.2.233':
+    resolution: {integrity: sha512-i0URcf6w1TxEQixrYi/hBLdY3ArglF0uOx7pwqaNN5oGW82+G6ojWXeHXekntLxH7EpaXTNQ5bo6CJCbU3fpdQ==}
+
+  '@iconify/types@2.0.0':
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
+
+  '@iconify/vue@4.1.2':
+    resolution: {integrity: sha512-CQnYqLiQD5LOAaXhBrmj1mdL2/NCJvwcC4jtW2Z8ukhThiFkLDkutarTOV2trfc9EXqUqRs0KqXOL9pZ/IyysA==}
+    peerDependencies:
+      vue: '>=3'
 
   '@inquirer/checkbox@2.4.5':
     resolution: {integrity: sha512-+YlCyS6JBWeZugIvReh/YL5HJcowlklz5RykQuYKQfgWQeCJh5Us0nWcRddvIVkjmYa0I/8bwWioSLu850J8sA==}
@@ -4256,6 +4439,9 @@ packages:
   code-block-writer@13.0.2:
     resolution: {integrity: sha512-XfXzAGiStXSmCIwrkdfvc7FS5Dtj8yelCtyOf2p2skCAfvLd6zu0rGzuS9NSCO3bq1JKpFZ7tbKdKlcd5occQA==}
 
+  codemirror@5.65.17:
+    resolution: {integrity: sha512-1zOsUx3lzAOu/gnMAZkQ9kpIHcPYOc9y1Fbm2UVk5UBPkdq380nhkelG0qUwm1f7wPvTbndu9ZYlug35EwAZRQ==}
+
   collect-v8-coverage@1.0.2:
     resolution: {integrity: sha512-lHl4d5/ONEbLlJvaJNtsF/Lz+WvB07u2ycqTYbdrq7UypDXailES4valYb2eWiJFxZlVmpGekfqoxQhzyFdT4Q==}
 
@@ -4413,6 +4599,9 @@ packages:
 
   core-js-compat@3.37.1:
     resolution: {integrity: sha512-9TNiImhKvQqSUkOvk/mMRZzOANTiEVC7WaBNhHcKM7x+/5E1l5NvsysR19zuDQScE8k+kfQXWRN3AtS/eOSHpg==}
+
+  core-js-pure@3.37.1:
+    resolution: {integrity: sha512-J/r5JTHSmzTxbiYYrzXg9w1VpqrYt+gexenBE9pugeyhwPZTAEJddyiReJWsLO6uNQ8xJZFbod6XC7KKwatCiA==}
 
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -8282,6 +8471,9 @@ packages:
     resolution: {integrity: sha512-aUYIEU/UviqPgc8mHR6IW1EGxkAXpeRETYcrzg8cLAvUPZcpAlleSXHV2mY7G12GphSH6Gzv+4MMVSSkbdteHg==}
     engines: {node: '>=8'}
 
+  sortablejs@1.14.0:
+    resolution: {integrity: sha512-pBXvQCs5/33fdN1/39pPL0NZF20LeRbLQ5jtnheIPN9JQAaufGjKdWduZn4U7wCtVuzKhmRkI0DFYHYRbB2H1w==}
+
   source-map-js@1.2.0:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
     engines: {node: '>=0.10.0'}
@@ -9287,8 +9479,16 @@ packages:
       typescript:
         optional: true
 
+  vuedraggable@4.1.0:
+    resolution: {integrity: sha512-FU5HCWBmsf20GpP3eudURW3WdWTKIbEIQxh9/8GE806hydR9qZqRRxRE3RjqX7PkuLuMQG/A7n3cfj9rCEchww==}
+    peerDependencies:
+      vue: ^3.0.1
+
   walker@1.0.8:
     resolution: {integrity: sha512-ts/8E8l5b7kY0vlWLewOkDXMmPdLcVV4GmOQLyxuSswIJsweeFZtAsMF7k1Nszz+TYBQrlYRmzOnr398y1JemQ==}
+
+  wangeditor@4.7.15:
+    resolution: {integrity: sha512-aPTdREd8BxXVyJ5MI+LU83FQ7u1EPd341iXIorRNYSOvoimNoZ4nPg+yn3FGbB93/owEa6buLw8wdhYnMCJQLg==}
 
   watchpack@2.4.1:
     resolution: {integrity: sha512-8wrBCMtVhqcXP2Sup1ctSkga6uc2Bx0IIvKyT7yTFier5AXHooSI+QyQQAtTb7+E0IUCCKyTFmXqdqgum2XWGg==}
@@ -10528,6 +10728,11 @@ snapshots:
 
   '@babel/regjsgen@0.8.0': {}
 
+  '@babel/runtime-corejs3@7.25.0':
+    dependencies:
+      core-js-pure: 3.37.1
+      regenerator-runtime: 0.14.1
+
   '@babel/runtime@7.25.0':
     dependencies:
       regenerator-runtime: 0.14.1
@@ -11407,11 +11612,78 @@ snapshots:
 
   '@foliojs-fork/restructure@2.0.2': {}
 
+  '@form-create/component-elm-checkbox@3.2.0':
+    dependencies:
+      '@form-create/utils': 3.2.0
+
+  '@form-create/component-elm-frame@3.2.0':
+    dependencies:
+      '@form-create/utils': 3.2.0
+
+  '@form-create/component-elm-group@3.2.0':
+    dependencies:
+      '@form-create/utils': 3.2.0
+
+  '@form-create/component-elm-radio@3.2.0':
+    dependencies:
+      '@form-create/utils': 3.2.0
+
+  '@form-create/component-elm-select@3.2.0':
+    dependencies:
+      '@form-create/utils': 3.2.0
+
+  '@form-create/component-elm-tree@3.2.0':
+    dependencies:
+      '@form-create/utils': 3.2.0
+
+  '@form-create/component-elm-upload@3.2.0':
+    dependencies:
+      '@form-create/utils': 3.2.0
+
+  '@form-create/component-subform@3.1.34': {}
+
+  '@form-create/component-wangeditor@3.1.20':
+    dependencies:
+      wangeditor: 4.7.15
+
+  '@form-create/core@3.2.3(vue@3.4.34(typescript@5.5.4))':
+    dependencies:
+      '@form-create/utils': 3.2.0
+      vue: 3.4.34(typescript@5.5.4)
+
+  '@form-create/element-ui@3.2.3(vue@3.4.34(typescript@5.5.4))':
+    dependencies:
+      '@form-create/component-elm-checkbox': 3.2.0
+      '@form-create/component-elm-frame': 3.2.0
+      '@form-create/component-elm-group': 3.2.0
+      '@form-create/component-elm-radio': 3.2.0
+      '@form-create/component-elm-select': 3.2.0
+      '@form-create/component-elm-tree': 3.2.0
+      '@form-create/component-elm-upload': 3.2.0
+      '@form-create/component-subform': 3.1.34
+      '@form-create/core': 3.2.3(vue@3.4.34(typescript@5.5.4))
+      '@form-create/utils': 3.2.0
+      vue: 3.4.34(typescript@5.5.4)
+
+  '@form-create/utils@3.2.0': {}
+
   '@gwhitney/detect-indent@7.0.1': {}
 
   '@humanwhocodes/module-importer@1.0.1': {}
 
   '@humanwhocodes/retry@0.3.0': {}
+
+  '@iconify/json@2.2.233':
+    dependencies:
+      '@iconify/types': 2.0.0
+      pathe: 1.1.2
+
+  '@iconify/types@2.0.0': {}
+
+  '@iconify/vue@4.1.2(vue@3.4.34(typescript@5.5.4))':
+    dependencies:
+      '@iconify/types': 2.0.0
+      vue: 3.4.34(typescript@5.5.4)
 
   '@inquirer/checkbox@2.4.5':
     dependencies:
@@ -13154,7 +13426,7 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/integrations@10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(vue@3.4.34(typescript@5.5.4))':
+  '@vueuse/integrations@10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(sortablejs@1.14.0)(vue@3.4.34(typescript@5.5.4))':
     dependencies:
       '@vueuse/core': 10.11.0(vue@3.4.34(typescript@5.5.4))
       '@vueuse/shared': 10.11.0(vue@3.4.34(typescript@5.5.4))
@@ -13164,6 +13436,7 @@ snapshots:
       axios: 1.7.2
       focus-trap: 7.5.4
       nprogress: 0.2.0
+      sortablejs: 1.14.0
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -13969,6 +14242,8 @@ snapshots:
 
   code-block-writer@13.0.2: {}
 
+  codemirror@5.65.17: {}
+
   collect-v8-coverage@1.0.2: {}
 
   color-convert@1.9.3:
@@ -14113,6 +14388,8 @@ snapshots:
   core-js-compat@3.37.1:
     dependencies:
       browserslist: 4.23.2
+
+  core-js-pure@3.37.1: {}
 
   core-util-is@1.0.3: {}
 
@@ -18787,6 +19064,8 @@ snapshots:
     dependencies:
       is-plain-obj: 2.1.0
 
+  sortablejs@1.14.0: {}
+
   source-map-js@1.2.0: {}
 
   source-map-support@0.5.13:
@@ -19780,7 +20059,7 @@ snapshots:
       sass: 1.77.8
       terser: 5.31.3
 
-  vitepress@1.3.1(@algolia/client-search@4.24.0)(@types/node@22.0.0)(async-validator@4.2.5)(axios@1.7.2)(nprogress@0.2.0)(postcss@8.4.40)(sass@1.77.8)(search-insights@2.15.0)(terser@5.31.3)(typescript@5.5.4):
+  vitepress@1.3.1(@algolia/client-search@4.24.0)(@types/node@22.0.0)(async-validator@4.2.5)(axios@1.7.2)(nprogress@0.2.0)(postcss@8.4.40)(sass@1.77.8)(search-insights@2.15.0)(sortablejs@1.14.0)(terser@5.31.3)(typescript@5.5.4):
     dependencies:
       '@docsearch/css': 3.6.1
       '@docsearch/js': 3.6.1(@algolia/client-search@4.24.0)(search-insights@2.15.0)
@@ -19791,7 +20070,7 @@ snapshots:
       '@vue/devtools-api': 7.3.7
       '@vue/shared': 3.4.34
       '@vueuse/core': 10.11.0(vue@3.4.34(typescript@5.5.4))
-      '@vueuse/integrations': 10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(vue@3.4.34(typescript@5.5.4))
+      '@vueuse/integrations': 10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(sortablejs@1.14.0)(vue@3.4.34(typescript@5.5.4))
       focus-trap: 7.5.4
       mark.js: 8.11.1
       minisearch: 7.1.0
@@ -19936,9 +20215,20 @@ snapshots:
     optionalDependencies:
       typescript: 5.5.4
 
+  vuedraggable@4.1.0(vue@3.4.34(typescript@5.5.4)):
+    dependencies:
+      sortablejs: 1.14.0
+      vue: 3.4.34(typescript@5.5.4)
+
   walker@1.0.8:
     dependencies:
       makeerror: 1.0.12
+
+  wangeditor@4.7.15:
+    dependencies:
+      '@babel/runtime': 7.25.0
+      '@babel/runtime-corejs3': 7.25.0
+      tslib: 2.6.3
 
   watchpack@2.4.1:
     dependencies:

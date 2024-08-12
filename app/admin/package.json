@@ -11,11 +11,15 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "clean": "rd/s/q node_modules",
-    "clean:mac": "rm -rf ./node_modules"
+    "clean": "rimraf node_modules",
+    "clean:mac": "rimraf node_modules"
   },
   "dependencies": {
-    "element-plus": "^2.7.8",
+    "@ai-lowcode/element-plus": "workspace:^",
+    "@ai-lowcode/hooks": "workspace:^",
+    "@ai-lowcode/request": "workspace:^",
+    "@ai-lowcode/styles": "workspace:^",
+    "lodash": "^4.17.21",
     "pinia": "^2.2.0",
     "vue": "^3.4.34",
     "vue-router": "4"
@@ -24,8 +28,16 @@
     "@ai-lowcode/utils": "workspace:^",
     "@al-config/lint": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
+    "@antfu/eslint-config": "^2.24.0",
+    "@iconify/json": "^2.2.233",
+    "@iconify/vue": "^4.1.2",
+    "@types/lodash": "^4.17.4",
     "@vitejs/plugin-vue": "^5.1.1",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^9.8.0",
+    "postcss": "^8.4.40",
     "stylelint": "^16.8.0",
+    "tailwindcss": "^3.4.7",
     "typescript": "^5.5.4",
     "vite": "^5.3.5",
     "vue-tsc": "^2.0.29"

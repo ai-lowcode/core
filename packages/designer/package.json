@@ -1,0 +1,65 @@
+{
+  "name": "@ai-lowcode/designer",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "element-plus for ai-lowcode",
+  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "repository": {
+    "type": "http",
+    "url": "https://github.com/ai-lowcode/core"
+  },
+  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/ai-lowcode-designer.js",
+      "require": "./dist/ai-lowcode-designer.cjs"
+    }
+  },
+  "main": "./dist/ai-lowcode-designer.cjs",
+  "module": "./dist/ai-lowcode-designer.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "build:all": "vite build && pnpm build:dts",
+    "build:dts": "rimraf temp && tsc -p tsconfig.declaration.json && rollup-dts",
+    "clean": "rimraf node_modules",
+    "clean:mac": "rimraf node_modules",
+    "clean:dist": "rimraf dist"
+  },
+  "dependencies": {
+    "@ai-lowcode/element-plus": "workspace:^",
+    "@ai-lowcode/hooks": "workspace:^",
+    "@ai-lowcode/request": "workspace:^",
+    "@ai-lowcode/styles": "workspace:^",
+    "@ai-lowcode/utils": "workspace:^",
+    "@form-create/component-wangeditor": "^3.1",
+    "@form-create/element-ui": "^3.1.27",
+    "@form-create/utils": "^3.1.23",
+    "codemirror": "^5.0.1",
+    "element-plus": "^2.7.8",
+    "vuedraggable": "4.1.0"
+  },
+  "devDependencies": {
+    "@al-config/lint": "workspace:^",
+    "@al-config/tsconfig": "workspace:^",
+    "@al-config/vite": "workspace:^",
+    "@antfu/eslint-config": "^2.24.0",
+    "@iconify/json": "^2.2.233",
+    "@iconify/vue": "^4.1.2",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^9.8.0",
+    "postcss": "^8.4.40",
+    "tailwindcss": "^3.4.7",
+    "vite": "^5.3.5",
+    "vitest": "^2.0.4",
+    "vue": "^3.4.34"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

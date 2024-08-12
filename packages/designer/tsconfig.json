@@ -1,0 +1,13 @@
+{
+  "extends": "@al-config/tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "outDir": "dist"
+  },
+  "include": ["src"]
+}

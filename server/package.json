@@ -9,7 +9,6 @@
     "pnpm": ">=8"
   },
   "scripts": {
-    "postinstall": "npm run gen-env-types",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "dev": "npm run start",
@@ -41,8 +40,8 @@
     "docker:down": "docker compose --env-file .env --env-file .env.production down",
     "docker:rmi": "docker compose --env-file .env --env-file .env.production stop nest-admin-server && docker container rm nest-admin-server && docker rmi nest-admin-server",
     "docker:logs": "docker compose --env-file .env --env-file .env.production logs -f",
-    "clean": "rd/s/q node_modules",
-    "clean:mac": "rm -rf ./node_modules"
+    "clean": "rimraf node_modules",
+    "clean:mac": "rimraf node_modules"
   },
   "dependencies": {
     "@fastify/cookie": "^9.3.1",

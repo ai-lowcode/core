@@ -1,0 +1,58 @@
+# 整个流程的名字
+name: Release Npm Pkg
+
+on:
+  # 在针对 `main` 分支的推送上运行。如果你
+  # 使用 `master` 分支作为默认分支，请将其更改为 `master`
+  push:
+    branches: [master]
+
+# 默认shell
+defaults:
+  run:
+    shell: bash
+
+# 任务，定义个changelog 的任务
+jobs:
+  changelog:
+    name: Changelog PR or Release
+    # 这里判断仓库owner是否是我自己，为了避免别人 fork 仓库触发，请自行修改
+    if: ${{ github.repository_owner == 'liruifengv' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # 设置 pnpm。指定版本7.0，不然会报错
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2.2.1
+        with:
+          version: ^7.0
+
+      # 设置 Node
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install PNPM
+        run: npm i -g pnpm
+      # 安装依赖
+      - name: Install dependencies
+        run: pnpm install
+      # 打包
+      - name: Build Packages
+        run: pnpm run build
+      # 这一步是最重要的。使用changesets/action自动创建 PR 或者发布
+      - name: Create Release Pull Request or Publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          # 执行更新版本和发布的命令
+          version: pnpm run version
+          publish: pnpm exec changeset publish
+          commit: '[ci] release'
+          title: '[ci] release'
+        env:
+          # 这里需要几个 Token 变量
+          # GITHUB_TOKEN 是 CI 里自带的默认 token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # NPM_TOKEN 需要稍后在 npm 网站生成。
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

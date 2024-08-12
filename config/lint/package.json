@@ -1,14 +1,15 @@
 {
   "name": "@al-config/lint",
   "version": "1.0.0",
+  "description": "element-plus for ai-lowcode",
   "files": [
     "commitlint.js",
     "lintstaged.js",
     "stylelint.mjs"
   ],
   "scripts": {
-    "clean": "rd/s/q node_modules",
-    "clean:mac": "rm -rf ./node_modules"
+    "clean": "rimraf node_modules",
+    "clean:mac": "rimraf node_modules"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.2.2",

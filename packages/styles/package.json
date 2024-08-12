@@ -1,11 +1,50 @@
 {
   "name": "@ai-lowcode/styles",
+  "type": "module",
   "version": "1.0.0",
+  "description": "element-plus for ai-lowcode",
+  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "repository": {
+    "type": "http",
+    "url": "https://github.com/ai-lowcode/core"
+  },
+  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/ai-lowcode-styles.js",
+      "require": "./dist/ai-lowcode-styles.cjs"
+    },
+    "./css": {
+      "import": "./dist/style.css"
+    }
+  },
+  "main": "./dist/ai-lowcode-styles.cjs",
+  "module": "./dist/ai-lowcode-styles.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "clean": "rd/s/q node_modules",
-    "clean:mac": "rm -rf ./node_modules"
+    "build": "vite build",
+    "build:all": "vite build && pnpm build:dts",
+    "build:dts": "rimraf temp && tsc -p tsconfig.declaration.json && rollup-dts",
+    "clean": "rimraf node_modules",
+    "clean:mac": "rimraf node_modules",
+    "clean:dist": "rimraf dist"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.7"
+    "@al-config/tsconfig": "workspace:^",
+    "@al-config/vite": "workspace:^",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.40",
+    "sass": "^1.77.8",
+    "tailwindcss": "^3.4.7",
+    "vite": "^5.3.5",
+    "vitest": "^2.0.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

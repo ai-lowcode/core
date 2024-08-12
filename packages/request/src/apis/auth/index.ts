@@ -6,7 +6,7 @@ import { AuthType, LoginParamType, MenuType } from './types.ts'
  * 接口配置
  * @constructor
  */
-function Api() {
+function Api1() {
   return {
     FindMenu: `/account/menus`,
     Login: `/auth/login`,

@@ -36,7 +36,7 @@ export function isExternal(val: any) {
   return /^(https?:|mailto:|tel:)/.test(val)
 }
 
-export function hasProperty(rule: string, k: string) {
+export function hasProperty(rule: any, k: string) {
   return ({}).hasOwnProperty.call(rule, k)
 }
 

@@ -2,10 +2,12 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { localeOptions, localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '时间区间'
 const name = 'timeRange'
 
-export default {
+export default <DragRule>{
   menu: 'main',
   icon: 'icon-time',
   label,

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-import { AlDesigner } from '@/components/designer'
+import { AlDesigner } from '@/designer'
 
 const config = ref({
   fieldReadonly: false,

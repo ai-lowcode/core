@@ -2,10 +2,12 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { localeOptions, localeProps, makeTreeOptions, makeTreeOptionsRule } from '../../utils/index'
 
+import { DragRule } from '@/designer'
+
 const label = '级联选择器'
 const name = 'cascader'
 
-export default {
+export default <DragRule>{
   menu: 'main',
   icon: 'icon-cascader',
   label,

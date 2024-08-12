@@ -1,9 +1,11 @@
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '选项卡'
 const name = 'elTabPane'
 
-export default {
+export default <DragRule>{
   label,
   name,
   inside: true,

@@ -1,8 +1,10 @@
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const name = 'col'
 
-export default {
+export default <DragRule>{
   name,
   label: '格子',
   drag: true,

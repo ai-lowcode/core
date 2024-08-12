@@ -2,10 +2,12 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '多行输入框'
 const name = 'textarea'
 
-export default {
+export default <DragRule>{
   menu: 'main',
   icon: 'icon-textarea',
   label,

@@ -2,10 +2,12 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { localeProps, makeTreeOptions, makeTreeOptionsRule } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '穿梭框'
 const name = 'elTransfer'
 
-export default {
+export default <DragRule>{
   menu: 'main',
   icon: 'icon-transfer',
   label,

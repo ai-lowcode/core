@@ -3,7 +3,8 @@ import { deepCopy } from '@ai-lowcode/utils'
 import { defineComponent } from 'vue'
 
 import { localeOptions } from '../utils'
-import { designerForm } from '../utils/form'
+
+import { designerForm } from '@/designer'
 
 export default defineComponent({
   name: 'Validate',

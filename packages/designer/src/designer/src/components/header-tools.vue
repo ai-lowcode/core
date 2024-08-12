@@ -9,76 +9,36 @@ import {
   AlPopconfirm,
   AlSwitch,
 } from '@ai-lowcode/element-plus'
-import { deepCopy, hasProperty } from '@ai-lowcode/utils'
 import { Icon } from '@iconify/vue'
-import { computed, inject } from 'vue'
 
-import { useHeaderTools } from '@/components/designer/src/hooks/use-header-tools.ts'
-import { parseRule } from '@/utils'
-import { designerForm } from '@/utils/form.ts'
+import { useHeaderTools } from '../hooks/use-header-tools.ts'
 
-const props = defineProps<{
-  inputForm: any
+import { DeviceEnum, DragForm, Handle } from '@/designer'
+
+defineProps<{
+  workspacePreviewConfig: DragForm
   device: string
   deviceChange: any
   operation: any
-  handle: any
+  handle: Handle
   config: any
-  dragForm: any
+  workspaceEditConfig: DragForm
   formOptions: any
   unloadStatus: any
-  preview: any
+  previewDialogConfig: DragForm
   getJson: any
   getOptionsJson: any
   clearActiveRule: any
   setRule: any
   addOperationRecord: any
+  getOption: any
 }>()
 
-const designer = inject('designer', null)
-const t = computed(() => designer.setupState.t)
-
-function getConfig(key, def?: any) {
-  return props.config ? (hasProperty(props.config, key) ? props.config[key] : def) : def
-}
-
-function getJson() {
-  return designerForm.toJson(parseRule(deepCopy(props.dragForm.rule[0].children)))
-}
-
-function getOption() {
-  const options = deepCopy(props.formOptions)
-  Object.keys(options._event || {}).forEach((k) => {
-    if (options._event[k]) {
-      options[k] = options._event[k]
-    }
-  })
-  delete options._event
-  options.submitBtn = options._submitBtn
-  options.resetBtn = options._resetBtn
-  options.resetBtn.textContent = t.value('props.reset')
-  options.submitBtn.textContent = t.value('props.submit')
-  const formData = deepCopy(props.inputForm.data)
-  if (Object.keys(formData).length > 0) {
-    options.formData = formData
-  }
-  delete options._submitBtn
-  delete options._resetBtn
-  return options
-}
-
-function handleSave() {
-  designer.emit('save', {
-    rule: getJson(),
-    options: designerForm.toJson([getOption()]).slice(1).slice(0, -1),
-  })
-}
-
-function triggerHandle(item) {
-  item.handle()
-}
-
 const {
+  triggerHandle,
+  handleSave,
+  getConfig,
+  t,
   prevOperationRecord,
   nextOperationRecord,
   openPreview,
@@ -90,15 +50,15 @@ const {
 <template>
   <AlHeader class="flex items-center h-[40px] justify-between" height="45">
     <div class="flex items-center">
-      <template v-if="!inputForm.state">
+      <template v-if="!workspacePreviewConfig.state">
         <template v-if="getConfig('showDevice') !== false">
-          <AlIcon class="cursor-pointer mx-1" :class="device === 'pc' ? 'text-blue-600' : ''" @click="deviceChange('pc')">
+          <AlIcon class="cursor-pointer mx-1" :class="device === DeviceEnum.PC ? 'text-blue-600' : ''" @click="deviceChange(DeviceEnum.PC)">
             <Icon icon="grommet-icons:personal-computer" />
           </AlIcon>
-          <AlIcon class="cursor-pointer mx-1" :class="device === 'pad' ? 'text-blue-600' : ''" @click="deviceChange('pad')">
+          <AlIcon class="cursor-pointer mx-1" :class="device === DeviceEnum.PAD ? 'text-blue-600' : ''" @click="deviceChange(DeviceEnum.PAD)">
             <Icon icon="mingcute:pad-line" />
           </AlIcon>
-          <AlIcon class="cursor-pointer mx-1" :class="device === 'mobile' ? 'text-blue-600' : ''" @click="deviceChange('mobile')">
+          <AlIcon class="cursor-pointer mx-1" :class="device === DeviceEnum.MOBILE ? 'text-blue-600' : ''" @click="deviceChange(DeviceEnum.MOBILE)">
             <Icon icon="fa:mobile" />
           </AlIcon>
           <div class="line" />
@@ -122,7 +82,7 @@ const {
       </template>
     </div>
     <div class="flex items-center">
-      <template v-if="!inputForm.state">
+      <template v-if="!workspacePreviewConfig.state">
         <slot name="handle" />
         <AlButton
           v-if="getConfig('showSaveBtn', false)" type="success" plain size="small"
@@ -176,7 +136,7 @@ const {
           </AlButton>
           <template #dropdown>
             <AlDropdownMenu>
-              <AlDropdownItem v-for="item in handle" :key="item" @click.stop="triggerHandle(item)">
+              <AlDropdownItem v-for="item in handle" :key="item.label" @click.stop="triggerHandle(item)">
                 <div>{{ item.label }}</div>
               </AlDropdownItem>
             </AlDropdownMenu>
@@ -189,7 +149,7 @@ const {
           t('props.inputData')
         }}：</span>
         <AlSwitch
-          size="small" :model-value="inputForm.state" inline-prompt
+          size="small" :model-value="workspacePreviewConfig.state" inline-prompt
           @update:model-value="openInputData"
         />
       </div>

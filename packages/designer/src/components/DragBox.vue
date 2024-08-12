@@ -42,7 +42,7 @@ export default defineComponent({
             return h('div', { class: `_fc-${ctx.$props.tag}-item _fd-drag-item`, key }, vnode)
           }
         }
-        return h('div', { class: `_fc-${ctx.$props.tag}-item _fd-drag-item`, key: index }, null)
+        return h('div', { class: `_fc-${ctx.$props.tag}-item _fd-drag-item`, key: index })
       },
     })
   },

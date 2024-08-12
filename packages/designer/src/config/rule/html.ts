@@ -1,9 +1,11 @@
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = 'HTML'
 const name = 'html'
 
-export default {
+export default <DragRule>{
   menu: 'aide',
   icon: 'icon-html',
   label,

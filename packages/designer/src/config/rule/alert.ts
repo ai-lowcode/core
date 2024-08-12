@@ -1,9 +1,11 @@
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '提示'
 const name = 'elAlert'
 
-export default {
+export default <DragRule>{
   menu: 'aide',
   icon: 'icon-alert',
   label,

@@ -2,10 +2,12 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '表格表单'
 const name = 'tableForm'
 
-export default {
+export default <DragRule>{
   menu: 'subform',
   icon: 'icon-table-form',
   label,

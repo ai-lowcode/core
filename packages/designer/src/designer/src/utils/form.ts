@@ -7,5 +7,4 @@ const viewForm: FormCreate<Maker, OptionAttrs, CreatorAttrs, RuleAttrs, ApiAttrs
 
 const designerForm: any = formCreate.factory()
 
-export default viewForm
-export { designerForm }
+export { designerForm, viewForm }

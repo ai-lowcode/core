@@ -1,8 +1,10 @@
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const name = 'tableFormColumn'
 
-export default {
+export default <DragRule>{
   icon: 'icon-cell',
   name,
   drag: true,

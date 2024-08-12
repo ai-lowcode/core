@@ -1,9 +1,11 @@
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '面板'
 const name = 'elCollapseItem'
 
-export default {
+export default <DragRule>{
   icon: 'icon-cell',
   label,
   name,

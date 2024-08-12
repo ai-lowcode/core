@@ -1,4 +1,6 @@
-export default function createMenu() {
+import { MenuList } from '@/designer'
+
+export default function createMenu(): MenuList {
   return [
     {
       name: 'main',

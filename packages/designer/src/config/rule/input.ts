@@ -2,10 +2,12 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '输入框'
 const name = 'input'
 
-export default {
+export default <DragRule>{
   menu: 'main',
   icon: 'icon-input',
   label,

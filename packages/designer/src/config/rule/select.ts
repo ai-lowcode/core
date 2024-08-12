@@ -2,10 +2,12 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { getInjectArg, localeProps, makeOptionsRule, makeTreeOptions } from '../../utils/index'
 
+import { DragRule } from '@/designer'
+
 const label = '选择器'
 const name = 'select'
 
-export default {
+export default <DragRule>{
   menu: 'main',
   icon: 'icon-select',
   label,

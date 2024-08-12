@@ -2,10 +2,12 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '富文本框'
 const name = 'fcEditor'
 
-export default {
+export default <DragRule>{
   menu: 'main',
   icon: 'icon-editor',
   label,

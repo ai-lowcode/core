@@ -1,9 +1,11 @@
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '折叠面板'
 const name = 'elCollapse'
 
-export default {
+export default <DragRule>{
   menu: 'layout',
   icon: 'icon-collapse',
   label,

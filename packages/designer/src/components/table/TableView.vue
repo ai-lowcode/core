@@ -1,5 +1,5 @@
 <script lang="ts" setup name="FcTableView">
-import uniqueId from '@form-create/utils/lib/unique'
+import { uniqueId } from '@ai-lowcode/utils'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 
 import DragBox from '../DragBox.vue'

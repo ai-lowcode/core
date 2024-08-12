@@ -8,21 +8,29 @@ import {
 } from '@ai-lowcode/element-plus'
 import AlDraggable from 'vuedraggable/src/vuedraggable'
 
-import { useComponentsPanel } from '@/components/designer/src/hooks/use-components-panel.ts'
+import { useComponentsPanel } from '../hooks/use-components-panel.ts'
+
+import { DragForm, DragRule, Rule } from '@/designer'
 
 defineProps<{
   config: any
   menu: any
-  treeInfo: any
-  dragForm: any
-  dragRuleList: any
-  fcx: any
-  dragMenu: any
-  children: any
+  outlineTree: any
+  workspaceEditConfig: DragForm
+  dragRuleList: Record<string, DragRule>
+  dragComponent: any
+  workspaceRule: Array<Rule>
   toolActive: any
 }>()
 
-const { treeChange, clickMenu, toolHandle, activeMenuTab, t, menuList, hiddenMenu, hiddenItem } = useComponentsPanel()
+defineEmits<{
+  /**
+   * 改变选中组件事件
+   */
+  (event: 'changeSelectComponent', value: Record<string, any>): void
+}>()
+
+const { triggerOutlineActive, componentClick, toolHandle, activeMenuTab, t, menuList, hiddenMenu, hiddenItem } = useComponentsPanel()
 </script>
 
 <template>
@@ -63,7 +71,7 @@ const { treeChange, clickMenu, toolHandle, activeMenuTab, t, menuList, hiddenMen
               <template #item="{ element }">
                 <div
                   v-if="hiddenItem.indexOf(element.name) === -1" class="w-1/3 flex justify-center items-center flex-col py-2 cursor-pointer hover:bg-blue-600 duration-300 hover:text-white rounded-md"
-                  @click="clickMenu(element)"
+                  @click="componentClick(element)"
                 >
                   <div class="text-3xl">
                     <i class="fc-icon !text-[26px]" :class="element.icon || 'icon-input'" />
@@ -79,10 +87,10 @@ const { treeChange, clickMenu, toolHandle, activeMenuTab, t, menuList, hiddenMen
       </div>
       <div v-if="activeMenuTab === 'tree'" class="p-4">
         <AlTree
-          :data="treeInfo"
+          :data="outlineTree"
           default-expand-all
           :expand-on-click-node="false"
-          @current-change="treeChange"
+          @current-change="(data) => triggerOutlineActive(data.rule)"
         >
           <template #default="{ data }: any">
             <div class="flex justify-between items-center w-full" :class="{ active: data.activeRule === data.rule }">

@@ -1,9 +1,11 @@
 import { localeOptions, localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '标签页'
 const name = 'elTabs'
 
-export default {
+export default <DragRule>{
   menu: 'layout',
   icon: 'icon-tab',
   label,

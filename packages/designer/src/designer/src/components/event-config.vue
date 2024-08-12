@@ -13,12 +13,12 @@ import {
   AlMain,
   AlMenu,
   AlMenuItem,
+  AlMessage,
 } from '@ai-lowcode/element-plus'
 import { deepExtend, isFunction, isString, uniqueId } from '@ai-lowcode/utils'
 import { computed, defineEmits, defineProps, inject, onBeforeMount, ref, watch } from 'vue'
 
-import errorMessage from '../utils/message'
-
+import { DESIGN_INSTANCE, DesignerComponentInternalInstance } from '@/designer'
 import { getInjectArg } from '@/utils'
 
 // import FnEditor from './FnEditor.vue'
@@ -46,8 +46,6 @@ const cus = ref(false)
 const cusValue = ref('')
 const eventStr = ref('')
 
-const designer = inject('designer', null)
-
 const eventNum = computed(() => {
   let num = 0
   Object.keys(props.modelValue || {}).forEach((k) => {
@@ -56,7 +54,9 @@ const eventNum = computed(() => {
   return num
 })
 
-const t = computed(() => designer.setupState.t)
+const designerInstance = inject<DesignerComponentInternalInstance | null>(DESIGN_INSTANCE, null)
+
+const t = computed(() => designerInstance?.setupState.t)
 
 const fnArgs = computed(() => [getInjectArg(t)])
 
@@ -208,7 +208,7 @@ function close() {
 }
 function submit() {
   if (activeData.value) {
-    return errorMessage(t('event.saveMsg'))
+    return AlMessage.error(t('event.saveMsg'))
   }
   emits('update:modelValue', parseFN(event.value))
   visible.value = false

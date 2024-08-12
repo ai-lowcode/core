@@ -13,7 +13,7 @@ const props = defineProps<{
 
 const emits = defineEmits(['create', 'copy', 'addChild', 'delete', 'active', 'fc.el'])
 
-const fcx = inject<any>('fcx', null)
+const selectComponentCtx = inject<any>('selectComponentCtx')
 const designer = inject<any>('designer', null)
 const dragTool = inject<any>('dragTool', null)
 
@@ -32,26 +32,40 @@ const hiddenMenu = computed(() => designer.ctx.hiddenDragMenu)
 
 const hiddenBtn = computed(() => designer.ctx.hiddenDragBtn)
 
-provide('dragTool', this)
+provide('dragTool', {
+  emits,
+  active,
+  hiddenBtn,
+  hiddenMenu,
+  btns,
+  isCreate,
+})
 
 function active() {
-  if (fcx.active === id.value)
+  if (selectComponentCtx.selectComponent.value === id.value)
     return
-  fcx.active = id.value
+  selectComponentCtx.changeSelectComponent(id.value)
   emits('active')
 }
 
 onMounted(() => {
   // eslint-disable-next-line vue/custom-event-name-casing
-  emits('fc.el', this)
+  emits('fc.el', {
+    emits,
+    active,
+    hiddenBtn,
+    hiddenMenu,
+    btns,
+    isCreate,
+  })
 })
 </script>
 
 <template>
-  <div class="_fd-drag-tool" :class="{ active: fcx.active === id }" @click.stop="active">
+  <div class="_fd-drag-tool" :class="{ active: selectComponentCtx.selectComponent.value === id }" @click.stop="active">
     <div v-if="mask" class="_fd-drag-mask" />
     <div v-if="!hiddenBtn" class="_fd-drag-l">
-      <div v-if="fcx.active === id && dragBtn !== false" class="_fd-drag-btn" style="cursor: move;">
+      <div v-if="selectComponentCtx.selectComponent.value === id && dragBtn" class="_fd-drag-btn" style="cursor: move;">
         <i class="fc-icon icon-move" />
       </div>
     </div>

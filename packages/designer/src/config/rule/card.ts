@@ -1,9 +1,11 @@
 import { localeOptions, localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '卡片'
 const name = 'elCard'
 
-export default {
+export default <DragRule>{
   menu: 'layout',
   icon: 'icon-card',
   label,

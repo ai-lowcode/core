@@ -1,9 +1,11 @@
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '栅格布局'
 const name = 'fcRow'
 
-export default {
+export default <DragRule>{
   menu: 'layout',
   icon: 'icon-row',
   label,

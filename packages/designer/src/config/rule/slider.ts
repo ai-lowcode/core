@@ -2,10 +2,12 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '滑块'
 const name = 'slider'
 
-export default {
+export default <DragRule>{
   menu: 'main',
   icon: 'icon-slider',
   label,

@@ -2,10 +2,12 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '分组'
 const name = 'subForm'
 
-export default {
+export default <DragRule>{
   menu: 'subform',
   icon: 'icon-group',
   label,

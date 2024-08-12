@@ -2,10 +2,12 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { localeProps, makeOptionsRule, makeTreeOptions } from '../../utils/index'
 
+import { DragRule } from '@/designer'
+
 const label = '多选框'
 const name = 'checkbox'
 
-export default {
+export default <DragRule>{
   menu: 'main',
   icon: 'icon-checkbox',
   label,

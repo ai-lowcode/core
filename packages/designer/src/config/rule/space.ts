@@ -1,9 +1,11 @@
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '间距'
 const name = 'space'
 
-export default {
+export default <DragRule>{
   menu: 'layout',
   icon: 'icon-space',
   label,

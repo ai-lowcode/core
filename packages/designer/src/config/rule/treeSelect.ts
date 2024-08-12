@@ -2,10 +2,12 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { localeProps, makeTreeOptions, makeTreeOptionsRule } from '../../utils/index'
 
+import { DragRule } from '@/designer'
+
 const label = '树形选择'
 const name = 'elTreeSelect'
 
-export default {
+export default <DragRule>{
   menu: 'main',
   icon: 'icon-tree-select',
   label,

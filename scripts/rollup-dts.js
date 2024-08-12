@@ -9,7 +9,7 @@ import { rimraf } from 'rimraf'
 const libPath = env.PWD
 const packages = readdirSync(join(libPath, 'temp'))
 const apiExtractorPath = argv?.find(i => i.includes('rollup-dts'))?.replace('rollup-dts.js', 'api-extractor.json')
-const typeTempIndexPath = join(libPath, 'temp', packages[0], 'index.d.ts')
+const typeTempIndexPath = join(libPath, 'temp', packages.find(i => i === 'src'), 'index.d.ts')
 
 if (!existsSync(typeTempIndexPath)) {
   console.error('🚨类型入口路径错误')

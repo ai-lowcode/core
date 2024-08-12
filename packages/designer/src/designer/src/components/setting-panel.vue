@@ -1,101 +1,41 @@
 <script setup lang="ts">
 import { AlAside, AlContainer, AlDivider, AlInput, AlMain, AlTag } from '@ai-lowcode/element-plus'
 
-import { computed, inject, ref } from 'vue'
+import { useSettingPanel } from '../hooks/use-setting-panel.ts'
 
-import EventConfig from '@/components/EventConfig.vue'
-import { useSettingPanel } from '@/components/designer/src/hooks/use-setting-panel.ts'
-import { designerForm } from '@/utils/form.ts'
+import EventConfig from './event-config.vue'
 
-const props = defineProps<{
+import { DragForm, Rule, designerForm } from '@/designer'
+
+defineProps<{
   config: any
-  activeRule: any
-  customForm: any
-  baseForm: any
-  propsForm: any
+  activeRule: Rule
+  settingCustomConfig: any
+  settingBaseConfig: DragForm
+  settingPropsConfig: DragForm
   eventShow: any
-  validateForm: any
-  form: any
-  dragForm: any
+  settingValidateConfig: DragForm
+  workspaceEditConfig: DragForm
   handleChange: any
   unWatchActiveRuleFunc: any
   watchActiveRule: any
-  formConfig: any
+  settingFormConfig: DragForm
   formOptions: any
 }>()
 
-const activeTab = ref('form')
-
-const DragForm = designerForm.$form()
-const designer = inject('designer', null)
-const t = computed(() => designer.setupState.t)
-
-function customFormChange(field, value) {
-  if (props.customForm.config) {
-    props.customForm.config.change(field, value)
-  }
-}
-
-function setActiveTab(type) {
-  activeTab.value = type
-}
-
-function changeEvent(on) {
-  // eslint-disable-next-line vue/no-mutating-props
-  props.activeRule._on = on
-}
-
-const formApi = computed({
-  get() {
-    return props.form.api
-  },
-  set(newValue) {
-    // eslint-disable-next-line vue/no-mutating-props
-    props.form.api = newValue
-  },
-})
-
-const baseFormApi = computed({
-  get() {
-    return props.baseForm.api
-  },
-  set(newValue) {
-    // eslint-disable-next-line vue/no-mutating-props
-    props.baseForm.api = newValue
-  },
-})
-
-const propsFormApi = computed({
-  get() {
-    return props.propsForm.api
-  },
-  set(newValue) {
-    // eslint-disable-next-line vue/no-mutating-props
-    props.propsForm.api = newValue
-  },
-})
-
-const validateFormApi = computed({
-  get() {
-    return props.validateForm.api
-  },
-  set(newValue) {
-    // eslint-disable-next-line vue/no-mutating-props
-    props.validateForm.api = newValue
-  },
-})
-
-const customFormApi = computed({
-  get() {
-    return props.customForm.api
-  },
-  set(newValue) {
-    // eslint-disable-next-line vue/no-mutating-props
-    props.customForm.api = newValue
-  },
-})
+const DragFormView = designerForm.$form()
 
 const {
+  t,
+  formConfigApi,
+  baseFormApi,
+  propsFormApi,
+  customFormApi,
+  validateFormApi,
+  customFormChange,
+  changeEvent,
+  activeTab,
+  setActiveTab,
   validateChange,
   propRemoveField,
   propChange,
@@ -114,7 +54,7 @@ defineExpose({
     <AlContainer class="flex flex-col">
       <div class="h-[40px] w-full flex rounded-md overflow-hidden">
         <div
-          v-if="!!activeRule || customForm.isShow || (config && config.showFormConfig === false)"
+          v-if="!!activeRule || settingCustomConfig.isShow || (config && config.showFormConfig === false)"
           class="flex-1 flex justify-center items-center text-sm duration-300 cursor-pointer"
           :class="activeTab === 'props' ? 'bg-blue-600 text-white' : ''"
           @click="activeTab = 'props'"
@@ -124,7 +64,7 @@ defineExpose({
         <div
           v-if="!config || config.showFormConfig !== false"
           class="flex-1 flex justify-center items-center text-sm duration-300 cursor-pointer"
-          :class="activeTab === 'form' && (!!activeRule || customForm.isShow) ? 'bg-blue-600 text-white' : ''"
+          :class="activeTab === 'form' && (!!activeRule || settingCustomConfig.isShow) ? 'bg-blue-600 text-white' : ''"
           @click="activeTab = 'form'"
         >
           {{ t('designer.form') }}
@@ -134,17 +74,19 @@ defineExpose({
         <AlMain
           v-show="activeTab === 'form'" v-if="!config || config.showFormConfig !== false"
         >
-          <DragForm
-            v-model:api="formApi" :rule="form.rule"
-            :option="form.option" :model-value="form.value"
+          <!-- 表单配置项 -->
+          <DragFormView
+            v-model:api="formConfigApi" :rule="settingFormConfig.rule"
+            :option="settingFormConfig.options" :model-value="settingFormConfig.value"
             @change="formOptChange"
           />
         </AlMain>
         <AlMain
-          v-show="activeTab === 'props'" :key="activeRule ? activeRule._fc_id : (customForm.config ? customForm.key : '')"
+          v-show="activeTab === 'props'" :key="activeRule ? activeRule._fc_id : (settingCustomConfig.config ? settingCustomConfig.key : '')"
         >
+          <!-- 组件配置 -->
           <template
-            v-if="activeRule || (customForm.config && (customForm.config.name || customForm.config.label))"
+            v-if="activeRule || (settingCustomConfig.config && (settingCustomConfig.config.name || settingCustomConfig.config.label))"
           >
             <p class="">
               {{ t('designer.type') }}
@@ -155,7 +97,7 @@ defineExpose({
               </template>
               <template v-else>
                 {{
-                  t(`com.${customForm.config.name}.name`) || customForm.config.label || customForm.config.name
+                  t(`com.${settingCustomConfig.config.name}.name`) || settingCustomConfig.config.label || settingCustomConfig.config.name
                 }}
               </template>
             </AlTag>
@@ -176,32 +118,35 @@ defineExpose({
               </AlInput>
             </template>
           </template>
-          <AlDivider v-if="baseForm.isShow">
+          <AlDivider v-if="settingBaseConfig.isShow">
             {{ t('designer.rule') }}
           </AlDivider>
-          <DragForm
-            v-show="baseForm.isShow" v-model:api="baseFormApi"
-            :rule="baseForm.rule"
-            :option="baseForm.options"
-            :model-value="baseForm.value"
+          <!-- 基础配置 -->
+          <DragFormView
+            v-show="settingBaseConfig.isShow" v-model:api="baseFormApi"
+            :rule="settingBaseConfig.rule"
+            :option="settingBaseConfig.options"
+            :model-value="settingBaseConfig.value"
             @change="baseChange"
           />
-          <AlDivider v-if="propsForm.isShow">
+          <AlDivider v-if="settingPropsConfig.isShow">
             {{ t('designer.props') }}
           </AlDivider>
-          <DragForm
-            v-show="propsForm.isShow" v-model:api="propsFormApi" :rule="propsForm.rule"
-            :option="propsForm.options"
-            :model-value="propsForm.value"
+          <!-- 属性配置 -->
+          <DragFormView
+            v-show="settingPropsConfig.isShow" v-model:api="propsFormApi" :rule="settingPropsConfig.rule"
+            :option="settingPropsConfig.options"
+            :model-value="settingPropsConfig.value"
             @change="propChange" @remove-field="propRemoveField"
           />
-          <AlDivider v-if="customForm.isShow && customForm.propsShow">
+          <AlDivider v-if="settingCustomConfig.isShow && settingCustomConfig.propsShow">
             {{ t('designer.props') }}
           </AlDivider>
-          <DragForm
-            v-if="customForm.isShow && customForm.propsShow" :key="customForm.key"
+          <!-- 自定义属性配置 -->
+          <DragFormView
+            v-if="settingCustomConfig.isShow && settingCustomConfig.propsShow" :key="settingCustomConfig.key"
             v-model:api="customFormApi"
-            :rule="customForm.rule" :option="customForm.options"
+            :rule="settingCustomConfig.rule" :option="settingCustomConfig.options"
             @change="customFormChange"
           />
           <AlDivider
@@ -217,17 +162,18 @@ defineExpose({
             @update:model-value="changeEvent"
           />
           <template v-if="activeRule">
-            <AlDivider v-if="validateForm.isShow">
+            <AlDivider v-if="settingValidateConfig.isShow">
               {{
                 t('designer.validate')
               }}
             </AlDivider>
-            <DragForm
-              v-if="validateForm.isShow" :key="activeRule._fc_id"
+            <!-- 验证配置 -->
+            <DragFormView
+              v-if="settingValidateConfig.isShow" :key="activeRule._fc_id"
               v-model:api="validateFormApi"
-              :rule="validateForm.rule"
-              :option="validateForm.options"
-              :model-value="validateForm.value"
+              :rule="settingValidateConfig.rule"
+              :option="settingValidateConfig.options"
+              :model-value="settingValidateConfig.value"
               @change="validateChange"
             />
           </template>

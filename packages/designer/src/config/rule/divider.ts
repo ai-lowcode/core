@@ -1,9 +1,11 @@
 import { localeOptions, localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '分割线'
 const name = 'elDivider'
 
-export default {
+export default <DragRule>{
   menu: 'aide',
   icon: 'icon-divider',
   label,

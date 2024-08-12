@@ -1,64 +1,64 @@
 import { deepCopy, hasProperty, isString, uniqueId } from '@ai-lowcode/utils'
-import { getCurrentInstance, markRaw, nextTick, reactive, ref } from 'vue'
+import { inject, markRaw, nextTick, reactive, ref } from 'vue'
 
-import errorMessage from '../../../../utils/message.ts'
+import errorMessage from '../../../utils/message.ts'
 
 import { defaultDrag } from '@/config'
+import { DESIGN_INSTANCE, DesignerComponentInternalInstance, DragRule, MenuItem, Rule, designerForm } from '@/designer'
 import { getRuleTree, parseRule } from '@/utils'
-import { designerForm } from '@/utils/form.ts'
 import { t } from '@/utils/locale.ts'
 
 export function useRule({
-  inputForm,
+  workspacePreviewConfig,
   mask,
-  fcx,
+  selectComponent,
   settingPanelRef,
   unloadStatus,
-  dragForm,
-  customForm,
+  workspaceEditConfig,
+  settingCustomConfig,
   moveRule,
   addRule,
   added,
   operation,
   activeRule,
-  children,
   toolActive,
 }: any) {
-  const designer = getCurrentInstance()
+  const designerInstance = inject<DesignerComponentInternalInstance | null>(DESIGN_INSTANCE, null)
 
-  const dragRuleList = ref({})
+  const dragRuleList = ref<Record<string, DragRule>>({})
 
-  const treeInfo = ref([])
+  const workspaceRule = ref<Array<Rule>>([])
+
+  // 大纲树
+  const outlineTree = ref([])
 
   function makeChildren(children: any) {
     return reactive({ children }).children
   }
 
-  function updateTree() {
+  function updateOutlineTree() {
     setTimeout(() => {
       nextTick(() => {
-        treeInfo.value = getRuleTree(dragForm.value.rule[0].children)
+        outlineTree.value = getRuleTree(workspaceEditConfig.value.rule[0].children)
       })
     }, 300)
   }
 
-  function dragEnd(children: any, { newIndex, oldIndex }: any, slot: any) {
-    // console.log('top dragEnd')
+  function dragEnd(children: any, { newIndex, oldIndex }: any, slot?: any) {
     if (!added && !(moveRule === children && newIndex === oldIndex)) {
       const rule = moveRule.splice(oldIndex, 1)
       if (slot) {
         rule.slot = slot
       }
       children.splice(newIndex, 0, rule[0])
-      handleSortAfter({ rule: rule[0] })
+      handleSortAfter()
     }
     moveRule = null
     addRule = null
     added = false
-    // dragForm.value.api.refresh();
   }
 
-  function makeDrag(group: any, tag: any, children: any, on: any, slot: any) {
+  function makeDrag(group: any, tag: any, children: any, on: any, slot?: any) {
     return {
       type: 'DragBox',
       wrap: {
@@ -89,9 +89,9 @@ export function useRule({
     }
   }
 
-  function checkOnly(menu: any) {
+  function checkOnly(menu: MenuItem) {
     let flag = false
-    dragForm.value.api.all().forEach((rule: any) => {
+    workspaceEditConfig.value.api.all().forEach((rule: any) => {
       flag = flag || rule._fc_template === menu.name || (rule._menu && rule._menu.name === menu.name)
     })
     if (flag) {
@@ -100,56 +100,69 @@ export function useRule({
     return flag
   }
 
-  function dragMenu({ menu, children, index, slot }: any) {
-    if (inputForm.state) {
+  /**
+   * 拖拽组件到工作区
+   * @param menu
+   * @param children
+   * @param index
+   * @param slot
+   */
+  function dragComponent({ menu, children, index, slot }: {
+    menu: MenuItem
+    children: Array<Rule>
+    index: number
+    slot: any
+  }): void {
+    if (workspacePreviewConfig.state) {
       return
     }
     if (menu.only && checkOnly(menu)) {
       return
     }
     const dragRule = dragRuleList.value[menu.name]
-    designer.emit('drag', {
+    designerInstance?.emit('drag', {
       item: menu,
       dragRule,
     })
-    const rule = makeRule(dragRuleList.value[dragRule.name])
+    const rule = makeRule(dragRule)
     if (slot) {
       rule.slot = slot
     }
+    // 向 children 中插入值
     children.splice(index, 0, rule)
-    handleAddAfter({ rule })
+    handleAddAfter()
   }
 
   function getRule() {
-    return parseRule(deepCopy(dragForm.value.rule[0].children))
+    return parseRule(deepCopy(workspaceEditConfig.value.rule[0].children))
   }
 
   function addOperationRecord() {
     const rule = designerForm.toJson(getRule())
-    const formData = deepCopy(inputForm.data)
+    const formData = deepCopy(workspacePreviewConfig.data)
     const list = operation.value.list.slice(0, operation.value.idx + 1)
     list.push({ rule, formData })
     operation.value.list = list
     operation.value.idx = list.length - 1
-    unloadStatus = list.length !== 1
+    unloadStatus.value = list.length !== 1
   }
 
   function handleAddAfter() {
     addOperationRecord()
-    updateTree()
+    updateOutlineTree()
   }
 
   function handleSortAfter() {
     addOperationRecord()
-    updateTree()
+    updateOutlineTree()
   }
 
   function handleCopyAfter() {
     addOperationRecord()
-    updateTree()
+    updateOutlineTree()
   }
 
-  function dragAdd(children: any, evt: any, slot: any) {
+  function dragAdd(children: any, evt: any, slot?: any) {
     // console.log('top dragAdd')
     const newIndex = evt.newIndex
     const menu = evt.item._underlying_vm_
@@ -163,11 +176,11 @@ export function useRule({
           delete rule.slot
         }
         children.splice(newIndex, 0, rule)
-        handleSortAfter({ rule })
+        handleSortAfter()
       }
     }
     else {
-      dragMenu({ menu, children, index: newIndex, slot })
+      dragComponent({ menu, children, index: newIndex, slot })
     }
     added = true
   }
@@ -186,13 +199,10 @@ export function useRule({
 
   function handleRemoveAfter() {
     addOperationRecord()
-    updateTree()
+    updateOutlineTree()
   }
 
-  function handleRemoveBefore() {
-  }
-
-  function replaceField(rule: any) {
+  function replaceField(rule: Rule) {
     const flag = ['array', 'object'].includes(rule._menu.subForm)
     let temp = parseRule(deepCopy([rule]))[0]
     if (flag) {
@@ -211,7 +221,7 @@ export function useRule({
   function batchReplaceField(json: any) {
     const regex = /"field"\s*:\s*"(\w{2,})"/g
     const matches = []
-    json = json.replace(regex, (match: any, p1: any) => {
+    json = json.replace(regex, (_: any, p1: any) => {
       const key = uniqueId()
       matches.push({ old: p1, key })
       return `"field":"${key}"`
@@ -237,7 +247,7 @@ export function useRule({
     return { root: parent, parent: rule }
   }
 
-  function makeRule(config: any, _rule: any) {
+  function makeRule(config: DragRule, _rule?: any): Rule {
     const rule = _rule || config.rule({ t })
     rule._menu = markRaw(config)
     if (!rule._fc_id) {
@@ -268,10 +278,10 @@ export function useRule({
     const children = rule.children || []
     if (config.drag) {
       rule.children = [drag = makeDrag(config.drag, rule._menu ? rule._menu.name : rule.type, children, {
-        end: (inject, evt) => dragEnd(inject.self.children, evt),
-        add: (inject, evt) => dragAdd(inject.self.children, evt),
-        start: (inject, evt) => dragStart(inject.self.children, evt),
-        unchoose: (inject, evt) => dragUnchoose(inject.self.children, evt),
+        end: (inject: any, evt: any) => dragEnd(inject.self.children, evt),
+        add: (inject: any, evt: any) => dragAdd(inject.self.children, evt),
+        start: (inject: any) => dragStart(inject.self.children),
+        unchoose: (inject: any, evt: any) => dragUnchoose(inject.self.children, evt),
       })]
     }
 
@@ -297,26 +307,24 @@ export function useRule({
         },
         inject: true,
         on: {
-          delete: ({ self }) => {
+          delete: ({ self }: any) => {
             const parent = getParent(self).parent
-            if (handleRemoveBefore({ parent, rule: parent }) !== false) {
-              parent.__fc__.rm()
-              designer.emit('delete', parent)
-              if (activeRule === parent) {
-                clearActiveRule()
-              }
-              handleRemoveAfter({ rule: parent })
+            parent.__fc__.rm()
+            designerInstance?.emit('delete', parent)
+            if (activeRule === parent) {
+              clearActiveRule()
             }
+            handleRemoveAfter()
           },
           create: ({ self }: any) => {
             const top = getParent(self)
-            designer.emit('create', top.parent)
+            designerInstance?.emit('create', top.parent)
             const rule = makeRule(top.parent._menu)
             if (top.parent.slot) {
               rule.slot = top.parent.slot
             }
             top.root.children.splice(top.root.children.indexOf(top.parent) + 1, 0, rule)
-            handleAddAfter({ rule: top.parent })
+            handleAddAfter()
           },
           addChild: ({ self }: any) => {
             const top = getParent(self)
@@ -326,18 +334,18 @@ export function useRule({
               return
             const rule = makeRule(item);
             (!config.drag ? top.parent : top.parent.children[0]).children[0].children.push(rule)
-            handleAddAfter({ rule })
+            handleAddAfter()
           },
           copy: ({ self }: any) => {
             const top = getParent(self)
-            designer.emit('copy', top.parent)
+            designerInstance?.emit('copy', top.parent)
             const temp = replaceField(top.parent)
             top.root.children.splice(top.root.children.indexOf(top.parent) + 1, 0, temp)
-            handleCopyAfter({ rule: top.parent })
+            handleCopyAfter()
           },
           active: ({ self }: any) => {
             const top = getParent(self)
-            designer.emit('active', top.parent)
+            designerInstance?.emit('active', top.parent)
             setTimeout(() => {
               toolActive(top.parent)
             }, 10)
@@ -361,24 +369,22 @@ export function useRule({
         display: !!rule.display,
         on: {
           delete: ({ self }: any) => {
-            if (handleRemoveBefore({ parent: self, rule: self.children[0] }) !== false) {
-              designer.emit('delete', self.children[0])
-              self.__fc__.rm()
-              if (activeRule === self.children[0]) {
-                clearActiveRule()
-              }
-              handleRemoveAfter({ rule: self.children[0] })
+            designerInstance?.emit('delete', self.children[0])
+            self.__fc__.rm()
+            if (activeRule === self.children[0]) {
+              clearActiveRule()
             }
+            handleRemoveAfter()
           },
           create: ({ self }: any) => {
-            designer.emit('create', self.children[0])
+            designerInstance?.emit('create', self.children[0])
             const top = getParent(self)
             const rule = makeRule(self.children[0]._menu)
             if (top.parent.slot) {
               rule.slot = top.parent.slot
             }
             top.root.children.splice(top.root.children.indexOf(top.parent) + 1, 0, rule)
-            handleAddAfter({ rule })
+            handleAddAfter()
           },
           addChild: ({ self }: any) => {
             const config = self.children[0]._menu
@@ -387,20 +393,20 @@ export function useRule({
               return
             const rule = makeRule(item);
             (!config.drag ? self : self.children[0]).children[0].children.push(rule)
-            handleAddAfter({ rule })
+            handleAddAfter()
           },
           copy: ({ self }: any) => {
-            designer.emit('copy', self.children[0])
+            designerInstance?.emit('copy', self.children[0])
             const top = getParent(self)
             const temp = replaceField(self.children[0])
             if (self.slot) {
               temp.slot = self.slot
             }
             top.root.children.splice(top.root.children.indexOf(top.parent) + 1, 0, temp)
-            handleCopyAfter({ rule: self.children[0] })
+            handleCopyAfter()
           },
           active: ({ self }: any) => {
-            designer.emit('active', self.children[0])
+            designerInstance?.emit('active', self.children[0])
             setTimeout(() => {
               toolActive(self.children[0])
             }, 10)
@@ -413,31 +419,31 @@ export function useRule({
 
   function makeDragRule(children: any) {
     return makeChildren([makeDrag(true, 'draggable', children, {
-      add: (inject, evt) => dragAdd(children, evt),
-      end: (inject, evt) => dragEnd(children, evt),
-      start: (inject, evt) => dragStart(children, evt),
-      unchoose: (inject, evt) => dragUnchoose(children, evt),
+      add: (_: any, evt: any) => dragAdd(children, evt),
+      end: (_: any, evt: any) => dragEnd(children, evt),
+      start: (_: any) => dragStart(children),
+      unchoose: (_: any, evt: any) => dragUnchoose(children, evt),
     })])
   }
 
   function clearActiveRule() {
     activeRule = null
-    customForm.config = null
+    settingCustomConfig.config = null
     settingPanelRef.value.setActiveTab('form')
-    fcx.active = ''
+    selectComponent.value = ''
   }
 
-  function setRule(rules: any) {
+  function setRule(rules: string | Rule[]) {
     if (!rules) {
       rules = []
     }
-    children = ref(loadRuleFunc(isString(rules) ? designerForm.parseJson(rules) : deepCopy(rules)))
+    workspaceRule.value = loadRuleFunc(isString(rules) ? designerForm.parseJson(rules) : deepCopy(rules))
     clearActiveRule()
-    dragForm.value.rule = makeDragRule(makeChildren(children))
-    updateTree()
+    workspaceEditConfig.value.rule = makeDragRule(makeChildren(workspaceRule.value))
+    updateOutlineTree()
   }
 
-  function getSlotConfig(pConfig, slot, config) {
+  function getSlotConfig(pConfig: DragRule, slot: string, config: DragRule): DragRule {
     let slotConfig = {};
     (pConfig.slot || []).forEach((item) => {
       if (item.name === slot) {
@@ -447,13 +453,13 @@ export function useRule({
     return { ...config, dragBtn: false, handleBtn: config.children ? ['addChild'] : false, ...slotConfig }
   }
 
-  function loadRuleFunc(rules, pConfig, template) {
-    const loadRule = []
-    rules.forEach((rule) => {
+  function loadRuleFunc(rules: Array<Rule>, pConfig?: DragRule, template?: any) {
+    const loadRule: Array<string | Rule> = []
+    rules.forEach((rule: string | Rule) => {
       if (isString(rule)) {
         return loadRule.push(rule)
       }
-      let config = dragRuleList.value[rule._fc_drag_tag] || dragRuleList.value[rule.type]
+      let config = dragRuleList.value[rule._fc_drag_tag] || dragRuleList.value[String(rule?.type)]
       if (!config) {
         config = defaultDrag(rule)
         rule._fc_drag_tag = '_'
@@ -461,8 +467,8 @@ export function useRule({
       if (template) {
         rule._fc_template = template
       }
-      config && config.loadRuleFunc && config.loadRuleFunc(rule)
-      rule.children = loadRuleFunc(rule.children || [], config, template)
+      config?.loadRule && config.loadRule(rule)
+      rule.children = loadRuleFunc((rule.children as Array<Rule>) || [], config, template)
       if (rule.control) {
         rule._control = rule.control
         delete rule.control
@@ -494,10 +500,11 @@ export function useRule({
 
   return {
     dragRuleList,
-    treeInfo,
+    outlineTree,
+    workspaceRule,
     clearActiveRule,
     setRule,
-    dragMenu,
+    dragComponent,
     makeDragRule,
     makeChildren,
     addOperationRecord,

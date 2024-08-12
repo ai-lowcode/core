@@ -2,10 +2,12 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '颜色选择器'
 const name = 'colorPicker'
 
-export default {
+export default <DragRule>{
   menu: 'main',
   icon: 'icon-color',
   label,

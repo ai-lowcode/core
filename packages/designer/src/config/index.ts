@@ -39,7 +39,10 @@ import tree from './rule/tree'
 import treeSelect from './rule/treeSelect'
 import upload from './rule/upload'
 
-const ruleList = [
+import { DragRule } from '@/designer'
+
+// 拖拽组件列表
+const dragComponentList: Array<DragRule> = [
   input,
   textarea,
   password,
@@ -82,8 +85,12 @@ const ruleList = [
   collapseItem,
 ]
 
-export default ruleList
+export default dragComponentList
 
+/**
+ * 默认拖拽组件
+ * @param rule
+ */
 export function defaultDrag(rule: any) {
   return {
     icon: rule.field ? 'icon-input' : 'icon-cell',
@@ -97,5 +104,5 @@ export function defaultDrag(rule: any) {
     props() {
       return []
     },
-  }
+  } as DragRule
 }

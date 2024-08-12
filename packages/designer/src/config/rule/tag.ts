@@ -1,9 +1,11 @@
 import { localeOptions, localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '标签'
 const name = 'elTag'
 
-export default {
+export default <DragRule>{
   menu: 'aide',
   icon: 'icon-tag',
   label,

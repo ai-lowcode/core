@@ -2,10 +2,12 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { localeOptions, localeProps } from '../../utils'
 
+import { DragRule } from '@/designer'
+
 const label = '上传'
 const name = 'upload'
 
-export default {
+export default <DragRule>{
   menu: 'main',
   icon: 'icon-upload',
   label,

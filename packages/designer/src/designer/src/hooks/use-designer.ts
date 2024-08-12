@@ -1,24 +1,41 @@
-import { deepCopy, hasProperty, isFunction, isObject, isString } from '@ai-lowcode/utils'
-import { getCurrentInstance, nextTick, onMounted, reactive, ref, toRef, toRefs, watch } from 'vue'
+import { deepCopy, hasProperty, isFunction, isNumber, isObject, isString } from '@ai-lowcode/utils'
+import {
+  computed,
+  getCurrentInstance,
+  nextTick,
+  ref,
+  toRef,
+  toRefs,
+  watch,
+} from 'vue'
 
 import field from '@/config/base/field.ts'
 import form from '@/config/base/form.ts'
 import validate from '@/config/base/validate.ts'
 
+import {
+  DesignerComponentInternalInstance,
+  DesignerConfig,
+  DeviceEnum,
+  DragForm,
+  Options,
+  PreviewStatusEnum,
+  Rule,
+  designerForm,
+} from '@/designer'
+import { DesignerProps } from '@/designer/src/index.vue'
 import { isNull, parseRule, propFieldDeepFn, upper, useLocale } from '@/utils'
-
-import { designerForm } from '@/utils/form.ts'
 
 import { t as globalT } from '@/utils/locale.ts'
 
 export function useDesigner() {
   let unWatchActiveRule: any = null
-  const vm = getCurrentInstance()
-  const fcx = reactive({ active: null })
+  const designerInstance: DesignerComponentInternalInstance | null = getCurrentInstance()
+  const selectComponent = ref()
 
-  const props = getCurrentInstance()?.props as any
+  const props = getCurrentInstance()?.props as DesignerProps | undefined
 
-  const { locale } = toRefs(props)
+  const { config: configRef, height, locale } = toRefs(props!)
 
   let _t = globalT
   if (locale.value) {
@@ -26,6 +43,7 @@ export function useDesigner() {
   }
   const t = (...args: any) => _t(...args)
 
+  // 设置面板 ref
   const settingPanelRef = ref()
 
   const moveRule = ref()
@@ -34,15 +52,17 @@ export function useDesigner() {
 
   const added = ref()
 
-  const configRef = toRef<any>(props, 'config', {})
+  // 组件配置的渲染规则
+  const baseRule = toRef<DesignerConfig, 'baseRule'>(configRef.value, 'baseRule')
 
-  const baseRule = toRef(configRef.value, 'baseRule', null)
+  // 表单的渲染规则
+  const componentRule = toRef<DesignerConfig, 'componentRule'>(configRef.value, 'componentRule', {})
 
-  const componentRule = toRef(configRef.value, 'componentRule', {})
+  // 验证配置的渲染规则
+  const validateRule = toRef<DesignerConfig, 'validateRule'>(configRef.value, 'validateRule')
 
-  const validateRule = toRef(configRef.value, 'validateRule', null)
-
-  const formRule = toRef(configRef.value, 'formRule', null)
+  // 基础配置的渲染规则
+  const formRule = toRef<DesignerConfig, 'formRule'>(configRef.value, 'formRule')
 
   const cacheProps = ref({})
 
@@ -51,47 +71,52 @@ export function useDesigner() {
     list: [],
   })
 
-  const device = ref('pc')
+  // 设备类型
+  const device = ref<DeviceEnum>(DeviceEnum.PC)
 
-  const activeRule = ref(null)
+  // 预览状态
+  const previewStatus = ref<PreviewStatusEnum>(PreviewStatusEnum.FORM)
 
-  const children = ref([])
+  // 激活的 rule
+  const activeRule = ref<Rule>()
 
-  const eventShow = ref(false)
+  const eventShow = ref<boolean>(false)
 
-  const unloadStatus = ref(false)
+  const unloadStatus = ref<boolean>(false)
 
-  const formOptions = ref({})
+  const formOptions = ref<Options>({})
 
-  const oldOptionsKeys = ref([])
+  const oldOptionsKeys = ref<Array<string>>([])
 
-  const preview = ref({
+  // 表单预览弹窗配置
+  const previewDialogConfig = ref<DragForm>({
     state: false,
     rule: [],
-    option: {},
+    options: {},
     api: {},
   })
 
-  const previewStatus = ref('form')
-
-  const inputForm = ref({
+  // 工作区表单预览配置
+  const workspacePreviewConfig = ref<DragForm>({
     state: false,
     rule: [],
-    option: {},
+    options: {},
     api: {},
     data: {},
     key: '',
   })
 
-  const dragForm = ref({
+  // 工作区表单编辑配置
+  const workspaceEditConfig = ref<DragForm>({
     rule: [],
     api: {},
   })
 
-  const formConfig = ref({
+  // 设置表单配置
+  const settingFormConfig = ref<DragForm>({
     rule: tidyRuleConfig(form, formRule.value, { t }),
     api: {},
-    option: {
+    options: {
       form: {
         labelPosition: 'top',
         size: 'small',
@@ -104,8 +129,8 @@ export function useDesigner() {
     },
   })
 
-  // 基础表单信息
-  const baseForm = ref({
+  // 设置基础配置
+  const settingBaseConfig = ref<DragForm>({
     isShow: false,
     rule: tidyRuleConfig(field, baseRule.value, { t }),
     api: {},
@@ -128,8 +153,8 @@ export function useDesigner() {
     },
   })
 
-  // 验证信息
-  const validateForm = ref({
+  // 设置验证配置
+  const settingValidateConfig = ref<DragForm>({
     isShow: false,
     rule: tidyRuleConfig(validate, validateRule.value, { t }),
     api: {},
@@ -152,8 +177,8 @@ export function useDesigner() {
     },
   })
 
-  // props表单
-  const propsForm = ref({
+  // 设置属性配置
+  const settingPropsConfig = ref<DragForm>({
     isShow: false,
     rule: [],
     api: {},
@@ -181,10 +206,10 @@ export function useDesigner() {
     },
   })
 
-  // 自定义表单
-  const customForm = ref({
+  // 自定义属性配置
+  const settingCustomConfig = ref<DragForm>({
     isShow: false,
-    config: null,
+    config: {},
     key: '',
     rule: [],
     api: {},
@@ -202,11 +227,22 @@ export function useDesigner() {
     },
   })
 
-  function deviceChange(newDevice) {
+  const dragHeight = computed(() => {
+    const h = height.value
+    if (!h)
+      return '100%'
+    return isNumber(h) ? `${h}px` : h
+  })
+
+  /**
+   * 修改显示设备
+   * @param newDevice
+   */
+  function deviceChange(newDevice: DeviceEnum) {
     device.value = newDevice
   }
 
-  function tidyRuleConfig(orgRule: any, configRule: any, ...args: any) {
+  function tidyRuleConfig(orgRule: any, configRule: any, ...args: any): Rule {
     if (configRule) {
       if (isFunction(configRule)) {
         return configRule(...args)
@@ -227,7 +263,7 @@ export function useDesigner() {
 
   function unWatchActiveRuleFunc() {
     unWatchActiveRule && unWatchActiveRule()
-    // unWatchActiveRule = null
+    unWatchActiveRule = null
   }
   function watchActiveRule() {
     unWatchActiveRuleFunc()
@@ -235,17 +271,28 @@ export function useDesigner() {
       n && updateRuleFormData()
     }, { deep: true, flush: 'post' })
   }
-  function setFormData(formData) {
-    inputForm.value.data = formData || {}
+  // function setFormData(formData: object) {
+  //   workspacePreviewConfig.value.data = formData || {}inputForm
+  // }
+  /**
+   * 获取 rule
+   */
+  function getRule(): Rule[] {
+    return parseRule(deepCopy(workspaceEditConfig.value?.rule[0].children))
   }
-  function getRule() {
-    return parseRule(deepCopy(dragForm.value.rule[0].children))
-  }
-  function getJson() {
+
+  /**
+   * 获取 rule json
+   */
+  function getJson(): string {
     return designerForm.toJson(getRule())
   }
+
+  /**
+   * 获取 options
+   */
   function getOption() {
-    const options: any = deepCopy(formOptions.value)
+    const options: Options = deepCopy(formOptions.value)
     Object.keys(options._event || {}).forEach((k) => {
       if (options._event[k]) {
         options[k] = options._event[k]
@@ -254,9 +301,9 @@ export function useDesigner() {
     delete options._event
     options.submitBtn = options._submitBtn
     options.resetBtn = options._resetBtn
-    options.resetBtn.textContent = t('props.reset')
-    options.submitBtn.textContent = t('props.submit')
-    const formData = deepCopy(inputForm.value.data)
+    options.resetBtn.innerText = t('props.reset')
+    options.submitBtn.innerText = t('props.submit')
+    const formData = deepCopy(workspacePreviewConfig.value.data)
     if (Object.keys(formData).length > 0) {
       options.formData = formData
     }
@@ -264,16 +311,37 @@ export function useDesigner() {
     delete options._resetBtn
     return options
   }
-  function getOptionsJson() {
+
+  /**
+   * 获取 options json
+   */
+  function getOptionsJson(): string {
     return designerForm.toJson([getOption()]).slice(1).slice(0, -1)
   }
+
+  /**
+   * 清楚激活的 rule
+   */
   function clearActiveRule() {
-    activeRule.value = null
-    customForm.value.config = null
+    activeRule.value = undefined
+    delete settingCustomConfig.value?.config
     settingPanelRef.value.setActiveTab('form')
-    fcx.active = ''
+    selectComponent.value = ''
   }
-  function setOption(opt) {
+
+  /**
+   * 设置组件值
+   * @param componentId
+   */
+  function changeSelectComponent(componentId: string) {
+    selectComponent.value = componentId
+  }
+
+  /**
+   * 设置 options
+   * @param opt
+   */
+  function setOption(opt: Options) {
     const options = isString(opt) ? JSON.parse(opt) : deepCopy(opt || {})
     options.form = {
       inline: false,
@@ -293,12 +361,16 @@ export function useDesigner() {
     options._resetBtn = typeof options.resetBtn === 'object' ? options.resetBtn : { show: options.resetBtn === true }
     options._submitBtn = typeof options.submitBtn === 'object' ? options.submitBtn : { show: options.submitBtn !== false }
     options.submitBtn = options.resetBtn = false
-    inputForm.value.data = options.formData || {}
-    oldOptionsKeys.value = Object.keys(formConfig.value.value)
+    workspacePreviewConfig.value.data = options.formData || {}
+    oldOptionsKeys.value = Object.keys(settingFormConfig.value.value)
     delete options.formData
     formOptions.value = options
     updateOptionsValue()
   }
+
+  /**
+   * 更新 options 的值
+   */
   function updateOptionsValue() {
     const old = {}
     oldOptionsKeys.value.forEach((k) => {
@@ -314,15 +386,16 @@ export function useDesigner() {
         })
       }
     })
-    formConfig.value.value = value
+    settingFormConfig.value.value = value
   }
-  function handleChange(key, field, value, _, fapi) {
+  function handleChange(key, field, value: Rule, _, fapi) {
     if (activeRule.value && fapi[activeRule.value._fc_id] === activeRule.value) {
       unWatchActiveRuleFunc()
       const org = field
       if (field.indexOf('__') !== 0) {
         if (field === 'formCreateChild') {
-          activeRule.value.children[0] = value
+          if (activeRule.value.children?.[0])
+            activeRule.value.children[0] = value
         }
         else if (field.indexOf('formCreate') === 0 || field.indexOf('>') > 0) {
           if (!field.includes('formCreate')) {
@@ -335,7 +408,7 @@ export function useDesigner() {
             else {
               source[field] = value
             }
-          }, props.activeRule)
+          }, activeRule.value)
         }
         else {
           if (key && isNull(value)) {
@@ -352,14 +425,14 @@ export function useDesigner() {
         value,
         api: fapi,
         rule: activeRule.value,
-        ctx: vm,
+        ctx: designerInstance,
       })
     }
   }
-  function getPropsRule(rule) {
+  function getPropsRule(rule: Rule) {
     let propsRule = tidyRuleConfig(rule._menu.props, componentRule.value && componentRule.value[rule._menu.name], rule, {
       t,
-      api: dragForm.value.api,
+      api: workspaceEditConfig.value.api,
     })
     if (componentRule.value && componentRule.value.default) {
       const def = componentRule.value.default
@@ -370,57 +443,64 @@ export function useDesigner() {
           }
         : def, rule, {
         t,
-        api: dragForm.value.api,
+        api: workspaceEditConfig.value.api,
       })
     }
     return propsRule
   }
-  function toolActive(rule) {
+  function toolActive(rule: Rule) {
     unWatchActiveRuleFunc()
-    customForm.value.isShow = false
-    customForm.value.config = null
+    settingCustomConfig.value.isShow = false
+    delete settingCustomConfig.value.config
     if (activeRule.value) {
-      delete propsForm.value.api[activeRule.value._fc_id]
-      delete baseForm.value.api[activeRule.value._fc_id]
-      delete validateForm.value.api[activeRule.value._fc_id]
-      delete dragForm.value.api.activeRule
+      delete settingPropsConfig.value.api[activeRule.value._fc_id]
+      delete settingBaseConfig.value.api[activeRule.value._fc_id]
+      delete settingValidateConfig.value.api[activeRule.value._fc_id]
+      delete workspaceEditConfig.value.api.activeRule
     }
     activeRule.value = rule
-    dragForm.value.api.activeRule = rule
+    workspaceEditConfig.value.api.activeRule = rule
 
     nextTick(() => {
       settingPanelRef.value.setActiveTab('props')
       nextTick(() => {
-        propsForm.value.api[activeRule.value._fc_id] = activeRule.value
-        baseForm.value.api[activeRule.value._fc_id] = activeRule.value
-        validateForm.value.api[activeRule.value._fc_id] = activeRule.value
+        settingPropsConfig.value.api[activeRule.value?._fc_id] = activeRule.value
+        settingBaseConfig.value.api[activeRule.value?._fc_id] = activeRule.value
+        settingValidateConfig.value.api[activeRule.value?._fc_id] = activeRule.value
       })
     })
     if (!cacheProps.value[rule._fc_id]) {
       cacheProps.value[rule._fc_id] = getPropsRule(rule)
     }
     const hiddenBaseField = rule._menu.hiddenBaseField || []
-    baseForm.value.api.hidden(false)
-    hiddenBaseField.length && baseForm.value.api.hidden(true, hiddenBaseField)
+    settingBaseConfig.value.api.hidden(false)
+    hiddenBaseField.length && settingBaseConfig.value.api.hidden(true, hiddenBaseField)
     if (!getConfig('showControl', true)) {
-      baseForm.value.api.hidden(true, '_control')
+      settingBaseConfig.value.api.hidden(true, '_control')
     }
     const input = hasProperty(rule, 'field')
-    baseForm.value.isShow = input && rule.input !== false && getConfig('showBaseForm') !== false
-    propsForm.value.isShow = cacheProps.value[rule._fc_id].length > 0 && getConfig('showPropsForm') !== false
+    settingBaseConfig.value.isShow = input && rule.input !== false && getConfig('showBaseForm') !== false
+    settingPropsConfig.value.isShow = cacheProps.value[rule._fc_id].length > 0 && getConfig('showPropsForm') !== false
     eventShow.value = rule._menu.event && rule._menu.event.length > 0 && getConfig('showEventForm') !== false
-    validateForm.value.isShow = baseForm.value.isShow && rule._menu.validate !== false && getConfig('showValidateForm') !== false
-    propsForm.value.rule = cacheProps.value[rule._fc_id]
+    settingValidateConfig.value.isShow = settingBaseConfig.value.isShow && rule._menu.validate !== false && getConfig('showValidateForm') !== false
+    settingPropsConfig.value.rule = cacheProps.value[rule._fc_id]
     updateRuleFormData()
     watchActiveRule()
   }
-  function getConfig(key, def) {
-    return configRef.value ? (hasProperty(configRef.value, key) ? configRef.value[key] : def) : def
+
+  /**
+   * 获取 config 配置
+   * @param key
+   * @param defaultValue
+   */
+  function getConfig(key: keyof DesignerConfig, defaultValue?: any) {
+    return configRef.value ? (hasProperty(configRef.value, key) ? configRef.value[key] : defaultValue) : defaultValue
   }
+
   function updateRuleFormData() {
     const rule = activeRule.value
-    let formData = {
-      'formCreateChild': `${rule.children[0]}`,
+    let formData: any = {
+      'formCreateChild': `${rule?.children?.[0]}`,
       'formCreateWrap>labelWidth': '',
     }
     const appendConfigData = configRef.value.appendConfigData
@@ -432,12 +512,12 @@ export function useDesigner() {
         formData[v] = undefined
       })
     }
-    Object.keys(rule).forEach((k) => {
+    Object.keys(rule!).forEach((k) => {
       if (!['effect', 'config', 'payload', 'id', 'type', '_menu'].includes(k))
-        formData[`formCreate${upper(k)}`] = deepCopy(rule[k])
+        formData[`formCreate${upper(k)}`] = deepCopy(rule?.[k])
     })
-    Object.keys(rule.props).forEach((k) => {
-      const item = rule.props[k]
+    Object.keys(rule?.props).forEach((k) => {
+      const item = rule?.props[k]
       formData[k] = deepCopy(item)
       if (isObject(item)) {
         Object.keys(item).forEach((sub) => {
@@ -446,106 +526,102 @@ export function useDesigner() {
       }
     });
     ['props', 'effect', 'attrs', 'style', 'wrap'].forEach((name) => {
-      rule[name] && (typeof rule[name] === 'object') && Object.keys(rule[name]).forEach((k) => {
+      rule?.[name] && (typeof rule[name] === 'object') && Object.keys(rule[name]).forEach((k) => {
         formData[`formCreate${upper(name)}>${k}`] = deepCopy(rule[name][k])
       })
     })
-    const configAttrs = rule._menu.attrs || {}
+    const configAttrs = rule?._menu.attrs || {}
     Object.keys(configAttrs).forEach((k) => {
       formData[`__${k}`] = configAttrs[k]({ rule })
     })
-    propsForm.value.value = formData
+    settingPropsConfig.value.value = formData
 
-    if (baseForm.value.isShow) {
-      baseForm.value.value = {
-        field: rule.field,
-        title: rule.title || '',
-        info: rule.info,
-        _control: rule._control,
+    if (settingBaseConfig.value.isShow) {
+      settingBaseConfig.value.value = {
+        field: rule?.field,
+        title: rule?.title || '',
+        info: rule?.info,
+        _control: rule?._control,
         ...formData,
       }
-      validateForm.value.value = {
-        validate: rule.validate ? [...rule.validate] : [],
+      settingValidateConfig.value.value = {
+        validate: rule?.validate ? [...rule?.validate] : [],
         $required: formData.formCreate$required,
       }
-      dragForm.value.api.refreshValidate()
-      dragForm.value.api.nextTick(() => {
-        dragForm.value.api.clearValidateState(rule.__fc__.id)
+      workspaceEditConfig.value.api.refreshValidate()
+      workspaceEditConfig.value.api.nextTick(() => {
+        workspaceEditConfig.value.api.clearValidateState(rule?.__fc__.id)
       })
     }
   }
 
+  /**
+   * 监听语言变化
+   */
   watch(() => locale.value, (n) => {
     _t = n ? useLocale(locale).t : globalT
-    const formVal = formConfig.value.api.formData && formConfig.value.api.formData()
-    const baseFormVal = baseForm.value.api.formData && baseForm.value.api.formData()
-    const validateFormVal = validateForm.value.api.formData && validateForm.value.api.formData()
-    validateForm.value.rule = tidyRuleConfig(validate, validateRule.value, { t })
-    baseForm.value.rule = tidyRuleConfig(field, baseRule.value, { t })
-    formConfig.value.rule = tidyRuleConfig(form, formRule.value, { t })
+    const formVal = settingFormConfig.value.api.formData && settingFormConfig.value.api.formData()
+    const baseFormVal = settingBaseConfig.value.api.formData && settingBaseConfig.value.api.formData()
+    const validateFormVal = settingValidateConfig.value.api.formData && settingValidateConfig.value.api.formData()
+    settingValidateConfig.value.rule = tidyRuleConfig(validate, validateRule.value, { t })
+    settingBaseConfig.value.rule = tidyRuleConfig(field, baseRule.value, { t })
+    settingFormConfig.value.rule = tidyRuleConfig(form, formRule.value, { t })
     cacheProps.value = {}
     const rule = activeRule.value
     let propsVal = null
     if (rule) {
-      propsVal = propsForm.value.api.formData && propsForm.value.api.formData()
-      propsForm.value.rule = cacheProps.value[rule._fc_id] = methods.getPropsRule(rule)
+      propsVal = settingPropsConfig.value.api.formData && settingPropsConfig.value.api.formData()
+      settingPropsConfig.value.rule = cacheProps.value[rule._fc_id] = getPropsRule(rule)
     }
     nextTick(() => {
-      formVal && formConfig.value.api.setValue(formVal)
-      baseFormVal && baseForm.value.api.setValue(baseFormVal)
-      validateFormVal && validateForm.value.api.setValue(validateFormVal)
-      propsVal && propsForm.value.api.setValue(propsVal)
+      formVal && settingFormConfig.value.api.setValue(formVal)
+      baseFormVal && settingBaseConfig.value.api.setValue(baseFormVal)
+      validateFormVal && settingValidateConfig.value.api.setValue(validateFormVal)
+      propsVal && settingPropsConfig.value.api.setValue(propsVal)
     })
   })
 
-  watch(() => preview.value.state, (n) => {
+  watch(() => previewDialogConfig.value.state, (n) => {
     if (!n) {
       nextTick(() => {
-        previewStatus.value = 'form'
-        preview.value.rule = preview.value.option = null
+        previewStatus.value = PreviewStatusEnum.FORM
+        previewDialogConfig.value.rule = previewDialogConfig.value.options = undefined
       })
     }
   })
 
-  onMounted(() => {
-    document.body.ondrop = (e) => {
-      e.preventDefault()
-      e.stopPropagation()
-    }
-    window.onbeforeunload = (e) => {
-      if (unloadStatus.value) {
-        e.returnValue = t('designer.unload')
-      }
-    }
-  })
   return {
-    preview,
+    previewDialogConfig,
     unloadStatus,
     device,
     formOptions,
     previewStatus,
-    formConfig,
+    settingFormConfig,
     settingPanelRef,
-    baseForm,
+    settingBaseConfig,
     eventShow,
-    propsForm,
-    inputForm,
-    validateForm,
-    dragForm,
-    customForm,
+    settingPropsConfig,
+    workspacePreviewConfig,
+    settingValidateConfig,
+    workspaceEditConfig,
+    settingCustomConfig,
     moveRule,
     addRule,
     added,
     operation,
     activeRule,
-    children,
-    fcx,
-    vm,
+    configRef,
+    dragHeight,
+    selectComponent,
+    changeSelectComponent,
+    t,
+    designerInstance,
     toolActive,
     getJson,
     clearActiveRule,
     handleChange,
     watchActiveRule,
+    getOption,
     getOptionsJson,
     unWatchActiveRuleFunc,
     setOption,

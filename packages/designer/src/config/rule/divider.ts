@@ -1,5 +1,3 @@
-import { localeOptions, localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const label = '分割线'
@@ -10,24 +8,33 @@ export default <DragRule>{
   icon: 'icon-divider',
   label,
   name,
-  rule({ t }: any) {
+  rule() {
     return {
       type: name,
       props: {},
-      children: [t('com.elDivider.name')],
+      children: ['分割线'],
     }
   },
-  props(_: any, { t }: any) {
-    return localeProps(t, `${name}.props`, [{
-      type: 'input',
-      field: 'formCreateChild',
-    }, {
-      type: 'select',
-      field: 'contentPosition',
-      options: localeOptions(t, [{ label: 'left', value: 'left' }, { label: 'right', value: 'right' }, {
-        label: 'center',
-        value: 'center',
-      }]),
-    }])
+  props() {
+    return [
+      {
+        type: 'input',
+        field: 'formCreateChild',
+        title: '设置分割线文案',
+      },
+      {
+        type: 'select',
+        field: 'contentPosition',
+        title: '设置分割线文案的位置',
+        options: [
+          { label: '左对齐', value: 'left' },
+          { label: '右对齐', value: 'right' },
+          {
+            label: '居中',
+            value: 'center',
+          },
+        ],
+      },
+    ]
   },
 }

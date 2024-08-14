@@ -1,17 +1,20 @@
 import { computed, getCurrentInstance, inject, onMounted, ref } from 'vue'
 
+import { ComponentPanelProps } from '../layout/components-panel.vue'
+
 import dragComponentList from '@/config'
 import createMenu from '@/config/menu.ts'
 import { DESIGN_INSTANCE, DesignerComponentInternalInstance, DragRule, Menu, MenuList, Rule } from '@/designer'
 
+/**
+ * 组件面板 hooks
+ */
 export function useComponentsPanel() {
-  const props: any = getCurrentInstance()?.props as any
+  const props: any = getCurrentInstance()?.props as unknown as ComponentPanelProps
 
   const emits = getCurrentInstance()?.emit
 
   const designerInstance = inject<DesignerComponentInternalInstance | null>(DESIGN_INSTANCE, null)
-
-  const t = computed(() => designerInstance?.setupState.t)
 
   // 菜单列表
   const menuList = ref<MenuList>(props.menu || createMenu())
@@ -41,7 +44,7 @@ export function useComponentsPanel() {
     }
     let toolVm
     if (rule._menu.inside) {
-      toolVm = rule.children?.[0].__fc__.exportEl
+      toolVm = (rule.children?.[0] as Rule).__fc__.exportEl
     }
     else {
       toolVm = rule.__fc__.parent.exportEl
@@ -106,8 +109,9 @@ export function useComponentsPanel() {
    * 点击组件
    * @param menu
    */
-  function componentClick(menu: any) {
-    props.dragComponent({ menu, children: props.workspaceRule, index: props.workspaceRule.length })
+  function componentClick(menu: Menu) {
+    console.log(props.workspaceEditConfig.rule)
+    props.dragComponent({ menu })
   }
 
   onMounted(() => {
@@ -119,7 +123,6 @@ export function useComponentsPanel() {
     componentClick,
     toolHandle,
     activeMenuTab,
-    t,
     menuList,
     hiddenMenu,
     hiddenItem,

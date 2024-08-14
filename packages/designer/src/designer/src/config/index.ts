@@ -8,5 +8,10 @@ export enum DeviceEnum {
 
 export enum PreviewStatusEnum {
   FORM = 'form',
+  COMPONENTS = 'component',
+}
+
+export enum SettingTabEnum {
+  FORM = 'form',
   PROPS = 'props',
 }

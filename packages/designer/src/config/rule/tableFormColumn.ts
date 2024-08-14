@@ -1,5 +1,3 @@
-import { localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const name = 'tableFormColumn'
@@ -10,30 +8,33 @@ export default <DragRule>{
   drag: true,
   dragBtn: false,
   mask: false,
-  rule({ t }: any) {
+  rule() {
     return {
       type: name,
       props: {
-        label: t('com.tableFormColumn.label'),
+        label: '自定义名称',
         width: 'auto',
       },
       children: [],
     }
   },
-  props(_: any, { t }: any) {
-    return localeProps(t, `${name}.props`, [
+  props() {
+    return [
       {
         type: 'input',
         field: 'label',
+        title: '标题',
       },
       {
         type: 'input',
         field: 'width',
+        title: '宽度',
       },
       {
         type: 'ColorInput',
         field: 'color',
+        title: '颜色',
       },
-    ])
+    ]
   },
 }

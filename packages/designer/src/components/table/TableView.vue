@@ -2,8 +2,7 @@
 import { uniqueId } from '@ai-lowcode/utils'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 
-import DragBox from '../DragBox.vue'
-import DragTool from '../DragTool.vue'
+import { AlDragBox, AlDragTool } from '@/designer'
 
 const props = defineProps<{
   label: string
@@ -543,11 +542,11 @@ watch(() => props.rule, (newValue) => {
               :class="(rule.class && rule.class[`${pid}:${idx}`]) || ''"
             >
               <div class="_fd-table-view-cell">
-                <DragTool
+                <AlDragTool
                   :drag-btn="false" :handle-btn="true" :unique="lattices[pid][idx].id"
                   @active="active({ pid, idx })"
                 >
-                  <DragBox
+                  <AlDragBox
                     v-bind="dragProp" :ref="`drag${pid}${idx}`"
                     :list="getSlotChildren([`${pid}:${idx}`, ...lattices[pid][idx].slot])"
                     @add="e => dragAdd(e, { pid, idx })" @end="e => dragEnd(e, { pid, idx })"
@@ -555,7 +554,7 @@ watch(() => props.rule, (newValue) => {
                     @unchoose="e => dragUnchoose(e)"
                   >
                     <slot :name="`${pid}:${idx}`" />
-                  </DragBox>
+                  </AlDragBox>
                   <template #handle>
                     <div
                       class="_fd-drag-btn _fd-table-view-btn"
@@ -639,7 +638,7 @@ watch(() => props.rule, (newValue) => {
                       </el-dropdown>
                     </div>
                   </template>
-                </DragTool>
+                </AlDragTool>
               </div>
             </td>
           </template>

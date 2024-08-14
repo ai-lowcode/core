@@ -1,5 +1,6 @@
-import { deepCopy, hasProperty, isFunction, isNumber, isObject, isString } from '@ai-lowcode/utils'
+import { deepCopy, hasProperty, isEmpty, isFunction, isNumber, isObject, isString } from '@ai-lowcode/utils'
 import {
+  WatchStopHandle,
   computed,
   getCurrentInstance,
   nextTick,
@@ -18,39 +19,31 @@ import {
   DesignerConfig,
   DeviceEnum,
   DragForm,
+  OptionBtnConfig,
   Options,
   PreviewStatusEnum,
   Rule,
+  SettingTabEnum,
+  UseDesignerType,
   designerForm,
 } from '@/designer'
 import { DesignerProps } from '@/designer/src/index.vue'
-import { isNull, parseRule, propFieldDeepFn, upper, useLocale } from '@/utils'
+import { propFieldDeepFn, upper } from '@/utils'
 
-import { t as globalT } from '@/utils/locale.ts'
-
+/**
+ * 设计器 hooks
+ */
 export function useDesigner() {
-  let unWatchActiveRule: any = null
+  let unWatchActiveRule: WatchStopHandle | null = null
   const designerInstance: DesignerComponentInternalInstance | null = getCurrentInstance()
   const selectComponent = ref()
 
   const props = getCurrentInstance()?.props as DesignerProps | undefined
 
-  const { config: configRef, height, locale } = toRefs(props!)
-
-  let _t = globalT
-  if (locale.value) {
-    _t = useLocale(locale).t
-  }
-  const t = (...args: any) => _t(...args)
+  const { config: configRef, height } = toRefs(props!)
 
   // 设置面板 ref
   const settingPanelRef = ref()
-
-  const moveRule = ref()
-
-  const addRule = ref()
-
-  const added = ref()
 
   // 组件配置的渲染规则
   const baseRule = toRef<DesignerConfig, 'baseRule'>(configRef.value, 'baseRule')
@@ -64,12 +57,8 @@ export function useDesigner() {
   // 基础配置的渲染规则
   const formRule = toRef<DesignerConfig, 'formRule'>(configRef.value, 'formRule')
 
-  const cacheProps = ref({})
-
-  const operation = ref({
-    idx: -1,
-    list: [],
-  })
+  // Rule缓存,用于 swap 操作
+  const cacheProps = ref<Record<string, Rule>>({})
 
   // 设备类型
   const device = ref<DeviceEnum>(DeviceEnum.PC)
@@ -82,40 +71,33 @@ export function useDesigner() {
 
   const eventShow = ref<boolean>(false)
 
-  const unloadStatus = ref<boolean>(false)
-
-  const formOptions = ref<Options>({})
-
   const oldOptionsKeys = ref<Array<string>>([])
 
   // 表单预览弹窗配置
   const previewDialogConfig = ref<DragForm>({
-    state: false,
+    isShow: false,
     rule: [],
     options: {},
-    api: {},
-  })
+  } as DragForm)
 
   // 工作区表单预览配置
   const workspacePreviewConfig = ref<DragForm>({
-    state: false,
+    isShow: false,
     rule: [],
     options: {},
-    api: {},
     data: {},
     key: '',
-  })
+  } as DragForm)
 
   // 工作区表单编辑配置
   const workspaceEditConfig = ref<DragForm>({
     rule: [],
-    api: {},
-  })
+    options: {},
+  } as DragForm)
 
   // 设置表单配置
   const settingFormConfig = ref<DragForm>({
-    rule: tidyRuleConfig(form, formRule.value, { t }),
-    api: {},
+    rule: tidyRuleConfig(form, formRule.value),
     options: {
       form: {
         labelPosition: 'top',
@@ -127,13 +109,12 @@ export function useDesigner() {
       form: {},
       submitBtn: false,
     },
-  })
+  } as DragForm)
 
   // 设置基础配置
   const settingBaseConfig = ref<DragForm>({
     isShow: false,
-    rule: tidyRuleConfig(field, baseRule.value, { t }),
-    api: {},
+    rule: tidyRuleConfig(field, baseRule.value),
     value: {},
     options: {
       global: {
@@ -151,13 +132,12 @@ export function useDesigner() {
         fapi.setValue(fapi.options.formData || {})
       },
     },
-  })
+  } as DragForm)
 
   // 设置验证配置
   const settingValidateConfig = ref<DragForm>({
     isShow: false,
-    rule: tidyRuleConfig(validate, validateRule.value, { t }),
-    api: {},
+    rule: tidyRuleConfig(validate, validateRule.value),
     value: [],
     options: {
       global: {
@@ -175,13 +155,12 @@ export function useDesigner() {
         fapi.setValue(fapi.options.formData || {})
       },
     },
-  })
+  } as DragForm)
 
   // 设置属性配置
   const settingPropsConfig = ref<DragForm>({
     isShow: false,
     rule: [],
-    api: {},
     value: {},
     options: {
       global: {
@@ -204,7 +183,7 @@ export function useDesigner() {
         fapi.setValue(fapi.options.formData || {})
       },
     },
-  })
+  } as DragForm)
 
   // 自定义属性配置
   const settingCustomConfig = ref<DragForm>({
@@ -212,7 +191,6 @@ export function useDesigner() {
     config: {},
     key: '',
     rule: [],
-    api: {},
     options: {
       global: {
         input: {
@@ -225,10 +203,10 @@ export function useDesigner() {
       },
       submitBtn: false,
     },
-  })
+  } as DragForm)
 
   const dragHeight = computed(() => {
-    const h = height.value
+    const h = height?.value
     if (!h)
       return '100%'
     return isNumber(h) ? `${h}px` : h
@@ -242,6 +220,12 @@ export function useDesigner() {
     device.value = newDevice
   }
 
+  /**
+   * 合并规则处理
+   * @param orgRule
+   * @param configRule
+   * @param args
+   */
   function tidyRuleConfig(orgRule: any, configRule: any, ...args: any): Rule {
     if (configRule) {
       if (isFunction(configRule)) {
@@ -261,48 +245,39 @@ export function useDesigner() {
     return orgRule(...args)
   }
 
+  /**
+   * 停止 activeRule 的监听
+   */
   function unWatchActiveRuleFunc() {
     unWatchActiveRule && unWatchActiveRule()
     unWatchActiveRule = null
   }
+
+  /**
+   * 启动 activeRule 的监听
+   */
   function watchActiveRule() {
     unWatchActiveRuleFunc()
     unWatchActiveRule = watch(() => activeRule.value, (n) => {
       n && updateRuleFormData()
     }, { deep: true, flush: 'post' })
   }
-  // function setFormData(formData: object) {
-  //   workspacePreviewConfig.value.data = formData || {}inputForm
-  // }
-  /**
-   * 获取 rule
-   */
-  function getRule(): Rule[] {
-    return parseRule(deepCopy(workspaceEditConfig.value?.rule[0].children))
-  }
-
-  /**
-   * 获取 rule json
-   */
-  function getJson(): string {
-    return designerForm.toJson(getRule())
-  }
 
   /**
    * 获取 options
    */
   function getOption() {
-    const options: Options = deepCopy(formOptions.value)
-    Object.keys(options._event || {}).forEach((k) => {
+    const options: Options = deepCopy(workspaceEditConfig.value.options)
+    Object.keys(options._event || {}).forEach((k: string) => {
       if (options._event[k]) {
-        options[k] = options._event[k]
+        (options as Record<string, any>)[k] = options._event[k]
       }
     })
     delete options._event
     options.submitBtn = options._submitBtn
     options.resetBtn = options._resetBtn
-    options.resetBtn.innerText = t('props.reset')
-    options.submitBtn.innerText = t('props.submit')
+    options.resetBtn && ((options.resetBtn as OptionBtnConfig).innerText = '重置')
+    options.submitBtn && ((options.submitBtn as OptionBtnConfig).innerText = '提交')
     const formData = deepCopy(workspacePreviewConfig.value.data)
     if (Object.keys(formData).length > 0) {
       options.formData = formData
@@ -338,10 +313,10 @@ export function useDesigner() {
   }
 
   /**
-   * 设置 options
+   * 初始化工作区 options
    * @param opt
    */
-  function setOption(opt: Options) {
+  function setWorkspaceOption(opt?: Options) {
     const options = isString(opt) ? JSON.parse(opt) : deepCopy(opt || {})
     options.form = {
       inline: false,
@@ -362,9 +337,9 @@ export function useDesigner() {
     options._submitBtn = typeof options.submitBtn === 'object' ? options.submitBtn : { show: options.submitBtn !== false }
     options.submitBtn = options.resetBtn = false
     workspacePreviewConfig.value.data = options.formData || {}
-    oldOptionsKeys.value = Object.keys(settingFormConfig.value.value)
+    oldOptionsKeys.value = Object.keys(settingFormConfig.value.value as object)
     delete options.formData
-    formOptions.value = options
+    workspaceEditConfig.value.options = options
     updateOptionsValue()
   }
 
@@ -372,13 +347,13 @@ export function useDesigner() {
    * 更新 options 的值
    */
   function updateOptionsValue() {
-    const old = {}
+    const old: any = {}
     oldOptionsKeys.value.forEach((k) => {
       old[k] = undefined
     })
-    const value = { ...old, ...formOptions.value.form }
-    Object.keys(formOptions.value).forEach((key) => {
-      const item = formOptions.value[key]
+    const value = { ...old, ...workspaceEditConfig.value.options?.form }
+    Object.keys(workspaceEditConfig.value.options as Record<string, any>).forEach((key: string) => {
+      const item = (workspaceEditConfig.value.options as Record<string, any>)[key]
       value[`>${key}`] = item
       if (typeof item === 'object') {
         Object.keys(item).forEach((k) => {
@@ -388,8 +363,17 @@ export function useDesigner() {
     })
     settingFormConfig.value.value = value
   }
-  function handleChange(key, field, value: Rule, _, fapi) {
-    if (activeRule.value && fapi[activeRule.value._fc_id] === activeRule.value) {
+
+  /**
+   * setting 面板的值改变
+   * @param key
+   * @param field
+   * @param value
+   * @param _
+   * @param fapi
+   */
+  function handleChange(key: string, field: string, value: Rule, _: any, fapi: any) {
+    if (activeRule.value && fapi.activeRule === activeRule.value) {
       unWatchActiveRuleFunc()
       const org = field
       if (field.indexOf('__') !== 0) {
@@ -401,8 +385,8 @@ export function useDesigner() {
           if (!field.includes('formCreate')) {
             field = (key ? `${key}>` : '') + field
           }
-          propFieldDeepFn(field, ({ source, field }) => {
-            if (isNull(value)) {
+          propFieldDeepFn(field, ({ source, field }: any) => {
+            if (isEmpty(value)) {
               delete source[field]
             }
             else {
@@ -411,7 +395,7 @@ export function useDesigner() {
           }, activeRule.value)
         }
         else {
-          if (key && isNull(value)) {
+          if (key && isEmpty(value)) {
             delete activeRule.value[key][field]
           }
           else {
@@ -431,7 +415,6 @@ export function useDesigner() {
   }
   function getPropsRule(rule: Rule) {
     let propsRule = tidyRuleConfig(rule._menu.props, componentRule.value && componentRule.value[rule._menu.name], rule, {
-      t,
       api: workspaceEditConfig.value.api,
     })
     if (componentRule.value && componentRule.value.default) {
@@ -442,41 +425,50 @@ export function useDesigner() {
             append: true,
           }
         : def, rule, {
-        t,
         api: workspaceEditConfig.value.api,
       })
     }
     return propsRule
   }
+
+  /**
+   * 激活 DragTool 组件
+   * @param rule
+   */
   function toolActive(rule: Rule) {
     unWatchActiveRuleFunc()
     settingCustomConfig.value.isShow = false
     delete settingCustomConfig.value.config
+    // 清除之前激活的 rule
     if (activeRule.value) {
-      delete settingPropsConfig.value.api[activeRule.value._fc_id]
-      delete settingBaseConfig.value.api[activeRule.value._fc_id]
-      delete settingValidateConfig.value.api[activeRule.value._fc_id]
-      delete workspaceEditConfig.value.api.activeRule
+      delete settingPropsConfig.value?.api?.[activeRule.value._fc_id]
+      delete settingBaseConfig.value?.api?.[activeRule.value._fc_id]
+      delete settingValidateConfig.value?.api?.[activeRule.value._fc_id]
+      delete workspaceEditConfig.value?.api?.activeRule
     }
     activeRule.value = rule
-    workspaceEditConfig.value.api.activeRule = rule
+    if (workspaceEditConfig.value?.api?.activeRule)
+      workspaceEditConfig.value.api.activeRule = rule
 
     nextTick(() => {
-      settingPanelRef.value.setActiveTab('props')
+      settingPanelRef.value.setActiveTab(SettingTabEnum.PROPS)
       nextTick(() => {
-        settingPropsConfig.value.api[activeRule.value?._fc_id] = activeRule.value
-        settingBaseConfig.value.api[activeRule.value?._fc_id] = activeRule.value
-        settingValidateConfig.value.api[activeRule.value?._fc_id] = activeRule.value
+        if (settingPropsConfig.value?.api?.[activeRule.value?._fc_id])
+          settingPropsConfig.value.api[activeRule.value?._fc_id] = activeRule.value
+        if (settingBaseConfig.value?.api?.[activeRule.value?._fc_id])
+          settingBaseConfig.value.api[activeRule.value?._fc_id] = activeRule.value
+        if (settingValidateConfig.value?.api?.[activeRule.value?._fc_id])
+          settingValidateConfig.value.api[activeRule.value?._fc_id] = activeRule.value
       })
     })
     if (!cacheProps.value[rule._fc_id]) {
       cacheProps.value[rule._fc_id] = getPropsRule(rule)
     }
     const hiddenBaseField = rule._menu.hiddenBaseField || []
-    settingBaseConfig.value.api.hidden(false)
-    hiddenBaseField.length && settingBaseConfig.value.api.hidden(true, hiddenBaseField)
+    settingBaseConfig.value?.api?.hidden(false)
+    hiddenBaseField.length && settingBaseConfig.value?.api?.hidden(true, hiddenBaseField)
     if (!getConfig('showControl', true)) {
-      settingBaseConfig.value.api.hidden(true, '_control')
+      settingBaseConfig.value?.api?.hidden(true, '_control')
     }
     const input = hasProperty(rule, 'field')
     settingBaseConfig.value.isShow = input && rule.input !== false && getConfig('showBaseForm') !== false
@@ -497,6 +489,9 @@ export function useDesigner() {
     return configRef.value ? (hasProperty(configRef.value, key) ? configRef.value[key] : defaultValue) : defaultValue
   }
 
+  /**
+   * 更新 setting面板的值
+   */
   function updateRuleFormData() {
     const rule = activeRule.value
     let formData: any = {
@@ -516,8 +511,8 @@ export function useDesigner() {
       if (!['effect', 'config', 'payload', 'id', 'type', '_menu'].includes(k))
         formData[`formCreate${upper(k)}`] = deepCopy(rule?.[k])
     })
-    Object.keys(rule?.props).forEach((k) => {
-      const item = rule?.props[k]
+    Object.keys(rule?.props as Record<string, any>).forEach((k) => {
+      const item = (rule?.props as Record<string, any>)[k]
       formData[k] = deepCopy(item)
       if (isObject(item)) {
         Object.keys(item).forEach((sub) => {
@@ -548,53 +543,27 @@ export function useDesigner() {
         validate: rule?.validate ? [...rule?.validate] : [],
         $required: formData.formCreate$required,
       }
-      workspaceEditConfig.value.api.refreshValidate()
-      workspaceEditConfig.value.api.nextTick(() => {
-        workspaceEditConfig.value.api.clearValidateState(rule?.__fc__.id)
+      workspaceEditConfig.value?.api?.refreshValidate()
+      workspaceEditConfig.value?.api?.nextTick(() => {
+        workspaceEditConfig.value?.api?.clearValidateState(rule?.__fc__.id)
       })
     }
   }
 
-  /**
-   * 监听语言变化
-   */
-  watch(() => locale.value, (n) => {
-    _t = n ? useLocale(locale).t : globalT
-    const formVal = settingFormConfig.value.api.formData && settingFormConfig.value.api.formData()
-    const baseFormVal = settingBaseConfig.value.api.formData && settingBaseConfig.value.api.formData()
-    const validateFormVal = settingValidateConfig.value.api.formData && settingValidateConfig.value.api.formData()
-    settingValidateConfig.value.rule = tidyRuleConfig(validate, validateRule.value, { t })
-    settingBaseConfig.value.rule = tidyRuleConfig(field, baseRule.value, { t })
-    settingFormConfig.value.rule = tidyRuleConfig(form, formRule.value, { t })
-    cacheProps.value = {}
-    const rule = activeRule.value
-    let propsVal = null
-    if (rule) {
-      propsVal = settingPropsConfig.value.api.formData && settingPropsConfig.value.api.formData()
-      settingPropsConfig.value.rule = cacheProps.value[rule._fc_id] = getPropsRule(rule)
-    }
-    nextTick(() => {
-      formVal && settingFormConfig.value.api.setValue(formVal)
-      baseFormVal && settingBaseConfig.value.api.setValue(baseFormVal)
-      validateFormVal && settingValidateConfig.value.api.setValue(validateFormVal)
-      propsVal && settingPropsConfig.value.api.setValue(propsVal)
-    })
-  })
-
-  watch(() => previewDialogConfig.value.state, (n) => {
-    if (!n) {
+  watch(() => previewDialogConfig.value.isShow, (isShow: any) => {
+    // 清除预览弹窗内容
+    if (!isShow) {
       nextTick(() => {
         previewStatus.value = PreviewStatusEnum.FORM
-        previewDialogConfig.value.rule = previewDialogConfig.value.options = undefined
+        delete previewDialogConfig.value.rule
+        delete previewDialogConfig.value.options
       })
     }
   })
 
-  return {
+  return <UseDesignerType>{
     previewDialogConfig,
-    unloadStatus,
     device,
-    formOptions,
     previewStatus,
     settingFormConfig,
     settingPanelRef,
@@ -605,26 +574,20 @@ export function useDesigner() {
     settingValidateConfig,
     workspaceEditConfig,
     settingCustomConfig,
-    moveRule,
-    addRule,
-    added,
-    operation,
     activeRule,
     configRef,
     dragHeight,
     selectComponent,
-    changeSelectComponent,
-    t,
     designerInstance,
+    changeSelectComponent,
     toolActive,
-    getJson,
     clearActiveRule,
     handleChange,
     watchActiveRule,
     getOption,
     getOptionsJson,
     unWatchActiveRuleFunc,
-    setOption,
+    setWorkspaceOption,
     deviceChange,
   }
 }

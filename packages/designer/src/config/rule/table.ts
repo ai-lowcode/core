@@ -1,5 +1,3 @@
-import { localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const label = '表格布局'
@@ -27,11 +25,11 @@ export default <DragRule>{
       children: [],
     }
   },
-  props(_: any, { t }: any) {
-    return localeProps(t, `${name}.props`, [
-      { type: 'switch', field: 'border', value: true },
-      { type: 'ColorInput', field: 'borderColor' },
-      { type: 'input', field: 'borderWidth' },
-    ])
+  props() {
+    return [
+      { type: 'switch', field: 'border', title: '是否显示边框', value: true },
+      { type: 'ColorInput', field: 'borderColor', title: '边框颜色' },
+      { type: 'input', field: 'borderWidth', title: '边框宽度' },
+    ]
   },
 }

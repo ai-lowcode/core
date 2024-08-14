@@ -2,9 +2,7 @@
 import { deepCopy } from '@ai-lowcode/utils'
 import { defineComponent } from 'vue'
 
-import { localeOptions } from '../utils'
-
-import { designerForm } from '@/designer'
+import { designerForm } from '@/designer/index.ts'
 
 export default defineComponent({
   name: 'Validate',
@@ -16,18 +14,17 @@ export default defineComponent({
     DragForm: designerForm.$form(),
   },
   data() {
-    const t = this.designer.setupState.t
     const types = this.designer.setupState.activeRule?._menu?.validate || []
     const attrs = {
-      string: t('validate.types.string'),
-      array: t('validate.types.array'),
-      number: t('validate.types.number'),
-      integer: t('validate.types.integer'),
-      float: t('validate.types.float'),
-      object: t('validate.types.object'),
-      date: t('validate.types.date'),
-      url: t('validate.types.url'),
-      email: t('validate.types.email'),
+      string: '字符串',
+      array: '多选',
+      number: '数字',
+      integer: '整数',
+      float: '小数',
+      object: '合集',
+      date: '日期',
+      url: 'URL链接',
+      email: '邮箱地址',
     }
 
     const getOpts = (lst) => {
@@ -39,7 +36,7 @@ export default defineComponent({
         })
       })
       opts.push({
-        label: t('props.custom'),
+        label: '自定义',
         value: 'validator',
       })
       return opts
@@ -48,7 +45,6 @@ export default defineComponent({
 
     return {
       formValue: {},
-      t,
       option: {
         form: {
           labelPosition: 'top',
@@ -72,9 +68,9 @@ export default defineComponent({
                 type: opts.length === 1 ? 'hidden' : 'select',
                 field: 'type',
                 value: '',
-                title: t('validate.type'),
+                title: '字段类型',
                 props: {
-                  placeholder: t('validate.typePlaceholder'),
+                  placeholder: '请选择',
                 },
                 control: [
                   {
@@ -91,14 +87,14 @@ export default defineComponent({
               },
               {
                 type: 'select',
-                title: t('validate.trigger'),
+                title: '触发方式',
                 field: 'trigger',
                 value: 'change',
-                options: localeOptions(t, [
-                  { label: 'blur', value: 'blur' },
-                  { label: 'change', value: 'change' },
-                  { label: 'submit', value: 'submit' },
-                ]),
+                options: [
+                  { label: '失去焦点', value: 'blur' },
+                  { label: '改变', value: 'change' },
+                  { label: '提交', value: 'submit' },
+                ],
               },
               {
                 type: 'FnEditor',
@@ -113,13 +109,13 @@ export default defineComponent({
               },
               {
                 type: 'select',
-                title: t('validate.mode'),
+                title: '验证方式',
                 field: 'mode',
                 options: [
-                  { value: 'min', label: t('validate.modes.min') },
-                  { value: 'max', label: t('validate.modes.max') },
-                  { value: 'len', label: t('validate.modes.len') },
-                  { value: 'pattern', label: t('validate.modes.pattern') },
+                  { value: 'min', label: '最小值' },
+                  { value: 'max', label: '最大值' },
+                  { value: 'len', label: '长度' },
+                  { value: 'pattern', label: '正则表达式' },
                 ],
                 value: 'min',
                 control: [
@@ -132,7 +128,7 @@ export default defineComponent({
                         props: {
                           size: 'small',
                         },
-                        title: t('validate.modes.pattern'),
+                        title: '正则表达式',
                       },
                     ],
                   },
@@ -142,7 +138,7 @@ export default defineComponent({
                       {
                         type: 'inputNumber',
                         field: 'min',
-                        title: t('validate.modes.min'),
+                        title: '最小值',
                       },
                     ],
                   },
@@ -152,7 +148,7 @@ export default defineComponent({
                       {
                         type: 'inputNumber',
                         field: 'max',
-                        title: t('validate.modes.max'),
+                        title: '最大值',
                       },
                     ],
                   },
@@ -162,7 +158,7 @@ export default defineComponent({
                       {
                         type: 'inputNumber',
                         field: 'len',
-                        title: t('validate.modes.len'),
+                        title: '长度',
                       },
                     ],
                   },
@@ -170,7 +166,7 @@ export default defineComponent({
               },
               {
                 type: 'input',
-                title: t('validate.message'),
+                title: '错误信息',
                 field: 'message',
                 value: '',
                 children: [
@@ -183,11 +179,11 @@ export default defineComponent({
                       click: (inject) => {
                         const title = this.designer.setupState.activeRule.title
                         if (this.designer.setupState.activeRule) {
-                          inject.api.setValue('message', t(inject.api.form.mode !== 'required' ? 'validate.autoMode' : 'validate.autoRequired', { title }))
+                          inject.api.setValue('message', inject.api.form.mode !== 'required' ? '请输入正确的{title}' : '请输入{title}', { title })
                         }
                       },
                     },
-                    children: [t('validate.auto')],
+                    children: ['自动获取'],
                   },
                 ],
               },

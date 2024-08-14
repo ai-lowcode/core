@@ -7,12 +7,10 @@ import 'codemirror/mode/javascript/javascript'
 import 'codemirror/addon/hint/show-hint'
 // eslint-disable-next-line import/order
 import 'codemirror/addon/hint/javascript-hint'
-import { computed, inject, markRaw, nextTick, onMounted, ref, watch } from 'vue'
+import { computed, markRaw, nextTick, onMounted, ref, watch } from 'vue'
 
 // eslint-disable-next-line import/order
-import { AlButton, AlPopover, AlTable, AlTableColumn } from '@ai-lowcode/element-plus'
-
-import errorMessage from '../utils/message'
+import { AlButton, AlMessage, AlPopover, AlTable, AlTableColumn } from '@ai-lowcode/element-plus'
 
 import { addAutoKeyMap, toJSON } from '@/utils'
 
@@ -20,7 +18,7 @@ const props = defineProps<{
   modelValue: [string, Function]
   name: string
   args: Array<any>
-  body: boolean
+  body?: boolean
   button: boolean
   fnx: boolean
 }>()
@@ -28,10 +26,6 @@ const props = defineProps<{
 const emits = defineEmits(['update:modelValue', 'change'])
 const PREFIX = '[[FORM-CREATE-PREFIX-'
 const SUFFIX = '-FORM-CREATE-SUFFIX]]'
-
-const designer = inject<any>('designer', null)
-
-const t = computed(() => designer.setupState.t)
 
 const editor = ref<any>(null)
 const fn = ref('')
@@ -79,7 +73,7 @@ function save() {
     }
     catch (e) {
       console.error(e)
-      errorMessage(t.value('struct.errorMsg'))
+      AlMessage.error('输入的内容语法错误')
       return false
     }
     if (props.body) {
@@ -177,9 +171,9 @@ onMounted(() => {
                 </template>
                 <template v-if="item.columns">
                   <AlTable :data="item.columns" border>
-                    <AlTableColumn width="120" property="label" :label="t('event.label')" />
-                    <AlTableColumn property="info" :label="t('event.info')" />
-                    <AlTableColumn width="80" property="type" :label="t('event.type')" />
+                    <AlTableColumn width="120" property="label" label="字段" />
+                    <AlTableColumn property="info" label="说明" />
+                    <AlTableColumn width="80" property="type" label="类型" />
                   </AlTable>
                 </template>
               </AlPopover>
@@ -195,7 +189,7 @@ onMounted(() => {
       </div>
     </div>
     <AlButton v-if="visible && button" type="primary" size="small" @click="save">
-      {{ t('props.save') }}
+      保存
     </AlButton>
   </div>
 </template>

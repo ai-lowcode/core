@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { AlAside, AlContainer, AlDivider, AlInput, AlMain, AlTag } from '@ai-lowcode/element-plus'
 
+import EventConfig from '../components/event-config.vue'
 import { useSettingPanel } from '../hooks/use-setting-panel.ts'
 
-import EventConfig from './event-config.vue'
+import { DragForm, Rule, SettingTabEnum, designerForm } from '@/designer'
 
-import { DragForm, Rule, designerForm } from '@/designer'
-
-defineProps<{
+export interface SettingPanelProps {
   config: any
-  activeRule: Rule
+  activeRule?: Rule
   settingCustomConfig: any
   settingBaseConfig: DragForm
   settingPropsConfig: DragForm
@@ -20,13 +19,13 @@ defineProps<{
   unWatchActiveRuleFunc: any
   watchActiveRule: any
   settingFormConfig: DragForm
-  formOptions: any
-}>()
+}
+
+defineProps<SettingPanelProps>()
 
 const DragFormView = designerForm.$form()
 
 const {
-  t,
   formConfigApi,
   baseFormApi,
   propsFormApi,
@@ -56,23 +55,23 @@ defineExpose({
         <div
           v-if="!!activeRule || settingCustomConfig.isShow || (config && config.showFormConfig === false)"
           class="flex-1 flex justify-center items-center text-sm duration-300 cursor-pointer"
-          :class="activeTab === 'props' ? 'bg-blue-600 text-white' : ''"
-          @click="activeTab = 'props'"
+          :class="activeTab === SettingTabEnum.PROPS ? 'bg-blue-600 text-white' : ''"
+          @click="activeTab = SettingTabEnum.PROPS"
         >
-          {{ t('designer.component') }}
+          组件配置
         </div>
         <div
           v-if="!config || config.showFormConfig !== false"
           class="flex-1 flex justify-center items-center text-sm duration-300 cursor-pointer"
-          :class="activeTab === 'form' && (!!activeRule || settingCustomConfig.isShow) ? 'bg-blue-600 text-white' : ''"
-          @click="activeTab = 'form'"
+          :class="activeTab === SettingTabEnum.FORM && (!!activeRule || settingCustomConfig.isShow) ? 'bg-blue-600 text-white' : ''"
+          @click="activeTab = SettingTabEnum.FORM"
         >
-          {{ t('designer.form') }}
+          表单配置
         </div>
       </div>
       <div>
         <AlMain
-          v-show="activeTab === 'form'" v-if="!config || config.showFormConfig !== false"
+          v-show="activeTab === SettingTabEnum.FORM" v-if="!config || config.showFormConfig"
         >
           <!-- 表单配置项 -->
           <DragFormView
@@ -82,22 +81,22 @@ defineExpose({
           />
         </AlMain>
         <AlMain
-          v-show="activeTab === 'props'" :key="activeRule ? activeRule._fc_id : (settingCustomConfig.config ? settingCustomConfig.key : '')"
+          v-show="activeTab === SettingTabEnum.PROPS" :key="activeRule ? activeRule._fc_id : (settingCustomConfig.config ? settingCustomConfig.key : '')"
         >
           <!-- 组件配置 -->
           <template
             v-if="activeRule || (settingCustomConfig.config && (settingCustomConfig.config.name || settingCustomConfig.config.label))"
           >
             <p class="">
-              {{ t('designer.type') }}
+              组件类型
             </p>
             <AlTag type="success" effect="plain" disable-transitions>
               <template v-if="activeRule">
-                {{ t(`com.${activeRule._menu.name}.name`) || activeRule._menu.label }}
+                {{ activeRule._menu.label }}
               </template>
               <template v-else>
                 {{
-                  t(`com.${settingCustomConfig.config.name}.name`) || settingCustomConfig.config.label || settingCustomConfig.config.name
+                  settingCustomConfig.config.label || settingCustomConfig.config.name
                 }}
               </template>
             </AlTag>
@@ -105,7 +104,7 @@ defineExpose({
               v-if="(activeRule && activeRule.name)"
             >
               <p class="">
-                {{ t('designer.name') }}
+                编号
               </p>
               <AlInput
                 size="small" class=""
@@ -119,7 +118,7 @@ defineExpose({
             </template>
           </template>
           <AlDivider v-if="settingBaseConfig.isShow">
-            {{ t('designer.rule') }}
+            基础配置
           </AlDivider>
           <!-- 基础配置 -->
           <DragFormView
@@ -130,7 +129,7 @@ defineExpose({
             @change="baseChange"
           />
           <AlDivider v-if="settingPropsConfig.isShow">
-            {{ t('designer.props') }}
+            属性配置
           </AlDivider>
           <!-- 属性配置 -->
           <DragFormView
@@ -140,7 +139,7 @@ defineExpose({
             @change="propChange" @remove-field="propRemoveField"
           />
           <AlDivider v-if="settingCustomConfig.isShow && settingCustomConfig.propsShow">
-            {{ t('designer.props') }}
+            属性配置
           </AlDivider>
           <!-- 自定义属性配置 -->
           <DragFormView
@@ -152,7 +151,7 @@ defineExpose({
           <AlDivider
             v-if="eventShow"
           >
-            {{ t('designer.event') }}
+            事件配置
           </AlDivider>
           <EventConfig
             v-if="eventShow"
@@ -163,9 +162,7 @@ defineExpose({
           />
           <template v-if="activeRule">
             <AlDivider v-if="settingValidateConfig.isShow">
-              {{
-                t('designer.validate')
-              }}
+              验证配置
             </AlDivider>
             <!-- 验证配置 -->
             <DragFormView

@@ -1,14 +1,14 @@
-export default function validate({ t }: any) {
+export default function validate() {
   return [
     {
       type: 'Required',
       field: '$required',
-      title: t('validate.required'),
+      title: '是否必填',
     },
     {
       type: 'validate',
       field: 'validate',
-      title: t('validate.rule'),
+      title: '验证规则',
       value: [],
     },
   ]

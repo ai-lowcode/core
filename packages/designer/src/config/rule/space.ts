@@ -1,5 +1,3 @@
-import { localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const label = '间距'
@@ -24,20 +22,20 @@ export default <DragRule>{
       children: [],
     }
   },
-  props(_: any, { t }: any) {
+  props() {
     return [
       {
         type: 'object',
         field: 'formCreateStyle',
         native: true,
         props: {
-          rule: localeProps(t, `${name}.props`, [
+          rule: [
             {
               type: 'input',
               field: 'height',
-              title: 'height',
+              title: '高度',
             },
-          ]),
+          ],
         },
       },
     ]

@@ -1,5 +1,3 @@
-import { localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const label = '折叠面板'
@@ -23,10 +21,13 @@ export default <DragRule>{
       children: [],
     }
   },
-  props(_: any, { t }: any) {
-    return localeProps(t, `${name}.props`, [{
-      type: 'switch',
-      field: 'accordion',
-    }])
+  props() {
+    return [
+      {
+        type: 'switch',
+        field: 'accordion',
+        title: '是否手风琴模式',
+      },
+    ]
   },
 }

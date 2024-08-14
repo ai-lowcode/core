@@ -10,27 +10,30 @@ import AlDraggable from 'vuedraggable/src/vuedraggable'
 
 import { useComponentsPanel } from '../hooks/use-components-panel.ts'
 
-import { DragForm, DragRule, Rule } from '@/designer'
+import { DesignerConfig, DragForm, DragRule, MenuList, OutLineTree, Rule } from '@/designer'
 
-defineProps<{
-  config: any
-  menu: any
-  outlineTree: any
+export interface ComponentPanelProps {
+  config: DesignerConfig
+  menu: MenuList
   workspaceEditConfig: DragForm
   dragRuleList: Record<string, DragRule>
-  dragComponent: any
-  workspaceRule: Array<Rule>
-  toolActive: any
-}>()
+  dragComponent: Function
+  workspaceRule?: Array<Rule>
+  toolActive: Function
+  workspacePreviewConfig: DragForm
+  outlineTree?: Array<OutLineTree>
+}
+
+defineProps<ComponentPanelProps>()
 
 defineEmits<{
   /**
    * 改变选中组件事件
    */
-  (event: 'changeSelectComponent', value: Record<string, any>): void
+  (event: 'changeSelectComponent', value: string): void
 }>()
 
-const { triggerOutlineActive, componentClick, toolHandle, activeMenuTab, t, menuList, hiddenMenu, hiddenItem } = useComponentsPanel()
+const { triggerOutlineActive, componentClick, toolHandle, activeMenuTab, menuList, hiddenMenu, hiddenItem } = useComponentsPanel()
 </script>
 
 <template>
@@ -42,14 +45,14 @@ const { triggerOutlineActive, componentClick, toolHandle, activeMenuTab, t, menu
           :class="activeMenuTab === 'menu' ? 'bg-blue-600 text-white' : ''"
           @click="activeMenuTab = 'menu'"
         >
-          {{ t('menu.component') }}
+          组件
         </div>
         <div
           class="w-1/2 flex justify-center items-center text-sm duration-300 cursor-pointer"
           :class="activeMenuTab === 'tree' ? 'bg-blue-600 text-white' : ''"
           @click="activeMenuTab = 'tree'"
         >
-          {{ t('menu.tree') }}
+          大纲
         </div>
       </div>
       <div v-show="activeMenuTab === 'menu'">
@@ -58,7 +61,7 @@ const { triggerOutlineActive, componentClick, toolHandle, activeMenuTab, t, menu
             v-if="hiddenMenu.indexOf(item.name) === -1" :key="index"
           >
             <h4 class="flex justify-between mx-4 cursor-pointer" @click="item.hidden = !item.hidden">
-              <span>{{ t(`menu.${item.name}`) || item.title }}</span>
+              <span>{{ item.title }}</span>
               <i class="fc-icon icon-arrow" :class="{ down: !item.hidden }" />
             </h4>
             <AlDraggable
@@ -76,9 +79,7 @@ const { triggerOutlineActive, componentClick, toolHandle, activeMenuTab, t, menu
                   <div class="text-3xl">
                     <i class="fc-icon !text-[26px]" :class="element.icon || 'icon-input'" />
                   </div>
-                  <span class="text-sm">{{
-                    t(`com.${element.name}.name`) || element.label
-                  }}</span>
+                  <span class="text-sm">{{ element.label }}</span>
                 </div>
               </template>
             </AlDraggable>
@@ -100,7 +101,7 @@ const { triggerOutlineActive, componentClick, toolHandle, activeMenuTab, t, menu
                   :class="(data.rule._menu && data.rule._menu.icon) || 'icon-cell'"
                 />
                 <span>{{
-                  (data.rule.title || '').trim() || (data.rule.props && data.rule.props.label) || t(`com.${data.rule._menu && data.rule._menu.name}.name`) || data.rule.type
+                  (data.rule.title || '').trim() || (data.rule.props && data.rule.props.label) || data.rule.type
                 }}</span>
               </div>
               <div v-if="!data.slot" class="" @click.stop>
@@ -112,20 +113,20 @@ const { triggerOutlineActive, componentClick, toolHandle, activeMenuTab, t, menu
                         v-if="data.rule._fc_drag_tag !== '_'" key="1"
                         @click="toolHandle(data.rule, 'copy')"
                       >
-                        {{ t('props.copy') }}
+                        复制
                       </AlDropdownItem>
                       <AlDropdownItem
                         v-if="data.rule._menu && data.rule._menu.children && data.rule._fc_drag_tag !== '_'"
                         key="2"
                         @click="toolHandle(data.rule, 'addChild')"
                       >
-                        {{ t('form.appendChild') }}
+                        添加子级
                       </AlDropdownItem>
                       <AlDropdownItem
                         key="3"
                         @click="toolHandle(data.rule, 'delete')"
                       >
-                        {{ t('props.delete') }}
+                        删除
                       </AlDropdownItem>
                     </AlDropdownMenu>
                   </template>

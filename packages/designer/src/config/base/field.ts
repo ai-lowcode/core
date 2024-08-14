@@ -1,40 +1,40 @@
-export default function field({ t }: any) {
+export default function field() {
   return [
     {
       type: 'FieldInput',
       field: 'field',
       value: '',
-      title: t('form.field'),
+      title: '字段 ID',
     },
     {
       type: 'input',
       field: 'title',
       value: '',
-      title: t('form.title'),
+      title: '字段名称',
     },
     {
       type: 'input',
       field: 'info',
       value: '',
-      title: t('form.info'),
+      title: '提示信息',
     },
     {
       type: 'SizeInput',
       field: 'formCreateWrap>labelWidth',
       value: '',
-      title: t('form.labelWidth'),
+      title: '标签的宽度',
     },
     {
       type: 'Struct',
       field: '_control',
       value: [],
-      title: t('form.control'),
+      title: '联动数据',
       info: {
         type: 'tooltip',
         native: true,
         effect: 'light',
         align: 'left',
-        content: `${t('form.document')}：<a target="_blank" href="https://form-create.com/v3/guide/control">https://form-create.com/v3/guide/control</a>`,
+        content: `帮助文档：`,
         rawContent: true,
       },
       props: {

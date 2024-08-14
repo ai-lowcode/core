@@ -1,92 +1,57 @@
+import { AlMessage } from '@ai-lowcode/element-plus'
 import { deepCopy, hasProperty, isString, uniqueId } from '@ai-lowcode/utils'
-import { inject, markRaw, nextTick, reactive, ref } from 'vue'
+import { inject, markRaw, reactive, ref } from 'vue'
 
-import errorMessage from '../../../utils/message.ts'
+import { useDragActions } from './use-drag-actions.ts'
+import { useOperationRecordActions } from './use-operation-record.actions.ts'
 
 import { defaultDrag } from '@/config'
-import { DESIGN_INSTANCE, DesignerComponentInternalInstance, DragRule, MenuItem, Rule, designerForm } from '@/designer'
-import { getRuleTree, parseRule } from '@/utils'
-import { t } from '@/utils/locale.ts'
+import {
+  DESIGN_INSTANCE,
+  DesignerComponentInternalInstance,
+  DragRule,
+  MenuItem,
+  Rule,
+  UseRuleType,
+  designerForm,
+} from '@/designer'
+import { parseRule } from '@/utils'
 
 export function useRule({
   workspacePreviewConfig,
   mask,
   selectComponent,
   settingPanelRef,
-  unloadStatus,
   workspaceEditConfig,
   settingCustomConfig,
-  moveRule,
-  addRule,
-  added,
-  operation,
   activeRule,
   toolActive,
 }: any) {
   const designerInstance = inject<DesignerComponentInternalInstance | null>(DESIGN_INSTANCE, null)
 
+  // 全局组件列表
   const dragRuleList = ref<Record<string, DragRule>>({})
 
+  // 工作区rule
   const workspaceRule = ref<Array<Rule>>([])
 
-  // 大纲树
-  const outlineTree = ref([])
+  const {
+    unloadStatus,
+    addOperationRecord,
+    operation,
+    outlineTree,
+    handleRemoveAfter,
+    handleCopyAfter,
+    handleSortAfter,
+    handleAddAfter,
+    updateOutlineTree,
+  } = useOperationRecordActions({ workspaceEditConfig, workspacePreviewConfig })
 
-  function makeChildren(children: any) {
-    return reactive({ children }).children
-  }
+  // 导入拖拽 hooks
+  const { dragEmits, makeDrag } = useDragActions({ dragComponent, handleSortAfter })
 
-  function updateOutlineTree() {
-    setTimeout(() => {
-      nextTick(() => {
-        outlineTree.value = getRuleTree(workspaceEditConfig.value.rule[0].children)
-      })
-    }, 300)
-  }
-
-  function dragEnd(children: any, { newIndex, oldIndex }: any, slot?: any) {
-    if (!added && !(moveRule === children && newIndex === oldIndex)) {
-      const rule = moveRule.splice(oldIndex, 1)
-      if (slot) {
-        rule.slot = slot
-      }
-      children.splice(newIndex, 0, rule[0])
-      handleSortAfter()
-    }
-    moveRule = null
-    addRule = null
-    added = false
-  }
-
-  function makeDrag(group: any, tag: any, children: any, on: any, slot?: any) {
-    return {
-      type: 'DragBox',
-      wrap: {
-        show: false,
-      },
-      col: {
-        show: false,
-      },
-      inject: true,
-      props: {
-        rule: {
-          props: {
-            tag: 'el-col',
-            group: group === true ? 'default' : group,
-            ghostClass: 'ghost',
-            animation: 150,
-            handle: '._fd-drag-btn',
-            emptyInsertThreshold: 0,
-            direction: 'vertical',
-            itemKey: 'type',
-          },
-        },
-        tag,
-      },
-      children,
-      slot,
-      on,
-    }
+  function makeChildren(children: Array<Rule>): Array<Rule> {
+    return reactive({ children }).children as Array<Rule>
   }
 
   function checkOnly(menu: MenuItem) {
@@ -95,7 +60,7 @@ export function useRule({
       flag = flag || rule._fc_template === menu.name || (rule._menu && rule._menu.name === menu.name)
     })
     if (flag) {
-      errorMessage(t('struct.only', { label: t(`com.${menu.name}.name`) || menu.label }))
+      AlMessage.error(`【${menu.label}】只允许添加一个`)
     }
     return flag
   }
@@ -107,13 +72,13 @@ export function useRule({
    * @param index
    * @param slot
    */
-  function dragComponent({ menu, children, index, slot }: {
+  function dragComponent({ menu, workspaceRules, index, slot }: {
     menu: MenuItem
-    children: Array<Rule>
-    index: number
+    workspaceRules?: Array<Rule>
+    index?: number
     slot: any
   }): void {
-    if (workspacePreviewConfig.state) {
+    if (workspacePreviewConfig.value.isShow) {
       return
     }
     if (menu.only && checkOnly(menu)) {
@@ -128,81 +93,15 @@ export function useRule({
     if (slot) {
       rule.slot = slot
     }
-    // 向 children 中插入值
-    children.splice(index, 0, rule)
+    // 向 workspaceRule 中插入值
+    if (workspaceRules && index)
+      workspaceRules.splice(index, 0, rule)
+    else
+      workspaceRule.value.splice(workspaceRule.value.length, 0, rule)
     handleAddAfter()
   }
 
-  function getRule() {
-    return parseRule(deepCopy(workspaceEditConfig.value.rule[0].children))
-  }
-
-  function addOperationRecord() {
-    const rule = designerForm.toJson(getRule())
-    const formData = deepCopy(workspacePreviewConfig.data)
-    const list = operation.value.list.slice(0, operation.value.idx + 1)
-    list.push({ rule, formData })
-    operation.value.list = list
-    operation.value.idx = list.length - 1
-    unloadStatus.value = list.length !== 1
-  }
-
-  function handleAddAfter() {
-    addOperationRecord()
-    updateOutlineTree()
-  }
-
-  function handleSortAfter() {
-    addOperationRecord()
-    updateOutlineTree()
-  }
-
-  function handleCopyAfter() {
-    addOperationRecord()
-    updateOutlineTree()
-  }
-
-  function dragAdd(children: any, evt: any, slot?: any) {
-    // console.log('top dragAdd')
-    const newIndex = evt.newIndex
-    const menu = evt.item._underlying_vm_
-    if (menu && menu.__fc__) {
-      if (addRule) {
-        const rule = addRule.children.splice(addRule.children.indexOf(menu), 1)[0]
-        if (slot) {
-          rule.slot = slot
-        }
-        else {
-          delete rule.slot
-        }
-        children.splice(newIndex, 0, rule)
-        handleSortAfter()
-      }
-    }
-    else {
-      dragComponent({ menu, children, index: newIndex, slot })
-    }
-    added = true
-  }
-
-  function dragStart(children: any) {
-    moveRule = children
-    added = false
-  }
-
-  function dragUnchoose(children: any, evt: any) {
-    addRule = {
-      children,
-      oldIndex: evt.oldIndex,
-    }
-  }
-
-  function handleRemoveAfter() {
-    addOperationRecord()
-    updateOutlineTree()
-  }
-
-  function replaceField(rule: Rule) {
+  function replaceField(rule: Rule): Rule {
     const flag = ['array', 'object'].includes(rule._menu.subForm)
     let temp = parseRule(deepCopy([rule]))[0]
     if (flag) {
@@ -215,7 +114,7 @@ export function useRule({
     else {
       temp = batchReplaceField(temp)
     }
-    return loadRuleFunc([designerForm.parseJson(temp)])[0]
+    return loadRuleFunc([designerForm.parseJson(temp)])[0] as Rule
   }
 
   function batchReplaceField(json: any) {
@@ -247,55 +146,69 @@ export function useRule({
     return { root: parent, parent: rule }
   }
 
+  /**
+   * 生成表单生成规则
+   * @param config
+   * @param _rule
+   */
   function makeRule(config: DragRule, _rule?: any): Rule {
-    const rule = _rule || config.rule({ t })
+    const rule = _rule || config.rule()
     rule._menu = markRaw(config)
     if (!rule._fc_id) {
+      // 生成组件 id
       rule._fc_id = `id_${uniqueId()}`
     }
     if (!rule.name) {
+      // 生成组件名称
       rule.name = `ref_${uniqueId()}`
     }
     if (config.component) {
+      // 使用自定义组件
       rule.component = markRaw(config.component)
     }
     if (!rule._computed) {
+      // 计算属性
       rule._computed = {}
     }
     if (!rule.effect) {
+      // effect
       rule.effect = {}
     }
     if (!hasProperty(rule, 'display')) {
+      // 默认显示
       rule.display = true
     }
     if (!hasProperty(rule, 'hidden')) {
+      // 默认关闭隐藏
       rule.hidden = false
     }
+    // 组件名称
     rule._fc_drag_tag = config.name
     const only = config.only === true
     let drag
 
     const children = rule.children || []
     if (config.drag) {
-      rule.children = [drag = makeDrag(config.drag, rule._menu ? rule._menu.name : rule.type, children, {
-        end: (inject: any, evt: any) => dragEnd(inject.self.children, evt),
-        add: (inject: any, evt: any) => dragAdd(inject.self.children, evt),
-        start: (inject: any) => dragStart(inject.self.children),
-        unchoose: (inject: any, evt: any) => dragUnchoose(inject.self.children, evt),
-      })]
+      // 可以拖入其他组件到当前组件内部
+      rule.children = [
+        drag = makeDrag(config.drag, rule._menu ? rule._menu.name : rule.type, children, dragEmits),
+      ]
     }
 
+    // 当此组件有子组件且子组件没有预设组件生成规则
     if (config.children && !_rule && !children.length) {
+      // childrenLen: 初始化时渲染几个子组件
       for (let i = 0; i < (config.childrenLen || 1); i++) {
         const child = makeRule(dragRuleList.value[config.children]);
         (drag || rule).children.push(child)
       }
     }
-    const dragMask = mask !== undefined ? mask !== false : config.mask !== false
+    const dragMask = mask.value !== undefined ? mask.value !== false : config.mask !== false
     if (config.tool === false) {
       return rule
     }
     if (config.inside) {
+      // 当前组件的操作容器是否显示在组件内部
       rule.children = makeChildren([{
         type: 'DragTool',
         props: {
@@ -306,12 +219,13 @@ export function useRule({
           only,
         },
         inject: true,
+        // emits
         on: {
           delete: ({ self }: any) => {
             const parent = getParent(self).parent
             parent.__fc__.rm()
             designerInstance?.emit('delete', parent)
-            if (activeRule === parent) {
+            if (activeRule.value === parent) {
               clearActiveRule()
             }
             handleRemoveAfter()
@@ -371,7 +285,7 @@ export function useRule({
           delete: ({ self }: any) => {
             designerInstance?.emit('delete', self.children[0])
             self.__fc__.rm()
-            if (activeRule === self.children[0]) {
+            if (activeRule.value === self.children[0]) {
               clearActiveRule()
             }
             handleRemoveAfter()
@@ -417,18 +331,13 @@ export function useRule({
     }
   }
 
-  function makeDragRule(children: any) {
-    return makeChildren([makeDrag(true, 'draggable', children, {
-      add: (_: any, evt: any) => dragAdd(children, evt),
-      end: (_: any, evt: any) => dragEnd(children, evt),
-      start: (_: any) => dragStart(children),
-      unchoose: (_: any, evt: any) => dragUnchoose(children, evt),
-    })])
+  function makeDragRule(children: Array<Rule>) {
+    return makeChildren([makeDrag(true, 'draggable', children, dragEmits)])
   }
 
   function clearActiveRule() {
-    activeRule = null
-    settingCustomConfig.config = null
+    activeRule.value = null
+    settingCustomConfig.value.config = null
     settingPanelRef.value.setActiveTab('form')
     selectComponent.value = ''
   }
@@ -437,15 +346,15 @@ export function useRule({
     if (!rules) {
       rules = []
     }
-    workspaceRule.value = loadRuleFunc(isString(rules) ? designerForm.parseJson(rules) : deepCopy(rules))
+    workspaceRule.value = loadRuleFunc(isString(rules) ? designerForm.parseJson(rules) : deepCopy(rules)) as Array<Rule>
     clearActiveRule()
-    workspaceEditConfig.value.rule = makeDragRule(makeChildren(workspaceRule.value))
+    workspaceEditConfig.value.rule = makeDragRule(makeChildren(workspaceRule.value as Array<Rule>))
     updateOutlineTree()
   }
 
   function getSlotConfig(pConfig: DragRule, slot: string, config: DragRule): DragRule {
     let slotConfig = {};
-    (pConfig.slot || []).forEach((item) => {
+    (pConfig.slot || []).forEach((item: any) => {
       if (item.name === slot) {
         slotConfig = item.config || {}
       }
@@ -498,15 +407,17 @@ export function useRule({
     return loadRule
   }
 
-  return {
-    dragRuleList,
+  return <UseRuleType>{
+    unloadStatus,
+    operation,
     outlineTree,
+    dragRuleList,
     workspaceRule,
+    addOperationRecord,
     clearActiveRule,
     setRule,
     dragComponent,
     makeDragRule,
     makeChildren,
-    addOperationRecord,
   }
 }

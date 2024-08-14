@@ -1,8 +1,7 @@
 <script lang="ts" setup name="SizeInput">
 import { AlButton, AlDropdown, AlDropdownItem, AlDropdownMenu, AlInputNumber } from '@ai-lowcode/element-plus'
+import { isEmpty } from '@ai-lowcode/utils'
 import { onMounted, ref, watch } from 'vue'
-
-import { isNull } from '@/utils'
 
 const props = defineProps({
   modelValue: String,
@@ -39,7 +38,7 @@ function parseValue() {
         idx.value = i
       }
     })
-    num.value = isNull(props.modelValue) ? null : Number.parseFloat(String(props.modelValue || 0))
+    num.value = isEmpty(props.modelValue) ? null : Number.parseFloat(String(props.modelValue || 0))
   }
   else {
     idx.value = 0
@@ -48,7 +47,7 @@ function parseValue() {
 }
 
 function submit() {
-  oldValue.value = !isNull(num.value) ? `${num.value}${props.unit[idx.value]}` : ''
+  oldValue.value = !isEmpty(num.value) ? `${num.value}${props.unit[idx.value]}` : ''
   emits('update:modelValue', oldValue.value)
   emits('change', oldValue.value)
 }

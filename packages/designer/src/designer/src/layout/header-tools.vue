@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import {
   AlButton,
-  AlDropdown,
-  AlDropdownItem,
-  AlDropdownMenu,
   AlHeader,
   AlIcon,
   AlPopconfirm,
@@ -13,32 +10,29 @@ import { Icon } from '@iconify/vue'
 
 import { useHeaderTools } from '../hooks/use-header-tools.ts'
 
-import { DeviceEnum, DragForm, Handle } from '@/designer'
+import { DeviceEnum, DragForm, OperationCache } from '@/designer'
 
-defineProps<{
-  workspacePreviewConfig: DragForm
+export interface HeaderToolsProps {
   device: string
   deviceChange: any
-  operation: any
-  handle: Handle
   config: any
+  workspacePreviewConfig: DragForm
   workspaceEditConfig: DragForm
-  formOptions: any
-  unloadStatus: any
   previewDialogConfig: DragForm
-  getJson: any
   getOptionsJson: any
   clearActiveRule: any
   setRule: any
-  addOperationRecord: any
   getOption: any
-}>()
+  operation: OperationCache
+  unloadStatus: any
+  addOperationRecord: any
+}
+
+defineProps<HeaderToolsProps>()
 
 const {
-  triggerHandle,
   handleSave,
   getConfig,
-  t,
   prevOperationRecord,
   nextOperationRecord,
   openPreview,
@@ -50,7 +44,7 @@ const {
 <template>
   <AlHeader class="flex items-center h-[40px] justify-between" height="45">
     <div class="flex items-center">
-      <template v-if="!workspacePreviewConfig.state">
+      <template v-if="!workspacePreviewConfig.isShow">
         <template v-if="getConfig('showDevice') !== false">
           <AlIcon class="cursor-pointer mx-1" :class="device === DeviceEnum.PC ? 'text-blue-600' : ''" @click="deviceChange(DeviceEnum.PC)">
             <Icon icon="grommet-icons:personal-computer" />
@@ -66,14 +60,14 @@ const {
         <div class="flex items-center">
           <AlIcon
             class="cursor-pointer mx-1"
-            :class="{ disabled: !operation.list[operation.idx - 1] }"
+            :class="!operation.list[operation.index - 1] ? 'text-gray-400 cursor-not-allowed' : ''"
             @click="prevOperationRecord"
           >
             <Icon icon="ant-design:caret-left-filled" />
           </AlIcon>
           <AlIcon
             class="cursor-pointer mx-1"
-            :class="{ disabled: !operation.list[operation.idx + 1] }"
+            :class="!operation.list[operation.index + 1] ? 'text-gray-400 cursor-not-allowed' : ''"
             @click="nextOperationRecord"
           >
             <Icon icon="ant-design:caret-right-filled" />
@@ -82,7 +76,7 @@ const {
       </template>
     </div>
     <div class="flex items-center">
-      <template v-if="!workspacePreviewConfig.state">
+      <template v-if="!workspacePreviewConfig.isShow">
         <slot name="handle" />
         <AlButton
           v-if="getConfig('showSaveBtn', false)" type="success" plain size="small"
@@ -93,9 +87,7 @@ const {
           >
             <Icon icon="ant-design:save-outlined" />
           </AlIcon>
-          {{
-            t('props.save')
-          }}
+          保存
         </AlButton>
         <AlButton
           type="primary" plain size="small"
@@ -106,15 +98,13 @@ const {
           >
             <Icon icon="ant-design:eye-filled" />
           </AlIcon>
-          {{
-            t('props.preview')
-          }}
+          预览
         </AlButton>
         <AlPopconfirm
-          :title="t('designer.clearWarn')"
+          title="清空后将不能恢复，确定要清空吗？"
           width="200px"
-          :confirm-button-text="t('props.clear')"
-          :cancel-button-text="t('props.cancel')"
+          confirm-button-text="清空"
+          cancel-button-text="取消"
           @confirm="clearDragRule"
         >
           <template #reference>
@@ -124,32 +114,16 @@ const {
               >
                 <Icon icon="ant-design:delete-filled" />
               </AlIcon>
-              {{ t('props.clear') }}
+              清空
             </AlButton>
           </template>
         </AlPopconfirm>
-        <AlDropdown v-if="handle && handle.length" trigger="click" size="default">
-          <AlButton class="mx-4" plain size="small">
-            <AlIcon>
-              <Icon icon="ant-design:more-outlined" />
-            </AlIcon>
-          </AlButton>
-          <template #dropdown>
-            <AlDropdownMenu>
-              <AlDropdownItem v-for="item in handle" :key="item.label" @click.stop="triggerHandle(item)">
-                <div>{{ item.label }}</div>
-              </AlDropdownItem>
-            </AlDropdownMenu>
-          </template>
-        </AlDropdown>
       </template>
       <div class="line" />
       <div class="text-sm flex items-center">
-        <span>{{
-          t('props.inputData')
-        }}：</span>
+        <span>录入数据：</span>
         <AlSwitch
-          size="small" :model-value="workspacePreviewConfig.state" inline-prompt
+          size="small" :model-value="workspacePreviewConfig.isShow" inline-prompt
           @update:model-value="openInputData"
         />
       </div>

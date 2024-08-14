@@ -1,5 +1,3 @@
-import { localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const label = '文字'
@@ -10,12 +8,12 @@ export default <DragRule>{
   icon: 'icon-span',
   label,
   name,
-  rule({ t }: any) {
+  rule() {
     return {
       type: 'div',
       title: '',
       native: true,
-      children: [t('com.text.name')],
+      children: ['文字'],
     }
   },
   watch: {
@@ -25,11 +23,12 @@ export default <DragRule>{
       }
     },
   },
-  props(_: any, { t }: any) {
-    return localeProps(t, `${name}.props`, [
+  props() {
+    return [
       {
         type: 'switch',
         field: 'formCreateNative',
+        title: '是否显示标题',
         props: {
           activeValue: false,
           inactiveValue: true,
@@ -39,14 +38,16 @@ export default <DragRule>{
       {
         type: 'input',
         field: 'formCreateTitle',
+        title: '标题',
       },
       {
         type: 'input',
         field: 'formCreateChild',
+        title: '内容',
         props: {
           type: 'textarea',
         },
       },
-    ])
+    ]
   },
 }

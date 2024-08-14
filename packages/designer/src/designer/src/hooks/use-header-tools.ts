@@ -1,25 +1,20 @@
 import { deepCopy, hasProperty } from '@ai-lowcode/utils'
 
-import { computed, getCurrentInstance, inject } from 'vue'
+import { getCurrentInstance, inject } from 'vue'
 
+import { HeaderToolsProps } from '../layout/header-tools.vue'
 import { designerForm } from '../utils'
 
 import { DESIGN_INSTANCE, DesignerComponentInternalInstance } from '@/designer'
 import { formTemplate, parseRule } from '@/utils'
 
-import hljs from '@/utils/highlight/highlight.min'
-import javascript from '@/utils/highlight/javascript.min'
-import xml from '@/utils/highlight/xml.min'
-
-hljs.registerLanguage('javascript', javascript)
-hljs.registerLanguage('xml', xml)
-
+/**
+ * 顶部工具 hooks
+ */
 export function useHeaderTools() {
-  const props: any = getCurrentInstance()?.props as any
+  const props: any = getCurrentInstance()?.props as unknown as HeaderToolsProps
 
   const designerInstance = inject<DesignerComponentInternalInstance | null>(DESIGN_INSTANCE, null)
-
-  const t = computed(() => designerInstance?.setupState.t)
 
   function getConfig(key: string, def?: any) {
     return props.config ? (hasProperty(props.config, key) ? props.config[key] : def) : def
@@ -29,27 +24,24 @@ export function useHeaderTools() {
     return designerForm.toJson(parseRule(deepCopy(props.workspaceEditConfig.rule[0].children)))
   }
 
-  function handleSave() {
-    designerInstance?.emit('save', {
-      rule: getJson(),
-      options: designerForm.toJson([props.getOption()]).slice(1).slice(0, -1),
-    })
-  }
-
-  function triggerHandle(item: any) {
-    item.handle()
-  }
-
+  /**
+   * 使用操作记录
+   * @param item
+   */
   function useOperationRecord(item: any) {
     props.workspacePreviewConfig.data = item.formData
     props.setRule(item.rule)
   }
 
-  function openInputData(state: any) {
-    props.workspacePreviewConfig.state = state === undefined ? !props.workspacePreviewConfig.state : !!state
-    if (props.workspacePreviewConfig.state) {
-      props.workspacePreviewConfig.rule = designerForm.parseJson(props.getJson())
-      props.workspacePreviewConfig.options = designerForm.parseJson(props.getOptionsJson())
+  /**
+   * 切换录入数据
+   * @param isShow
+   */
+  function openInputData(isShow: any) {
+    props.workspacePreviewConfig.isShow = isShow === undefined ? !props.workspacePreviewConfig.isShow : !!isShow
+    if (props.workspacePreviewConfig.isShow) {
+      props.workspacePreviewConfig.rule = designerForm.parseJson(getJson())
+      props.workspacePreviewConfig.options = designerForm.parseJson(designerInstance?.setupState.getOptionsJson())
       props.workspacePreviewConfig.options.formData = deepCopy(props.workspacePreviewConfig.data)
       props.workspacePreviewConfig.options.submitBtn.show = false
       props.workspacePreviewConfig.options.resetBtn.show = false
@@ -57,47 +49,64 @@ export function useHeaderTools() {
     }
   }
 
+  /**
+   * 清除规则
+   */
   function clearDragRule() {
     props.setRule([])
     props.addOperationRecord()
     props.unloadStatus = false
   }
 
-  function openPreview() {
-    props.previewDialogConfig.state = true
-    const rule = props.getJson()
-    const options = props.getOptionsJson()
-    props.previewDialogConfig.rule = designerForm.parseJson(rule)
-    props.previewDialogConfig.options = designerForm.parseJson(options)
-    props.previewDialogConfig.html = hljs.highlight(
-      formTemplate(rule, options),
-      { language: 'xml' },
-    ).value
+  /**
+   * 保存
+   */
+  function handleSave() {
+    designerInstance?.emit('save', {
+      rule: getJson(),
+      options: designerForm.toJson([props.getOption()]).slice(1).slice(0, -1),
+    })
   }
 
+  /**
+   * 开启预览弹窗
+   */
+  function openPreview() {
+    props.previewDialogConfig.isShow = true
+    const rule = getJson()
+    const options = designerInstance?.setupState.getOptionsJson()
+    props.previewDialogConfig.rule = designerForm.parseJson(rule)
+    props.previewDialogConfig.options = designerForm.parseJson(options)
+    props.previewDialogConfig.html = formTemplate(rule, options)
+  }
+
+  /**
+   * 下一步操作
+   */
   function nextOperationRecord() {
-    if (!props.operation.list[props.operation.idx + 1]) {
+    if (!props.operation.list[props.operation.index + 1]) {
       return
     }
-    const item = props.operation.list[++props.operation.idx]
+    const item = props.operation.list[++props.operation.index]
     useOperationRecord(item)
     props.clearActiveRule()
   }
 
+  /**
+   * 上一步操作
+   */
   function prevOperationRecord() {
-    if (!props.operation.list[props.operation.idx - 1]) {
+    if (!props.operation.list[props.operation.index - 1]) {
       return
     }
-    const item = props.operation.list[--props.operation.idx]
+    const item = props.operation.list[--props.operation.index]
     useOperationRecord(item)
     props.clearActiveRule()
   }
 
   return {
-    triggerHandle,
     handleSave,
     getConfig,
-    t,
     prevOperationRecord,
     nextOperationRecord,
     openPreview,

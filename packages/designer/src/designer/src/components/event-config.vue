@@ -16,12 +16,11 @@ import {
   AlMessage,
 } from '@ai-lowcode/element-plus'
 import { deepExtend, isFunction, isString, uniqueId } from '@ai-lowcode/utils'
-import { computed, defineEmits, defineProps, inject, onBeforeMount, ref, watch } from 'vue'
+import { computed, defineEmits, defineProps, onBeforeMount, ref, watch } from 'vue'
 
-import { DESIGN_INSTANCE, DesignerComponentInternalInstance } from '@/designer'
+import FnEditor from './utils/fn-editor.vue'
+
 import { getInjectArg } from '@/utils'
-
-// import FnEditor from './FnEditor.vue'
 
 const props = defineProps<{
   modelValue: [object, undefined, null]
@@ -54,11 +53,7 @@ const eventNum = computed(() => {
   return num
 })
 
-const designerInstance = inject<DesignerComponentInternalInstance | null>(DESIGN_INSTANCE, null)
-
-const t = computed(() => designerInstance?.setupState.t)
-
-const fnArgs = computed(() => [getInjectArg(t)])
+const fnArgs = computed(() => [getInjectArg()])
 
 watch(() => visible, (v) => {
   event.value = v ? loadFN(deepExtend({}, props.modelValue || {})) : {}
@@ -208,7 +203,7 @@ function close() {
 }
 function submit() {
   if (activeData.value) {
-    return AlMessage.error(t('event.saveMsg'))
+    return AlMessage.error('请先保存当前正在编辑的事件')
   }
   emits('update:modelValue', parseFN(event.value))
   visible.value = false
@@ -232,11 +227,11 @@ onBeforeMount(() => {
   <div class="_fd-event">
     <AlBadge :value="eventNum" type="warning" :hidden="eventNum < 1">
       <AlButton size="small" @click="visible = true">
-        {{ t('event.title') }}
+        设置事件
       </AlButton>
     </AlBadge>
     <AlDialog
-      v-model="visible" class="_fd-event-dialog" :title="t('event.title')" destroy-on-close
+      v-model="visible" class="_fd-event-dialog" title="设置事件" destroy-on-close
       :close-on-click-modal="false"
       append-to-body
       width="980px"
@@ -251,7 +246,7 @@ onBeforeMount(() => {
               >
                 <span class="el-dropdown-link">
                   <AlButton link type="primary" size="default">
-                    {{ t('event.create') }}<i class="el-icon-arrow-down el-icon--right" />
+                    创建事件<i class="el-icon-arrow-down el-icon--right" />
                   </AlButton>
                 </span>
                 <template #dropdown>
@@ -262,7 +257,7 @@ onBeforeMount(() => {
                       </div>
                     </AlDropdownItem>
                     <AlDropdownItem :divided="eventName.length > 0" @click="cusEvent">
-                      <div>{{ t('props.custom') }}</div>
+                      <div>自定义</div>
                     </AlDropdownItem>
                   </AlDropdownMenu>
                 </template>
@@ -309,7 +304,7 @@ onBeforeMount(() => {
                   <div class="_fd-event-title" @click.stop>
                     <AlInput
                       v-model="cusValue" type="text" size="default"
-                      :placeholder="t('event.placeholder')"
+                      placeholder="请输入事件的名称"
                       @keydown.enter="addCus"
                     />
                     <div>
@@ -325,15 +320,13 @@ onBeforeMount(() => {
         <AlMain>
           <AlContainer class="_fd-event-r">
             <AlHeader v-if="activeData" class="_fd-event-head" height="40px">
-              <div><a target="_blank" href="https://form-create.com/v3/instance">{{ t('form.document') }}</a></div>
+              <div><a target="_blank" href="https://form-create.com/v3/instance">帮助文档</a></div>
               <div>
                 <AlButton size="small" @click="close">
-                  {{ t('props.cancel') }}
+                  取消
                 </AlButton>
                 <AlButton size="small" type="primary" color="#2f73ff" @click="save">
-                  {{
-                    t('props.save')
-                  }}
+                  保存
                 </AlButton>
               </div>
             </AlHeader>
@@ -350,12 +343,10 @@ onBeforeMount(() => {
       <template #footer>
         <div>
           <AlButton size="default" @click="visible = false">
-            {{ t('props.cancel') }}
+            取消
           </AlButton>
           <AlButton type="primary" size="default" color="#2f73ff" @click="submit">
-            {{
-              t('props.ok')
-            }}
+            确定
           </AlButton>
         </div>
       </template>

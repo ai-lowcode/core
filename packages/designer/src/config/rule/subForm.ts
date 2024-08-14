@@ -1,7 +1,5 @@
 import { uniqueId } from '@ai-lowcode/utils'
 
-import { localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const label = '分组'
@@ -28,21 +26,25 @@ export default <DragRule>{
     rule.type = 'subForm'
     delete rule.children
   },
-  rule({ t }: any) {
+  rule() {
     return {
       type: 'fcRow',
       field: uniqueId(),
-      title: t('com.subForm.name'),
+      title: '分组',
       info: '',
       $required: false,
       props: {},
       children: [],
     }
   },
-  props(_: any, { t }: any) {
-    return localeProps(t, `${name}.props`, [{
-      type: 'switch',
-      field: 'disabled',
-    }, { type: 'switch', field: 'syncDisabled', value: true }])
+  props() {
+    return [
+      {
+        type: 'switch',
+        field: 'disabled',
+        title: '是否禁用',
+      },
+      { type: 'switch', field: 'syncDisabled', title: '是否与子表单强制同步禁用状态', value: true },
+    ]
   },
 }

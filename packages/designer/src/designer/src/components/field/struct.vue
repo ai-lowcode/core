@@ -1,14 +1,16 @@
 <script lang="ts" setup name="Struct">
-import { AlBadge, AlButton, AlDialog } from '@ai-lowcode/element-plus'
+import { AlBadge, AlButton, AlDialog, AlMessage } from '@ai-lowcode/element-plus'
 
 import { deepCopy, isEmpty } from '@ai-lowcode/utils'
-import CodeMirror from 'codemirror'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/mode/javascript/javascript'
+// placeholder
+import 'codemirror/addon/display/placeholder.js'
+// language
+import 'codemirror/mode/javascript/javascript.js'
+// theme
+import 'codemirror/theme/dracula.css'
+import Codemirror from 'codemirror-editor-vue3'
 
-import { computed, inject, markRaw, nextTick, ref, watch } from 'vue'
-
-import errorMessage from '../utils/message.js'
+import { computed, ref, watch } from 'vue'
 
 import { deepParseFn, toJSON } from '@/utils'
 
@@ -23,34 +25,17 @@ const props = defineProps<{
 
 const emits = defineEmits(['update:modelValue'])
 const editor = ref<any>(null)
-const editorRef = ref(null)
 const visible = ref(false)
 const oldVal = ref()
-
-const designer = inject<any>('designer', null)
-
-const t = computed(() => designer.setupState.t)
 
 const configured = computed(() => !isEmpty(props.modelValue))
 
 function load() {
-  const val = toJSON(deepParseFn(props.modelValue ? deepCopy(props.modelValue) : props.defaultValue))
-  oldVal.value = val
-  nextTick(() => {
-    editor.value = markRaw(CodeMirror(editorRef.value, {
-      lineNumbers: true,
-      mode: 'javascript',
-      lint: true,
-      line: true,
-      tabSize: 2,
-      lineWrapping: true,
-      value: val || '',
-    }))
-  })
+  oldVal.value = toJSON(deepParseFn(props.modelValue ? deepCopy(props.modelValue) : props.defaultValue))
 }
 
 function onOk() {
-  const str = editor.value.getValue()
+  const str = oldVal.value
   let val
   try {
     // eslint-disable-next-line no-new-func
@@ -58,11 +43,11 @@ function onOk() {
   }
   catch (e) {
     console.error(e)
-    errorMessage(t.value('struct.errorMsg'))
+    AlMessage.error('输入的内容语法错误')
     return false
   }
   if (props.validate && props.validate(val) === false) {
-    errorMessage(t.value('struct.errorMsg'))
+    AlMessage.error('输入的内容语法错误')
     return false
   }
   visible.value = false
@@ -81,25 +66,32 @@ watch(() => props.modelValue, () => {
 </script>
 
 <template>
+  12
   <div class="_fd-struct">
     <AlBadge type="warning" is-dot :hidden="!configured">
       <AlButton size="small" @click="visible = true">
-        {{ title || t('struct.title') }}
+        {{ title || '编辑数据' }}
       </AlButton>
     </AlBadge>
     <AlDialog
-      v-model="visible" class="_fd-struct-con" :title="title || t('struct.title')" destroy-on-close
+      v-model="visible" :title="title || '编辑数据'" destroy-on-close
       :close-on-click-modal="false"
       append-to-body
     >
-      <div v-if="visible" ref="editorRef" />
+      <Codemirror
+        v-if="visible" v-model:value="oldVal" border
+        :height="200" :options="{
+          mode: 'text/javascript',
+          theme: 'dracula', // Theme
+        }"
+      />
       <template #footer>
         <div>
           <AlButton size="default" @click="visible = false">
-            {{ t('props.cancel') }}
+            取消
           </AlButton>
           <AlButton type="primary" size="default" color="#2f73ff" @click="onOk">
-            {{ t('props.ok') }}
+            确定
           </AlButton>
         </div>
       </template>

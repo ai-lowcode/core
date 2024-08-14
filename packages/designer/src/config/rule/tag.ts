@@ -1,5 +1,3 @@
-import { localeOptions, localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const label = '标签'
@@ -12,12 +10,12 @@ export default <DragRule>{
   name,
   mask: true,
   event: ['click', 'close'],
-  rule({ t }: any) {
+  rule() {
     return {
       type: name,
       title: '',
       native: true,
-      children: [t('com.elTag.name')],
+      children: ['标签'],
     }
   },
   watch: {
@@ -27,11 +25,12 @@ export default <DragRule>{
       }
     },
   },
-  props(_: any, { t }: any) {
-    return localeProps(t, `${name}.props`, [
+  props() {
+    return [
       {
         type: 'switch',
         field: 'formCreateNative',
+        title: '是否显示标题',
         props: {
           activeValue: false,
           inactiveValue: true,
@@ -41,14 +40,17 @@ export default <DragRule>{
       {
         type: 'input',
         field: 'formCreateTitle',
+        title: '标题',
       },
       {
         type: 'input',
         field: 'formCreateChild',
+        title: '标签内容',
       },
       {
         type: 'select',
         field: 'type',
+        title: '标签的类型',
         options: [{ label: 'primary', value: 'primary' }, {
           label: 'success',
           value: 'success',
@@ -60,14 +62,20 @@ export default <DragRule>{
       {
         type: 'select',
         field: 'size',
-        options: localeOptions(t, [{ label: 'large', value: 'large' }, {
-          label: 'default',
-          value: 'default',
-        }, { label: 'small', value: 'small' }]),
+        title: '标签的尺寸',
+        options: [
+          { label: '大', value: 'large' },
+          {
+            label: '默认',
+            value: 'default',
+          },
+          { label: '小', value: 'small' },
+        ],
       },
       {
         type: 'select',
         field: 'effect',
+        title: '标签的主题',
         options: [{ label: 'dark', value: 'dark' }, {
           label: 'light',
           value: 'light',
@@ -76,23 +84,28 @@ export default <DragRule>{
       {
         type: 'switch',
         field: 'closable',
+        title: '是否可关闭',
       },
       {
         type: 'switch',
         field: 'disableTransitions',
+        title: '是否禁用渐变动画',
       },
       {
         type: 'switch',
         field: 'hit',
+        title: '是否有边框描边',
       },
       {
         type: 'switch',
         field: 'round',
+        title: '是否为圆形',
       },
       {
         type: 'ColorInput',
         field: 'color',
+        title: '背景色',
       },
-    ])
+    ]
   },
 }

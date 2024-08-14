@@ -1,9 +1,7 @@
 <script lang="ts" setup name="FieldInput">
-import { AlInput } from '@ai-lowcode/element-plus'
+import { AlInput, AlMessage } from '@ai-lowcode/element-plus'
 import { isArray, uniqueId } from '@ai-lowcode/utils'
 import { computed, inject, ref, watch } from 'vue'
-
-import errorMessage from '../utils/message'
 
 const props = defineProps<{
   modelValue: string
@@ -11,7 +9,6 @@ const props = defineProps<{
 
 const emits = defineEmits(['update:modelValue'])
 const designer = inject<any>('designer', null)
-const t = computed(() => designer.setupState.t)
 
 const value = ref(props.modelValue || '')
 const oldValue = ref('')
@@ -63,11 +60,11 @@ function checkValue() {
   const oldField = oldValue.value
   let field = (value.value || '').replace(/\s/g, '')
   if (!field) {
-    errorMessage(t.value('computed.fieldEmpty'))
+    AlMessage.error('字段名称不能为空')
     return oldField
   }
   else if (!/^[a-z]/i.test(field)) {
-    errorMessage(t.value('computed.fieldChar'))
+    AlMessage.error('字段名称必须以字母开头')
     return oldField
   }
   else if (oldField !== field) {
@@ -76,7 +73,7 @@ function checkValue() {
       field = field.replaceAll('.', '_')
     }
     if (getSubFieldChildren().filter((v: any) => v.field === field).length > 0) {
-      errorMessage(t.value('computed.fieldExist', { label: field }))
+      AlMessage.error(`【${field}】字段已存在`)
       return oldField
     }
     if (flag) {

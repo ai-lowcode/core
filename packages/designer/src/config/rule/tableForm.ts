@@ -1,7 +1,5 @@
 import { uniqueId } from '@ai-lowcode/utils'
 
-import { localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const label = '表格表单'
@@ -48,27 +46,29 @@ export default <DragRule>{
     })
     rule.children = []
   },
-  rule({ t }: any) {
+  rule() {
     return {
       type: name,
       field: uniqueId(),
-      title: t('com.tableForm.name'),
+      title: '表格表单',
       info: '',
       props: {},
       children: [],
     }
   },
-  props(_: any, { t }: any) {
-    return localeProps(t, `${name}.props`, [
+  props() {
+    return [
       {
         type: 'switch',
         field: 'disabled',
+        title: '是否禁用',
       },
       {
         type: 'inputNumber',
         field: 'max',
+        title: '最多添加几行，为 0 则不限制',
         props: { min: 0 },
       },
-    ])
+    ]
   },
 }

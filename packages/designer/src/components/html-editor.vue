@@ -1,10 +1,8 @@
 <script lang="ts" setup name="HtmlEditor">
-import { AlButton, AlDialog } from '@ai-lowcode/element-plus'
+import { AlButton, AlDialog, AlMessage } from '@ai-lowcode/element-plus'
 import CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'
-import { computed, inject, markRaw, nextTick, ref, watch } from 'vue'
-
-import errorMessage from '../utils/message'
+import { markRaw, nextTick, ref, watch } from 'vue'
 
 const props = defineProps<{
   modelValue: string
@@ -15,10 +13,6 @@ const props = defineProps<{
 }>()
 
 const emits = defineEmits(['update:modelValue'])
-
-const designer = inject<any>('designer', null)
-
-const t = computed(() => designer.setupState.t)
 
 const editorRef = ref()
 const editor = ref<any>(null)
@@ -55,7 +49,7 @@ function load() {
 function onOk() {
   const str = editor.value.getValue()
   if (validateXML(str)) {
-    errorMessage(t.value('struct.errorMsg'))
+    AlMessage.error('输入的内容语法错误')
     return false
   }
   visible.value = false
@@ -75,20 +69,20 @@ watch(() => visible, () => {
 <template>
   <div class="_fd-html-editor">
     <AlButton style="width: 100%;" @click="visible = true">
-      {{ title || t('struct.title') }}
+      {{ title || '编辑数据' }}
     </AlButton>
     <AlDialog
-      v-model="visible" class="_fd-html-editor-con" :title="title || t('struct.title')"
+      v-model="visible" class="_fd-html-editor-con" :title="title || '编辑数据'"
       :close-on-click-modal="false" append-to-body
     >
       <div v-if="visible" ref="editorRef" />
       <template #footer>
         <div>
           <AlButton size="default" @click="visible = false">
-            {{ t('props.cancel') }}
+            取消
           </AlButton>
           <AlButton type="primary" size="default" @click="onOk">
-            {{ t('props.ok') }}
+            确定
           </AlButton>
         </div>
       </template>

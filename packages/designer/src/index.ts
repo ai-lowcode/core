@@ -2,36 +2,33 @@ import FcEditor from '@form-create/component-wangeditor'
 
 import draggable from 'vuedraggable/src/vuedraggable'
 
-import ColorInput from './components/ColorInput.vue'
-import DragBox from './components/DragBox.vue'
-import DragTool from './components/DragTool.vue'
-import FetchConfig from './components/FetchConfig.vue'
-import FieldInput from './components/FieldInput.vue'
-import FnConfig from './components/FnConfig.vue'
-import FnEditor from './components/FnEditor.vue'
-import HtmlEditor from './components/HtmlEditor.vue'
-import Required from './components/Required.vue'
-import Row from './components/Row.vue'
-import SizeInput from './components/SizeInput.vue'
-import Struct from './components/Struct.vue'
-import TableOptions from './components/TableOptions.vue'
-import TreeOptions from './components/TreeOptions.vue'
-import Validate from './components/Validate.vue'
+import HtmlEditor from './components/html-editor.vue'
+import Row from './components/row.vue'
 import Table from './components/table/Table.vue'
 import TableView from './components/table/TableView.vue'
+import TableOptions from './components/table-options.vue'
 import TableForm from './components/tableForm/TableForm.vue'
 import TableFormColumnView from './components/tableForm/TableFormColumnView.vue'
 import TableFormView from './components/tableForm/TableFormView.vue'
-import { AlDesigner } from './designer'
+import {
+  AlDesigner,
+  AlDragBox,
+  AlDragTool,
+  AlFetchConfig,
+  AlFieldInput,
+  AlFnConfig,
+  AlFnEditor,
+  AlRequired,
+  AlSizeInput,
+  AlStruct,
+  AlTreeOptions,
+  AlValidate,
+} from './designer'
 import './style/icon.css'
-import './style/index.css'
 import './style/tailwind.css'
-import { compareVersion, makeOptionsRule } from './utils'
+import { makeOptionsRule } from './utils'
 
-import './utils/highlight/style.css'
-
-import globalUseLocale, { t } from './utils/locale'
-
+import ColorInput from '@/components/color-input.vue'
 import { designerForm, viewForm } from '@/designer'
 
 function addComponent(id: any, component: any, previewComponent?: any) {
@@ -40,21 +37,21 @@ function addComponent(id: any, component: any, previewComponent?: any) {
 }
 
 designerForm.component('draggable', draggable)
-designerForm.component('DragTool', DragTool)
-designerForm.component('DragBox', DragBox)
-designerForm.component('Validate', Validate)
-designerForm.component('Struct', Struct)
+designerForm.component('DragTool', AlDragTool)
+designerForm.component('DragBox', AlDragBox)
+designerForm.component('Validate', AlValidate)
+designerForm.component('Struct', AlStruct)
 designerForm.component('HtmlEditor', HtmlEditor)
-designerForm.component('FetchConfig', FetchConfig)
-designerForm.component('FnEditor', FnEditor)
-designerForm.component('Required', Required)
+designerForm.component('FetchConfig', AlFetchConfig)
+designerForm.component('FnEditor', AlFnEditor)
+designerForm.component('Required', AlRequired)
 designerForm.component('TableOptions', TableOptions)
-designerForm.component('TreeOptions', TreeOptions)
+designerForm.component('TreeOptions', AlTreeOptions)
 designerForm.component('TableFormColumn', TableFormColumnView)
 designerForm.component('ColorInput', ColorInput)
-designerForm.component('SizeInput', SizeInput)
-designerForm.component('FieldInput', FieldInput)
-designerForm.component('FnConfig', FnConfig)
+designerForm.component('SizeInput', AlSizeInput)
+designerForm.component('FieldInput', AlFieldInput)
+designerForm.component('FnConfig', AlFnConfig)
 designerForm.component('FcRow', Row)
 addComponent('FcEditor', FcEditor)
 addComponent('TableForm', TableForm, TableFormView)
@@ -69,11 +66,5 @@ AlDesigner.makeOptionsRule = makeOptionsRule
 AlDesigner.formCreate = viewForm
 AlDesigner.designerForm = designerForm
 AlDesigner.component = addComponent
-AlDesigner.useLocale = globalUseLocale
-AlDesigner.t = t
-
-if (compareVersion('3.1.27', viewForm.version) === 1) {
-  console.warn('Please use FormCreate version 3.1.27 or greater, see https://github.com/xaboy/form-create.')
-}
 
 export { viewForm, designerForm, install, AlDesigner }

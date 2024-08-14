@@ -1,7 +1,5 @@
 import { uniqueId } from '@ai-lowcode/utils'
 
-import { localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const label = '富文本框'
@@ -14,20 +12,21 @@ export default <DragRule>{
   name,
   event: ['change'],
   validate: ['string'],
-  rule({ t }: any) {
+  rule() {
     return {
       type: name,
       field: uniqueId(),
-      title: t('com.fcEditor.name'),
+      title: '富文本框',
       info: '',
       $required: false,
       props: {},
     }
   },
-  props(_: any, { t }: any) {
-    return localeProps(t, `${name}.props`, [{
+  props() {
+    return [{
       type: 'switch',
       field: 'disabled',
-    }])
+      title: '是否禁用',
+    }]
   },
 }

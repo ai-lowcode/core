@@ -1,12 +1,12 @@
 <script lang="ts" setup name="FetchConfig">
-import { AlBadge, AlButton, AlContainer, AlDialog, AlTabPane, AlTabs } from '@ai-lowcode/element-plus'
+import { AlBadge, AlButton, AlContainer, AlDialog, AlMessage, AlTabPane, AlTabs } from '@ai-lowcode/element-plus'
 import { deepCopy, isEmpty } from '@ai-lowcode/utils'
 
-import { computed, inject, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
-import errorMessage from '../utils/message'
+import FnEditor from './fn-editor.vue'
 
-// import FnEditor from './FnEditor.vue'
+import { designerForm } from '@/designer'
 
 const props = defineProps<{
   modelValue: [object, string]
@@ -14,8 +14,8 @@ const props = defineProps<{
 }>()
 
 const emits = defineEmits(['update:modelValue'])
-const designer = inject<any>('designer', null)
-const t = computed(() => designer.setupState.t)
+
+const DragFormView = designerForm.$form()
 
 const parseRef = ref()
 const errorRef = ref()
@@ -35,20 +35,20 @@ const form = ref<any>({
   },
 })
 
-function makeRule(t: any) {
+function makeRule() {
   return [
     {
       type: 'input',
       field: 'action',
-      title: t('fetch.action'),
+      title: '请求链接',
       value: '',
       props: { size: 'default' },
-      validate: [{ required: true, message: t('fetch.actionRequired'), trigger: 'blur' }],
+      validate: [{ required: true, message: '请输入正确的链接', trigger: 'blur' }],
     },
     {
       type: 'radio',
       field: 'method',
-      title: t('fetch.method'),
+      title: '请求方式',
       value: 'GET',
       props: {
         size: 'default',
@@ -62,10 +62,10 @@ function makeRule(t: any) {
     {
       type: 'TableOptions',
       field: 'headers',
-      title: t('fetch.headers'),
+      title: '请求头部',
       value: {},
       props: {
-        column: [{ label: t('props.key'), key: 'label' }, { label: t('props.value'), key: 'value' }],
+        column: [{ label: '键名', key: 'label' }, { label: '值', key: 'value' }],
         valueType: 'object',
         size: 'default',
       },
@@ -73,10 +73,10 @@ function makeRule(t: any) {
     {
       type: 'TableOptions',
       field: 'data',
-      title: t('fetch.data'),
+      title: '附带数据',
       value: {},
       props: {
-        column: [{ label: t('props.key'), key: 'label' }, { label: t('props.value'), key: 'value' }],
+        column: [{ label: '键名', key: 'label' }, { label: '值', key: 'value' }],
         valueType: 'object',
         size: 'default',
       },
@@ -86,7 +86,7 @@ function makeRule(t: any) {
 
 function active() {
   const formData = value.value
-  form.value.rule = formData.type === 'static' ? [] : makeRule(t.value)
+  form.value.rule = formData.type === 'static' ? [] : makeRule()
   form.value.formData = { ...formData }
   form.value.label = formData.label
   form.value.type = formData.type
@@ -110,7 +110,7 @@ function save() {
     visible.value = false
   }).catch((err: any) => {
     console.error(err)
-    errorMessage(err[Object.keys(err)[0]][0].message)
+    AlMessage.error(err[Object.keys(err)[0]][0].message)
   })
 }
 
@@ -131,31 +131,31 @@ onMounted(() => {
   <div class="_fd-gfc">
     <AlBadge type="warning" is-dot :hidden="!configured">
       <AlButton size="small" @click="visible = true">
-        {{ t('struct.title') }}
+        编辑数据
       </AlButton>
     </AlBadge>
     <AlDialog
-      v-model="visible" class="_fd-gfc-dialog" :title="t('fetch.optionsType.fetch')" destroy-on-close
+      v-model="visible" class="_fd-gfc-dialog" title="远程数据" destroy-on-close
       :close-on-click-modal="false"
       append-to-body
       width="980px"
     >
       <AlContainer class="_fd-gfc-con" style="height: 450px;">
         <AlTabs model-value="first" class="_fc-tabs" style="width: 100%">
-          <AlTabPane :label="t('fetch.config')" name="first">
-            <DragForm
+          <AlTabPane label="请求配置" name="first">
+            <DragFormView
               v-model:api="form.api" v-model="form.formData" :rule="form.rule"
               :option="form.options"
             />
           </AlTabPane>
-          <AlTabPane lazy :label="t('fetch.parse')" name="second">
+          <AlTabPane lazy label="数据处理" name="second">
             <FnEditor
               ref="parseRef" v-model="form.parse" style="height: 415px;"
               name="parse"
-              :args="[{ name: 'res', info: t('fetch.response') }]"
+              :args="[{ name: 'res', info: '接口返回的数据' }]"
             />
           </AlTabPane>
-          <AlTabPane lazy :label="t('fetch.onError')" name="third">
+          <AlTabPane lazy label="错误处理" name="third">
             <FnEditor
               ref="errorRef" v-model="form.onError" style="height: 415px;"
               name="onError"
@@ -167,12 +167,10 @@ onMounted(() => {
       <template #footer>
         <div>
           <AlButton size="default" @click="visible = false">
-            {{ t('props.cancel') }}
+            取消
           </AlButton>
           <AlButton type="primary" size="default" color="#2f73ff" @click="save">
-            {{
-              t('props.ok')
-            }}
+            确定
           </AlButton>
         </div>
       </template>

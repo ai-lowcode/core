@@ -1,7 +1,5 @@
 import { uniqueId } from '@ai-lowcode/utils'
 
-import { localeOptions, localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const label = '日期'
@@ -13,60 +11,97 @@ export default <DragRule>{
   label,
   name,
   event: ['change', 'blur', 'focus', 'calendarChange', 'panelChange', 'visibleChange'],
-  rule({ t }: any) {
+  rule() {
     return {
       type: name,
       field: uniqueId(),
-      title: t('com.datePicker.name'),
+      title: '日期',
       info: '',
       $required: false,
       props: {},
     }
   },
-  props(_: any, { t }: any) {
-    return localeProps(t, `${name}.props`, [{ type: 'switch', field: 'readonly' }, {
-      type: 'switch',
-      field: 'disabled',
-    }, {
-      type: 'select',
-      field: 'type',
-      options: localeOptions(t, [{ label: 'year', value: 'year' }, { label: 'month', value: 'month' }, {
-        label: 'date',
-        value: 'date',
-      }, { label: 'dates', value: 'dates' }, { label: 'week', value: 'week' }, {
-        label: 'datetime',
-        value: 'datetime',
-      }, { label: 'datetimerange', value: 'datetimerange' }, {
-        label: 'daterange',
-        value: 'daterange',
-      }, { label: 'monthrange', value: 'monthrange' }]),
-    }, {
-      type: 'switch',
-      field: 'clearable',
-      value: true,
-    }, {
-      type: 'Struct',
-      field: 'pickerOptions',
-      props: { defaultValue: {} },
-    }, { type: 'switch', field: 'editable', value: true }, {
-      type: 'input',
-      field: 'placeholder',
-    }, {
-      type: 'input',
-      field: 'startPlaceholder',
-    }, { type: 'input', field: 'endPlaceholder' }, {
-      type: 'input',
-      field: 'format',
-    }, {
-      type: 'select',
-      field: 'align',
-      options: localeOptions(t, [{ label: 'left', value: 'left' }, { label: 'center', value: 'center' }, {
-        label: 'right',
-        value: 'right',
-      }]),
-    }, { type: 'input', field: 'rangeSeparator' }, {
-      type: 'switch',
-      field: 'unlinkPanels',
-    }])
+  props() {
+    return [
+      { type: 'switch', field: 'readonly', title: '完全只读' },
+      {
+        type: 'switch',
+        field: 'disabled',
+        title: '禁用',
+      },
+      {
+        type: 'select',
+        field: 'type',
+        title: '显示类型',
+        options: [
+          { label: '年份', value: 'year' },
+          { label: '月份', value: 'month' },
+          {
+            label: '日期',
+            value: 'date',
+          },
+          { label: '日期多选', value: 'dates' },
+          { label: '一周', value: 'week' },
+          {
+            label: '日期时间',
+            value: 'datetime',
+          },
+          { label: '日期时间区间', value: 'datetimerange' },
+          {
+            label: '日期区间',
+            value: 'daterange',
+          },
+          { label: '月份区间', value: 'monthrange' },
+        ],
+      },
+      {
+        type: 'switch',
+        field: 'clearable',
+        title: '是否显示清除按钮',
+        value: true,
+      },
+      {
+        type: 'Struct',
+        field: 'pickerOptions',
+        title: '当前时间日期选择器特有的选项',
+        props: { defaultValue: {} },
+      },
+      { type: 'switch', field: 'editable', title: '文本框可输入', value: true },
+      {
+        type: 'input',
+        field: 'placeholder',
+        title: '非范围选择时的占位内容',
+      },
+      {
+        type: 'input',
+        field: 'startPlaceholder',
+        title: '范围选择时开始日期的占位内容',
+      },
+      { type: 'input', field: 'endPlaceholder', title: '范围选择时结束日期的占位内容' },
+      {
+        type: 'input',
+        field: 'format',
+        title: '显示在输入框中的格式',
+      },
+      {
+        type: 'select',
+        field: 'align',
+        title: '对齐方式',
+        options: [
+          { label: '左对齐', value: 'left' },
+          { label: '居中', value: 'center' },
+          {
+            label: '右对齐',
+            value: 'right',
+          },
+        ],
+      },
+      { type: 'input', field: 'rangeSeparator', title: '选择范围时的分隔符' },
+      {
+        type: 'switch',
+        field: 'unlinkPanels',
+        title: '在范围选择器里取消两个日期面板之间的联动',
+      },
+    ]
   },
 }

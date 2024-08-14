@@ -1,7 +1,7 @@
 <script lang="ts" setup name="Required">
 import { AlInput, AlSwitch } from '@ai-lowcode/element-plus'
 import { isString } from '@ai-lowcode/utils'
-import { computed, inject, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps<{
   modelValue: string
@@ -10,10 +10,6 @@ const props = defineProps<{
 const emits = defineEmits(['update:modelValue'])
 
 const flag = isString(props.modelValue)
-
-const designer = inject<any>('designer', null)
-
-const t = computed(() => designer.setupState.t)
 
 const required = ref(props.modelValue === undefined ? false : (flag ? true : !!props.modelValue))
 
@@ -46,7 +42,7 @@ function update() {
 <template>
   <div class="_fd-required">
     <AlSwitch v-model="required" />
-    <AlInput v-if="required" v-model="requiredMsg" :placeholder="t('validate.requiredPlaceholder')" />
+    <AlInput v-if="required" v-model="requiredMsg" placeholder="请输入提示语" />
   </div>
 </template>
 

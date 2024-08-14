@@ -1,5 +1,3 @@
-import { localeOptions, localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const label = '卡片'
@@ -13,11 +11,11 @@ export default <DragRule>{
   drag: true,
   inside: false,
   mask: false,
-  rule({ t }: any) {
+  rule() {
     return {
       type: name,
       props: {
-        header: t('com.elCard.props.header'),
+        header: '标题',
       },
       style: {
         width: '100%',
@@ -25,18 +23,27 @@ export default <DragRule>{
       children: [],
     }
   },
-  props(_: any, { t }: any) {
-    return localeProps(t, `${name}.props`, [{
-      type: 'input',
-      field: 'header',
-    }, {
-      type: 'select',
-      field: 'shadow',
-      value: 'always',
-      options: localeOptions(t, [{ label: 'always', value: 'always' }, { label: 'never', value: 'never' }, {
-        label: 'hover',
-        value: 'hover',
-      }]),
-    }])
+  props() {
+    return [
+      {
+        type: 'input',
+        field: 'header',
+        title: '标题',
+      },
+      {
+        type: 'select',
+        field: 'shadow',
+        title: '阴影显示时机',
+        value: 'always',
+        options: [
+          { label: '常显', value: 'always' },
+          { label: '不显示', value: 'never' },
+          {
+            label: '悬浮',
+            value: 'hover',
+          },
+        ],
+      },
+    ]
   },
 }

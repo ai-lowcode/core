@@ -1,5 +1,7 @@
 import * as formCreate from '@form-create/element-ui'
-import { ComponentInternalInstance } from 'vue'
+import { ComponentInternalInstance, Ref } from 'vue'
+
+import { DeviceEnum, PreviewStatusEnum } from '@/designer'
 
 export interface DesignerComponentInternalInstance extends ComponentInternalInstance {
   setupState?: any
@@ -7,10 +9,20 @@ export interface DesignerComponentInternalInstance extends ComponentInternalInst
 
 export type Rule = formCreate.Rule
 export type Api = formCreate.Api
-export type Options = formCreate.Options
+export interface Options extends formCreate.Options {
+  _resetBtn?: any
+  _submitBtn?: any
+  _event?: any
+}
+
+export interface OptionBtnConfig {
+  click?: Function
+  innerText?: string
+  show?: boolean
+}
 
 // 定义函数返回规则或者通过rule字段返回规则
-export type extendRule = ((arg: { t: t }) => Rule[]) | { rule: (arg: { t: t }) => Rule[], append?: boolean }
+export type extendRule = (() => Rule[]) | { rule: () => Rule[], append?: boolean }
 
 // 设计器的props.config配置
 export interface DesignerConfig {
@@ -39,37 +51,38 @@ export interface DesignerConfig {
   // 表单的渲染规则，可以覆盖默认规则.append为true时追加到默认规则后面
   componentRule?: {
     // id组件拖拽组件规则的id，rule为当前组件的生成规则
-    [id: string]: (rule: Rule, arg: { t: t }) => Rule[] | {
-      rule: (rule: Rule, arg: { t: t }) => Rule[]
+    [id: string]: (rule: Rule,) => Rule[] | {
+      rule: (rule: Rule,) => Rule[]
       append?: boolean
     }
   }
+  showControl?: any
+  appendConfigData?: any
 }
 
-// 多语言读取函数
-type t = (name, ...args) => string
 // 拖拽组件描述规则结构
 export interface DragRule {
   // 组件id，不能重复
   name: string
   // 组件的名称
-  label: string
+  label?: string
   // 组件的图标
-  icon: string
+  icon?: string
   // 插入的分类
   menu?: 'main' | 'aide' | 'layout' | string
   // 如果是子表单组件，需要定义`value`的类型
   subForm?: 'object' | 'array'
   // 组件，不建议使用
-  component?: Component
+  component?: any
   only?: any
   tool?: any
+  slot?: any
 
   // 组件的生成规则
-  rule: (arg: { t: t }) => Rule
+  rule: () => Rule
 
   // 组件属性配置的规则
-  props: (rule: Rule, arg: { t: t, api: Api }) => Rule[]
+  props: (rule: Rule, arg: { api: Api }) => Rule[]
 
   // 导出规则时通过这个方法转成最终规则
   parseRule?: (rule: Rule) => void
@@ -113,6 +126,7 @@ export interface MenuItem {
 export interface Menu {
   // 菜单名
   title: string
+  hidden?: boolean
   // 菜单id
   name: string
   // 拖拽组件列表
@@ -129,13 +143,86 @@ export type Handle = Array<{
 }>
 
 export interface DragForm {
-  state: boolean
-  isShow: boolean
-  rule?: Rule
-  api: Api
-  value: Record<string, any>
-  key: string
-  config?: Record<string, any>
-  data: any
+  /**
+   * 表单生成规则
+   */
+  rule?: Rule | Array<Rule>
+  /**
+   * 实例对象
+   */
+  api?: Api
+  /**
+   * 表单数据
+   */
+  value?: object
+  /**
+   * 组件参数配置
+   */
   options?: Options
+  html?: string
+  isShow?: boolean
+  key?: string
+  config?: Record<string, any>
+  data?: any
+}
+
+export interface OperationCache {
+  /**
+   * 当前操作索引
+   */
+  index: number
+  /**
+   * 缓存操作 rule 列表
+   */
+  list: Array<any>
+}
+
+export interface OutLineTree {
+  id: string
+  rule: Rule
+  children: Array<OutLineTree>
+}
+
+export interface UseDesignerType {
+  previewDialogConfig: Ref<DragForm>
+  device: Ref<DeviceEnum>
+  previewStatus: Ref<PreviewStatusEnum>
+  settingFormConfig: Ref<DragForm>
+  settingPanelRef: any
+  settingBaseConfig: Ref<DragForm>
+  eventShow: Ref<boolean>
+  settingPropsConfig: Ref<DragForm>
+  workspacePreviewConfig: Ref<DragForm>
+  settingValidateConfig: Ref<DragForm>
+  workspaceEditConfig: Ref<DragForm>
+  settingCustomConfig: Ref<DragForm>
+  activeRule: Ref<Rule>
+  configRef: Ref<DesignerConfig>
+  dragHeight: any
+  selectComponent: any
+  designerInstance: DesignerComponentInternalInstance | null
+  changeSelectComponent: (value: string) => void
+  toolActive: Function
+  clearActiveRule: Function
+  handleChange: Function
+  watchActiveRule: Function
+  getOption: Function
+  getOptionsJson: Function
+  unWatchActiveRuleFunc: Function
+  setWorkspaceOption: Function
+  deviceChange: Function
+}
+
+export interface UseRuleType {
+  unloadStatus: Ref<boolean>
+  operation: Ref<OperationCache>
+  outlineTree: Ref<Array<OutLineTree>>
+  dragRuleList: Ref<Record<string, DragRule>>
+  workspaceRule: Ref<Array<Rule>>
+  addOperationRecord: Function
+  clearActiveRule: Function
+  setRule: Function
+  dragComponent: Function
+  makeDragRule: Function
+  makeChildren: Function
 }

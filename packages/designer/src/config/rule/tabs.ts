@@ -1,5 +1,3 @@
-import { localeOptions, localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const label = '标签页'
@@ -20,21 +18,32 @@ export default <DragRule>{
       children: [],
     }
   },
-  props(_: any, { t }: any) {
-    return localeProps(t, `${name}.props`, [{
-      type: 'select',
-      field: 'type',
-      options: [{
-        label: 'card',
-        value: 'card',
-      }, { label: 'border-card', value: 'border-card' }],
-    }, { type: 'switch', field: 'closable' }, {
-      type: 'select',
-      field: 'tabPosition',
-      options: localeOptions(t, [{ label: 'top', value: 'top' }, { label: 'right', value: 'right' }, {
-        label: 'left',
-        value: 'left',
-      }]),
-    }, { type: 'switch', field: 'stretch' }])
+  props() {
+    return [
+      {
+        type: 'select',
+        field: 'type',
+        title: '风格类型',
+        options: [{
+          label: 'card',
+          value: 'card',
+        }, { label: 'border-card', value: 'border-card' }],
+      },
+      { type: 'switch', field: 'closable', title: '标签是否可关闭' },
+      {
+        type: 'select',
+        field: 'tabPosition',
+        title: '选项卡所在位置',
+        options: [
+          { label: '顶部', value: 'top' },
+          { label: '右对齐', value: 'right' },
+          {
+            label: '左对齐',
+            value: 'left',
+          },
+        ],
+      },
+      { type: 'switch', field: 'stretch', title: '标签的宽度是否自撑开' },
+    ]
   },
 }

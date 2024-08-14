@@ -1,5 +1,3 @@
-import { localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const label = '面板'
@@ -13,26 +11,33 @@ export default <DragRule>{
   dragBtn: false,
   inside: true,
   mask: false,
-  rule({ t }: any) {
+  rule() {
     return {
       type: name,
       props: {
-        title: t('com.elCollapseItem.name'),
+        title: '面板',
       },
       style: {},
       children: [],
     }
   },
-  props(_: any, { t }: any) {
-    return localeProps(t, `${name}.props`, [{
-      type: 'input',
-      field: 'title',
-    }, {
-      type: 'input',
-      field: 'name',
-    }, {
-      type: 'switch',
-      field: 'disabled',
-    }])
+  props() {
+    return [
+      {
+        type: 'input',
+        field: 'title',
+        title: '面板标题',
+      },
+      {
+        type: 'input',
+        field: 'name',
+        title: '唯一标志符',
+      },
+      {
+        type: 'switch',
+        field: 'disabled',
+        title: '是否禁用',
+      },
+    ]
   },
 }

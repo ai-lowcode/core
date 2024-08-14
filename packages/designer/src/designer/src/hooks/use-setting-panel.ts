@@ -2,17 +2,20 @@ import { uniqueId } from '@ai-lowcode/utils'
 
 import { computed, getCurrentInstance, inject, ref } from 'vue'
 
-import { DESIGN_INSTANCE, DesignerComponentInternalInstance, PreviewStatusEnum } from '@/designer'
+import { SettingPanelProps } from '../layout/setting-panel.vue'
+
+import { DESIGN_INSTANCE, DesignerComponentInternalInstance, SettingTabEnum } from '@/designer'
 import { propFieldDeepFn } from '@/utils'
 
+/**
+ * 设置面板 hooks
+ */
 export function useSettingPanel() {
-  const props: any = getCurrentInstance()?.props as any
+  const props: any = getCurrentInstance()?.props as unknown as SettingPanelProps
 
-  const activeTab = ref<PreviewStatusEnum>(PreviewStatusEnum.FORM)
+  const activeTab = ref<SettingTabEnum>(SettingTabEnum.FORM)
 
   const designerInstance = inject<DesignerComponentInternalInstance | null>(DESIGN_INSTANCE, null)
-
-  const t = computed(() => designerInstance?.setupState.t)
 
   function customFormChange(field: string, value: string) {
     if (props.settingCustomConfig.config) {
@@ -20,7 +23,7 @@ export function useSettingPanel() {
     }
   }
 
-  function setActiveTab(type: PreviewStatusEnum) {
+  function setActiveTab(type: SettingTabEnum) {
     activeTab.value = type
   }
 
@@ -132,7 +135,7 @@ export function useSettingPanel() {
     if (!field.includes('>')) {
       field = `form>${field}`
     }
-    let source = props.formOptions
+    let source = props.workspaceEditConfig.options
     const split = field.split('>')
     const lastField = split.pop()
     split.forEach((k: any) => {
@@ -147,7 +150,6 @@ export function useSettingPanel() {
   }
 
   return {
-    t,
     formConfigApi,
     baseFormApi,
     propsFormApi,

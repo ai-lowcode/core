@@ -1,5 +1,3 @@
-import { localeProps } from '../../utils'
-
 import { DragRule } from '@/designer'
 
 const label = 'HTML'
@@ -30,11 +28,12 @@ export default <DragRule>{
       }
     },
   },
-  props(_: any, { t }: any) {
-    return localeProps(t, `${name}.props`, [
+  props() {
+    return [
       {
         type: 'switch',
         field: 'formCreateNative',
+        title: '是否显示标题',
         props: {
           activeValue: false,
           inactiveValue: true,
@@ -44,11 +43,13 @@ export default <DragRule>{
       {
         type: 'input',
         field: 'formCreateTitle',
+        title: '标题',
       },
       {
         type: 'HtmlEditor',
         field: 'formCreateChild',
+        title: '内容',
       },
-    ])
+    ]
   },
 }

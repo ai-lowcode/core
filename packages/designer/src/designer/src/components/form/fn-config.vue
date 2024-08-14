@@ -9,14 +9,13 @@ import {
   AlMain,
   AlMenu,
   AlMenuItem,
+  AlMessage,
   AlText,
 } from '@ai-lowcode/element-plus'
 import { deepExtend, uniqueId } from '@ai-lowcode/utils'
-import { computed, inject, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 
-import errorMessage from '../utils/message'
-
-// import FnEditor from './FnEditor.vue'
+import FnEditor from '../utils/fn-editor.vue'
 
 const props = defineProps<{
   modelValue: [object, undefined, null]
@@ -25,10 +24,6 @@ const props = defineProps<{
 const emits = defineEmits(['update:modelValue'])
 const PREFIX = '[[FORM-CREATE-PREFIX-'
 const SUFFIX = '-FORM-CREATE-SUFFIX]]'
-
-const designer = inject<any>('designer', null)
-
-const t = computed(() => designer.setupState.t)
 
 const visible = ref(false)
 const activeData = ref<any>(null)
@@ -106,7 +101,7 @@ function close() {
 
 function submit() {
   if (activeData.value) {
-    return errorMessage(t.value('event.saveMsg'))
+    return AlMessage.error('请先保存当前正在编辑的事件')
   }
   emits('update:modelValue', parseFN(event.value))
   visible.value = false
@@ -118,11 +113,11 @@ function submit() {
   <div class="_fd-fn-list">
     <AlBadge :value="eventNum" type="warning" :hidden="eventNum < 1">
       <AlButton size="small" @click="visible = true">
-        {{ t('event.title') }}
+        设置事件
       </AlButton>
     </AlBadge>
     <AlDialog
-      v-model="visible" class="_fd-fn-list-dialog" :title="t('event.title')" destroy-on-close
+      v-model="visible" class="_fd-fn-list-dialog" title="设置事件" destroy-on-close
       :close-on-click-modal="false"
       append-to-body
       width="980px"
@@ -132,7 +127,7 @@ function submit() {
           <AlContainer class="_fd-fn-list-l">
             <AlHeader class="_fd-fn-list-head" height="40px">
               <AlText type="primary" size="default">
-                {{ t('event.list') }}
+                事件列表
               </AlText>
             </AlHeader>
             <AlMain>
@@ -155,12 +150,10 @@ function submit() {
           <AlContainer class="_fd-fn-list-r">
             <AlHeader v-if="activeData" class="_fd-fn-list-head" height="40px">
               <AlButton size="small" @click="close">
-                {{ t('props.cancel') }}
+                取消
               </AlButton>
               <AlButton size="small" type="primary" color="#2f73ff" @click="save">
-                {{
-                  t('props.save')
-                }}
+                保存
               </AlButton>
             </AlHeader>
             <AlMain v-if="activeData">
@@ -175,12 +168,10 @@ function submit() {
       <template #footer>
         <div>
           <AlButton size="default" @click="visible = false">
-            {{ t('props.cancel') }}
+            取消
           </AlButton>
           <AlButton type="primary" size="default" color="#2f73ff" @click="submit">
-            {{
-              t('props.ok')
-            }}
+            确定
           </AlButton>
         </div>
       </template>

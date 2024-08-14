@@ -1,7 +1,7 @@
 <script lang="ts" setup name="TableOptions">
 import { AlButton, AlInput, AlTable, AlTableColumn } from '@ai-lowcode/element-plus'
 import { deepCopy } from '@ai-lowcode/utils'
-import { computed, inject, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps<{
   modelValue: [Array<any>, object]
@@ -14,10 +14,6 @@ const props = defineProps<{
 const emits = defineEmits(['update:modelValue', 'change'])
 
 const value = ref(tidyModelValue())
-
-const designer = inject<any>('designer', null)
-
-const t = computed(() => designer.setupState.t)
 
 watch(() => props.modelValue, () => {
   value.value = tidyModelValue()
@@ -118,7 +114,7 @@ function del(idx: any) {
           </template>
         </AlTableColumn>
       </template>
-      <AlTableColumn width="70" align="center" fixed="right" :label="t('tableOptions.handle')">
+      <AlTableColumn width="70" align="center" fixed="right" label="操作">
         <template #default="scope">
           <i class="fc-icon icon-delete" @click="del(scope.$index)" />
         </template>
@@ -126,7 +122,7 @@ function del(idx: any) {
     </AlTable>
     <div class="_td-table-opt-handle">
       <AlButton v-if="!max || max > value.length" link type="primary" @click="add">
-        <i class="fc-icon icon-add" /> {{ t('tableOptions.add') }}
+        <i class="fc-icon icon-add" /> 添加
       </AlButton>
     </div>
   </div>

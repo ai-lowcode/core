@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AlAside, AlContainer, AlDivider, AlInput, AlMain, AlTag } from '@ai-lowcode/element-plus'
+import { AlAside, AlContainer, AlDivider, AlInput, AlMain, AlTabPane, AlTabs, AlTag } from '@ai-lowcode/element-plus'
 
 import EventConfig from '../components/event-config.vue'
 import { useSettingPanel } from '../hooks/use-setting-panel.ts'
@@ -49,39 +49,14 @@ defineExpose({
 </script>
 
 <template>
-  <AlAside v-if="!config || config.showConfig !== false" class="_fc-r" width="320px">
+  <AlAside v-if="!config || config.showConfig !== false" class="px-4" width="320px">
     <AlContainer class="flex flex-col">
-      <div class="h-[40px] w-full flex rounded-md overflow-hidden">
-        <div
-          v-if="!!activeRule || settingCustomConfig.isShow || (config && config.showFormConfig === false)"
-          class="flex-1 flex justify-center items-center text-sm duration-300 cursor-pointer"
-          :class="activeTab === SettingTabEnum.PROPS ? 'bg-blue-600 text-white' : ''"
-          @click="activeTab = SettingTabEnum.PROPS"
-        >
-          组件配置
-        </div>
-        <div
-          v-if="!config || config.showFormConfig !== false"
-          class="flex-1 flex justify-center items-center text-sm duration-300 cursor-pointer"
-          :class="activeTab === SettingTabEnum.FORM && (!!activeRule || settingCustomConfig.isShow) ? 'bg-blue-600 text-white' : ''"
-          @click="activeTab = SettingTabEnum.FORM"
-        >
-          表单配置
-        </div>
-      </div>
-      <div>
-        <AlMain
-          v-show="activeTab === SettingTabEnum.FORM" v-if="!config || config.showFormConfig"
-        >
-          <!-- 表单配置项 -->
-          <DragFormView
-            v-model:api="formConfigApi" :rule="settingFormConfig.rule"
-            :option="settingFormConfig.options" :model-value="settingFormConfig.value"
-            @change="formOptChange"
-          />
-        </AlMain>
-        <AlMain
-          v-show="activeTab === SettingTabEnum.PROPS" :key="activeRule ? activeRule._fc_id : (settingCustomConfig.config ? settingCustomConfig.key : '')"
+      <AlTabs
+        v-model="activeTab"
+        type="card"
+      >
+        <AlTabPane
+          v-if="!!activeRule || settingCustomConfig.isShow || (config && config.showFormConfig === false)" label="组件配置" name="props"
         >
           <!-- 组件配置 -->
           <template
@@ -174,7 +149,41 @@ defineExpose({
               @change="validateChange"
             />
           </template>
-        </AlMain>
+        </AlTabPane>
+        <AlTabPane label="表单配置" name="form">
+          <!-- 表单配置项 -->
+          <DragFormView
+            v-model:api="formConfigApi" :rule="settingFormConfig.rule"
+            :option="settingFormConfig.options" :model-value="settingFormConfig.value"
+            @change="formOptChange"
+          />
+        </AlTabPane>
+      </AlTabs>
+      <!--      <div class="h-[40px] w-full flex rounded-md overflow-hidden"> -->
+      <!--        <div -->
+      <!--          v-if="!!activeRule || settingCustomConfig.isShow || (config && config.showFormConfig === false)" -->
+      <!--          class="flex-1 flex justify-center items-center text-sm duration-300 cursor-pointer" -->
+      <!--          :class="activeTab === SettingTabEnum.PROPS ? 'bg-blue-600 text-white' : ''" -->
+      <!--          @click="activeTab = SettingTabEnum.PROPS" -->
+      <!--        > -->
+      <!--          组件配置 -->
+      <!--        </div> -->
+      <!--        <div -->
+      <!--          v-if="!config || config.showFormConfig !== false" -->
+      <!--          class="flex-1 flex justify-center items-center text-sm duration-300 cursor-pointer" -->
+      <!--          :class="activeTab === SettingTabEnum.FORM && (!!activeRule || settingCustomConfig.isShow) ? 'bg-blue-600 text-white' : ''" -->
+      <!--          @click="activeTab = SettingTabEnum.FORM" -->
+      <!--        > -->
+      <!--          表单配置 -->
+      <!--        </div> -->
+      <!--      </div> -->
+      <div>
+        <AlMain
+          v-show="activeTab === SettingTabEnum.FORM" v-if="!config || config.showFormConfig"
+        />
+        <AlMain
+          v-show="activeTab === SettingTabEnum.PROPS" :key="activeRule ? activeRule._fc_id : (settingCustomConfig.config ? settingCustomConfig.key : '')"
+        />
       </div>
     </AlContainer>
   </AlAside>

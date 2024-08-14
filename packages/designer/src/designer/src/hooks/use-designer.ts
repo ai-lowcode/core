@@ -373,7 +373,7 @@ export function useDesigner() {
    * @param fapi
    */
   function handleChange(key: string, field: string, value: Rule, _: any, fapi: any) {
-    if (activeRule.value && fapi.activeRule === activeRule.value) {
+    if (activeRule.value) {
       unWatchActiveRuleFunc()
       const org = field
       if (field.indexOf('__') !== 0) {

@@ -114,7 +114,7 @@ export function useDragActions({ dragComponent, handleSortAfter }: any) {
             group: group === true ? 'default' : group,
             ghostClass: 'ghost',
             animation: 150,
-            handle: '._fd-drag-btn',
+            handle: '.al-drag-btn',
             emptyInsertThreshold: 0,
             direction: 'vertical',
             itemKey: 'type',

@@ -126,7 +126,6 @@ export interface MenuItem {
 export interface Menu {
   // 菜单名
   title: string
-  hidden?: boolean
   // 菜单id
   name: string
   // 拖拽组件列表

@@ -62,35 +62,35 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="_fd-drag-tool" :class="{ active: selectComponentCtx.selectComponent.value === id }" @click.stop="active">
-    <div v-if="mask" class="_fd-drag-mask" />
-    <div v-if="!hiddenBtn" class="_fd-drag-l">
-      <div v-if="selectComponentCtx.selectComponent.value === id && dragBtn" class="_fd-drag-btn" style="cursor: move;">
+  <div class="outline relative pb-2 mb-1 duration-300" :class="selectComponentCtx.selectComponent.value === id ? 'outline-2 outline-blue-600' : ' hover:outline-dashed hover:outline-blue-300 outline-transparent'" @click.stop="active">
+    <div v-if="mask" />
+    <div v-if="!hiddenBtn" class="absolute top-0 left-0">
+      <div v-if="selectComponentCtx.selectComponent.value === id && dragBtn" class="al-drag-btn w-[18px] h-[18px] text-white bg-blue-600" style="cursor: move;">
         <i class="fc-icon icon-move" />
       </div>
     </div>
-    <div v-if="btns !== false && !hiddenMenu" class="drag-r">
+    <div v-if="btns !== false && !hiddenMenu && selectComponentCtx.selectComponent.value === id && dragBtn" class="absolute flex right-[2px] bottom-[2px]">
       <slot name="handle">
         <div
-          v-if="isCreate && (btns === true || btns.indexOf('create') > -1)" class="_fd-drag-btn"
+          v-if="isCreate && (btns === true || btns.indexOf('create') > -1)" class="al-drag-btn w-[18px] mx-[1px] h-[18px] text-white bg-blue-600 cursor-pointer"
           @click="$emit('create')"
         >
           <i class="fc-icon icon-add" />
         </div>
         <div
-          v-if="!only && (btns === true || btns.indexOf('copy') > -1)" class="_fd-drag-btn"
+          v-if="!only && (btns === true || btns.indexOf('copy') > -1)" class="al-drag-btn w-[18px] mx-[1px] h-[18px] text-white bg-blue-600 cursor-pointer"
           @click="$emit('copy')"
         >
           <i class="fc-icon icon-copy" />
         </div>
         <div
-          v-if="children && (btns === true || btns.indexOf('addChild') > -1)" class="_fd-drag-btn"
+          v-if="children && (btns === true || btns.indexOf('addChild') > -1)" class="al-drag-btn w-[18px] mx-[1px] h-[18px] text-white bg-blue-600 cursor-pointer"
           @click="$emit('addChild')"
         >
           <i class="fc-icon icon-add-child" />
         </div>
         <div
-          v-if="btns === true || btns.indexOf('delete') > -1" class="_fd-drag-btn _fd-drag-danger"
+          v-if="btns === true || btns.indexOf('delete') > -1" class="al-drag-btn w-[18px] mx-[1px] h-[18px] text-white bg-red-600 cursor-pointer"
           @click="$emit('delete')"
         >
           <i class="fc-icon icon-delete" />
@@ -100,90 +100,3 @@ onMounted(() => {
     <slot name="default" />
   </div>
 </template>
-
-<style>
-._fd-drag-tool {
-    position: relative;
-    box-sizing: border-box;
-    display: block;
-    min-height: 20px;
-    padding: 2px;
-    overflow: hidden;
-    word-break: break-all;
-    word-wrap: break-word;
-    outline: 1px dashed var(--fc-tool-border-color);
-    transition: outline-color 0.3s ease;
-}
-
-._fd-drag-tool ._fd-drag-tool {
-    height: calc(100% - 6px);
-    margin: 3px;
-}
-
-._fd-drag-tool + ._fd-drag-tool {
-    margin-top: 5px;
-}
-
-._fd-drag-tool.active {
-    outline: 2px solid #2E73FF;
-}
-
-._fd-drag-tool.active > div > ._fd-drag-btn {
-    display: flex;
-}
-
-._fd-drag-tool._fd-drop-hover ._fd-drag-box {
-    padding-top: 15px !important;
-    padding-bottom: 15px !important;
-}
-
-._fd-drag-tool ._fd-drag-btn {
-    display: none;
-}
-
-.drag-r {
-    position: absolute;
-    right: 2px;
-    bottom: 2px;
-    z-index: 1904;
-}
-
-._fd-drag-l {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1904
-
-}
-
-._fd-drag-btn {
-    justify-content: center;
-    float: left;
-    width: 18px;
-    height: 18px;
-    padding-bottom: 1px;
-    line-height: 20px;
-    color: #fff;
-    text-align: center;
-    cursor: pointer;
-    background-color: #2E73FF;
-}
-
-._fd-drag-btn + ._fd-drag-btn {
-    margin-left: 2px;
-}
-
-._fd-drag-danger {
-    background-color: #FF2E2E;
-}
-
-._fd-drag-btn i {
-    font-size: 14px;
-}
-
-._fd-drag-mask {
-    position: absolute;
-    inset: 0;
-    z-index: 1900;;
-}
-</style>

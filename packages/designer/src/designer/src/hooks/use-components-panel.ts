@@ -19,6 +19,8 @@ export function useComponentsPanel() {
   // 菜单列表
   const menuList = ref<MenuList>(props.menu || createMenu())
 
+  const expandMenu = ref([])
+
   // tab 菜单标签
   const activeMenuTab = ref('menu')
 
@@ -124,6 +126,7 @@ export function useComponentsPanel() {
     toolHandle,
     activeMenuTab,
     menuList,
+    expandMenu,
     hiddenMenu,
     hiddenItem,
   }

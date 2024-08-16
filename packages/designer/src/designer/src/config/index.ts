@@ -15,3 +15,8 @@ export enum SettingTabEnum {
   FORM = 'form',
   PROPS = 'props',
 }
+
+export enum ComponentMenu {
+  COMPONENT = 'component',
+  OUTLINE = 'outline',
+}

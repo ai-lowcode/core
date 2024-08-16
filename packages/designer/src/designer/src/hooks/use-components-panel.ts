@@ -4,7 +4,15 @@ import { ComponentPanelProps } from '../layout/components-panel.vue'
 
 import dragComponentList from '@/config'
 import createMenu from '@/config/menu.ts'
-import { DESIGN_INSTANCE, DesignerComponentInternalInstance, DragRule, Menu, MenuList, Rule } from '@/designer'
+import {
+  ComponentMenu,
+  DESIGN_INSTANCE,
+  DesignerComponentInternalInstance,
+  DragRule,
+  Menu,
+  MenuList,
+  Rule,
+} from '@/designer'
 
 /**
  * 组件面板 hooks
@@ -19,10 +27,10 @@ export function useComponentsPanel() {
   // 菜单列表
   const menuList = ref<MenuList>(props.menu || createMenu())
 
-  const expandMenu = ref([])
+  const activeComponentMenu = ref<ComponentMenu>(ComponentMenu.COMPONENT)
 
   // tab 菜单标签
-  const activeMenuTab = ref('menu')
+  const activeMenuTab = ref('main')
 
   // 隐藏菜单
   const hiddenMenu = computed(() => {
@@ -126,7 +134,7 @@ export function useComponentsPanel() {
     toolHandle,
     activeMenuTab,
     menuList,
-    expandMenu,
+    activeComponentMenu,
     hiddenMenu,
     hiddenItem,
   }

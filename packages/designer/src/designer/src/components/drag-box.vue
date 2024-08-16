@@ -9,7 +9,7 @@ export default defineComponent({
     const attrs = { ...ctx.$props.rule.props, ...ctx.$attrs }
     let _class = `_fd-${ctx.$props.tag}-drag _fd-drag-box`
     if (!Object.keys(ctx.$slots).length) {
-      _class += ' drag-holder'
+      _class += ' drag-holder h-full'
     }
     attrs.class = _class
     attrs.modelValue = ctx.$props.list || [...ctx.$props.formCreateInject.children]
@@ -39,10 +39,10 @@ export default defineComponent({
             vnode = keys[`${key}fc`]
           }
           if (vnode) {
-            return h('div', { class: `_fc-${ctx.$props.tag}-item _fd-drag-item`, key }, vnode)
+            return h('div', { class: `al-${ctx.$props.tag}-item al-drag-item`, key }, vnode)
           }
         }
-        return h('div', { class: `_fc-${ctx.$props.tag}-item _fd-drag-item`, key: index })
+        return h('div', { class: `al-${ctx.$props.tag}-item al-drag-item`, key: index })
       },
     })
   },

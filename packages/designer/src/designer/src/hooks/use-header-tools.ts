@@ -5,7 +5,7 @@ import { getCurrentInstance, inject } from 'vue'
 import { HeaderToolsProps } from '../layout/header-tools.vue'
 import { designerForm } from '../utils'
 
-import { DESIGN_INSTANCE, DesignerComponentInternalInstance } from '@/designer'
+import { DESIGN_INSTANCE, DesignerComponentInternalInstance, DeviceEnum } from '@/designer'
 import { formTemplate, parseRule } from '@/utils'
 
 /**
@@ -13,6 +13,21 @@ import { formTemplate, parseRule } from '@/utils'
  */
 export function useHeaderTools() {
   const props: any = getCurrentInstance()?.props as unknown as HeaderToolsProps
+
+  const devices = [
+    {
+      device: DeviceEnum.PC,
+      icon: 'grommet-icons:personal-computer',
+    },
+    {
+      device: DeviceEnum.PAD,
+      icon: 'mingcute:pad-line',
+    },
+    {
+      device: DeviceEnum.MOBILE,
+      icon: 'fa:mobile',
+    },
+  ]
 
   const designerInstance = inject<DesignerComponentInternalInstance | null>(DESIGN_INSTANCE, null)
 
@@ -105,6 +120,7 @@ export function useHeaderTools() {
   }
 
   return {
+    devices,
     handleSave,
     getConfig,
     prevOperationRecord,

@@ -53,6 +53,7 @@
     "@antfu/eslint-config": "^2.24.0",
     "@iconify/json": "^2.2.233",
     "@iconify/vue": "^4.1.2",
+    "@types/codemirror": "^5.60.15",
     "autoprefixer": "^10.4.19",
     "eslint": "^9.8.0",
     "postcss": "^8.4.40",

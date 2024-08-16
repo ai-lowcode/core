@@ -11,7 +11,5 @@ const config = ref({
 </script>
 
 <template>
-  <div style="height: calc(100vh - 20px);">
-    <AlDesigner :config="config" />
-  </div>
+  <AlDesigner :config="config" />
 </template>

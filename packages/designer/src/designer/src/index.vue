@@ -1,5 +1,5 @@
 <script lang="ts" setup name="FcDesigner">
-import { AlContainer, AlDialog, AlMain, AlTabPane, AlTabs } from '@ai-lowcode/element-plus'
+import { AlContainer, AlDialog, AlTabPane, AlTabs } from '@ai-lowcode/element-plus'
 import HightLineJs from '@highlightjs/vue-plugin'
 import 'highlight.js/lib/common'
 import 'highlight.js/styles/atom-one-dark.css' // 样式
@@ -74,7 +74,6 @@ const {
   settingCustomConfig,
   activeRule,
   configRef,
-  dragHeight,
   selectComponent,
   changeSelectComponent,
   designerInstance,
@@ -128,73 +127,71 @@ onMounted(() => {
 </script>
 
 <template>
-  <AlContainer class="_fc-designer" :style="height ? `height:${dragHeight};flex:0;` : ''">
-    <AlMain>
-      <AlContainer style="height: 100%;">
-        <ComponentsPanel
-          :menu="menu!"
-          :config="configRef"
-          :workspace-rule="workspaceRule"
+  <AlContainer style="height: 100vh" class="p-4">
+    <AlContainer :style="height ? `height:${height};` : ''">
+      <ComponentsPanel
+        :menu="menu!"
+        :config="configRef"
+        :workspace-rule="workspaceRule"
+        :workspace-edit-config="workspaceEditConfig"
+        :workspace-preview-config="workspacePreviewConfig"
+        :drag-component="dragComponent"
+        :tool-active="toolActive"
+        :outline-tree="outlineTree"
+        :drag-rule-list="dragRuleList"
+        @change-select-component="changeSelectComponent"
+      />
+      <AlContainer class="flex flex-col">
+        <HeaderTools
+          :config="config"
+          :workspace-preview-config="workspacePreviewConfig"
+          :device="device"
+          :operation="operation"
+          :workspace-edit-config="workspaceEditConfig"
+          :clear-active-rule="clearActiveRule"
+          :get-options-json="getOptionsJson"
+          :preview-dialog-config="previewDialogConfig"
+          :set-rule="setRule"
+          :device-change="deviceChange"
+          :get-option="getOption"
+          :add-operation-record="addOperationRecord"
+          :unload-status="unloadStatus"
+        />
+        <Workspace
+          :active-rule="activeRule"
+          :device="device"
           :workspace-edit-config="workspaceEditConfig"
           :workspace-preview-config="workspacePreviewConfig"
-          :drag-component="dragComponent"
-          :tool-active="toolActive"
-          :outline-tree="outlineTree"
-          :drag-rule-list="dragRuleList"
-          @change-select-component="changeSelectComponent"
         />
-        <AlContainer class="flex flex-col">
-          <HeaderTools
-            :config="config"
-            :workspace-preview-config="workspacePreviewConfig"
-            :device="device"
-            :operation="operation"
-            :workspace-edit-config="workspaceEditConfig"
-            :clear-active-rule="clearActiveRule"
-            :get-options-json="getOptionsJson"
-            :preview-dialog-config="previewDialogConfig"
-            :set-rule="setRule"
-            :device-change="deviceChange"
-            :get-option="getOption"
-            :add-operation-record="addOperationRecord"
-            :unload-status="unloadStatus"
-          />
-          <Workspace
-            :active-rule="activeRule"
-            :device="device"
-            :workspace-edit-config="workspaceEditConfig"
-            :workspace-preview-config="workspacePreviewConfig"
-          />
-        </AlContainer>
-        <SettingPanel
-          ref="settingPanelRef"
-          :active-rule="activeRule"
-          :config="config"
-          :setting-custom-config="settingCustomConfig"
-          :event-show="eventShow"
-          :setting-props-config="settingPropsConfig"
-          :setting-validate-config="settingValidateConfig"
-          :workspace-edit-config="workspaceEditConfig"
-          :setting-form-config="settingFormConfig"
-          :setting-base-config="settingBaseConfig"
-          :handle-change="handleChange"
-          :un-watch-active-rule-func="unWatchActiveRuleFunc"
-          :watch-active-rule="watchActiveRule"
-        />
-        <AlDialog v-model="previewDialogConfig.isShow" width="800px" class="_fd-preview-dialog" append-to-body>
-          <AlTabs v-model="previewStatus" class="_fd-preview-tabs">
-            <AlTabPane label="表单模式" name="form" />
-            <AlTabPane label="生成组件" name="component" />
-          </AlTabs>
-          <template v-if="previewStatus === PreviewStatusEnum.FORM">
-            <ViewForm
-              v-if="previewDialogConfig.isShow" v-model:api="previewDialogConfig.api" :rule="previewDialogConfig.rule"
-              :option="previewDialogConfig.options"
-            />
-          </template>
-          <HightLine v-else language="javascript" :code="previewDialogConfig.html as string" />
-        </AlDialog>
       </AlContainer>
-    </AlMain>
+      <SettingPanel
+        ref="settingPanelRef"
+        :active-rule="activeRule"
+        :config="config"
+        :setting-custom-config="settingCustomConfig"
+        :event-show="eventShow"
+        :setting-props-config="settingPropsConfig"
+        :setting-validate-config="settingValidateConfig"
+        :workspace-edit-config="workspaceEditConfig"
+        :setting-form-config="settingFormConfig"
+        :setting-base-config="settingBaseConfig"
+        :handle-change="handleChange"
+        :un-watch-active-rule-func="unWatchActiveRuleFunc"
+        :watch-active-rule="watchActiveRule"
+      />
+      <AlDialog v-model="previewDialogConfig.isShow" width="800px" class="_fd-preview-dialog" append-to-body>
+        <AlTabs v-model="previewStatus" class="_fd-preview-tabs">
+          <AlTabPane label="表单模式" name="form" />
+          <AlTabPane label="生成组件" name="component" />
+        </AlTabs>
+        <template v-if="previewStatus === PreviewStatusEnum.FORM">
+          <ViewForm
+            v-if="previewDialogConfig.isShow" v-model:api="previewDialogConfig.api" :rule="previewDialogConfig.rule"
+            :option="previewDialogConfig.options"
+          />
+        </template>
+        <HightLine v-else language="javascript" :code="previewDialogConfig.html as string" />
+      </AlDialog>
+    </AlContainer>
   </AlContainer>
 </template>

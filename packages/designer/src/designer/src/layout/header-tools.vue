@@ -10,7 +10,7 @@ import { Icon } from '@iconify/vue'
 
 import { useHeaderTools } from '../hooks/use-header-tools.ts'
 
-import { DeviceEnum, DragForm, OperationCache } from '@/designer'
+import { DragForm, OperationCache } from '@/designer'
 
 export interface HeaderToolsProps {
   device: string
@@ -31,6 +31,7 @@ export interface HeaderToolsProps {
 defineProps<HeaderToolsProps>()
 
 const {
+  devices,
   handleSave,
   getConfig,
   prevOperationRecord,
@@ -42,20 +43,13 @@ const {
 </script>
 
 <template>
-  <AlHeader class="flex items-center h-[40px] justify-between" height="45">
+  <AlHeader class="flex items-center h-[40px] justify-between border border-solid border-gray-200" height="45">
     <div class="flex items-center">
       <template v-if="!workspacePreviewConfig.isShow">
         <template v-if="getConfig('showDevice') !== false">
-          <AlIcon class="cursor-pointer mx-1" :class="device === DeviceEnum.PC ? 'text-blue-600' : ''" @click="deviceChange(DeviceEnum.PC)">
-            <Icon icon="grommet-icons:personal-computer" />
+          <AlIcon v-for="(item, index) in devices" :key="index" class="cursor-pointer mx-1" :class="device === item.device ? 'text-blue-600' : ''" @click="deviceChange(item.device)">
+            <Icon :icon="item.icon" />
           </AlIcon>
-          <AlIcon class="cursor-pointer mx-1" :class="device === DeviceEnum.PAD ? 'text-blue-600' : ''" @click="deviceChange(DeviceEnum.PAD)">
-            <Icon icon="mingcute:pad-line" />
-          </AlIcon>
-          <AlIcon class="cursor-pointer mx-1" :class="device === DeviceEnum.MOBILE ? 'text-blue-600' : ''" @click="deviceChange(DeviceEnum.MOBILE)">
-            <Icon icon="fa:mobile" />
-          </AlIcon>
-          <div class="line" />
         </template>
         <div class="flex items-center">
           <AlIcon
@@ -119,9 +113,9 @@ const {
           </template>
         </AlPopconfirm>
       </template>
-      <div class="line" />
+      <div class="bg-[#D8D8D8] w-[1px] h-[20px] mr-2 ml-3" />
       <div class="text-sm flex items-center">
-        <span>录入数据：</span>
+        <span class="text-xs">录入数据：</span>
         <AlSwitch
           size="small" :model-value="workspacePreviewConfig.isShow" inline-prompt
           @update:model-value="openInputData"

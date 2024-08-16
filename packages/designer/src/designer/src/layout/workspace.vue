@@ -17,6 +17,7 @@ defineProps<WorkspaceProps>()
 const ViewForm = viewForm.$form()
 const DragFormView = designerForm.$form()
 const {
+  workspaceScale,
   inputFormApi,
   dragFormApi,
   inputClear,
@@ -26,11 +27,11 @@ const {
 </script>
 
 <template>
-  <AlMain class="relative bg-[#F5F5F5] p-2">
+  <AlMain class="relative bg-[#F5F5F5] flex items-center justify-center" style="background-image: linear-gradient(#fafafc 14px,transparent 0),linear-gradient(90deg,transparent 14px,#373739 0);background-size: 15px 15px;">
     <div
-      class="relative bg-white h-full"
+      class="relative bg-white h-full border border-dashed border-gray-200 p-[16px] duration-300 overflow-auto"
+      :style="`transform: scale(${workspaceScale});`"
       :class="device"
-      :style="{ '--fc-drag-empty': `'拖拽左侧列表中的组件到此处'`, '--fc-child-empty': `'点击右下角 \e789  按钮添加一列'` }"
     >
       <div v-if="workspacePreviewConfig.isShow">
         <ViewForm
@@ -58,3 +59,20 @@ const {
     </div>
   </AlMain>
 </template>
+
+<style lang="scss" scoped>
+.mobile {
+  width: 390px;
+  height: 694px;
+}
+
+.pad {
+  width: 780px;
+  height: 694px;
+}
+
+.pc{
+  width: 100%;
+  height: 94%;
+}
+</style>

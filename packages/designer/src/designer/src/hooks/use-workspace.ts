@@ -1,6 +1,6 @@
 import { deepCopy, isEmpty, uniqueId } from '@ai-lowcode/utils'
 
-import { computed, getCurrentInstance, inject } from 'vue'
+import { computed, getCurrentInstance, inject, ref } from 'vue'
 
 import { WorkspaceProps } from '../layout/workspace.vue'
 
@@ -14,6 +14,8 @@ export function useWorkspace() {
   const props: any = getCurrentInstance()?.props as unknown as WorkspaceProps
 
   const designerInstance = inject<DesignerComponentInternalInstance | null>(DESIGN_INSTANCE, null)
+
+  const workspaceScale = ref(1)
 
   const inputFormApi = computed({
     get() {
@@ -72,6 +74,7 @@ export function useWorkspace() {
   }
 
   return {
+    workspaceScale,
     inputFormApi,
     dragFormApi,
     inputClear,

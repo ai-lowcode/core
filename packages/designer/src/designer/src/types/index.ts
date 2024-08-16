@@ -197,7 +197,6 @@ export interface UseDesignerType {
   settingCustomConfig: Ref<DragForm>
   activeRule: Ref<Rule>
   configRef: Ref<DesignerConfig>
-  dragHeight: any
   selectComponent: any
   designerInstance: DesignerComponentInternalInstance | null
   changeSelectComponent: (value: string) => void

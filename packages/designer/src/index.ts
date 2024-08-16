@@ -25,6 +25,7 @@ import {
   AlValidate,
 } from './designer'
 import './style/icon.css'
+import './style/index.css'
 import './style/tailwind.css'
 import { makeOptionsRule } from './utils'
 

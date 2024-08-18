@@ -1,6 +1,6 @@
 import { Schema } from '@/types'
 
-export default function validate() {
+export default function validateAttrsSchema() {
   return <Array<Schema>>[
     {
       type: 'Required',

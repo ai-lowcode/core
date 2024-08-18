@@ -9,12 +9,20 @@ import {
   AlTabPane,
   AlTabs,
 } from '@ai-lowcode/element-plus'
+import formCreate from '@form-create/element-ui'
 import { Icon } from '@iconify/vue'
-import { inject, ref, toRaw } from 'vue'
+import { computed, inject, ref, toRaw } from 'vue'
 
-import { DESIGNER_CTX } from '@/global'
+import { DESIGNER_CTX, PAGE_COMP } from '@/global'
 import AlEventEditor from '@/layout/attrs-panel/components/event-editor.vue'
+import componentSchemaList from '@/schema'
+import fieldAttrsSchema from '@/schema/base/field.ts'
+import formAttrsSchema from '@/schema/base/form.ts'
+import validateAttrsSchema from '@/schema/base/validate.ts'
 import { Api, DesignerContext } from '@/types'
+
+// 获取 formCreate 组件
+const FormCreate = formCreate.$form()
 
 const lifeCycle = ref([
   {
@@ -65,10 +73,6 @@ demo()`,
 })
 
 const editor = ref()
-
-function editorValueChange(code: string) {
-  editorOptions.value.options.code = code
-}
 
 function editEvent(event?: string, idx?: number, option?: string, index?: number) {
   if (option === 'edit') {
@@ -122,6 +126,32 @@ function confirmEvent() {
   })
   visibleEvent.value = false
 }
+
+const activeTab = ref('props')
+
+const compSchema = computed(() => componentSchemaList.find(item => item.name === context?.selectComponent?.value.type)?.props())
+
+const basicSchema = fieldAttrsSchema()
+
+const validateSchema = validateAttrsSchema()
+const formSchema = formAttrsSchema()
+
+const options = ref({
+  global: {
+    input: {
+      modelEmit: 'blur',
+    },
+  },
+  form: {
+    labelPosition: 'top',
+    size: 'small',
+  },
+  submitBtn: false,
+  mounted: (fapi: any) => {
+    fapi.activeRule = context?.selectComponent
+    fapi.setValue(fapi.options.formData || {})
+  },
+})
 </script>
 
 <template>
@@ -135,9 +165,21 @@ function confirmEvent() {
       <AlTabPane
         label="属性" name="props"
       >
-        <AlCollapse :model-value="['1']">
-          <AlCollapseItem title="组件信息" name="1">
-            1212
+        <AlCollapse :model-value="['1', '2', '3']">
+          <AlCollapseItem v-if="context?.selectComponent?.value?.field !== PAGE_COMP" title="基础属性" name="1">
+            <div class="p-4">
+              <FormCreate :rule="basicSchema" :option="options" />
+            </div>
+          </AlCollapseItem>
+          <AlCollapseItem title="组件属性" name="2">
+            <div class="p-4">
+              <FormCreate :rule="context?.selectComponent?.value?.field === PAGE_COMP ? formSchema : compSchema" :option="options" />
+            </div>
+          </AlCollapseItem>
+          <AlCollapseItem v-if="context?.selectComponent?.value?.field !== PAGE_COMP" title="验证属性" name="3">
+            <div class="p-4">
+              <FormCreate :rule="validateSchema" :option="options" />
+            </div>
           </AlCollapseItem>
         </AlCollapse>
       </AlTabPane>
@@ -210,7 +252,6 @@ function confirmEvent() {
             ref="editor"
             style="height: calc(100vh - 290px)"
             :option="editorOptions"
-            :on-change="editorValueChange"
           />
         </div>
       </div>

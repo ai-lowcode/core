@@ -1,7 +1,9 @@
 import { Ref } from 'vue'
 
+import { Schema } from '@/types/schema.ts'
+
 export interface DesignerContext {
-  selectComponentId?: Ref<string>
-  changeComponentSelect?: (id: string) => void
+  selectComponent?: Ref<Schema>
+  changeComponentSelect?: (comp: Schema) => void
   workspaceRef?: Ref<any>
 }

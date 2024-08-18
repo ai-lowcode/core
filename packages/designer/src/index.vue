@@ -9,21 +9,23 @@ import Header from './layout/header/index.vue'
 import Workspace from './layout/workspace/index.vue'
 
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
-import { DesignerContext } from '@/types'
+import { DesignerContext, Schema } from '@/types'
 
 defineOptions({
   name: 'AlDesigner',
 })
 
-const selectComponentId = ref<string>(PAGE_COMP)
+const selectComponent = ref<Schema>({
+  field: PAGE_COMP,
+} as Schema)
 
 const workspaceRef = ref()
 
 // 注入designer全局上下文
 provide<DesignerContext>(DESIGNER_CTX, {
-  selectComponentId,
-  changeComponentSelect: (id: string) => {
-    selectComponentId.value = id
+  selectComponent,
+  changeComponentSelect: (comp: Schema) => {
+    selectComponent.value = comp
   },
   workspaceRef,
 })

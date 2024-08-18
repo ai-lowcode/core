@@ -9,4 +9,6 @@ export enum DeviceEnum {
 export enum ComponentMenu {
   COMPONENT = 'component',
   OUTLINE = 'outline',
+  CODE = 'code',
+  AICHAT = 'aiChat',
 }

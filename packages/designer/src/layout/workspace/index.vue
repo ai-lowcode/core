@@ -9,6 +9,7 @@ import { onMounted, ref } from 'vue'
 import { DeviceEnum } from '@/enums'
 import { PAGE_COMP } from '@/global'
 import AlDragBox from '@/layout/workspace/components/drag-box.vue'
+import componentSchemaList from '@/schema'
 import { Schema } from '@/types'
 import { createDragBoxTemplate, removeAlDragBoxAndPromoteChildren } from '@/utils'
 
@@ -121,24 +122,9 @@ onMounted(() => {
       field: PAGE_COMP,
       props: {},
       children: [
-        createDragBoxTemplate({
-          type: 'elButton',
-          title: '按钮11111',
-          field: uniqueId(),
-          children: ['按钮11111'],
-        }),
-        createDragBoxTemplate({
-          type: 'elButton',
-          title: '按钮2222',
-          field: uniqueId(),
-          children: ['按钮2222'],
-        }),
-        createDragBoxTemplate({
-          type: 'elButton',
-          title: '按钮33333',
-          field: uniqueId(),
-          children: ['按钮33333'],
-        }),
+        createDragBoxTemplate(componentSchemaList.find(item => item.name === 'input')?.schema()),
+        createDragBoxTemplate(componentSchemaList.find(item => item.name === 'inputNumber')?.schema()),
+        createDragBoxTemplate(componentSchemaList.find(item => item.name === 'password')?.schema()),
       ],
     },
   ]

@@ -1,6 +1,6 @@
 import { Schema } from '@/types'
 
-export default function field() {
+export default function fieldAttrsSchema() {
   return <Array<Schema>>[
     {
       type: 'FieldInput',

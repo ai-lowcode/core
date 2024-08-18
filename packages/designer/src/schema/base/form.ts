@@ -1,6 +1,6 @@
 import { Schema } from '@/types'
 
-export default function form() {
+export default function formAttrsSchema() {
   return <Array<Schema>>[
     {
       type: 'input',

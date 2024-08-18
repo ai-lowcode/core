@@ -1,0 +1,39 @@
+import { ComponentMenu } from '@/core'
+
+// 基础类型
+export * from './basic.ts'
+// 表单生成器 schema 类型
+export * from './schema.ts'
+// 表单生成器选项类型
+export * from './option.ts'
+// 表单生成器接口类型
+export * from './api.ts'
+// 设计器类型
+export * from './designer.ts'
+
+// 拖拽组件
+export interface MenuItem {
+  // 拖拽组件名
+  label: string
+  // 拖拽组件id
+  name: string
+  // 拖拽组件图标
+  icon: string
+  only: any
+}
+// 菜单
+export interface Menu {
+  // 菜单名
+  title: string
+  // 菜单id
+  name: string
+  // 拖拽组件列表
+  list: MenuItem[]
+}
+
+export type MenuList = Menu[]
+
+export interface ActiveComponentMenu {
+  menu: ComponentMenu
+  expand: boolean
+}

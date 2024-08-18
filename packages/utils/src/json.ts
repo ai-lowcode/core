@@ -9,7 +9,6 @@ const $ON = '$GLOBAL:'
 const FUNCTION = 'function'
 
 function makeFn(fn: any) {
-  // eslint-disable-next-line no-new-func
   return (new Function(`return ${fn}`))()
 }
 

@@ -26,6 +26,9 @@ export default antfu(
       'vue/no-parsing-error': 'off',
       'vue/valid-attribute-name': 'off',
       'unicorn/prefer-dom-node-text-content': 'off',
+      'no-new': 'off',
+      'no-new-func': 'off',
+      'array-callback-return': 'off',
 
       'import/order': [
         2,

@@ -245,14 +245,14 @@ importers:
         specifier: ^3.1.27
         version: 3.2.3(vue@3.4.34(typescript@5.5.4))
       '@form-create/utils':
-        specifier: ^3.1.23
+        specifier: ^3.2.0
         version: 3.2.0
-      codemirror:
-        specifier: ^5.0.1
-        version: 5.65.17
       element-plus:
         specifier: ^2.7.8
         version: 2.7.8(vue@3.4.34(typescript@5.5.4))
+      monaco-editor:
+        specifier: 0.29.0
+        version: 0.29.0
       vuedraggable:
         specifier: 4.1.0
         version: 4.1.0(vue@3.4.34(typescript@5.5.4))
@@ -4405,9 +4405,6 @@ packages:
   code-block-writer@13.0.2:
     resolution: {integrity: sha512-XfXzAGiStXSmCIwrkdfvc7FS5Dtj8yelCtyOf2p2skCAfvLd6zu0rGzuS9NSCO3bq1JKpFZ7tbKdKlcd5occQA==}
 
-  codemirror@5.65.17:
-    resolution: {integrity: sha512-1zOsUx3lzAOu/gnMAZkQ9kpIHcPYOc9y1Fbm2UVk5UBPkdq380nhkelG0qUwm1f7wPvTbndu9ZYlug35EwAZRQ==}
-
   collect-v8-coverage@1.0.2:
     resolution: {integrity: sha512-lHl4d5/ONEbLlJvaJNtsF/Lz+WvB07u2ycqTYbdrq7UypDXailES4valYb2eWiJFxZlVmpGekfqoxQhzyFdT4Q==}
 
@@ -7070,6 +7067,9 @@ packages:
 
   moment@2.30.1:
     resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
+
+  monaco-editor@0.29.0:
+    resolution: {integrity: sha512-7bOTapOZG8gNfzk9HJstNClnRjD9TEkVqo7qB3W6y+4cypS31A55MBQ7dpnEdnQBU+Hz3isyx61mi3/e05S7Xg==}
 
   morgan@1.10.0:
     resolution: {integrity: sha512-AbegBVI4sh6El+1gNwvD5YIck7nSA36weD7xvIxG4in80j/UoK8AEGaWnnz8v1GxonMCltmlNs5ZKbGvl9b1XQ==}
@@ -14208,8 +14208,6 @@ snapshots:
 
   code-block-writer@13.0.2: {}
 
-  codemirror@5.65.17: {}
-
   collect-v8-coverage@1.0.2: {}
 
   color-convert@1.9.3:
@@ -17601,6 +17599,8 @@ snapshots:
   mockdate@3.0.5: {}
 
   moment@2.30.1: {}
+
+  monaco-editor@0.29.0: {}
 
   morgan@1.10.0:
     dependencies:

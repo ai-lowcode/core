@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-  name: "ai-lowcode docs"
-  text: "a ai-lowcode project"
-  tagline: My great project tagline
+  name: "ai-lowcode 文档"
+  text: "开发中，尽请期待～"
+  tagline: ai 低代码设计器
   actions:
     - theme: brand
       text: Markdown Examples
@@ -15,10 +15,10 @@ hero:
       link: /api-examples
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: vue3+vite4+ts
+    details: vue3+vite+ts
+  - title: 深度集成 ai
+    details: 深度集成 ai
+  - title: 可配置化 ai 对话交流
+    details: 可配置化 ai 对话交流
 ---

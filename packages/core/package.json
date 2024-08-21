@@ -1,0 +1,46 @@
+{
+  "name": "@ai-lowcode/core",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "element-plus for ai-lowcode",
+  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "repository": {
+    "type": "http",
+    "url": "https://github.com/ai-lowcode/core"
+  },
+  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/ai-lowcode-core.js",
+      "require": "./dist/ai-lowcode-core.cjs"
+    }
+  },
+  "main": "./dist/ai-lowcode-core.cjs",
+  "module": "./dist/ai-lowcode-core.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "build:all": "vite build && pnpm build:dts",
+    "build:dts": "rimraf temp && tsc -p tsconfig.declaration.json && rollup-dts",
+    "clean": "rimraf node_modules",
+    "clean:mac": "rimraf node_modules",
+    "clean:dist": "rimraf dist"
+  },
+  "dependencies": {
+    "vue": "^3.4.34"
+  },
+  "devDependencies": {
+    "@al-config/tsconfig": "workspace:^",
+    "@al-config/vite": "workspace:^",
+    "vite": "^5.3.5",
+    "vitest": "^2.0.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

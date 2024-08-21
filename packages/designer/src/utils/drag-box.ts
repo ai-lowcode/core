@@ -1,31 +1,24 @@
 import { Schema } from '@/types'
 
-export function removeAlDragBoxAndPromoteChildren(arr) {
-  return arr.reduce((result, item) => {
-    if (item.type === 'AlDragBox') {
-      // 如果当前项是 AlDragBox，直接将其 children 提升到上层
-      if (item.children && Array.isArray(item.children)) {
-        // 将 AlDragBox 的 children 添加到父层
-        return result.concat(item.children)
-      }
-      return result
+export function removeAlDragBoxAndPromoteChildren(nodes: Array<Schema>) {
+  return nodes.flatMap((node: Schema) => {
+    if (node.type === 'AlDragBox') {
+      // 递归处理 AlDragBox 的子节点，并将它们提升
+      return removeAlDragBoxAndPromoteChildren(node.children as Array<Schema>)
     }
-    else {
-      // 如果当前项不是 AlDragBox，递归处理其 children
-      if (item.children && Array.isArray(item.children)) {
-        item.children = removeAlDragBoxAndPromoteChildren(item.children)
-      }
-      result.push(item)
-      return result
+    else if (node.children && node.children.length > 0) {
+      // 如果节点不是 AlDragBox，但有子节点，递归处理子节点
+      node.children = removeAlDragBoxAndPromoteChildren(node.children as Array<Schema>)
     }
-  }, [])
+    // 返回当前节点
+    return node
+  })
 }
 
-export function createDragBoxTemplate(schema?: Schema) {
+export function createDragBoxTemplate(schema?: Schema, full?: boolean) {
   return {
     type: 'AlDragBox',
-    inject: true,
-    props: {},
+    props: full ? { class: 'h-full' } : {},
     children: schema
       ? [
           schema,

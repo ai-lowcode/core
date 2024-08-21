@@ -2,7 +2,7 @@ import { ButtonProps, ColProps, FormItemProps, FormProps, RowProps } from 'eleme
 
 import { FetchEffectOption } from './basic.ts'
 
-import { Api, Schema, VNodeRule } from '@/core'
+import { Api, Schema, VNodeRule } from '@/types'
 
 export interface Option {
   global?: {

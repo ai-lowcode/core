@@ -10,13 +10,22 @@ import { ComponentSize, Control, InjectArg, VNodeRule } from './basic.ts'
  * 表单 schema
  */
 export interface Schema {
-  $required?: boolean
+  id?: string
+  props?: Record<string, any>
+  binds?: Record<string, any>
+  events?: Record<string, any>
+  lifeCycle?: Record<string, any>
+  // 插槽列表，可选
+  slots?: Record<string, Schema[]>
+  modelField?: string
+  defaultValue?: string
+  field?: string
+  label?: string
   attrs?: any
   /**
    * 基础配置
    */
   type?: string
-  field?: string
   title?: string | Schema
   name?: string
   value?: any
@@ -29,7 +38,6 @@ export interface Schema {
   /**
    * 通用配置
    */
-  props?: Record<string, any>
   class?: object | string | Array<any>
   style?: object | string
   on?: object

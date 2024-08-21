@@ -2,7 +2,7 @@ import { App } from 'vue'
 
 import Designer from './index.vue'
 
-import { AlDragBox, AlVueDragAble } from '@/layout/workspace/index.ts'
+import { AlDragBox, AlVueDragAble } from '@/components/workspace/index.ts'
 
 export * from './enums'
 

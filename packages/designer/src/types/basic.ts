@@ -1,6 +1,6 @@
 import { FormRule } from '@form-create/element-ui'
 
-import { Api, Schema } from '@/core'
+import { Api, Schema } from '@/types'
 
 interface SizeObject {
   span?: number

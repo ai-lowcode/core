@@ -16,7 +16,8 @@ export interface Schema {
   events?: Record<string, any>
   lifeCycle?: Record<string, any>
   // 插槽列表，可选
-  slots?: Record<string, Schema[]>
+  slotName?: string
+  slotVisible?: boolean
   modelField?: string
   defaultValue?: string
   field?: string
@@ -103,7 +104,9 @@ export interface CompSchema {
   // 组件的生成规则
   schema: () => Schema
   // 组件属性配置的规则
-  props: (schema: Schema, arg: { api: Api }) => Schema[]
+  props: (schema?: Schema, arg?: { api: Api }) => Schema[]
+  slots?: (schema?: Schema, arg?: { api: Api }) => Schema[]
+  events?: (schema?: Schema, arg?: { api: Api }) => Schema[]
   // 导出规则时通过这个方法转成最终规则
   parseRule?: (schema: Schema) => void
   // 导入规则时通过这个方法转成设计器中的渲染规则

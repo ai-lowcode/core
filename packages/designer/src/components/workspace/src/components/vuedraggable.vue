@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { ComponentPublicInstance, defineComponent, getCurrentInstance, h, inject, ref } from 'vue'
+import { deepCopy } from '@ai-lowcode/utils'
+import { ComponentPublicInstance, computed, defineComponent, getCurrentInstance, h, inject, useAttrs } from 'vue'
 import draggable from 'vuedraggable'
 
 import { DESIGNER_CTX } from '@/global'
@@ -9,10 +10,16 @@ defineOptions({
   name: 'AlVueDragAble',
 })
 
+const attrs = useAttrs()
 const instance = getCurrentInstance()
 const slots = instance?.slots?.default?.()
+const list = computed({
+  get() {
+    return deepCopy((attrs?.__schema as Schema).children)
+  },
+  set() {},
+})
 const context = inject<DesignerContext>(DESIGNER_CTX)
-const list = ref(context?.workspaceRef?.value.schema[0]?.children[0]?.children)
 
 const DragBoxRender = defineComponent({
   props: ['schema', 'index'],
@@ -20,32 +27,43 @@ const DragBoxRender = defineComponent({
     schema: Schema
     index: number
   }>) => {
-    return h(ctx?.schema?.type as string, { class: `al-drag-item`, key: ctx?.index, ...ctx?.schema?.props, id: ctx?.schema?.id }, slots[0]?.children[ctx?.index])
+    return h(ctx?.schema?.type as string, { class: `al-drag-item`, key: ctx?.index, ...ctx?.schema?.props, id: ctx?.schema?.id }, slots?.[0]?.children?.[ctx?.index])
   },
 })
 
-function onAdd({ item }: any) {
-  const index = context?.workspaceRef?.value.schema[0].children[0].children.findIndex((i: any) => i === item?.__draggable_context?.element)
-  context?.workspaceRef?.value.schema[0].children[0].children.splice(index, 1)
+function onEnded({ to, from, oldIndex, newIndex }) {
+  context?.workspaceRef?.value?.changeComponentSort(from?.id, to?.id, oldIndex, newIndex)
 }
 
-function onEnded() {
-  context?.workspaceRef?.value?.changeComponentSort()
+function cloneElement() {
+  return null
+}
+
+function onMove(event) {
+  // 根据自定义逻辑控制是否允许移动
+  return event.relatedContext.index !== -1 // 阻止移动到新位置
 }
 </script>
 
 <template>
   <draggable
     :list="list"
-    group="default"
+    :group="{
+      name: 'drag-box',
+      pull: true,
+      put: true,
+    }"
     class="w-full"
-    :class="list?.length === 1 && list[0]?.type === 'div' && list[0]?.props.text === 'drag-content' ? 'h-full bg-gray-100 rounded-md drag-content' : 'h-full'"
+    :class="list?.length ? 'h-full' : 'h-full bg-[#f5f5f5] rounded-md drag-content'"
     ghost-class="ghost"
-    animation="150"
+    animation="300"
     empty-insert-threshold="0"
     direction="vertical"
     item-key="type"
-    @add="onAdd"
+    :draggable="false"
+    v-bind="$attrs"
+    :clone="cloneElement"
+    :move="onMove"
     @end="onEnded"
   >
     <template #item="{ element, index }">

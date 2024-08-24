@@ -33,6 +33,7 @@
   "dependencies": {
     "@ai-lowcode/element-plus": "workspace:^",
     "@ai-lowcode/hooks": "workspace:^",
+    "@ai-lowcode/core": "workspace:^",
     "@ai-lowcode/request": "workspace:^",
     "@ai-lowcode/styles": "workspace:^",
     "@ai-lowcode/utils": "workspace:^",

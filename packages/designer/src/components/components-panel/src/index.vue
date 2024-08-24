@@ -11,9 +11,7 @@ import {
   AlTree,
 } from '@ai-lowcode/element-plus'
 import { Icon } from '@iconify/vue'
-
 import { computed, inject, onMounted, ref, toRaw, watch } from 'vue'
-
 import AlDraggable from 'vuedraggable/src/vuedraggable'
 
 import { AlEventEditor } from '@/components/attrs-panel'
@@ -21,7 +19,6 @@ import createMenu from '@/components/components-panel/src/config/menu.ts'
 import { ComponentMenu } from '@/enums'
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
 import componentSchemaList from '@/schema'
-
 import { ActiveComponentMenu, CompSchema, DesignerContext, Menu, MenuList, Schema } from '@/types'
 import { removeAlDragBoxAndPromoteChildren } from '@/utils'
 
@@ -32,27 +29,66 @@ defineEmits<{
   (event: 'changeSelectComponent', value: string): void
 }>()
 
-// 菜单列表
-const menuList = ref<MenuList>(createMenu())
+// 侧边栏菜单
+const slideMenu = [
+  {
+    title: '组件',
+    slug: ComponentMenu.COMPONENT,
+    icon: 'tdesign:component-layout',
+  },
+  {
+    title: '大纲树',
+    slug: ComponentMenu.OUTLINE,
+    icon: 'gg:list-tree',
+  },
+  {
+    title: '源码',
+    slug: ComponentMenu.CODE,
+    icon: 'nonicons:vscode-16',
+  },
+  {
+    title: 'Ai助手',
+    slug: ComponentMenu.AICHAT,
+    icon: 'hugeicons:ai-chat-02',
+  },
+]
 
-const activeComponentMenu = ref<ActiveComponentMenu>({
-  menu: ComponentMenu.COMPONENT,
-  expand: true,
-})
+// 编辑器 ref
+const editor = ref()
 
 // tab 菜单标签
 const activeMenuTab = ref('main')
 
+// 菜单列表
+const menuList = ref<MenuList>(createMenu())
+
+// 全局上下文
 const context = inject<DesignerContext>(DESIGNER_CTX)
 
-const editor = ref()
+// 当前选中节点
+const currentSelectNode = computed(() => context?.selectComponent?.value?.id)
 
+// 编辑器选项
 const editorOptions = ref({
   el: 'monaco',
   options: {
     language: 'json',
     code: ``,
   },
+})
+
+// 当前激活面板
+const activeComponentMenu = ref<ActiveComponentMenu>({
+  menu: ComponentMenu.COMPONENT,
+  expand: true,
+})
+
+// 大纲树
+const outLineTree = computed({
+  get() {
+    return removeAlDragBoxAndPromoteChildren(schemaToOutLine(context?.workspaceRef?.value?.schema))
+  },
+  set() {},
 })
 
 watch(() => context?.workspaceRef?.value?.schema, (newValue) => {
@@ -62,14 +98,19 @@ watch(() => context?.workspaceRef?.value?.schema, (newValue) => {
   toRaw(editor.value.editor)?.setValue(toRaw(editor.value.editor)?.getValue())
 }, { deep: true })
 
+/**
+ * schema 转换大杨树
+ * @param schema
+ */
 function schemaToOutLine(schema: Array<Schema>) {
   const arr = [] as any
   schema?.map((item: Schema) => {
     const obj = {
       ...item,
       label: item?.id === PAGE_COMP ? '页面' : item?.label,
+      children: item?.children ?? [],
     }
-    if (item.children) {
+    if (item?.children) {
       obj.children = schemaToOutLine(item.children as Array<Schema>)
     }
     if (obj?.type)
@@ -77,15 +118,6 @@ function schemaToOutLine(schema: Array<Schema>) {
   })
   return arr
 }
-
-const outLineTree = computed({
-  get() {
-    return removeAlDragBoxAndPromoteChildren(schemaToOutLine(context?.workspaceRef?.value?.schema))
-  },
-  set() {},
-})
-
-const currentSelectNode = computed(() => context?.selectComponent?.value?.id)
 
 /**
  * 添加菜单项
@@ -115,6 +147,10 @@ function addComponent(component: Array<CompSchema> | any) {
   }
 }
 
+/**
+ * 修改组件边栏
+ * @param compType
+ */
 function changeComponentSlide(compType: ComponentMenu) {
   activeComponentMenu.value = {
     menu: compType,
@@ -124,6 +160,11 @@ function changeComponentSlide(compType: ComponentMenu) {
   }
 }
 
+/**
+ * 大纲树操作命令
+ * @param command
+ * @param id
+ */
 function handleCommand(command: string | number | object, id: string) {
   switch (command) {
     case '1':
@@ -138,48 +179,52 @@ function handleCommand(command: string | number | object, id: string) {
   }
 }
 
+/**
+ * 删除组件
+ * @param id
+ */
 function deleteComponent(id: string) {
   context?.workspaceRef?.value?.deleteComponent(id)
 }
 
+/**
+ * 复制组件
+ * @param id
+ */
 function copyComponent(id: string) {
   context?.changeComponentSelect?.(context?.workspaceRef?.value?.copyComponent(id))
 }
 
+/**
+ * 选择组件
+ * @param id
+ */
 function selectComponent(id: Schema) {
   context?.changeComponentSelect?.(id)
 }
 
+/**
+ * 插入组件
+ * @param compSchema
+ */
 function insertComponent(compSchema: CompSchema) {
-  context?.workspaceRef?.value.insertComponent?.(compSchema.schema())
+  const addedComp = context?.workspaceRef?.value.insertComponent?.(compSchema.schema(), context?.selectComponent?.value.id)
+  selectComponent(addedComp)
 }
 
-function onEnd({ item, newIndex }: any) {
-  context?.workspaceRef?.value.insertComponent?.(item?.__draggable_context?.element.schema(), newIndex)
+/**
+ * 组件拖拽结束事件
+ * @param item
+ * @param newIndex
+ * @param pullMode
+ * @param to
+ */
+function onEnd({ item, newIndex, pullMode, to }: any) {
+  if (pullMode === 'clone') {
+    const addedComp = context?.workspaceRef?.value.insertComponent?.(item?.__draggable_context?.element.schema(), to.id, newIndex)
+    selectComponent(addedComp)
+  }
 }
-
-const slideMenu = [
-  {
-    title: '组件',
-    slug: ComponentMenu.COMPONENT,
-    icon: 'tdesign:component-layout',
-  },
-  {
-    title: '大纲树',
-    slug: ComponentMenu.OUTLINE,
-    icon: 'gg:list-tree',
-  },
-  {
-    title: '源码',
-    slug: ComponentMenu.CODE,
-    icon: 'nonicons:vscode-16',
-  },
-  {
-    title: 'Ai助手',
-    slug: ComponentMenu.AICHAT,
-    icon: 'hugeicons:ai-chat-02',
-  },
-]
 
 onMounted(() => {
   addComponent(componentSchemaList)
@@ -188,7 +233,7 @@ onMounted(() => {
 
 <template>
   <div class="mr-[10px] max-w-[360px] flex flex-row">
-    <div class="w-[45px] flex flex-col border border-solid border-gray-200" :class="!activeComponentMenu.expand ? 'border-r' : 'border-r-0'">
+    <div class="w-[45px] flex flex-col border border-solid border-[#e3e3e3]" :class="!activeComponentMenu.expand ? 'border-r' : 'border-r-0'">
       <AlTooltip
         v-for="(item, index) in slideMenu"
         :key="index"
@@ -209,14 +254,14 @@ onMounted(() => {
     <AlTabs
       v-model="activeMenuTab"
       :class="activeComponentMenu.menu === ComponentMenu.COMPONENT && activeComponentMenu.expand ? 'animate-fade-in block' : 'animate-fade-out hidden'"
-      class="h-full overflow-auto flex-1 w-[272px]"
-      type="border-card"
+      class="h-full overflow-auto flex-1 w-[272px] border border-solid border-[#e3e3e3] tabs-component"
+      stretch
     >
-      <AlInput class="w-full mb-2 px-1" placeholder="输入关键词查询组件" size="small" />
+      <AlInput class="w-full mb-2 px-3" placeholder="输入关键词查询组件" size="small" />
       <AlTabPane v-for="(item, index) in menuList" :key="index" :label="item.title" :name="item.name">
-        <div>
+        <div class="mx-2">
           <AlDraggable
-            :group="{ name: 'default', pull: 'clone', put: false }"
+            :group="{ name: 'default', pull: 'clone', put: true }"
             :sort="false"
             item-key="name"
             class="flex flex-wrap"
@@ -228,7 +273,7 @@ onMounted(() => {
                 class="w-1/2 flex justify-center items-center"
                 @click="insertComponent(element)"
               >
-                <div class="rounded-md text-gray-600 border border-solid border-gray-200 w-full mx-1 my-1 flex justify-center items-center cursor-pointer px-2 py-1 hover:border-blue-600 duration-300">
+                <div class="rounded-md text-gray-600 border bg-blue-50 hover:border-dashed border-solid border-gray-200 w-full mx-1 my-1 flex justify-center items-center cursor-move px-2 py-1 hover:border-blue-600 duration-300">
                   <div class="text-sm">
                     <i class="fc-icon !text-[18px]" :class="element.icon || 'icon-input'" />
                   </div>
@@ -321,5 +366,16 @@ onMounted(() => {
     color: white;
     background-color: rgb(37 99 235);
   }
+}
+
+:deep(.tabs-component) {
+  .el-tabs__item.is-top:nth-child(2) {
+    padding: 0 20px;
+  }
+
+  .el-tabs__item.is-top:last-child {
+    padding: 0 20px;
+  }
+
 }
 </style>

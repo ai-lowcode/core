@@ -1,20 +1,26 @@
 <script setup lang="ts">
+import { AlRenderer } from '@ai-lowcode/core'
 import { AlMain } from '@ai-lowcode/element-plus'
-
-// 导入 form-create
 import { deepCopy, uniqueId } from '@ai-lowcode/utils'
 import { onMounted, ref } from 'vue'
 
-import { AlRenderer } from '@/components/renderer'
 import { DeviceEnum } from '@/enums'
 import { PAGE_COMP } from '@/global'
-import componentSchemaList from '@/schema'
 import { Schema } from '@/types'
-import { createDragBoxTemplate, removeAlDragBoxAndPromoteChildren } from '@/utils'
+import {
+  createDragBoxTemplate,
+  findAndModifyById,
+  findAndModifyParentById,
+  recursiveUpdateIds,
+  removeNodeById,
+  swapChildrenPositions,
+} from '@/utils'
 
-const currentDevice = ref(DeviceEnum.PC)
+const formData = ref()
 
 const rendererRef = ref()
+
+const currentDevice = ref(DeviceEnum.PC)
 
 const schema = ref<Array<Schema>>([])
 
@@ -29,8 +35,6 @@ const options = ref({
     console.log(api)
   },
 })
-
-const formData = ref()
 
 /**
  * 修改 options
@@ -51,86 +55,92 @@ function changeDevice(device: DeviceEnum) {
 /**
  * 改变组件顺序
  */
-function changeComponentSort() {
-  // 深拷贝组件 schema, vueDrag会自动更新数据
-  schema.value = deepCopy(schema.value)
+function changeComponentSort(fromId: string, toId: string, oldIndex: number, newIndex: number) {
+  // 深拷贝组件 schema
+  const newSchema = deepCopy(schema.value)
+  schema.value = swapChildrenPositions(newSchema, fromId, toId, oldIndex, newIndex)
 }
 
 /**
  * 删除组件
- * @param id
+ * @param component
  */
-function deleteComponent(id: string) {
+function deleteComponent(component: any) {
   // 深拷贝组件 schema
-  const newSchema = deepCopy(schema.value)
-  // 过滤组件 index
-  const index = (newSchema[0].children[0].children as Array<Schema>).findIndex(item => item.id === id);
-  // 生成新 schema
-  (newSchema[0].children[0].children as Array<Schema>).splice(index, 1)
-  if (newSchema[0].children[0].children.length === 0) {
-    newSchema[0].children[0].children.push({
-      type: 'div',
-      props: {
-        text: 'drag-content',
-      },
-    })
-  }
+  let newSchema = deepCopy(schema.value)
+  // // 生成新 schema
+  newSchema = removeNodeById(newSchema, component?.attrs?.id)
   schema.value = newSchema
 }
 
 /**
  * 复制组件
- * @param id
+ * @param component
  */
-function copyComponent(id: string) {
+function copyComponent(component: any) {
+  const compAttrs = deepCopy(component?.attrs)
   // 深拷贝组件 schema
   const newSchema = deepCopy(schema.value)
-  // 过滤要添加的组件
-  const addedComp = (removeAlDragBoxAndPromoteChildren(newSchema[0].children[0].children) as Array<Schema>).find(item => item?.id === id)
-  // 过滤组件 index
-  const addedCompIndex = (removeAlDragBoxAndPromoteChildren(newSchema[0].children[0].children) as Array<Schema>).findIndex(item => item?.id === id)
-  // 生成新 schema
-  if (addedComp?.id) {
-    newSchema[0].children[0].children.splice(addedCompIndex + 1, 0, createDragBoxTemplate(
-      {
-        ...addedComp,
-        id: uniqueId(),
-        field: `${addedComp?.field}__${uniqueId()}`,
-      },
-    ))
-  }
-  schema.value = newSchema
+  let addedComp = null
+  // // 生成新 schema
+  schema.value = findAndModifyParentById(newSchema, compAttrs?.id, (node: Schema[]) => {
+    // 要添加的组件
+    addedComp = recursiveUpdateIds(compAttrs?.__schema)
+    // 在这里自定义你的修改逻辑
+    return [
+      ...node,
+      addedComp,
+    ]
+  })
   return addedComp
 }
 
 /**
  * 新增组件
  * @param addedComp
+ * @param componentId
  * @param index
  */
-function insertComponent(addedComp: Schema, index?: number) {
+function insertComponent(addedComp: Schema, componentId?: string, index?: number): Schema {
   // 深拷贝组件 schema
   const newSchema = deepCopy(schema.value)
   // 生成新 schema
   if (addedComp?.id) {
     addedComp.id = uniqueId()
-    newSchema[0].children[0].children.splice(index ?? newSchema[0].children[0].children?.length, 0, createDragBoxTemplate(addedComp))
+    schema.value = findAndModifyById(newSchema, componentId, (node: Schema) => {
+      if (node?.children?.length) {
+        if (index) {
+          (node.children as Schema[])[index!] = createDragBoxTemplate(addedComp)
+        }
+        else {
+          (node.children as Schema[])[node?.children?.length] = createDragBoxTemplate(addedComp)
+        }
+      }
+      else {
+        node.children = [createDragBoxTemplate(addedComp)]
+      }
+    })
   }
-  schema.value = newSchema
   return addedComp
 }
 
+/**
+ * 修改 schema
+ * @param newSchema
+ */
 function changeSchema(newSchema: Array<Schema>) {
   schema.value = newSchema
 }
 
+/**
+ * 清除页面
+ */
 function clearPage() {
   schema.value = [
     createDragBoxTemplate(
       {
         type: 'AlVueDragAble',
         id: PAGE_COMP,
-        props: {},
         children: [
           {
             type: 'div',
@@ -140,7 +150,9 @@ function clearPage() {
           },
         ],
       },
-      true,
+      {
+        class: 'p-2 h-full',
+      },
     ),
   ]
 }
@@ -152,11 +164,11 @@ onMounted(() => {
         type: 'AlVueDragAble',
         id: PAGE_COMP,
         props: {},
-        children: [
-          createDragBoxTemplate(componentSchemaList.find(item => item.name === 'input')?.schema()),
-        ],
+        children: [],
       },
-      true,
+      {
+        class: 'p-2 h-full',
+      },
     ),
   ]
 })

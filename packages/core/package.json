@@ -12,12 +12,12 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/ai-lowcode-core.js",
-      "require": "./dist/ai-lowcode-core.cjs"
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
     }
   },
-  "main": "./dist/ai-lowcode-core.cjs",
-  "module": "./dist/ai-lowcode-core.js",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

@@ -11,12 +11,14 @@ import { Icon } from '@iconify/vue'
 
 import { computed, inject, ref } from 'vue'
 
-import { AlRenderer } from '@/components/renderer'
+import { AlRenderer } from '../../../../../core/src/components/renderer'
+
 import { DeviceEnum } from '@/enums'
 import { DESIGNER_CTX } from '@/global'
-import { DesignerContext } from '@/types'
+import { DesignerContext, Schema } from '@/types'
 import { removeAlDragBoxAndPromoteChildren } from '@/utils'
 
+// 设备
 const devices = [
   {
     device: DeviceEnum.PC,
@@ -32,18 +34,24 @@ const devices = [
   },
 ]
 
-const context = inject<DesignerContext>(DESIGNER_CTX)
+// schema码
+const schema = ref<Array<Schema>>()
 
+// 预览显示
 const visiblePreview = ref(false)
 
-const schema = ref()
+// 全局上下文
+const context = inject<DesignerContext>(DESIGNER_CTX)
 
+// 工作区options
 const options = computed(() => context?.workspaceRef?.value.options)
 
+// 清除页面内容
 function clearPage() {
   context?.workspaceRef?.value.clearPage()
 }
 
+// 预览页面
 function previewPage() {
   schema.value = removeAlDragBoxAndPromoteChildren(deepCopy(context?.workspaceRef?.value.schema))
   visiblePreview.value = true
@@ -51,7 +59,7 @@ function previewPage() {
 </script>
 
 <template>
-  <AlHeader class="flex items-center h-[40px] justify-between border border-solid border-gray-200" height="45">
+  <AlHeader class="flex items-center h-[40px] justify-between border border-solid border-[#e3e3e3]" height="45">
     <div class="flex items-center">
       <AlIcon v-for="(item, index) in devices" :key="index" class="cursor-pointer mx-1 duration-300" :class="item.device === context?.workspaceRef?.value?.currentDevice ? 'text-blue-600' : ''" @click="context?.workspaceRef?.value?.changeDevice(item.device)">
         <Icon :icon="item.icon" />
@@ -113,7 +121,7 @@ function previewPage() {
     </div>
     <AlDialog v-model="visiblePreview" title="页面预览" width="800">
       <!-- 工作区表单展示区 -->
-      <AlRenderer v-if="visiblePreview" :schemas="schema" :option="options" />
+      <AlRenderer v-if="visiblePreview" :schemas="schema!" :options="options" />
     </AlDialog>
   </AlHeader>
 </template>

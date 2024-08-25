@@ -5,10 +5,10 @@ import { deepCopy, uniqueId } from '@ai-lowcode/utils'
 import { onMounted, ref } from 'vue'
 
 import { DeviceEnum } from '@/enums'
-import { PAGE_COMP } from '@/global'
 import { Schema } from '@/types'
 import {
   createDragBoxTemplate,
+  createPageTemplate,
   findAndModifyById,
   findAndModifyParentById,
   recursiveUpdateIds,
@@ -106,7 +106,7 @@ function insertComponent(addedComp: Schema, componentId?: string, index?: number
   const newSchema = deepCopy(schema.value)
   // 生成新 schema
   if (addedComp?.id) {
-    addedComp.id = uniqueId()
+    addedComp.id = `__${uniqueId()}`
     schema.value = findAndModifyById(newSchema, componentId, (node: Schema) => {
       if (node?.children?.length) {
         if (index) {
@@ -138,18 +138,7 @@ function changeSchema(newSchema: Array<Schema>) {
 function clearPage() {
   schema.value = [
     createDragBoxTemplate(
-      {
-        type: 'AlVueDragAble',
-        id: PAGE_COMP,
-        children: [
-          {
-            type: 'div',
-            props: {
-              text: 'drag-content',
-            },
-          },
-        ],
-      },
+      createPageTemplate(),
       {
         class: 'p-2 h-full',
       },
@@ -158,19 +147,7 @@ function clearPage() {
 }
 
 onMounted(() => {
-  schema.value = [
-    createDragBoxTemplate(
-      {
-        type: 'AlVueDragAble',
-        id: PAGE_COMP,
-        props: {},
-        children: [],
-      },
-      {
-        class: 'p-2 h-full',
-      },
-    ),
-  ]
+  clearPage()
 })
 
 defineExpose({

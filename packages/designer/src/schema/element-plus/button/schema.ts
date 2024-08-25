@@ -4,16 +4,18 @@ import { CompSchema, Schema } from '@/types'
 
 const label = '按钮'
 const name = 'button'
+const icon = 'fluent:button-16-regular'
 
 export const ButtonSchema = <CompSchema>{
   menu: 'main',
-  icon: 'icon-button',
+  icon,
   label,
   name,
   schema: () => {
     return <Schema>{
       type: 'el-button',
-      id: uniqueId(),
+      id: `__${uniqueId()}`,
+      icon,
       label,
       name,
       props: {

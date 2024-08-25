@@ -233,7 +233,7 @@ onMounted(() => {
 
 <template>
   <div class="mr-[10px] max-w-[360px] flex flex-row">
-    <div class="w-[45px] flex flex-col border border-solid border-[#e3e3e3]" :class="!activeComponentMenu.expand ? 'border-r' : 'border-r-0'">
+    <div class="w-[45px] flex flex-col border border-solid border-[#e3e3e3] bg-white" :class="!activeComponentMenu.expand ? 'border-r' : 'border-r-0'">
       <AlTooltip
         v-for="(item, index) in slideMenu"
         :key="index"
@@ -254,7 +254,7 @@ onMounted(() => {
     <AlTabs
       v-model="activeMenuTab"
       :class="activeComponentMenu.menu === ComponentMenu.COMPONENT && activeComponentMenu.expand ? 'animate-fade-in block' : 'animate-fade-out hidden'"
-      class="h-full overflow-auto flex-1 w-[272px] border border-solid border-[#e3e3e3] tabs-component"
+      class="h-full overflow-auto flex-1 w-[272px] border border-solid border-[#e3e3e3] bg-white tabs-component"
       stretch
     >
       <AlInput class="w-full mb-2 px-3" placeholder="输入关键词查询组件" size="small" />
@@ -277,6 +277,9 @@ onMounted(() => {
                   <div class="text-sm">
                     <i class="fc-icon !text-[18px]" :class="element.icon || 'icon-input'" />
                   </div>
+                  <AlIcon size="18" class="cursor-pointer text-gray-600 mr-1">
+                    <Icon :icon="element?.icon" />
+                  </AlIcon>
                   <span class="text-sm">{{ element.label }}</span>
                 </div>
               </div>
@@ -297,16 +300,22 @@ onMounted(() => {
         default-expand-all
         draggable
         highlight-current
+        :expand-on-click-node="false"
         :current-node-key="currentSelectNode"
         node-key="id"
       >
         <template #default="{ data }: any">
           <div class="flex justify-between items-center w-full" @click="selectComponent(data)">
             <div class="flex items-center justify-between w-full">
-              <div>{{ data?.label }}</div>
+              <div class="flex items-center">
+                <AlIcon size="14" class="cursor-pointer text-gray-600 mr-1">
+                  <Icon :icon="data?.icon" :class="currentSelectNode === data?.id ? 'text-blue-600' : ''" />
+                </AlIcon>
+                <div>{{ data?.label }}</div>
+              </div>
             </div>
             <div v-if="!data?.slot && data?.id !== PAGE_COMP" @click.stop>
-              <AlDropdown trigger="click" size="default" :class="currentSelectNode === data?.id ? 'text-white' : ''" @command="(command: string | number | object) => handleCommand(command, data?.id)">
+              <AlDropdown trigger="click" size="default" :class="currentSelectNode === data?.id ? 'text-blue-600' : ''" @command="(command: string | number | object) => handleCommand(command, data?.id)">
                 <AlIcon>
                   <Icon icon="mingcute:more-2-fill" />
                 </AlIcon>
@@ -363,8 +372,9 @@ onMounted(() => {
   }
 
   .el-tree-node.is-current>.el-tree-node__content{
-    color: white;
-    background-color: rgb(37 99 235);
+    color: rgb(37 99 235);
+    background-color: #ededed;
+    border-radius: 0;
   }
 }
 

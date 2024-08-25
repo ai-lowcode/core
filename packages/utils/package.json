@@ -32,7 +32,9 @@
     "clean:dist": "rimraf dist"
   },
   "dependencies": {
-    "nprogress": "^0.2.0"
+    "@types/uuid": "^10.0.0",
+    "nprogress": "^0.2.0",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@al-config/tsconfig": "workspace:^",

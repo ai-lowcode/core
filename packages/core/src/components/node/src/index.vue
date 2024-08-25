@@ -111,12 +111,12 @@ const slotComputed = computed(() => (props.componentSchema as Schema)?.slotName 
 </script>
 
 <template>
-  <component :is="componentSchema?.type" v-if="typeof componentSchema !== 'string'" ref="componentRef" v-bind="bindValue">
+  <component :is="componentSchema?.type" v-if="typeof componentSchema !== 'string' && !componentSchema?.slotHidden" ref="componentRef" v-bind="bindValue">
     <template #[slotComputed]>
       <AlNode v-for="(schema, index) in componentSchema?.children" :key="index" ref="childrenRef" :component-schema="schema" />
     </template>
   </component>
-  <template v-else>
+  <template v-if="typeof componentSchema === 'string'">
     {{ componentSchema }}
   </template>
 </template>

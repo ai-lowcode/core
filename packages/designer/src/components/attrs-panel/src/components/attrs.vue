@@ -69,15 +69,16 @@ watch(() => propsData.value, (newValue) => {
 watch(() => slotsData.value, (newValue) => {
   // 调用函数，查找并修改
   const newNodes = findAndModifyById(context?.workspaceRef?.value.schema, context?.selectComponent?.value.id, (node: Schema) => {
-    node.children = node.children.map((item) => {
-      const key = Object.keys(newValue.slots)[0]
+    node.children = (node.children as Schema[])?.map((item) => {
       return {
         ...item,
-        key: newValue[key],
+        slotName: item.slotName ?? 'default',
+        slotHidden: newValue.slots[item.slotName ?? 'default'],
       }
     })
   })
   context?.workspaceRef?.value.changeSchema(newNodes)
+  slotsRef.value?.updateComponent(newValue)
 }, {
   deep: true,
 })
@@ -100,8 +101,8 @@ watch(() => context?.selectComponent, (newValue) => {
         slots: {},
       }
     }
-    newValue?.value?.children?.map((slot: Schema) => {
-      slotsData.value.slots[slot.slotName ?? 'default'] = (slot.slotName ?? 'default') === 'default' ? true : slot.slotVisible
+    (node?.children as Schema[])?.map((slot: Schema) => {
+      slotsData.value.slots[slot.slotName ?? 'default'] = slot.slotHidden ? slot.slotHidden : false
     })
     compAttrsRef.value?.updateComponent(propsData.value)
     fieldRef.value?.updateComponent(fieldData.value)

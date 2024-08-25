@@ -17,7 +17,7 @@ export interface Schema {
   lifeCycle?: Record<string, any>
   // 插槽列表，可选
   slotName?: string
-  slotVisible?: boolean
+  slotHidden?: boolean
   modelField?: string
   defaultValue?: string
   field?: string
@@ -27,6 +27,7 @@ export interface Schema {
    * 基础配置
    */
   type?: string
+  icon?: string
   title?: string | Schema
   name?: string
   value?: any

@@ -4,16 +4,18 @@ import { CompSchema, Schema } from '@/types'
 
 const label = '输入框'
 const name = 'input'
+const icon = 'material-symbols:input'
 
 export const InputSchema = <CompSchema>{
   menu: 'main',
-  icon: 'icon-input',
+  icon,
   label,
   name,
   schema: () => {
     return <Schema>{
       type: 'el-input',
-      id: uniqueId(),
+      id: `__${uniqueId()}`,
+      icon,
       label,
       name,
       // 值存储字段

@@ -7,13 +7,13 @@ const name = 'form-item'
 
 export const FormItemSchema = <CompSchema>{
   menu: 'main',
-  icon: 'icon-form-item',
+  icon: 'fluent:form-multiple-20-regular',
   label,
   name,
   schema: () => {
     return <Schema>{
       type: 'el-form-item',
-      id: uniqueId(),
+      id: `__${uniqueId()}`,
       label,
       name,
       // 值存储字段

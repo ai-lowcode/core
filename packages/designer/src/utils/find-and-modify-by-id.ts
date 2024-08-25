@@ -28,7 +28,12 @@ export function findAndModifyById(nodes, targetId, callback) {
   })
 }
 
-export function removeNodeById(nodes, targetId) {
+/**
+ * 根据targetId删除节点
+ * @param nodes
+ * @param targetId
+ */
+export function removeNodeById(nodes: Schema[], targetId: string) {
   // 遍历每个节点
   return nodes.filter((node) => {
     if (node.id === targetId) {
@@ -44,9 +49,15 @@ export function removeNodeById(nodes, targetId) {
   })
 }
 
-export function findAndModifyParentById(treeArray, targetId, callback) {
+/**
+ * 根据targetId搜索到对于数据，然后修改改数据父亲节点内容
+ * @param treeArray
+ * @param targetId
+ * @param callback
+ */
+export function findAndModifyParentById(treeArray: Schema[], targetId: string, callback: Function) {
   // Helper function to recursively search the tree
-  function searchAndModify(node, parent = null) {
+  function searchAndModify(node: Schema, parent = null) {
     if (node.id === targetId) {
       if (parent && parent.type === 'AlVueDragAble') {
         // 使用回调函数修改父级的 children
@@ -75,9 +86,14 @@ export function findAndModifyParentById(treeArray, targetId, callback) {
   return treeArray
 }
 
-export function recursiveUpdateIds(node) {
+/**
+ * 递归更新 id
+ * @param node
+ */
+export function recursiveUpdateIds(node: Schema) {
   // Update the id
   node.id = `__${uniqueId()}`
+  node.field = `__${uniqueId()}`
 
   // Recursively update children if they exist
   if (node.children && Array.isArray(node.children)) {
@@ -87,6 +103,14 @@ export function recursiveUpdateIds(node) {
   return node
 }
 
+/**
+ * 将fromId下面 children 为oldIndex索引的数据移动到toId下面 children 为newIndex的位置
+ * @param nodes
+ * @param fromId
+ * @param toId
+ * @param oldIndex
+ * @param newIndex
+ */
 export function swapChildrenPositions(
   nodes: Schema[],
   fromId: string,

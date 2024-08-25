@@ -9,6 +9,7 @@ export const FieldAttrsSchema = <Array<Schema>>[
     props: {
       labelWidth: 100,
       labelPosition: 'top',
+      size: 'small',
     },
     children: [
       {

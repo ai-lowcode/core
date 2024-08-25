@@ -4,16 +4,18 @@ import { CompSchema, Schema } from '@/types'
 
 const label = '表单'
 const name = 'form'
+const icon = 'mdi:form-outline'
 
 export const FormSchema = <CompSchema>{
   menu: 'main',
-  icon: 'icon-form',
+  icon,
   label,
   name,
   schema: () => {
     return <Schema>{
       type: 'el-form',
       id: uniqueId(),
+      icon,
       label,
       name,
       // 值存储字段
@@ -29,8 +31,9 @@ export const FormSchema = <CompSchema>{
           id: `__${uniqueId()}`,
           label: '拖拽区',
           props: {
-            class: 'min-h-[100px] bg-gray-50',
+            class: 'min-h-[100px] bg-[#f5f5f5]',
           },
+          slotHidden: false,
           children: [],
         },
       ],
@@ -47,13 +50,14 @@ export const FormSchema = <CompSchema>{
         props: {
           labelWidth: 100,
           labelPosition: 'top',
+          size: 'small',
         },
         children: [
           {
             type: 'el-form-item',
             id: 'default',
             props: {
-              label: '是否开启默认插槽',
+              label: '隐藏默认插槽',
             },
             children: [
               {
@@ -61,7 +65,6 @@ export const FormSchema = <CompSchema>{
                 id: 'default',
                 field: 'slots.default',
                 modelField: 'modelValue',
-                defaultValue: true,
               },
             ],
           },
@@ -82,6 +85,7 @@ export const FormSchema = <CompSchema>{
         props: {
           labelWidth: 100,
           labelPosition: 'top',
+          size: 'small',
         },
         children: [
           {

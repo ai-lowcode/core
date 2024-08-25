@@ -16,7 +16,7 @@ const activeTab = ref('props')
   <div class="ml-[10px] w-[300px] h-full">
     <AlTabs
       v-model="activeTab"
-      class="h-full overflow-auto attrs-content border border-solid border-[#e3e3e3]"
+      class="h-full overflow-auto attrs-content border border-solid border-[#e3e3e3] bg-white"
       stretch
     >
       <AlTabPane

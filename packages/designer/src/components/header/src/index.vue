@@ -51,7 +51,9 @@ function clearPage() {
   context?.workspaceRef?.value.clearPage()
 }
 
-// 预览页面
+/**
+ * 预览页面
+ */
 function previewPage() {
   schema.value = removeAlDragBoxAndPromoteChildren(deepCopy(context?.workspaceRef?.value.schema))
   visiblePreview.value = true
@@ -59,7 +61,7 @@ function previewPage() {
 </script>
 
 <template>
-  <AlHeader class="flex items-center h-[40px] justify-between border border-solid border-[#e3e3e3]" height="45">
+  <AlHeader class="flex items-center h-[40px] justify-between border border-solid border-[#e3e3e3] bg-white" height="45">
     <div class="flex items-center">
       <AlIcon v-for="(item, index) in devices" :key="index" class="cursor-pointer mx-1 duration-300" :class="item.device === context?.workspaceRef?.value?.currentDevice ? 'text-blue-600' : ''" @click="context?.workspaceRef?.value?.changeDevice(item.device)">
         <Icon :icon="item.icon" />

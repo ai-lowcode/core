@@ -31,7 +31,7 @@ const DragBoxRender = defineComponent({
   },
 })
 
-function onEnded({ to, from, oldIndex, newIndex }) {
+function onEnded({ to, from, oldIndex, newIndex }: any) {
   context?.workspaceRef?.value?.changeComponentSort(from?.id, to?.id, oldIndex, newIndex)
 }
 
@@ -39,7 +39,7 @@ function cloneElement() {
   return null
 }
 
-function onMove(event) {
+function onMove(event: any) {
   // 根据自定义逻辑控制是否允许移动
   return event.relatedContext.index !== -1 // 阻止移动到新位置
 }

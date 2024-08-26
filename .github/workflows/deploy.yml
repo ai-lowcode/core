@@ -61,11 +61,11 @@ jobs:
       - name: Build with designer
         run: pnpm turbo run build --filter=designer
       - name: create dist
-        run: mkdir dist
+        run: mkdir dist/designer && mkdir dist/docs -p
       - name: remove designer
         run: cp app/designer/dist/* dist/designer
       - name: remove docs
-        run: cp app/designer/dist/* dist/docs
+        run: cp docs/.vitepress/dist/* dist/docs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

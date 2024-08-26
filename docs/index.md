@@ -8,11 +8,11 @@ hero:
   tagline: ai 低代码设计器
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: 预览设计器
+      link: https://ailowcode.app/designer/
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: 预览管理端
+      link: https://ailowcode.app/admin/
 
 features:
   - title: vue3+vite4+ts

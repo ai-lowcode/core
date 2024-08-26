@@ -8,15 +8,15 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '首页', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' },
+      { text: '预览设计器', link: 'https://ailowcode.app/designer/' },
     ],
 
     sidebar: [
       {
-        text: 'Examples',
+        text: '预览',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' },
+          { text: '预览设计器', link: 'https://ailowcode.app/designer/' },
+          { text: '预览管理端', link: 'https://ailowcode.app/admin/' },
         ],
       },
     ],

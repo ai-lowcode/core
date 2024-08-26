@@ -60,12 +60,10 @@ jobs:
         run: pnpm build --pkg @ai-lowcode/designer
       - name: Build with designer
         run: pnpm turbo run build --filter=designer
-      - name: create dist
-        run: mkdir dist/designer && mkdir dist/docs -p
       - name: remove designer
-        run: cp app/designer/dist/* dist/designer
+        run: mkdir dist/designer -p && cp app/designer/dist/* dist/designer
       - name: remove docs
-        run: cp docs/.vitepress/dist/* dist/docs
+        run: mkdir dist/docs -p && cp docs/.vitepress/dist/* dist/docs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

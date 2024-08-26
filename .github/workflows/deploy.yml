@@ -44,10 +44,32 @@ jobs:
         run: pnpm install # 或 pnpm install / yarn install / bun install
       - name: Build with VitePress
         run: pnpm docs:build # 或 pnpm docs:build / yarn docs:build / bun run docs:build
+      - name: Build with @al-config/vite
+        run: pnpm build --pkg @al-config/vite
+      - name: Build with @ai-lowcode/utils
+        run: pnpm build --pkg @ai-lowcode/utils
+      - name: Build with @ai-lowcode/styles
+        run: pnpm build --pkg @ai-lowcode/styles
+      - name: Build with @ai-lowcode/hooks
+        run: pnpm build --pkg @ai-lowcode/hooks
+      - name: Build with @ai-lowcode/element-plus
+        run: pnpm build --pkg @ai-lowcode/element-plus
+      - name: Build with @ai-lowcode/request
+        run: pnpm build --pkg @ai-lowcode/request
+      - name: Build with @ai-lowcode/designer
+        run: pnpm build --pkg @ai-lowcode/designer
+      - name: Build with designer
+        run: pnpm turbo run build --filter=designer
+      - name: create dist
+        run: mkdir dist
+      - name: remove designer
+        run: cp app/designer/dist/* dist/designer
+      - name: remove docs
+        run: cp app/designer/dist/* dist/docs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/.vitepress/dist
+          path: dist
 
   # 部署工作
   deploy:

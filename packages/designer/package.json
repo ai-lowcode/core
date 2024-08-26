@@ -13,10 +13,13 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/ai-lowcode-designer.js",
-      "require": "./dist/ai-lowcode-designer.cjs"
+      "require": "./dist/ai-lowcode-designer.js"
+    },
+    "./css": {
+      "import": "./dist/style.css"
     }
   },
-  "main": "./dist/ai-lowcode-designer.cjs",
+  "main": "./dist/ai-lowcode-designer.js",
   "module": "./dist/ai-lowcode-designer.js",
   "types": "./dist/index.d.ts",
   "files": [
@@ -37,11 +40,9 @@
     "@ai-lowcode/request": "workspace:^",
     "@ai-lowcode/styles": "workspace:^",
     "@ai-lowcode/utils": "workspace:^",
-    "@form-create/component-wangeditor": "^3.1",
-    "@form-create/element-ui": "^3.1.27",
-    "@form-create/utils": "^3.2.0",
-    "element-plus": "^2.7.8",
+    "element-plus": "2.7.8",
     "monaco-editor": "0.29.0",
+    "vue": "^3.4.34",
     "vuedraggable": "4.1.0"
   },
   "devDependencies": {
@@ -51,13 +52,14 @@
     "@antfu/eslint-config": "^2.24.0",
     "@iconify/json": "^2.2.233",
     "@iconify/vue": "^4.1.2",
+    "@tomjs/vite-plugin-monaco-editor": "^1.1.1",
     "autoprefixer": "^10.4.19",
     "eslint": "^9.8.0",
     "postcss": "^8.4.40",
     "tailwindcss": "^3.4.7",
     "vite": "^5.3.5",
-    "vitest": "^2.0.4",
-    "vue": "^3.4.34"
+    "vite-plugin-monaco-editor": "^1.1.0",
+    "vitest": "^2.0.4"
   },
   "publishConfig": {
     "access": "public",

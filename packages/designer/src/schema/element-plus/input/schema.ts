@@ -63,6 +63,7 @@ export const InputSchema = <CompSchema>{
         props: {
           labelWidth: 100,
           labelPosition: 'top',
+          size: 'small',
         },
         children: [
           {

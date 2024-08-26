@@ -53,9 +53,9 @@ function getModelValue() {
 
 // 组装绑定数据
 const bindValue = ref({
-  ...(props.componentSchema as Schema).props,
-  ...(props.componentSchema as Schema).binds,
-  ...(props.componentSchema as Schema).events,
+  ...(props.componentSchema as Schema)?.props,
+  ...(props.componentSchema as Schema)?.binds,
+  ...(props.componentSchema as Schema)?.events,
   id: (props.componentSchema as Schema).id,
   ...getModelValue(),
   __schema: props.componentSchema,

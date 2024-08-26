@@ -1,6 +1,6 @@
-import { ComponentMenu } from '@/core'
-
 // 基础类型
+import { ComponentMenu } from '@/enums'
+
 export * from './basic.ts'
 // 表单生成器 schema 类型
 export * from './schema.ts'

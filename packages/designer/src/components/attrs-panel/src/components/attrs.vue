@@ -59,6 +59,8 @@ watch(() => propsData.value, (newValue) => {
       ...node.props,
       ...newValue.props,
     }
+    if (newValue?.props?.elText)
+      node.children[0] = newValue?.props?.elText
   })
   context?.workspaceRef?.value.changeSchema(newNodes)
 }, {
@@ -100,6 +102,9 @@ watch(() => context?.selectComponent, (newValue) => {
       slotsData.value = {
         slots: {},
       }
+    }
+    if (node?.type === 'el-text') {
+      propsData.value.props['el-text'] = String(node.children?.[0])
     }
     (node?.children as Schema[])?.map((slot: Schema) => {
       slotsData.value.slots[slot.slotName ?? 'default'] = slot.slotHidden ? slot.slotHidden : false

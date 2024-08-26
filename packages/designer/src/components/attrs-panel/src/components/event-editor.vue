@@ -1,15 +1,9 @@
 <script lang="ts" setup>
-import * as monaco from 'monaco-editor'
-import { IStandaloneCodeEditor } from 'monaco-editor'
-import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
 
 // 引入vue模块
-import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
-import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
-import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
-import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
+import { editor as editorType } from 'monaco-editor/esm/vs/editor/editor.api'
 import { onMounted, ref } from 'vue'
-// 引入monaco编辑器
 
 defineOptions({
   name: 'AlEventEditor',
@@ -20,32 +14,9 @@ const props = defineProps({
   option: Object,
 })
 
-// eslint-disable-next-line no-restricted-globals
-self.MonacoEnvironment = {
-  getWorker(workerId, label) {
-    if (label === 'json') {
-      // eslint-disable-next-line new-cap
-      return new jsonWorker()
-    }
-    if (label === 'css' || label === 'scss' || label === 'less') {
-      // eslint-disable-next-line new-cap
-      return new cssWorker()
-    }
-    if (label === 'html') {
-      // eslint-disable-next-line new-cap
-      return new htmlWorker()
-    }
-    if (['typescript', 'javascript'].includes(label)) {
-      // eslint-disable-next-line new-cap
-      return new tsWorker()
-    }
-    // eslint-disable-next-line new-cap
-    return new editorWorker()
-  },
-}
 const code = ref('') // 代码
 const language = ref('') // 语言
-const editor = ref<null | IStandaloneCodeEditor>(null) // 编辑器实例
+const editor = ref<null | editorType.IStandaloneCodeEditor>(null) // 编辑器实例
 const monacoEditor = ref(null)
 
 // 挂载
@@ -62,7 +33,7 @@ defineExpose({
 // 初始化编辑器
 function initEditor(language: string, code: string) {
   if (monacoEditor.value) {
-    editor.value = monaco.editor.create(monacoEditor.value!, {
+    editor.value = monaco.editor?.create(monacoEditor.value!, {
       value: code,
       theme: 'vs', // 主题
       language,

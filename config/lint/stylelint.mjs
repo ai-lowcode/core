@@ -5,7 +5,7 @@ export default {
     'stylelint-config-html/vue',
     'stylelint-config-recess-order',
   ],
-  plugins: ['stylelint-scss', 'stylelint-order', 'stylelint-prettier'],
+  plugins: ['stylelint-scss', 'stylelint-order'],
   overrides: [
     {
       files: ['**/*.(css|html|vue)'],
@@ -21,7 +21,7 @@ export default {
     },
   ],
   rules: {
-    'prettier/prettier': true,
+    // 'prettier/prettier': true,
     'selector-class-pattern': null,
     'no-descending-specificity': null,
     'scss/dollar-variable-pattern': null,

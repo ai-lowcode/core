@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { AlRenderer } from '@ai-lowcode/core'
 import {
   AlButton,
   AlDialog,
@@ -10,8 +11,6 @@ import { deepCopy } from '@ai-lowcode/utils'
 import { Icon } from '@iconify/vue'
 
 import { computed, inject, ref } from 'vue'
-
-import { AlRenderer } from '../../../../../core/src/components/renderer'
 
 import { DeviceEnum } from '@/enums'
 import { DESIGNER_CTX } from '@/global'
@@ -80,7 +79,6 @@ function previewPage() {
       </div>
     </div>
     <div class="flex items-center">
-      <slot name="handle" />
       <AlButton
         type="success" plain size="small"
       >

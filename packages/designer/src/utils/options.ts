@@ -1,4 +1,4 @@
-import { upper } from '@/utils'
+import { upper } from './tree-options.ts'
 
 export function makeOptionsRule(to: any) {
   const options = [

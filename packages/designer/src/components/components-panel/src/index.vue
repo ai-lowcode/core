@@ -94,7 +94,7 @@ const outLineTree = computed({
 watch(() => context?.workspaceRef?.value?.schema, (newValue) => {
   editorOptions.value.options.code = newValue
   toRaw(editor.value.editor)?.setValue(JSON.stringify(newValue, null, 2))
-  toRaw(editor.value.editor)?.getAction('editor.action.formatDocument').run()
+  // toRaw(editor.value.editor)?.getAction('editor.action.formatDocument').run()
   toRaw(editor.value.editor)?.setValue(toRaw(editor.value.editor)?.getValue())
 }, { deep: true })
 

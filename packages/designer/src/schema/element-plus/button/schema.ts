@@ -21,6 +21,18 @@ export const ButtonSchema = <CompSchema>{
       props: {
         class: 'm-4',
       },
+      children: [
+        {
+          type: 'AlVueDragAble',
+          id: `__${uniqueId()}`,
+          label: '拖拽区',
+          props: {
+            class: 'min-h-[30px] w-[200px] bg-[#f5f5f5]',
+          },
+          slotHidden: false,
+          children: [],
+        },
+      ],
     }
   },
   // 插槽
@@ -34,13 +46,14 @@ export const ButtonSchema = <CompSchema>{
         props: {
           labelWidth: 100,
           labelPosition: 'top',
+          size: 'small',
         },
         children: [
           {
             type: 'el-form-item',
             id: 'default',
             props: {
-              label: '是否开启默认插槽',
+              label: '隐藏默认插槽',
             },
             children: [
               {
@@ -68,6 +81,7 @@ export const ButtonSchema = <CompSchema>{
         props: {
           labelWidth: 100,
           labelPosition: 'top',
+          size: 'small',
         },
         children: [
           {

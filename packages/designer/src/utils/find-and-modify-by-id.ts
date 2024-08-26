@@ -8,9 +8,9 @@ import { Schema } from '@/types'
  * @param targetId
  * @param callback
  */
-export function findAndModifyById(nodes, targetId, callback) {
+export function findAndModifyById(nodes: any, targetId: any, callback: any) {
   // 遍历所有节点
-  return nodes.map((node) => {
+  return nodes.map((node: any) => {
     // 创建当前节点的浅拷贝
     const newNode = { ...node }
 
@@ -20,7 +20,7 @@ export function findAndModifyById(nodes, targetId, callback) {
     }
 
     // 如果当前节点有子节点，递归处理子节点
-    if (newNode.children && newNode.children.length > 0) {
+    if (newNode.children && newNode.children.length > 0 && typeof newNode.children[0] !== 'string') {
       newNode.children = findAndModifyById(newNode.children, targetId, callback)
     }
 
@@ -42,7 +42,7 @@ export function removeNodeById(nodes: Schema[], targetId: string) {
     }
     // 如果当前节点有 children 属性，递归地检查并删除子节点
     if (node.children) {
-      node.children = removeNodeById(node.children, targetId)
+      node.children = removeNodeById(node?.children as Schema[], targetId)
     }
     // 保留当前节点
     return true
@@ -57,7 +57,7 @@ export function removeNodeById(nodes: Schema[], targetId: string) {
  */
 export function findAndModifyParentById(treeArray: Schema[], targetId: string, callback: Function) {
   // Helper function to recursively search the tree
-  function searchAndModify(node: Schema, parent = null) {
+  function searchAndModify(node: Schema, parent: any = null) {
     if (node.id === targetId) {
       if (parent && parent.type === 'AlVueDragAble') {
         // 使用回调函数修改父级的 children
@@ -128,7 +128,7 @@ export function swapChildrenPositions(
         return { parent: null, index, node }
       }
       if (node.children) {
-        const result = findNodeAndParent(node.children, targetId)
+        const result = findNodeAndParent(node.children as Schema[], targetId)
         if (result) {
           return {
             parent: node,
@@ -149,7 +149,7 @@ export function swapChildrenPositions(
   }
 
   // Get the node to be moved
-  const [movedNode] = fromResult.node.children!.splice(oldIndex, 1)
+  const [movedNode] = (fromResult.node.children as any)?.splice(oldIndex, 1)
 
   // Remove the old node's children array if it's empty
   if (fromResult.node.children!.length === 0) {
@@ -160,7 +160,7 @@ export function swapChildrenPositions(
   if (!toResult.node.children) {
     toResult.node.children = []
   }
-  toResult.node.children.splice(newIndex, 0, movedNode)
+  (toResult.node.children as any)?.splice(newIndex, 0, movedNode)
 
   return nodes
 }

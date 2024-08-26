@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { deepCopy } from '@ai-lowcode/utils'
 import { ComponentPublicInstance, computed, defineComponent, getCurrentInstance, h, inject, useAttrs } from 'vue'
-import draggable from 'vuedraggable'
+import draggable from 'vuedraggable/src/vuedraggable'
 
 import { DESIGNER_CTX } from '@/global'
 import { DesignerContext, Schema } from '@/types'
@@ -54,7 +54,7 @@ function onMove(event: any) {
       put: true,
     }"
     class="w-full"
-    :class="list?.length ? 'h-full' : 'h-full bg-[#f5f5f5] rounded-md drag-content'"
+    :class="list?.length ? 'h-full' : 'h-full bg-[#f5f5f5] rounded-md drag-content relative'"
     ghost-class="ghost"
     animation="300"
     empty-insert-threshold="0"

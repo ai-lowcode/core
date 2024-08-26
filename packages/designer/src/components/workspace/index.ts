@@ -6,4 +6,4 @@ import Workspace from './src/index.vue'
 export const AlDragBox = DragBox
 export const AlVueDragAble = VueDragAble
 
-export const AlWorkspace = Workspace
+export const AlWorkspace = Workspace as any

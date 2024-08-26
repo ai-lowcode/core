@@ -42,8 +42,8 @@ jobs:
         uses: actions/configure-pages@v4
       - name: Install dependencies
         run: pnpm install # 或 pnpm install / yarn install / bun install
-      - name: Build with @ai-lowcode/vite
-        run: pnpm build --pkg @ai-lowcode/vite
+      - name: Build with @ai-config/vite
+        run: pnpm build --pkg @ai-config/vite
       - name: Build with @ai-lowcode/utils
         run: pnpm build --pkg @ai-lowcode/utils
       - name: Build with @ai-lowcode/styles

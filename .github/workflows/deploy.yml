@@ -52,12 +52,12 @@ jobs:
   # 部署工作
   deploy:
     environment:
-      name: github-pages
+      name: docs
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
     name: Deploy
     steps:
-      - name: Deploy to GitHub Pages
+      - name: docs
         id: deployment
         uses: actions/deploy-pages@v4

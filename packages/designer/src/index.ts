@@ -1,8 +1,14 @@
+import '@ai-lowcode/element-plus/css'
+
 import { App } from 'vue'
 
 import Designer from './index.vue'
 
-import { AlDragBox, AlVueDragAble } from '@/layout/workspace/index.ts'
+import './style/index.css'
+
+import './style/tailwind.css'
+
+import { AlDragBox, AlVueDragAble } from '@/components/workspace/index.ts'
 
 export * from './enums'
 

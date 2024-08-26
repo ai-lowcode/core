@@ -9,6 +9,7 @@ import minimist from 'minimist'
 const args = minimist(argv.slice(2))
 const formatArgs = args.formats
 const prod = args.prod || args.p
+const pkg = args.pkg
 const PACKAGES_DIR_NAME = 'packages'
 const SCRIPTS_DIR_NAME = 'scripts'
 const CONFIG_DIR_NAME = 'config'
@@ -16,12 +17,38 @@ const COMPILE_TYPE = {
   ALL: 'all',
   CHECKBOX: 'checkbox',
 }
+const packagesPkg = await findWorkspacePackages(join(cwd(), PACKAGES_DIR_NAME))
+const scriptsPkg = await findWorkspacePackages(join(cwd(), SCRIPTS_DIR_NAME))
+const configPkg = await findWorkspacePackages(join(cwd(), CONFIG_DIR_NAME))
+const pkgList = [...packagesPkg, ...scriptsPkg, ...configPkg]
+
+function compilePkg(pkgs) {
+  pkgs.map(async (pkg) => {
+    const manifest = pkgList.filter(item => item.manifest.name === pkg)[0].manifest
+
+    if (manifest?.scripts?.build) {
+      await execa('pnpm', ['--filter', manifest.name, 'build'], {
+        stdio: 'inherit',
+        env: {
+          PROD: prod,
+          FORMATS: formatArgs || (!prod ? 'es' : undefined),
+          VERSION: manifest.version,
+        },
+      })
+    }
+
+    if (manifest?.scripts?.['build:dts']) {
+      await execa('pnpm', ['--filter', manifest.name, 'build:dts'], {
+        stdio: 'inherit',
+        env: {
+          PROD: prod,
+        },
+      })
+    }
+  })
+}
 
 async function run() {
-  const packagesPkg = await findWorkspacePackages(join(cwd(), PACKAGES_DIR_NAME))
-  const scriptsPkg = await findWorkspacePackages(join(cwd(), SCRIPTS_DIR_NAME))
-  const configPkg = await findWorkspacePackages(join(cwd(), CONFIG_DIR_NAME))
-  const pkgList = [...packagesPkg, ...scriptsPkg, ...configPkg]
   const choices = []
   pkgList.forEach((item) => {
     choices.push({
@@ -47,43 +74,24 @@ async function run() {
     ],
   })
 
-  let compilePkg = []
+  let compilePkgList = []
 
   switch (compile) {
     case COMPILE_TYPE.ALL:
-      compilePkg = choices.map(item => item.name)
+      compilePkgList = choices.map(item => item.name)
       break
     case COMPILE_TYPE.CHECKBOX:
-      compilePkg = await checkbox({
+      compilePkgList = await checkbox({
         message: '请选择你要编译的包',
         choices,
       })
       break
   }
 
-  compilePkg.map(async (pkg) => {
-    const manifest = pkgList.filter(item => item.manifest.name === pkg)[0].manifest
-
-    if (manifest?.scripts?.build) {
-      await execa('pnpm', ['--filter', manifest.name, 'build'], {
-        stdio: 'inherit',
-        env: {
-          PROD: prod,
-          FORMATS: formatArgs || (!prod ? 'es' : undefined),
-          VERSION: manifest.version,
-        },
-      })
-    }
-
-    if (manifest?.scripts?.['build:dts']) {
-      await execa('pnpm', ['--filter', manifest.name, 'build:dts'], {
-        stdio: 'inherit',
-        env: {
-          PROD: prod,
-        },
-      })
-    }
-  })
+  compilePkg(compilePkgList)
 }
 
-run()
+if (pkg !== true && pkg)
+  compilePkg([pkg])
+else
+  run()

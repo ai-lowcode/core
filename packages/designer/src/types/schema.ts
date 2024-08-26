@@ -10,13 +10,24 @@ import { ComponentSize, Control, InjectArg, VNodeRule } from './basic.ts'
  * 表单 schema
  */
 export interface Schema {
-  $required?: boolean
+  id?: string
+  props?: Record<string, any>
+  binds?: Record<string, any>
+  events?: Record<string, any>
+  lifeCycle?: Record<string, any>
+  // 插槽列表，可选
+  slotName?: string
+  slotHidden?: boolean
+  modelField?: string
+  defaultValue?: string
+  field?: string
+  label?: string
   attrs?: any
   /**
    * 基础配置
    */
   type?: string
-  field?: string
+  icon?: string
   title?: string | Schema
   name?: string
   value?: any
@@ -29,7 +40,6 @@ export interface Schema {
   /**
    * 通用配置
    */
-  props?: Record<string, any>
   class?: object | string | Array<any>
   style?: object | string
   on?: object
@@ -95,7 +105,9 @@ export interface CompSchema {
   // 组件的生成规则
   schema: () => Schema
   // 组件属性配置的规则
-  props: (schema: Schema, arg: { api: Api }) => Schema[]
+  props: (schema?: Schema, arg?: { api: Api }) => Schema[]
+  slots?: (schema?: Schema, arg?: { api: Api }) => Schema[]
+  events?: (schema?: Schema, arg?: { api: Api }) => Schema[]
   // 导出规则时通过这个方法转成最终规则
   parseRule?: (schema: Schema) => void
   // 导入规则时通过这个方法转成设计器中的渲染规则

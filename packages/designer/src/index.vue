@@ -3,10 +3,10 @@ import { AlContainer } from '@ai-lowcode/element-plus'
 
 import { provide, ref } from 'vue'
 
-import AttrsPanel from './layout/attrs-panel/index.vue'
-import ComponentsPanel from './layout/components-panel/index.vue'
-import Header from './layout/header/index.vue'
-import Workspace from './layout/workspace/index.vue'
+import { AlAttrsPanel } from '@/components/attrs-panel'
+import { AlComponentsPanel } from '@/components/components-panel'
+import { AlHeader } from '@/components/header'
+import { AlWorkspace } from '@/components/workspace'
 
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
 import { DesignerContext, Schema } from '@/types'
@@ -25,7 +25,8 @@ const workspaceRef = ref()
 provide<DesignerContext>(DESIGNER_CTX, {
   selectComponent,
   changeComponentSelect: (comp: Schema) => {
-    selectComponent.value = comp
+    if (comp?.id !== selectComponent.value?.id)
+      selectComponent.value = comp
   },
   workspaceRef,
 })
@@ -33,11 +34,11 @@ provide<DesignerContext>(DESIGNER_CTX, {
 
 <template>
   <AlContainer style="height: 100vh" class="p-4">
-    <ComponentsPanel />
+    <AlComponentsPanel />
     <AlContainer class="flex flex-col">
-      <Header />
-      <Workspace ref="workspaceRef" />
+      <AlHeader />
+      <AlWorkspace ref="workspaceRef" />
     </AlContainer>
-    <AttrsPanel />
+    <AlAttrsPanel />
   </AlContainer>
 </template>

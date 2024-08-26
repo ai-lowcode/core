@@ -5,5 +5,6 @@ export default defineConfig(async () => {
   return definePkgConfig({
     name: 'AiLowcodeUtils',
     defaultFormats: ['es', 'cjs'],
+    externalDeps: false,
   })
 })

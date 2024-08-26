@@ -11,6 +11,7 @@ interface Options {
   defaultFormats?: LibraryFormats[]
   externalDeps?: boolean
   options?: UserConfig
+  modifyExternal?: Array<string>
 }
 
 const resolvePath = (path: string) => resolve(cwd(), path)
@@ -22,6 +23,7 @@ export async function definePkgConfig({
   defaultFormats = ['es'],
   externalDeps = true,
   options = {},
+  modifyExternal = [],
 }: Options) {
   const formats = (env.FORMATS?.split(',') ?? defaultFormats) as LibraryFormats[]
 
@@ -45,7 +47,7 @@ export async function definePkgConfig({
       minify: isProduction,
       sourcemap: isProduction ? false : 'inline',
       rollupOptions: {
-        external: externals,
+        external: [...externals, ...modifyExternal],
       },
     },
     ...options,

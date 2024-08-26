@@ -1,3 +1,5 @@
+import { upper } from './tree-options.ts'
+
 export function makeOptionsRule(to: any) {
   const options = [
     { label: '静态数据', value: 2 },

@@ -1,6 +1,4 @@
-import { FormRule } from '@form-create/element-ui'
-
-import { Api, Schema } from '@/core'
+import { Api, Schema } from '@/types'
 
 interface SizeObject {
   span?: number
@@ -37,7 +35,7 @@ interface UpdateArg {
   // 关联触发的字段
   linkField: string | undefined
 }
-export type Update = (val: any, rule: FormRule, fApi: Api, arg: UpdateArg) => boolean | undefined
+export type Update = (val: any, rule: any, fApi: Api, arg: UpdateArg) => boolean | undefined
 
 export type Control = Array<{
   // 通过内置条件控制,和`handle`二选一

@@ -1,31 +1,61 @@
+import { uniqueId } from '@ai-lowcode/utils'
+
+import { PAGE_COMP } from '../global'
+
 import { Schema } from '@/types'
 
-export function removeAlDragBoxAndPromoteChildren(arr) {
-  return arr.reduce((result, item) => {
-    if (item.type === 'AlDragBox') {
-      // 如果当前项是 AlDragBox，直接将其 children 提升到上层
-      if (item.children && Array.isArray(item.children)) {
-        // 将 AlDragBox 的 children 添加到父层
-        return result.concat(item.children)
-      }
-      return result
+/**
+ * 删除类型为AlDragBox，AlVueDragAble的盒子，且不改变数据结构
+ * @param nodes
+ */
+export function removeAlDragBoxAndPromoteChildren(nodes: Array<any>): Array<any> {
+  return nodes?.flatMap((node: any) => {
+    // 检查是否需要删除 AlDragBox 或 AlVueDragAble 且 id 不为 'page' 的节点
+    if (
+      node.type === 'AlDragBox'
+      || (node.type === 'AlVueDragAble')
+    ) {
+      // 递归处理需要删除节点的子节点，并将它们提升
+      return removeAlDragBoxAndPromoteChildren(node.children as Array<any>)
     }
-    else {
-      // 如果当前项不是 AlDragBox，递归处理其 children
-      if (item.children && Array.isArray(item.children)) {
-        item.children = removeAlDragBoxAndPromoteChildren(item.children)
-      }
-      result.push(item)
-      return result
+    else if (node.children && node.children.length > 0) {
+      // 如果节点有子节点，递归处理子节点
+      node.children = removeAlDragBoxAndPromoteChildren(node.children as Array<any>)
     }
-  }, [])
+    // 返回当前节点
+    return node
+  })
 }
 
-export function createDragBoxTemplate(schema?: Schema) {
+/**
+ * 创建AlDragBox
+ * @param schema
+ * @param props
+ */
+export function createDragBoxTemplate(schema?: Schema, props?: Record<string, any>) {
   return {
     type: 'AlDragBox',
-    inject: true,
-    props: {},
+    id: `__${uniqueId()}`,
+    props,
+    children: schema
+      ? [
+          schema,
+        ]
+      : [],
+  }
+}
+
+/**
+ * 创建AlDragBox
+ * @param schema
+ * @param props
+ */
+export function createPageTemplate(schema?: Schema, props?: Record<string, any>) {
+  return {
+    type: 'AlVueDragAble',
+    id: PAGE_COMP,
+    icon: 'iconoir:page',
+    props,
     children: schema
       ? [
           schema,

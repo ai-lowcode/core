@@ -1,3 +1,4 @@
-import demo from './demo.vue'
-
-export const AlDemo = demo
+export * from './attrs-panel'
+export * from './components-panel'
+export * from './header'
+export * from './workspace'

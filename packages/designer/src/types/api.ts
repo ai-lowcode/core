@@ -2,7 +2,7 @@ import { ButtonProps } from 'element-plus'
 
 import { ComponentInternalInstance } from 'vue'
 
-import { Schema } from '@/core'
+import { Schema } from '@/types'
 
 export interface Api {
   // 表单配置

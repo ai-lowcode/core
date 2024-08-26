@@ -1,6 +1,12 @@
 {
   "extends": "@al-config/tsconfig/tsconfig.base.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "temp",

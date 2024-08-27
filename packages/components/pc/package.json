@@ -12,12 +12,12 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": "./dist/ai-lowcode-components-pc.js",
+      "require": "./dist/ai-lowcode-components-pc.js"
     }
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "main": "./dist/ai-lowcode-components-pc.js",
+  "module": "./dist/ai-lowcode-components-pc.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -27,7 +27,6 @@
     "build:all": "vite build && pnpm build:dts",
     "build:dts": "rimraf temp && tsc -p tsconfig.declaration.json && rollup-dts",
     "clean": "rimraf node_modules",
-    "clean:mac": "rimraf node_modules",
     "clean:dist": "rimraf dist"
   },
   "dependencies": {

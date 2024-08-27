@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { Schema, accessOrSetNestedValue, setNestedObjectValue } from '@ai-lowcode/designer'
-import { uniqueId } from '@ai-lowcode/utils'
+import { accessOrSetNestedValue, setNestedObjectValue, uniqueId } from '@ai-lowcode/utils'
 import { Ref, provide, ref, watch } from 'vue'
 
 import { AlNode } from '../../node'
+
+import { Schema } from '@/components'
 
 const props = defineProps<{
   modelValue?: Record<any, any>

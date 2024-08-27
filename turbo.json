@@ -25,7 +25,7 @@
     "clean": {
       "cache": false
     },
-    "clean:mac": {
+    "clean:dist": {
       "cache": false
     }
   }

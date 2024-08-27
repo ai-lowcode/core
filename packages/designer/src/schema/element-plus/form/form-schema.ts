@@ -1,6 +1,7 @@
+import type { Schema } from '@ai-lowcode/core'
 import { uniqueId } from '@ai-lowcode/utils'
 
-import { CompSchema, Schema } from '@/types'
+import { CompSchema } from '@/types'
 
 const label = '表单'
 const name = 'form'

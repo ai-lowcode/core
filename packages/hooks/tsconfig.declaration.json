@@ -10,6 +10,7 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "temp",
+    "rootDir": ".",
     "stripInternal": true
   }
 }

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { Schema } from '@ai-lowcode/core'
 import { AlContainer } from '@ai-lowcode/element-plus'
 
 import { provide, ref } from 'vue'
@@ -9,7 +10,7 @@ import { AlHeader } from '@/components/header'
 import { AlWorkspace } from '@/components/workspace'
 
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
-import { DesignerContext, Schema } from '@/types'
+import { DesignerContext } from '@/types'
 
 defineOptions({
   name: 'AlDesigner',

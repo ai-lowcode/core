@@ -1,6 +1,5 @@
+import type { Schema } from '@ai-lowcode/core'
 import { uniqueId } from '@ai-lowcode/utils'
-
-import { Schema } from '@/types'
 
 /**
  * 根据targetId搜索nodes的节点，修改targetId节点的值
@@ -97,7 +96,7 @@ export function recursiveUpdateIds(node: Schema) {
 
   // Recursively update children if they exist
   if (node.children && Array.isArray(node.children)) {
-    node.children = node.children.map(child => recursiveUpdateIds(child))
+    node.children = node.children.map((child: Schema) => recursiveUpdateIds(child))
   }
 
   return node

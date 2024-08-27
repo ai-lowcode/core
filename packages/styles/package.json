@@ -28,7 +28,6 @@
   "scripts": {
     "build": "vite build",
     "clean": "rimraf node_modules",
-    "clean:mac": "rimraf node_modules",
     "clean:dist": "rimraf dist"
   },
   "devDependencies": {

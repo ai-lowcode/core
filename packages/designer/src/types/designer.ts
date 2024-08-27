@@ -1,6 +1,5 @@
+import type { Schema } from '@ai-lowcode/core'
 import { Ref } from 'vue'
-
-import { Schema } from '@/types/schema.ts'
 
 export interface DesignerContext {
   selectComponent?: Ref<Schema>

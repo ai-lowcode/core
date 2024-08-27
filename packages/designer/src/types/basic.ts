@@ -1,4 +1,6 @@
-import { Api, Schema } from '@/types'
+import type { Schema } from '@ai-lowcode/core'
+
+import { Api } from '@/types'
 
 interface SizeObject {
   span?: number

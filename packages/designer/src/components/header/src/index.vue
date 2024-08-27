@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AlRenderer } from '@ai-lowcode/core'
+import { AlRenderer, Schema } from '@ai-lowcode/core'
 import {
   AlButton,
   AlDialog,
@@ -14,7 +14,6 @@ import { computed, inject, ref } from 'vue'
 
 import { DeviceEnum } from '@/enums'
 import { DESIGNER_CTX } from '@/global'
-import { DesignerContext, Schema } from '@/types'
 import { removeAlDragBoxAndPromoteChildren } from '@/utils'
 
 // 设备

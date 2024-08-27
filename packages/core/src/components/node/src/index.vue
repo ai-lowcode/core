@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { Schema } from '@ai-lowcode/designer'
 import {
   computed,
   inject,
@@ -14,6 +13,8 @@ import {
 } from 'vue'
 
 import { FormDataType } from '../../renderer/src/index.vue'
+
+import { Schema } from './types'
 
 defineOptions({
   name: 'AlNode',

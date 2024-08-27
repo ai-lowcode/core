@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+import type { Schema } from '@ai-lowcode/core'
 import { deepCopy } from '@ai-lowcode/utils'
 import { ComponentPublicInstance, computed, defineComponent, getCurrentInstance, h, inject, useAttrs } from 'vue'
 import draggable from 'vuedraggable/src/vuedraggable'
 
 import { DESIGNER_CTX } from '@/global'
-import { DesignerContext, Schema } from '@/types'
+import { DesignerContext } from '@/types'
 
 defineOptions({
   name: 'AlVueDragAble',

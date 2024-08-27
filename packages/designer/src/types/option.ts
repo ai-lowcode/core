@@ -1,8 +1,9 @@
+import type { Schema } from '@ai-lowcode/core'
 import { ButtonProps, ColProps, FormItemProps, FormProps, RowProps } from 'element-plus'
 
 import { FetchEffectOption } from './basic.ts'
 
-import { Api, Schema, VNodeRule } from '@/types'
+import { Api, VNodeRule } from '@/types'
 
 export interface Option {
   global?: {

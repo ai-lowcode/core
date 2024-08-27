@@ -24,7 +24,7 @@
     "prepare": "husky install",
     "cmt": "git add . && git-cz",
     "clean": "pnpm turbo clean && rimraf node_modules",
-    "clean:mac": "pnpm turbo clean:mac && rimraf node_modules",
+    "clean:dist": "pnpm turbo clean:dist && rimraf dist",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"

@@ -14,9 +14,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/ai-lowcode-core.js",
       "require": "./dist/ai-lowcode-core.js"
-    },
-    "./css": {
-      "import": "./dist/style.css"
     }
   },
   "main": "./dist/ai-lowcode-core.js",
@@ -30,11 +27,9 @@
     "build:all": "vite build && pnpm build:dts",
     "build:dts": "rimraf temp && tsc -p tsconfig.declaration.json && rollup-dts",
     "clean": "rimraf node_modules",
-    "clean:mac": "rimraf node_modules",
     "clean:dist": "rimraf dist"
   },
   "dependencies": {
-    "@ai-lowcode/designer": "workspace:^",
     "@ai-lowcode/utils": "workspace:^",
     "vue": "^3.4.34"
   },

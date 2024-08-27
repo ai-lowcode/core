@@ -8,8 +8,7 @@
     "stylelint.mjs"
   ],
   "scripts": {
-    "clean": "rimraf node_modules",
-    "clean:mac": "rimraf node_modules"
+    "clean": "rimraf node_modules"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.2.2",

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { AlRenderer } from '@ai-lowcode/core'
+import { AlRenderer, Schema } from '@ai-lowcode/core'
 import { AlMain } from '@ai-lowcode/element-plus'
 import { deepCopy, uniqueId } from '@ai-lowcode/utils'
 import { onMounted, ref } from 'vue'
 
 import { DeviceEnum } from '@/enums'
-import { Schema } from '@/types'
 import {
   createDragBoxTemplate,
   createPageTemplate,

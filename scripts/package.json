@@ -7,8 +7,7 @@
     "build-pkg": "build.js"
   },
   "scripts": {
-    "clean": "rimraf node_modules",
-    "clean:mac": "rimraf node_modules"
+    "clean": "rimraf node_modules"
   },
   "dependencies": {
     "@inquirer/prompts": "^5.3.6"

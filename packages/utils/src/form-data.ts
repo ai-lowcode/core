@@ -1,4 +1,8 @@
-// 定义函数将字符串路径转换为嵌套对象
+/**
+ * 定义函数将字符串路径转换为嵌套对象
+ * @param obj
+ * @param keys
+ */
 export function setNestedObjectValue(obj: any, keys: string[]) {
   let current = obj
 
@@ -17,7 +21,12 @@ export function setNestedObjectValue(obj: any, keys: string[]) {
   })
 }
 
-// 定义一个函数，既能访问也能修改嵌套对象中的值
+/**
+ * 定义一个函数，既能访问也能修改嵌套对象中的值
+ * @param obj
+ * @param keys
+ * @param newValue
+ */
 export function accessOrSetNestedValue(obj: any, keys: string[], newValue = undefined) {
   let current = obj
   for (let i = 0; i < keys.length - 1; i++) {

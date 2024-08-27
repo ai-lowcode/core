@@ -1,9 +1,7 @@
 <script lang="ts" setup>
+import { Schema, accessOrSetNestedValue, setNestedObjectValue } from '@ai-lowcode/designer'
+import { uniqueId } from '@ai-lowcode/utils'
 import { Ref, provide, ref, watch } from 'vue'
-
-import { Schema } from '../../../../../designer/src/types'
-import { accessOrSetNestedValue, setNestedObjectValue } from '../../../../../designer/src/utils'
-import { uniqueId } from '../../../../../utils/src'
 
 import { AlNode } from '../../node'
 

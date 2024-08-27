@@ -58,6 +58,8 @@ jobs:
         run: pnpm build --pkg @ai-lowcode/request
       - name: Build with @ai-lowcode/designer
         run: pnpm build --pkg @ai-lowcode/designer
+      - name: Build with @ai-lowcode/core
+        run: pnpm build --pkg @ai-lowcode/core
       - name: Build with designer
         run: pnpm turbo run build --filter=designer
       - name: remove designer

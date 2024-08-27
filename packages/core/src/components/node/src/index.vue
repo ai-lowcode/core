@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Schema } from '@ai-lowcode/designer'
 import {
   computed,
   inject,
@@ -11,8 +12,6 @@ import {
   onUpdated,
   ref,
 } from 'vue'
-
-import { Schema } from '../../../../../designer/src/types'
 
 import { FormDataType } from '../../renderer/src/index.vue'
 

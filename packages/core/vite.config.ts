@@ -9,7 +9,7 @@ import { defineConfig } from 'vite'
 export default defineConfig(async () => {
   return definePkgConfig({
     name: 'AiLowcodeCore',
-    defaultFormats: ['es', 'cjs'],
+    defaultFormats: ['es'],
     options: {
       resolve: {
         alias: {

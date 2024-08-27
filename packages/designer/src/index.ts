@@ -16,6 +16,8 @@ export * from './types'
 
 export * from './components'
 
+export * from './utils'
+
 export const AlDesigner = Designer
 
 export function initComponents(app: App) {

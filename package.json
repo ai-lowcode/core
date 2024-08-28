@@ -12,8 +12,9 @@
     "npm": ">=9.4.0"
   },
   "scripts": {
-    "dev": "pnpm --filter \"ai-lowcode-server\" \"dev\"",
+    "dev:server": "pnpm --filter \"ai-lowcode-server\" \"dev\"",
     "build": "node ./scripts/build.js",
+    "build:server": "pnpm --filter \"ai-lowcode-server\" \"build\"",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "pnpm build && pnpm release:only",

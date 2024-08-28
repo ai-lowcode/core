@@ -2,17 +2,17 @@ import { InjectRedis } from '@liaoliaots/nestjs-redis'
 import { Controller, Get, Query } from '@nestjs/common'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
-import type Redis from 'ioredis'
+import Redis from 'ioredis'
 import { isEmpty } from 'lodash'
 import * as svgCaptcha from 'svg-captcha'
 
-import { ApiResult } from '../../../common/decorators/api-result.decorator'
-import { genCaptchaImgKey } from '../../../helper/genRedisKey'
-import { generateUUID } from '../../../utils'
+import { ApiResult } from '~/common/decorators/api-result.decorator'
+import { genCaptchaImgKey } from '~/helper/genRedisKey'
+import { generateUUID } from '~/utils'
 
 import { Public } from '../decorators/public.decorator'
 
-import type { ImageCaptchaDto } from '../dto/captcha.dto'
+import { ImageCaptchaDto } from '../dto/captcha.dto'
 import { ImageCaptcha } from '../models/auth.model'
 
 @ApiTags('Captcha - 验证码模块')

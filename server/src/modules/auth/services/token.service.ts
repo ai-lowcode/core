@@ -1,16 +1,15 @@
 import { InjectRedis } from '@liaoliaots/nestjs-redis'
 import { Inject, Injectable } from '@nestjs/common'
-import type { JwtService } from '@nestjs/jwt'
+import { JwtService } from '@nestjs/jwt'
 import dayjs from 'dayjs'
 
-import type Redis from 'ioredis'
+import Redis from 'ioredis'
 
-import type { ISecurityConfig } from '../../../config'
-import { SecurityConfig } from '../../../config'
-import { genOnlineUserKey } from '../../../helper/genRedisKey'
-import { generateUUID } from '../../../utils'
-import type { RoleService } from '../../system/role/role.service'
-import type { UserEntity } from '../../user/user.entity'
+import { ISecurityConfig, SecurityConfig } from '~/config'
+import { genOnlineUserKey } from '~/helper/genRedisKey'
+import { RoleService } from '~/modules/system/role/role.service'
+import { UserEntity } from '~/modules/user/user.entity'
+import { generateUUID } from '~/utils'
 
 import { AccessTokenEntity } from '../entities/access-token.entity'
 import { RefreshTokenEntity } from '../entities/refresh-token.entity'

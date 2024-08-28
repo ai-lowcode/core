@@ -1,13 +1,12 @@
 import { RedisModule as NestRedisModule } from '@liaoliaots/nestjs-redis'
 import { CacheModule } from '@nestjs/cache-manager'
-import type { Provider } from '@nestjs/common'
-import { Global, Module } from '@nestjs/common'
+import { Global, Module, Provider } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 
 import { redisStore } from 'cache-manager-ioredis-yet'
-import type { RedisOptions } from 'ioredis'
+import { RedisOptions } from 'ioredis'
 
-import type { ConfigKeyPaths, IRedisConfig } from '../../config'
+import { ConfigKeyPaths, IRedisConfig } from '~/config'
 
 import { CacheService } from './cache.service'
 import { RedisSubPub } from './redis-subpub'

@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 
-import type { Repository } from 'typeorm'
-import { LessThan } from 'typeorm'
+import { LessThan, Repository } from 'typeorm'
 
-import { paginate } from '../../../../helper/paginate'
+import { paginate } from '~/helper/paginate'
 
-import type { TaskLogQueryDto } from '../dto/log.dto'
+import { TaskLogQueryDto } from '../dto/log.dto'
 import { TaskLogEntity } from '../entities/task-log.entity'
 
 @Injectable()

@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 
-import type { Repository } from 'typeorm'
+import { Repository } from 'typeorm'
 
-import { paginate } from '../../../helper/paginate'
-import type { Pagination } from '../../../helper/paginate/pagination'
+import { paginate } from '~/helper/paginate'
+import { Pagination } from '~/helper/paginate/pagination'
+import { ParamConfigEntity } from '~/modules/system/param-config/param-config.entity'
 
-import type { ParamConfigDto, ParamConfigQueryDto } from './param-config.dto'
-import { ParamConfigEntity } from './param-config.entity'
+import { ParamConfigDto, ParamConfigQueryDto } from './param-config.dto'
 
 @Injectable()
 export class ParamConfigService {

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Column, Entity } from 'typeorm'
 
-import { CommonEntity } from '../../../common/entity/common.entity'
+import { CommonEntity } from '~/common/entity/common.entity'
 
 @Entity({ name: 'tool_storage' })
 export class Storage extends CommonEntity {

@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import * as si from 'systeminformation'
 
-import type { ServeStatInfo } from './serve.model'
-import { Disk } from './serve.model'
+import { Disk, ServeStatInfo } from './serve.model'
 
 @Injectable()
 export class ServeService {

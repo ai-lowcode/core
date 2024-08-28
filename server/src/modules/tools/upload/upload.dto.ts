@@ -1,4 +1,4 @@
-import type { MultipartFile } from '@fastify/multipart'
+import { MultipartFile } from '@fastify/multipart'
 import { ApiProperty } from '@nestjs/swagger'
 
 import { IsDefined } from 'class-validator'

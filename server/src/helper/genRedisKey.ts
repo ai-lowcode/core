@@ -1,4 +1,4 @@
-import { RedisKeys } from '../constants/cache.constant'
+import { RedisKeys } from '~/constants/cache.constant'
 
 /** 生成验证码 redis key */
 export function genCaptchaImgKey(val: string | number) {

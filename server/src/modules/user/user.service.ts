@@ -1,34 +1,34 @@
 import { InjectRedis } from '@liaoliaots/nestjs-redis'
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
-import type Redis from 'ioredis'
+import Redis from 'ioredis'
 import { isEmpty, isNil } from 'lodash'
 
-import type { EntityManager, Repository } from 'typeorm'
-import { In, Like } from 'typeorm'
+import { EntityManager, In, Like, Repository } from 'typeorm'
 
-import { BusinessException } from '../../common/exceptions/biz.exception'
-import { ErrorEnum } from '../../constants/error-code.constant'
-import { ROOT_ROLE_ID, SYS_USER_INITPASSWORD } from '../../constants/system.constant'
-import { genAuthPVKey, genAuthPermKey, genAuthTokenKey, genOnlineUserKey } from '../../helper/genRedisKey'
+import { BusinessException } from '~/common/exceptions/biz.exception'
+import { ErrorEnum } from '~/constants/error-code.constant'
+import { ROOT_ROLE_ID, SYS_USER_INITPASSWORD } from '~/constants/system.constant'
+import { genAuthPVKey, genAuthPermKey, genAuthTokenKey, genOnlineUserKey } from '~/helper/genRedisKey'
 
-import { paginate } from '../../helper/paginate'
-import type { Pagination } from '../../helper/paginate/pagination'
-import type { QQService } from '../../shared/helper/qq.service'
-import { md5, randomValue } from '../../utils'
-import type { AccountUpdateDto } from '../auth/dto/account.dto'
-import type { RegisterDto } from '../auth/dto/auth.dto'
+import { paginate } from '~/helper/paginate'
+import { Pagination } from '~/helper/paginate/pagination'
+import { AccountUpdateDto } from '~/modules/auth/dto/account.dto'
+import { RegisterDto } from '~/modules/auth/dto/auth.dto'
+import { QQService } from '~/shared/helper/qq.service'
+
+import { md5, randomValue } from '~/utils'
 
 import { AccessTokenEntity } from '../auth/entities/access-token.entity'
 import { DeptEntity } from '../system/dept/dept.entity'
-import type { ParamConfigService } from '../system/param-config/param-config.service'
+import { ParamConfigService } from '../system/param-config/param-config.service'
 import { RoleEntity } from '../system/role/role.entity'
 
 import { UserStatus } from './constant'
-import type { PasswordUpdateDto } from './dto/password.dto'
-import type { UserDto, UserQueryDto, UserUpdateDto } from './dto/user.dto'
+import { PasswordUpdateDto } from './dto/password.dto'
+import { UserDto, UserQueryDto, UserUpdateDto } from './dto/user.dto'
 import { UserEntity } from './user.entity'
-import type { AccountInfo } from './user.model'
+import { AccountInfo } from './user.model'
 
 @Injectable()
 export class UserService {

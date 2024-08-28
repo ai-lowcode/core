@@ -1,9 +1,5 @@
 import { BadRequestException } from '@nestjs/common'
 import { ApiProperty, ApiPropertyOptional, IntersectionType, PartialType } from '@nestjs/swagger'
-import type {
-  ValidationArguments,
-  ValidatorConstraintInterface,
-} from 'class-validator'
 import {
   IsDateString,
   IsIn,
@@ -15,13 +11,15 @@ import {
   MinLength,
   Validate,
   ValidateIf,
+  ValidationArguments,
   ValidatorConstraint,
+  ValidatorConstraintInterface,
 } from 'class-validator'
 import * as parser from 'cron-parser'
 import { isEmpty } from 'lodash'
 
-import { PagerDto } from '../../../common/dto/pager.dto'
-import { IsUnique } from '../../../shared/database/constraints/unique.constraint'
+import { PagerDto } from '~/common/dto/pager.dto'
+import { IsUnique } from '~/shared/database/constraints/unique.constraint'
 
 import { TaskEntity } from './task.entity'
 

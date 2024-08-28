@@ -7,12 +7,14 @@ import { ThrottlerGuard, ThrottlerModule, seconds } from '@nestjs/throttler'
 import type { FastifyRequest } from 'fastify'
 import { ClsModule } from 'nestjs-cls'
 
+import config from '~/config'
+import { SharedModule } from '~/shared/shared.module'
+
 import { AllExceptionsFilter } from './common/filters/any-exception.filter'
 
 import { IdempotenceInterceptor } from './common/interceptors/idempotence.interceptor'
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor'
 import { TransformInterceptor } from './common/interceptors/transform.interceptor'
-import config from './config'
 import { AuthModule } from './modules/auth/auth.module'
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard'
 import { RbacGuard } from './modules/auth/guards/rbac.guard'
@@ -24,7 +26,6 @@ import { TasksModule } from './modules/tasks/tasks.module'
 import { TodoModule } from './modules/todo/todo.module'
 import { ToolsModule } from './modules/tools/tools.module'
 import { DatabaseModule } from './shared/database/database.module'
-import { SharedModule } from './shared/shared.module'
 
 import { SocketModule } from './socket/socket.module'
 

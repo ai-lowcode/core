@@ -1,20 +1,19 @@
 import { Body, Controller, Get, Post, Put, Req, UseGuards } from '@nestjs/common'
 import { ApiExtraModels, ApiOperation, ApiTags } from '@nestjs/swagger'
-import type { FastifyRequest } from 'fastify'
+import { FastifyRequest } from 'fastify'
 
-import { ApiResult } from '../../../common/decorators/api-result.decorator'
+import { ApiResult } from '~/common/decorators/api-result.decorator'
 
-import { ApiSecurityAuth } from '../../../common/decorators/swagger.decorator'
+import { ApiSecurityAuth } from '~/common/decorators/swagger.decorator'
+import { AllowAnon } from '~/modules/auth/decorators/allow-anon.decorator'
+import { AuthUser } from '~/modules/auth/decorators/auth-user.decorator'
 
-import type { PasswordUpdateDto } from '../../user/dto/password.dto'
+import { PasswordUpdateDto } from '~/modules/user/dto/password.dto'
 
 import { AccountInfo } from '../../user/user.model'
-import type { UserService } from '../../user/user.service'
-import type { AuthService } from '../auth.service'
-import { AllowAnon } from '../decorators/allow-anon.decorator'
-import { AuthUser } from '../decorators/auth-user.decorator'
-import type { AccountUpdateDto } from '../dto/account.dto'
-import { AccountMenus } from '../dto/account.dto'
+import { UserService } from '../../user/user.service'
+import { AuthService } from '../auth.service'
+import { AccountMenus, AccountUpdateDto } from '../dto/account.dto'
 import { JwtAuthGuard } from '../guards/jwt-auth.guard'
 
 @ApiTags('Account - 账户模块')

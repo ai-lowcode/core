@@ -16,7 +16,7 @@ import {
 } from 'class-validator'
 import { isEmpty } from 'lodash'
 
-import { PagerDto } from '../../../common/dto/pager.dto'
+import { PagerDto } from '~/common/dto/pager.dto'
 
 export class UserDto {
   @ApiProperty({ description: '头像' })

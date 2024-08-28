@@ -10,10 +10,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger'
 
-import { Perm, definePermission } from '../../auth/decorators/permission.decorator'
+import { Perm, definePermission } from '~/modules/auth/decorators/permission.decorator'
 
 import { OverviewSpaceInfo } from './overview.dto'
-import type { NetDiskOverviewService } from './overview.service'
+import { NetDiskOverviewService } from './overview.service'
 
 export const permissions = definePermission('netdisk:overview', {
   DESC: 'desc',

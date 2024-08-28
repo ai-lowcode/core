@@ -1,13 +1,13 @@
 import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import { Inject, Injectable } from '@nestjs/common'
 import { Emitter } from '@socket.io/redis-emitter'
-import type { Cache } from 'cache-manager'
+import { Cache } from 'cache-manager'
 import type { Redis } from 'ioredis'
 
-import { RedisIoAdapterKey } from '../../common/adapters/socket.adapter'
+import { RedisIoAdapterKey } from '~/common/adapters/socket.adapter'
 
-import { API_CACHE_PREFIX } from '../../constants/cache.constant'
-import { getRedisKey } from '../../utils/redis.util'
+import { API_CACHE_PREFIX } from '~/constants/cache.constant'
+import { getRedisKey } from '~/utils/redis.util'
 
 // 获取器
 export type TCacheKey = string

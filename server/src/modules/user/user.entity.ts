@@ -1,7 +1,4 @@
 import { Exclude } from 'class-transformer'
-import type {
-  Relation,
-} from 'typeorm'
 import {
   Column,
   Entity,
@@ -10,14 +7,15 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
+  Relation,
 } from 'typeorm'
 
-import { CommonEntity } from '../../common/entity/common.entity'
+import { CommonEntity } from '~/common/entity/common.entity'
 
-import { AccessTokenEntity } from '../auth/entities/access-token.entity'
+import { AccessTokenEntity } from '~/modules/auth/entities/access-token.entity'
 
-import { DeptEntity } from '../system/dept/dept.entity'
-import { RoleEntity } from '../system/role/role.entity'
+import { DeptEntity } from '~/modules/system/dept/dept.entity'
+import { RoleEntity } from '~/modules/system/role/role.entity'
 
 @Entity({ name: 'sys_user' })
 export class UserEntity extends CommonEntity {

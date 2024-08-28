@@ -1,13 +1,11 @@
 import { Controller, Get } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
-import type {
+import {
   DiskHealthIndicator,
+  HealthCheck,
   HttpHealthIndicator,
   MemoryHealthIndicator,
   TypeOrmHealthIndicator,
-} from '@nestjs/terminus'
-import {
-  HealthCheck,
 } from '@nestjs/terminus'
 
 import { Perm, definePermission } from '../auth/decorators/permission.decorator'

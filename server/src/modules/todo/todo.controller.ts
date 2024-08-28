@@ -10,19 +10,18 @@ import {
 } from '@nestjs/common'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
-import { ApiResult } from '../../common/decorators/api-result.decorator'
-import { IdParam } from '../../common/decorators/id-param.decorator'
+import { ApiResult } from '~/common/decorators/api-result.decorator'
+import { IdParam } from '~/common/decorators/id-param.decorator'
 
-import type { Pagination } from '../../helper/paginate/pagination'
-import { Perm, definePermission } from '../auth/decorators/permission.decorator'
-import { Resource } from '../auth/decorators/resource.decorator'
+import { Pagination } from '~/helper/paginate/pagination'
+import { Perm, definePermission } from '~/modules/auth/decorators/permission.decorator'
+import { Resource } from '~/modules/auth/decorators/resource.decorator'
 
-import { ResourceGuard } from '../auth/guards/resource.guard'
+import { ResourceGuard } from '~/modules/auth/guards/resource.guard'
+import { TodoEntity } from '~/modules/todo/todo.entity'
 
-import type { TodoDto, TodoQueryDto, TodoUpdateDto } from './todo.dto'
-import { TodoEntity } from './todo.entity'
-
-import type { TodoService } from './todo.service'
+import { TodoDto, TodoQueryDto, TodoUpdateDto } from './todo.dto'
+import { TodoService } from './todo.service'
 
 export const permissions = definePermission('todo', {
   LIST: 'list',

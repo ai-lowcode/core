@@ -1,12 +1,11 @@
-import type { INestApplication } from '@nestjs/common'
-import { Logger } from '@nestjs/common'
-import type { ConfigService } from '@nestjs/config'
+import { INestApplication, Logger } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
 import { API_SECURITY_AUTH } from './common/decorators/swagger.decorator'
 import { CommonEntity } from './common/entity/common.entity'
 import { ResOp, TreeResult } from './common/model/response.model'
-import type { ConfigKeyPaths, IAppConfig, ISwaggerConfig } from './config'
+import { ConfigKeyPaths, IAppConfig, ISwaggerConfig } from './config'
 import { Pagination } from './helper/paginate/pagination'
 
 export function setupSwagger(

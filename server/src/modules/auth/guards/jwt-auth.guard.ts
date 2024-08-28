@@ -1,31 +1,28 @@
 import { InjectRedis } from '@liaoliaots/nestjs-redis'
-import type {
-  ExecutionContext,
-} from '@nestjs/common'
 import {
+  ExecutionContext,
   Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common'
-import type { Reflector } from '@nestjs/core'
+import { Reflector } from '@nestjs/core'
 import { AuthGuard } from '@nestjs/passport'
-import type { FastifyRequest } from 'fastify'
-import type Redis from 'ioredis'
+import { FastifyRequest } from 'fastify'
+import Redis from 'ioredis'
 import { isEmpty, isNil } from 'lodash'
 
 import { ExtractJwt } from 'passport-jwt'
 
-import { BusinessException } from '../../../common/exceptions/biz.exception'
-import type { IAppConfig } from '../../../config'
-import { AppConfig } from '../../../config'
-import { ErrorEnum } from '../../../constants/error-code.constant'
-import { genTokenBlacklistKey } from '../../../helper/genRedisKey'
+import { BusinessException } from '~/common/exceptions/biz.exception'
+import { AppConfig, IAppConfig, RouterWhiteList } from '~/config'
+import { ErrorEnum } from '~/constants/error-code.constant'
+import { genTokenBlacklistKey } from '~/helper/genRedisKey'
+import { AuthService } from '~/modules/auth/auth.service'
 
-import { checkIsDemoMode } from '../../../utils'
+import { checkIsDemoMode } from '~/utils'
 
 import { AuthStrategy, PUBLIC_KEY } from '../auth.constant'
-import type { AuthService } from '../auth.service'
-import type { TokenService } from '../services/token.service'
+import { TokenService } from '../services/token.service'
 
 /** @type {import('fastify').RequestGenericInterface} */
 interface RequestType {
@@ -59,7 +56,8 @@ export class JwtAuthGuard extends AuthGuard(AuthStrategy.JWT) {
     ])
     const request = context.switchToHttp().getRequest<FastifyRequest<RequestType>>()
     // const response = context.switchToHttp().getResponse<FastifyReply>()
-
+    if (RouterWhiteList.includes(request.routeOptions.url))
+      return true
     // TODO 此处代码的作用是判断如果在演示环境下，则拒绝用户的增删改操作，去掉此代码不影响正常的业务逻辑
     if (request.method !== 'GET' && !request.url.includes('/auth/login'))
       checkIsDemoMode()

@@ -3,12 +3,11 @@ import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import type { LoggerOptions } from 'typeorm'
-import { DataSource } from 'typeorm'
+import { DataSource, LoggerOptions } from 'typeorm'
 
-import type { ConfigKeyPaths, IDatabaseConfig } from '../../config'
+import { ConfigKeyPaths, IDatabaseConfig } from '~/config'
 
-import { env } from '../../global/env'
+import { env } from '~/global/env'
 
 import { EntityExistConstraint } from './constraints/entity-exist.constraint'
 import { UniqueConstraint } from './constraints/unique.constraint'
@@ -41,6 +40,7 @@ const providers = [EntityExistConstraint, UniqueConstraint]
       // dataSource receives the configured DataSourceOptions
       // and returns a Promise<DataSource>.
       dataSourceFactory: async (options) => {
+        console.log(options)
         const dataSource = await new DataSource(options).initialize()
         return dataSource
       },

@@ -1,8 +1,7 @@
-import type { ConfigType } from '@nestjs/config'
-import { registerAs } from '@nestjs/config'
+import { ConfigType, registerAs } from '@nestjs/config'
 import * as qiniu from 'qiniu'
 
-import { env } from '../global/env'
+import { env } from '~/global/env'
 
 function parseZone(zone: string) {
   switch (zone) {

@@ -2,16 +2,16 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common'
 
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
-import { ApiResult } from '../../../common/decorators/api-result.decorator'
-import { ApiSecurityAuth } from '../../../common/decorators/swagger.decorator'
+import { ApiResult } from '~/common/decorators/api-result.decorator'
+import { ApiSecurityAuth } from '~/common/decorators/swagger.decorator'
 
-import type { Pagination } from '../../../helper/paginate/pagination'
+import { Pagination } from '~/helper/paginate/pagination'
 
-import { Perm, definePermission } from '../../auth/decorators/permission.decorator'
+import { Perm, definePermission } from '~/modules/auth/decorators/permission.decorator'
 
-import type { StorageDeleteDto, StoragePageDto } from './storage.dto'
+import { StorageDeleteDto, StoragePageDto } from './storage.dto'
 import { StorageInfo } from './storage.modal'
-import type { StorageService } from './storage.service'
+import { StorageService } from './storage.service'
 
 export const permissions = definePermission('tool:storage', {
   LIST: 'list',

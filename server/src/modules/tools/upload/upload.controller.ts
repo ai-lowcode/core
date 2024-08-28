@@ -1,14 +1,14 @@
 import { BadRequestException, Controller, Post, Req } from '@nestjs/common'
 import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger'
-import type { FastifyRequest } from 'fastify'
+import { FastifyRequest } from 'fastify'
 
-import { ApiSecurityAuth } from '../../../common/decorators/swagger.decorator'
-import { AuthUser } from '../../auth/decorators/auth-user.decorator'
+import { ApiSecurityAuth } from '~/common/decorators/swagger.decorator'
+import { AuthUser } from '~/modules/auth/decorators/auth-user.decorator'
 
-import { Perm, definePermission } from '../../auth/decorators/permission.decorator'
+import { Perm, definePermission } from '~/modules/auth/decorators/permission.decorator'
 
 import { FileUploadDto } from './upload.dto'
-import type { UploadService } from './upload.service'
+import { UploadService } from './upload.service'
 
 export const permissions = definePermission('upload', {
   UPLOAD: 'upload',

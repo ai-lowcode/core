@@ -1,17 +1,16 @@
 import { Injectable } from '@nestjs/common'
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
 import { isEmpty, isNil } from 'lodash'
-import type { EntityManager, Repository } from 'typeorm'
-import { In, Like } from 'typeorm'
+import { EntityManager, In, Like, Repository } from 'typeorm'
 
-import type { PagerDto } from '../../../common/dto/pager.dto'
-import { ROOT_ROLE_ID } from '../../../constants/system.constant'
-import { paginate } from '../../../helper/paginate'
-import type { Pagination } from '../../../helper/paginate/pagination'
-import { MenuEntity } from '../menu/menu.entity'
+import { PagerDto } from '~/common/dto/pager.dto'
+import { ROOT_ROLE_ID } from '~/constants/system.constant'
+import { paginate } from '~/helper/paginate'
+import { Pagination } from '~/helper/paginate/pagination'
+import { MenuEntity } from '~/modules/system/menu/menu.entity'
+import { RoleEntity } from '~/modules/system/role/role.entity'
 
-import type { RoleDto, RoleQueryDto, RoleUpdateDto } from './role.dto'
-import { RoleEntity } from './role.entity'
+import { RoleDto, RoleQueryDto, RoleUpdateDto } from './role.dto'
 
 @Injectable()
 export class RoleService {

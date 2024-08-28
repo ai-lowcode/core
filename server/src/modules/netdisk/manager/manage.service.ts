@@ -3,18 +3,18 @@ import { basename, extname } from 'node:path'
 import { Inject, Injectable } from '@nestjs/common'
 import { isEmpty } from 'lodash'
 import * as qiniu from 'qiniu'
-import type { auth, conf, rs } from 'qiniu'
+import { auth, conf, rs } from 'qiniu'
 
-import type { IOssConfig } from '../../../config'
-import { OssConfig } from '../../../config'
-import { NETDISK_COPY_SUFFIX, NETDISK_DELIMITER, NETDISK_HANDLE_MAX_ITEM, NETDISK_LIMIT } from '../../../constants/oss.constant'
+import { IOssConfig, OssConfig } from '~/config'
+import { NETDISK_COPY_SUFFIX, NETDISK_DELIMITER, NETDISK_HANDLE_MAX_ITEM, NETDISK_LIMIT } from '~/constants/oss.constant'
 
-import { generateRandomValue } from '../../../utils'
-import type { AccountInfo } from '../../user/user.model'
-import type { UserService } from '../../user/user.service'
+import { AccountInfo } from '~/modules/user/user.model'
+import { UserService } from '~/modules/user/user.service'
 
-import type { SFileInfo, SFileInfoDetail, SFileList } from './manage.class'
-import type { FileOpItem } from './manage.dto'
+import { generateRandomValue } from '~/utils'
+
+import { SFileInfo, SFileInfoDetail, SFileList } from './manage.class'
+import { FileOpItem } from './manage.dto'
 
 @Injectable()
 export class NetDiskManageService {

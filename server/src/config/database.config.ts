@@ -1,10 +1,8 @@
-import type { ConfigType } from '@nestjs/config'
-import { registerAs } from '@nestjs/config'
+import { ConfigType, registerAs } from '@nestjs/config'
 
-import type { DataSourceOptions } from 'typeorm'
-import { DataSource } from 'typeorm'
+import { DataSource, DataSourceOptions } from 'typeorm'
 
-import { env, envBoolean, envNumber } from '../global/env'
+import { env, envBoolean, envNumber } from '~/global/env'
 
 // eslint-disable-next-line import/order
 import dotenv from 'dotenv'
@@ -27,6 +25,10 @@ const dataSourceOptions: DataSourceOptions = {
   entities: ['dist/modules/**/*.entity{.ts,.js}'],
   migrations: ['dist/migrations/*{.ts,.js}'],
   subscribers: ['dist/modules/**/*.subscriber{.ts,.js}'],
+  ssl: {
+    ca: '/etc/ssl/cert.pem',
+    rejectUnauthorized: false,
+  },
 }
 export const dbRegToken = 'database'
 

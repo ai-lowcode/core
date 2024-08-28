@@ -1,9 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { Type } from 'class-transformer'
-import type {
-  ValidationArguments,
-  ValidatorConstraintInterface,
-} from 'class-validator'
 import {
   ArrayMaxSize,
   IsNotEmpty,
@@ -13,11 +9,13 @@ import {
   Validate,
   ValidateIf,
   ValidateNested,
+  ValidationArguments,
   ValidatorConstraint,
+  ValidatorConstraintInterface,
 } from 'class-validator'
 import { isEmpty } from 'lodash'
 
-import { NETDISK_HANDLE_MAX_ITEM } from '../../../constants/oss.constant'
+import { NETDISK_HANDLE_MAX_ITEM } from '~/constants/oss.constant'
 
 @ValidatorConstraint({ name: 'IsLegalNameExpression', async: false })
 export class IsLegalNameExpression implements ValidatorConstraintInterface {

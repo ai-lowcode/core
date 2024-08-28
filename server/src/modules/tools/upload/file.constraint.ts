@@ -1,11 +1,9 @@
-import type { FastifyMultipartBaseOptions, MultipartFile } from '@fastify/multipart'
-import type {
+import { FastifyMultipartBaseOptions, MultipartFile } from '@fastify/multipart'
+import {
   ValidationArguments,
   ValidationOptions,
-  ValidatorConstraintInterface,
-} from 'class-validator'
-import {
   ValidatorConstraint,
+  ValidatorConstraintInterface,
   registerDecorator,
 } from 'class-validator'
 import { has, isArray } from 'lodash'

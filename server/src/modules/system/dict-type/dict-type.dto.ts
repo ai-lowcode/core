@@ -1,9 +1,9 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger'
 import { IsInt, IsOptional, IsString, MinLength } from 'class-validator'
 
-import { PagerDto } from '../../../common/dto/pager.dto'
+import { PagerDto } from '~/common/dto/pager.dto'
 
-import { IsUnique } from '../../../shared/database/constraints/unique.constraint'
+import { IsUnique } from '~/shared/database/constraints/unique.constraint'
 
 import { DictTypeEntity } from './dict-type.entity'
 

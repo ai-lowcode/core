@@ -1,9 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
-import type { Relation } from 'typeorm'
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm'
 
-import { CommonEntity } from '../../common/entity/common.entity'
-import { UserEntity } from '../user/user.entity'
+import { CommonEntity } from '~/common/entity/common.entity'
+import { UserEntity } from '~/modules/user/user.entity'
 
 @Entity('todo')
 export class TodoEntity extends CommonEntity {

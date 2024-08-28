@@ -1,18 +1,18 @@
 import { Body, Controller, Get, Post, Req } from '@nestjs/common'
 import { ApiExtraModels, ApiOperation, ApiTags } from '@nestjs/swagger'
 
-import type { FastifyRequest } from 'fastify'
+import { FastifyRequest } from 'fastify'
 
-import { ApiResult } from '../../../common/decorators/api-result.decorator'
-import { ApiSecurityAuth } from '../../../common/decorators/swagger.decorator'
+import { ApiResult } from '~/common/decorators/api-result.decorator'
+import { ApiSecurityAuth } from '~/common/decorators/swagger.decorator'
 
-import { AuthUser } from '../../auth/decorators/auth-user.decorator'
+import { AuthUser } from '~/modules/auth/decorators/auth-user.decorator'
 
-import { Perm, definePermission } from '../../auth/decorators/permission.decorator'
+import { Perm, definePermission } from '~/modules/auth/decorators/permission.decorator'
 
-import type { KickDto } from './online.dto'
+import { KickDto } from './online.dto'
 import { OnlineUserInfo } from './online.model'
-import type { OnlineService } from './online.service'
+import { OnlineService } from './online.service'
 
 export const permissions = definePermission('system:online', ['list', 'kick'] as const)
 

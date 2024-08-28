@@ -1,4 +1,4 @@
-import type { IPaginationMeta } from './interface'
+import { IPaginationMeta } from './interface'
 import { Pagination } from './pagination'
 
 export function createPaginationObject<T>({

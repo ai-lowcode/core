@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsOptional, IsString, MinLength } from 'class-validator'
 
-import { PagerDto } from '../../../common/dto/pager.dto'
-import { IsUnique } from '../../../shared/database/constraints/unique.constraint'
+import { PagerDto } from '~/common/dto/pager.dto'
+import { IsUnique } from '~/shared/database/constraints/unique.constraint'
 
 import { ParamConfigEntity } from './param-config.entity'
 

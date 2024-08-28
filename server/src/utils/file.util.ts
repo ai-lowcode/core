@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import type { MultipartFile } from '@fastify/multipart'
+import { MultipartFile } from '@fastify/multipart'
 
 import dayjs from 'dayjs'
 

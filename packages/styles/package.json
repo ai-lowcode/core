@@ -13,13 +13,13 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/ai-lowcode-styles.js",
-      "require": "./dist/ai-lowcode-styles.cjs"
+      "require": "./dist/ai-lowcode-styles.js"
     },
     "./css": {
       "import": "./dist/style.css"
     }
   },
-  "main": "./dist/ai-lowcode-styles.cjs",
+  "main": "./dist/ai-lowcode-styles.js",
   "module": "./dist/ai-lowcode-styles.js",
   "types": "./dist/index.d.ts",
   "files": [

@@ -1,24 +1,24 @@
 import { InjectRedis } from '@liaoliaots/nestjs-redis'
 import { Inject, Injectable } from '@nestjs/common'
 
-import type Redis from 'ioredis'
+import Redis from 'ioredis'
 import { isEmpty } from 'lodash'
 
-import { BusinessException } from '../../common/exceptions/biz.exception'
+import { BusinessException } from '~/common/exceptions/biz.exception'
 
-import type { IAppConfig, ISecurityConfig } from '../../config'
-import { AppConfig, SecurityConfig } from '../../config'
-import { ErrorEnum } from '../../constants/error-code.constant'
-import { genAuthPVKey, genAuthPermKey, genAuthTokenKey, genTokenBlacklistKey } from '../../helper/genRedisKey'
+import { AppConfig, IAppConfig, ISecurityConfig, SecurityConfig } from '~/config'
+import { ErrorEnum } from '~/constants/error-code.constant'
+import { genAuthPVKey, genAuthPermKey, genAuthTokenKey, genTokenBlacklistKey } from '~/helper/genRedisKey'
 
-import { md5 } from '../../utils'
+import { UserService } from '~/modules/user/user.service'
 
-import type { LoginLogService } from '../system/log/services/login-log.service'
-import type { MenuService } from '../system/menu/menu.service'
-import type { RoleService } from '../system/role/role.service'
-import type { UserService } from '../user/user.service'
+import { md5 } from '~/utils'
 
-import type { TokenService } from './services/token.service'
+import { LoginLogService } from '../system/log/services/login-log.service'
+import { MenuService } from '../system/menu/menu.service'
+import { RoleService } from '../system/role/role.service'
+
+import { TokenService } from './services/token.service'
 
 @Injectable()
 export class AuthService {

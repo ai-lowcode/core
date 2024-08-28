@@ -1,20 +1,18 @@
-import type {
-  ArgumentsHost,
-  ExceptionFilter,
-} from '@nestjs/common'
 import {
+  ArgumentsHost,
   Catch,
+  ExceptionFilter,
   HttpException,
   HttpStatus,
   Logger,
 } from '@nestjs/common'
-import type { FastifyReply, FastifyRequest } from 'fastify'
+import { FastifyReply, FastifyRequest } from 'fastify'
 import { QueryFailedError } from 'typeorm'
 
-import { ErrorEnum } from '../../constants/error-code.constant'
+import { BusinessException } from '~/common/exceptions/biz.exception'
+import { ErrorEnum } from '~/constants/error-code.constant'
 
-import { isDev } from '../../global/env'
-import { BusinessException } from '../exceptions/biz.exception'
+import { isDev } from '~/global/env'
 
 interface myError {
   readonly status: number

@@ -1,13 +1,12 @@
-import type { HttpService } from '@nestjs/axios'
+import { HttpService } from '@nestjs/axios'
 import { Inject, Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
 import * as qiniu from 'qiniu'
 
-import type { IOssConfig } from '../../../config'
-import { OssConfig } from '../../../config'
-import { OSS_API } from '../../../constants/oss.constant'
+import { IOssConfig, OssConfig } from '~/config'
+import { OSS_API } from '~/constants/oss.constant'
 
-import type { CountInfo, FlowInfo, HitInfo, SpaceInfo } from './overview.dto'
+import { CountInfo, FlowInfo, HitInfo, SpaceInfo } from './overview.dto'
 
 @Injectable()
 export class NetDiskOverviewService {

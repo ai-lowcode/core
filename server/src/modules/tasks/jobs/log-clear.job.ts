@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 
-import type { LoginLogService } from '../../system/log/services/login-log.service'
-import type { TaskLogService } from '../../system/log/services/task-log.service'
+import { LoginLogService } from '~/modules/system/log/services/login-log.service'
+import { TaskLogService } from '~/modules/system/log/services/task-log.service'
 
 import { Mission } from '../mission.decorator'
 

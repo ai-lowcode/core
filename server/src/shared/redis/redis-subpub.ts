@@ -21,6 +21,12 @@ export class RedisSubPub {
     if (this.redisConfig.password)
       redisOptions.password = this.redisConfig.password
 
+    if (this.redisConfig.tls)
+      redisOptions.tls = this.redisConfig.tls
+
+    if (this.redisConfig.db)
+      redisOptions.db = this.redisConfig.db
+
     const pubClient = new IORedis(redisOptions)
     const subClient = pubClient.duplicate()
     this.pubClient = pubClient

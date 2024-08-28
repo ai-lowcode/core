@@ -1,18 +1,16 @@
-import type { JwtService } from '@nestjs/jwt'
-import type {
+import { JwtService } from '@nestjs/jwt'
+import {
   GatewayMetadata,
   OnGatewayConnection,
   OnGatewayDisconnect,
-} from '@nestjs/websockets'
-import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets'
 
-import type { Server } from 'socket.io'
+import { Server } from 'socket.io'
 
-import type { TokenService } from '../../modules/auth/services/token.service'
-import type { CacheService } from '../../shared/redis/cache.service'
+import { TokenService } from '~/modules/auth/services/token.service'
+import { CacheService } from '~/shared/redis/cache.service'
 
 import { createAuthGateway } from '../shared/auth.gateway'
 

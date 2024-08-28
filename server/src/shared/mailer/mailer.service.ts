@@ -1,16 +1,15 @@
 import { InjectRedis } from '@liaoliaots/nestjs-redis'
 import { Inject, Injectable } from '@nestjs/common'
 
-import type { MailerService as NestMailerService } from '@nestjs-modules/mailer'
+import { MailerService as NestMailerService } from '@nestjs-modules/mailer'
 import dayjs from 'dayjs'
 
-import type Redis from 'ioredis'
+import Redis from 'ioredis'
 
-import { BusinessException } from '../../common/exceptions/biz.exception'
-import type { IAppConfig } from '../../config'
-import { AppConfig } from '../../config'
-import { ErrorEnum } from '../../constants/error-code.constant'
-import { randomValue } from '../../utils'
+import { BusinessException } from '~/common/exceptions/biz.exception'
+import { AppConfig, IAppConfig } from '~/config'
+import { ErrorEnum } from '~/constants/error-code.constant'
+import { randomValue } from '~/utils'
 
 @Injectable()
 export class MailerService {

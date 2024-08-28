@@ -1,14 +1,12 @@
-import type {
-  ArgumentMetadata,
-  PipeTransform,
-} from '@nestjs/common'
 import {
+  ArgumentMetadata,
   Inject,
   Injectable,
+  PipeTransform,
 } from '@nestjs/common'
 import { REQUEST } from '@nestjs/core'
 
-import type { OperatorDto } from '../dto/operator.dto'
+import { OperatorDto } from '../dto/operator.dto'
 
 @Injectable()
 export class UpdaterPipe implements PipeTransform {

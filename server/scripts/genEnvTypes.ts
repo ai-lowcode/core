@@ -1,6 +1,5 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import process from 'node:process'
 
 import dotenv from 'dotenv'
 
@@ -37,7 +36,7 @@ export {};
 
 //   console.log('envObj:', envObj)
 
-export function formatValue(value: any) {
+function formatValue(value) {
   let _value
   try {
     const res = JSON.parse(value)

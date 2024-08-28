@@ -5,8 +5,8 @@ import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import type { ConfigKeyPaths, ISecurityConfig } from '../../config'
-import { isDev } from '../../global/env'
+import { ConfigKeyPaths, ISecurityConfig } from '~/config'
+import { isDev } from '~/global/env'
 
 import { LogModule } from '../system/log/log.module'
 import { MenuModule } from '../system/menu/menu.module'

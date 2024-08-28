@@ -1,9 +1,8 @@
 import { ForbiddenException } from '@nestjs/common'
 
-import { envBoolean } from '../global/env'
-import type { MenuEntity } from '../modules/system/menu/menu.entity'
-
-import { isExternal } from './is.util'
+import { envBoolean } from '~/global/env'
+import { MenuEntity } from '~/modules/system/menu/menu.entity'
+import { isExternal } from '~/utils/is.util'
 
 import { uniqueSlash } from './tool.util'
 

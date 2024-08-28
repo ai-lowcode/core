@@ -1,17 +1,17 @@
 import { Body, Controller, Headers, Post, UseGuards } from '@nestjs/common'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
-import { ApiResult } from '../../common/decorators/api-result.decorator'
-import { Ip } from '../../common/decorators/http.decorator'
+import { ApiResult } from '~/common/decorators/api-result.decorator'
+import { Ip } from '~/common/decorators/http.decorator'
 
-import type { UserService } from '../user/user.service'
+import { UserService } from '../user/user.service'
 
-import type { AuthService } from './auth.service'
+import { AuthService } from './auth.service'
 import { Public } from './decorators/public.decorator'
-import type { LoginDto, RegisterDto } from './dto/auth.dto'
+import { LoginDto, RegisterDto } from './dto/auth.dto'
 import { LocalGuard } from './guards/local.guard'
 import { LoginToken } from './models/auth.model'
-import type { CaptchaService } from './services/captcha.service'
+import { CaptchaService } from './services/captcha.service'
 
 @ApiTags('Auth - 认证模块')
 @UseGuards(LocalGuard)

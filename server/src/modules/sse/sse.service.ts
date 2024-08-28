@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
-import type { Subscriber } from 'rxjs'
+import { Subscriber } from 'rxjs'
 import { In } from 'typeorm'
 
-import { ROOT_ROLE_ID } from '../../constants/system.constant'
+import { ROOT_ROLE_ID } from '~/constants/system.constant'
 
-import { RoleEntity } from '../system/role/role.entity'
-import { UserEntity } from '../user/user.entity'
+import { RoleEntity } from '~/modules/system/role/role.entity'
+import { UserEntity } from '~/modules/user/user.entity'
 
 export interface MessageEvent {
   data?: string | number | object

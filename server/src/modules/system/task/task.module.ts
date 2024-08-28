@@ -4,7 +4,7 @@ import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import type { ConfigKeyPaths, IRedisConfig } from '../../../config'
+import { ConfigKeyPaths, IRedisConfig } from '~/config'
 
 import { LogModule } from '../log/log.module'
 

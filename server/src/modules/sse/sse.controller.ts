@@ -1,14 +1,13 @@
-import type { BeforeApplicationShutdown } from '@nestjs/common'
-import { Controller, Headers, Ip, Param, ParseIntPipe, Req, Res, Sse } from '@nestjs/common'
+import { BeforeApplicationShutdown, Controller, Headers, Ip, Param, ParseIntPipe, Req, Res, Sse } from '@nestjs/common'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
-import type { FastifyReply, FastifyRequest } from 'fastify'
+import { FastifyReply, FastifyRequest } from 'fastify'
 import { Observable, interval } from 'rxjs'
 
-import { ApiSecurityAuth } from '../../common/decorators/swagger.decorator'
+import { ApiSecurityAuth } from '~/common/decorators/swagger.decorator'
 
-import type { OnlineService } from '../system/online/online.service'
+import { OnlineService } from '../system/online/online.service'
 
-import type { MessageEvent, SseService } from './sse.service'
+import { MessageEvent, SseService } from './sse.service'
 
 @ApiTags('System - sse模块')
 @ApiSecurityAuth()

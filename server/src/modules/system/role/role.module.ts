@@ -1,7 +1,7 @@
 import { Module, forwardRef } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { SseService } from '../../sse/sse.service'
+import { SseService } from '~/modules/sse/sse.service'
 
 import { MenuModule } from '../menu/menu.module'
 

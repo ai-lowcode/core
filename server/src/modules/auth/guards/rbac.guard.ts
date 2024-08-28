@@ -1,17 +1,16 @@
-import type {
+import {
   CanActivate,
   ExecutionContext,
-} from '@nestjs/common'
-import {
   Injectable,
 } from '@nestjs/common'
-import type { Reflector } from '@nestjs/core'
-import type { FastifyRequest } from 'fastify'
+import { Reflector } from '@nestjs/core'
+import { FastifyRequest } from 'fastify'
 
-import { BusinessException } from '../../../common/exceptions/biz.exception'
-import { ErrorEnum } from '../../../constants/error-code.constant'
+import { BusinessException } from '~/common/exceptions/biz.exception'
+import { ErrorEnum } from '~/constants/error-code.constant'
+import { AuthService } from '~/modules/auth/auth.service'
+
 import { ALLOW_ANON_KEY, PERMISSION_KEY, PUBLIC_KEY, Roles } from '../auth.constant'
-import type { AuthService } from '../auth.service'
 
 @Injectable()
 export class RbacGuard implements CanActivate {

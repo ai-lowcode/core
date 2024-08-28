@@ -1,7 +1,6 @@
-import type { ConfigType } from '@nestjs/config'
-import { registerAs } from '@nestjs/config'
+import { ConfigType, registerAs } from '@nestjs/config'
 
-import { env, envNumber } from '../global/env'
+import { env, envNumber } from '~/global/env'
 
 export const mailerRegToken = 'mailer'
 

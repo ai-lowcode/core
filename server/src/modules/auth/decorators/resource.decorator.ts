@@ -1,6 +1,6 @@
 import { SetMetadata, applyDecorators } from '@nestjs/common'
 
-import type { ObjectLiteral, ObjectType, Repository } from 'typeorm'
+import { ObjectLiteral, ObjectType, Repository } from 'typeorm'
 
 import { RESOURCE_KEY } from '../auth.constant'
 

@@ -1,8 +1,8 @@
 import { Module, forwardRef } from '@nestjs/common'
 
-import { AuthModule } from '../../auth/auth.module'
+import { AuthModule } from '~/modules/auth/auth.module'
 
-import { SseModule } from '../../sse/sse.module'
+import { SseModule } from '~/modules/sse/sse.module'
 
 import { UserModule } from '../../user/user.module'
 

@@ -1,4 +1,4 @@
-import type { RedisKeys } from '../constants/cache.constant'
+import type { RedisKeys } from '~/constants/cache.constant'
 
 type Prefix = 'm-shop'
 const prefix = 'm-shop'

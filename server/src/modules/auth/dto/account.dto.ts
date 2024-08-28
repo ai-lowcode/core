@@ -8,7 +8,7 @@ import {
   MinLength,
 } from 'class-validator'
 
-import { MenuEntity } from '../../system/menu/menu.entity'
+import { MenuEntity } from '~/modules/system/menu/menu.entity'
 
 export class AccountUpdateDto {
   @ApiProperty({ description: '用户呢称' })
@@ -17,6 +17,7 @@ export class AccountUpdateDto {
   nickname: string
 
   @ApiProperty({ description: '用户邮箱' })
+  @IsOptional()
   @IsEmail()
   email: string
 

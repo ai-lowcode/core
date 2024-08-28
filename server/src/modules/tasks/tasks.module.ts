@@ -1,8 +1,7 @@
-import type { DynamicModule, ExistingProvider } from '@nestjs/common'
-import { Module } from '@nestjs/common'
+import { DynamicModule, ExistingProvider, Module } from '@nestjs/common'
 
-import { LogModule } from '../system/log/log.module'
-import { SystemModule } from '../system/system.module'
+import { LogModule } from '~/modules/system/log/log.module'
+import { SystemModule } from '~/modules/system/system.module'
 
 import { EmailJob } from './jobs/email.job'
 import { HttpRequestJob } from './jobs/http-request.job'

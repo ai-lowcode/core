@@ -5,15 +5,16 @@ import {
   ApiTags,
 } from '@nestjs/swagger'
 
-import { BusinessException } from '../../../common/exceptions/biz.exception'
-import { ErrorEnum } from '../../../constants/error-code.constant'
-import { checkIsDemoMode } from '../../../utils'
-import { AuthUser } from '../../auth/decorators/auth-user.decorator'
+import { BusinessException } from '~/common/exceptions/biz.exception'
+import { ErrorEnum } from '~/constants/error-code.constant'
+import { AuthUser } from '~/modules/auth/decorators/auth-user.decorator'
 
-import { Perm, definePermission } from '../../auth/decorators/permission.decorator'
+import { Perm, definePermission } from '~/modules/auth/decorators/permission.decorator'
+
+import { checkIsDemoMode } from '~/utils'
 
 import { SFileInfoDetail, SFileList, UploadToken } from './manage.class'
-import type {
+import {
   DeleteDto,
   FileInfoDto,
   FileOpDto,
@@ -22,7 +23,7 @@ import type {
   MarkFileDto,
   RenameDto,
 } from './manage.dto'
-import type { NetDiskManageService } from './manage.service'
+import { NetDiskManageService } from './manage.service'
 
 export const permissions = definePermission('netdisk:manage', {
   LIST: 'list',

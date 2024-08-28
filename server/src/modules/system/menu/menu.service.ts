@@ -1,23 +1,23 @@
 import { InjectRedis } from '@liaoliaots/nestjs-redis'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import type Redis from 'ioredis'
+import Redis from 'ioredis'
 import { concat, isEmpty, isNil, uniq } from 'lodash'
 
-import type { Repository } from 'typeorm'
-import { In, IsNull, Like, Not } from 'typeorm'
+import { In, IsNull, Like, Not, Repository } from 'typeorm'
 
-import { BusinessException } from '../../../common/exceptions/biz.exception'
-import { RedisKeys } from '../../../constants/cache.constant'
-import { ErrorEnum } from '../../../constants/error-code.constant'
-import { genAuthPermKey, genAuthTokenKey } from '../../../helper/genRedisKey'
-import { deleteEmptyChildren, generatorMenu, generatorRouters } from '../../../utils'
-import type { SseService } from '../../sse/sse.service'
+import { BusinessException } from '~/common/exceptions/biz.exception'
+import { RedisKeys } from '~/constants/cache.constant'
+import { ErrorEnum } from '~/constants/error-code.constant'
+import { genAuthPermKey, genAuthTokenKey } from '~/helper/genRedisKey'
+import { SseService } from '~/modules/sse/sse.service'
+import { MenuEntity } from '~/modules/system/menu/menu.entity'
 
-import type { RoleService } from '../role/role.service'
+import { deleteEmptyChildren, generatorMenu, generatorRouters } from '~/utils'
 
-import type { MenuDto, MenuQueryDto, MenuUpdateDto } from './menu.dto'
-import { MenuEntity } from './menu.entity'
+import { RoleService } from '../role/role.service'
+
+import { MenuDto, MenuQueryDto, MenuUpdateDto } from './menu.dto'
 
 @Injectable()
 export class MenuService {

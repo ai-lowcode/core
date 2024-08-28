@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Column, Entity } from 'typeorm'
 
-import { CommonEntity } from '../../../../common/entity/common.entity'
+import { CommonEntity } from '~/common/entity/common.entity'
 
 @Entity({ name: 'sys_captcha_log' })
 export class CaptchaLogEntity extends CommonEntity {

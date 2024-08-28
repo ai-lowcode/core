@@ -4,7 +4,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter'
 import { ScheduleModule } from '@nestjs/schedule'
 import { ThrottlerModule } from '@nestjs/throttler'
 
-import { isDev } from '../global/env'
+import { isDev } from '~/global/env'
 
 import { HelperModule } from './helper/helper.module'
 import { LoggerModule } from './logger/logger.module'

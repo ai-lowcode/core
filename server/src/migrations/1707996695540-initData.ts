@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import type { MigrationInterface, QueryRunner } from 'typeorm'
+import { MigrationInterface, QueryRunner } from 'typeorm'
 
 const sql = fs.readFileSync(path.join(__dirname, '../../deploy/sql/nest_admin.sql'), 'utf8')
 

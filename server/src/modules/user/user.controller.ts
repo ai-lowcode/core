@@ -1,16 +1,17 @@
 import { Body, Controller, Delete, Get, Param, ParseArrayPipe, Post, Put, Query } from '@nestjs/common'
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
 
-import { ApiResult } from '../../common/decorators/api-result.decorator'
-import { IdParam } from '../../common/decorators/id-param.decorator'
-import { ApiSecurityAuth } from '../../common/decorators/swagger.decorator'
-import { Perm, definePermission } from '../auth/decorators/permission.decorator'
-import type { MenuService } from '../system/menu/menu.service'
+import { ApiResult } from '~/common/decorators/api-result.decorator'
+import { IdParam } from '~/common/decorators/id-param.decorator'
+import { ApiSecurityAuth } from '~/common/decorators/swagger.decorator'
+import { MenuService } from '~/modules/system/menu/menu.service'
 
-import type { UserPasswordDto } from './dto/password.dto'
-import type { UserDto, UserQueryDto, UserUpdateDto } from './dto/user.dto'
+import { Perm, definePermission } from '../auth/decorators/permission.decorator'
+
+import { UserPasswordDto } from './dto/password.dto'
+import { UserDto, UserQueryDto, UserUpdateDto } from './dto/user.dto'
 import { UserEntity } from './user.entity'
-import type { UserService } from './user.service'
+import { UserService } from './user.service'
 
 export const permissions = definePermission('system:user', {
   LIST: 'list',

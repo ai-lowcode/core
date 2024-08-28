@@ -1,9 +1,11 @@
-import type { MultipartFile } from '@fastify/multipart'
+import { MultipartFile } from '@fastify/multipart'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import dayjs from 'dayjs'
 import { isNil } from 'lodash'
-import type { Repository } from 'typeorm'
+import { Repository } from 'typeorm'
+
+import { Storage } from '~/modules/tools/storage/storage.entity'
 
 import {
   fileRename,
@@ -12,8 +14,7 @@ import {
   getFileType,
   getSize,
   saveLocalFile,
-} from '../../../utils/file.util'
-import { Storage } from '../storage/storage.entity'
+} from '~/utils/file.util'
 
 @Injectable()
 export class UploadService {

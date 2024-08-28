@@ -1,25 +1,25 @@
 import { InjectRedis } from '@liaoliaots/nestjs-redis'
 import { Injectable } from '@nestjs/common'
 
-import type Redis from 'ioredis'
+import Redis from 'ioredis'
 
 import { throttle } from 'lodash'
 import { UAParser } from 'ua-parser-js'
 
-import { BusinessException } from '../../../common/exceptions/biz.exception'
-import { ErrorEnum } from '../../../constants/error-code.constant'
+import { BusinessException } from '~/common/exceptions/biz.exception'
+import { ErrorEnum } from '~/constants/error-code.constant'
 
-import { genOnlineUserKey } from '../../../helper/genRedisKey'
-import { getIpAddress } from '../../../utils'
-import type { AuthService } from '../../auth/auth.service'
-import { AccessTokenEntity } from '../../auth/entities/access-token.entity'
+import { genOnlineUserKey } from '~/helper/genRedisKey'
+import { AuthService } from '~/modules/auth/auth.service'
+import { AccessTokenEntity } from '~/modules/auth/entities/access-token.entity'
 
-import type { TokenService } from '../../auth/services/token.service'
-import type { SseService } from '../../sse/sse.service'
+import { TokenService } from '~/modules/auth/services/token.service'
+import { SseService } from '~/modules/sse/sse.service'
+import { getIpAddress } from '~/utils'
 
-import type { UserService } from '../../user/user.service'
+import { UserService } from '../../user/user.service'
 
-import type { OnlineUserInfo } from './online.model'
+import { OnlineUserInfo } from './online.model'
 
 @Injectable()
 export class OnlineService {

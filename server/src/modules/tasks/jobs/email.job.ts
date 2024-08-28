@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
 
-import type { LoggerService } from '../../../shared/logger/logger.service'
-import type { MailerService } from '../../../shared/mailer/mailer.service'
+import { LoggerService } from '~/shared/logger/logger.service'
+import { MailerService } from '~/shared/mailer/mailer.service'
 
 import { Mission } from '../mission.decorator'
 

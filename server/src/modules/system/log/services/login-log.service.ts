@@ -1,18 +1,17 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 
-import type { Repository } from 'typeorm'
-import { Between, LessThan, Like } from 'typeorm'
+import { Between, LessThan, Like, Repository } from 'typeorm'
 
 import UAParser from 'ua-parser-js'
 
-import { paginateRaw } from '../../../../helper/paginate'
+import { paginateRaw } from '~/helper/paginate'
 
-import { getIpAddress } from '../../../../utils/ip.util'
+import { getIpAddress } from '~/utils/ip.util'
 
-import type { LoginLogQueryDto } from '../dto/log.dto'
+import { LoginLogQueryDto } from '../dto/log.dto'
 import { LoginLogEntity } from '../entities/login-log.entity'
-import type { LoginLogInfo } from '../models/log.model'
+import { LoginLogInfo } from '../models/log.model'
 
 async function parseLoginLog(e: any, parser: UAParser): Promise<LoginLogInfo> {
   const uaResult = parser.setUA(e.login_log_ua).getResult()

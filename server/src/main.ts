@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
-import type { NestFastifyApplication } from '@nestjs/platform-fastify'
+import { NestFastifyApplication } from '@nestjs/platform-fastify'
 
 import { useContainer } from 'class-validator'
 

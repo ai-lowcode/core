@@ -1,17 +1,14 @@
-import type {
+import {
   FindManyOptions,
   FindOptionsWhere,
   ObjectLiteral,
-  SelectQueryBuilder,
-} from 'typeorm'
-import {
   Repository,
+  SelectQueryBuilder,
 } from 'typeorm'
 
 import { createPaginationObject } from './create-pagination'
-import type { IPaginationOptions } from './interface'
-import { PaginationTypeEnum } from './interface'
-import type { Pagination } from './pagination'
+import { IPaginationOptions, PaginationTypeEnum } from './interface'
+import { Pagination } from './pagination'
 
 const DEFAULT_LIMIT = 10
 const DEFAULT_PAGE = 1

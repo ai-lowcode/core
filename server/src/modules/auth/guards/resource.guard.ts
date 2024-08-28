@@ -1,19 +1,17 @@
-import type { CanActivate, ExecutionContext } from '@nestjs/common'
-import { Injectable } from '@nestjs/common'
-import type { Reflector } from '@nestjs/core'
-import type { FastifyRequest } from 'fastify'
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
+import { Reflector } from '@nestjs/core'
+import { FastifyRequest } from 'fastify'
 
 import { isArray, isEmpty, isNil } from 'lodash'
 
-import type { DataSource, Repository } from 'typeorm'
-import { In } from 'typeorm'
+import { DataSource, In, Repository } from 'typeorm'
 
-import { BusinessException } from '../../../common/exceptions/biz.exception'
+import { BusinessException } from '~/common/exceptions/biz.exception'
 
-import { ErrorEnum } from '../../../constants/error-code.constant'
+import { ErrorEnum } from '~/constants/error-code.constant'
 
 import { PUBLIC_KEY, RESOURCE_KEY, Roles } from '../auth.constant'
-import type { ResourceObject } from '../decorators/resource.decorator'
+import { ResourceObject } from '../decorators/resource.decorator'
 
 @Injectable()
 export class ResourceGuard implements CanActivate {

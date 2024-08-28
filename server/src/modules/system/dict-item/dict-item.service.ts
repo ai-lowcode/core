@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 
-import type { Repository } from 'typeorm'
-import { Like } from 'typeorm'
+import { Like, Repository } from 'typeorm'
 
-import { paginate } from '../../../helper/paginate'
-import type { Pagination } from '../../../helper/paginate/pagination'
+import { paginate } from '~/helper/paginate'
+import { Pagination } from '~/helper/paginate/pagination'
+import { DictItemEntity } from '~/modules/system/dict-item/dict-item.entity'
 
-import type { DictItemDto, DictItemQueryDto } from './dict-item.dto'
-import { DictItemEntity } from './dict-item.entity'
+import { DictItemDto, DictItemQueryDto } from './dict-item.dto'
 
 @Injectable()
 export class DictItemService {

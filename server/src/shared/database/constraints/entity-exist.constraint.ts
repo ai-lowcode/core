@@ -1,14 +1,12 @@
 import { Injectable } from '@nestjs/common'
-import type {
+import {
   ValidationArguments,
   ValidationOptions,
-  ValidatorConstraintInterface,
-} from 'class-validator'
-import {
   ValidatorConstraint,
+  ValidatorConstraintInterface,
   registerDecorator,
 } from 'class-validator'
-import type { DataSource, ObjectType, Repository } from 'typeorm'
+import { DataSource, ObjectType, Repository } from 'typeorm'
 
 interface Condition {
   entity: ObjectType<any>

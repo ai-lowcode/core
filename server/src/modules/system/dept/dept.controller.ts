@@ -1,20 +1,19 @@
 import { Body, Controller, Delete, Get, Post, Put, Query } from '@nestjs/common'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
-import { ApiResult } from '../../../common/decorators/api-result.decorator'
-import { IdParam } from '../../../common/decorators/id-param.decorator'
-import { ApiSecurityAuth } from '../../../common/decorators/swagger.decorator'
-import { BusinessException } from '../../../common/exceptions/biz.exception'
-import { CreatorPipe } from '../../../common/pipes/creator.pipe'
-import { UpdaterPipe } from '../../../common/pipes/updater.pipe'
-import { ErrorEnum } from '../../../constants/error-code.constant'
-import { AuthUser } from '../../auth/decorators/auth-user.decorator'
-import { Perm, definePermission } from '../../auth/decorators/permission.decorator'
+import { ApiResult } from '~/common/decorators/api-result.decorator'
+import { IdParam } from '~/common/decorators/id-param.decorator'
+import { ApiSecurityAuth } from '~/common/decorators/swagger.decorator'
+import { BusinessException } from '~/common/exceptions/biz.exception'
+import { CreatorPipe } from '~/common/pipes/creator.pipe'
+import { UpdaterPipe } from '~/common/pipes/updater.pipe'
+import { ErrorEnum } from '~/constants/error-code.constant'
+import { AuthUser } from '~/modules/auth/decorators/auth-user.decorator'
+import { Perm, definePermission } from '~/modules/auth/decorators/permission.decorator'
+import { DeptEntity } from '~/modules/system/dept/dept.entity'
 
-import type { DeptDto, DeptQueryDto } from './dept.dto'
-import { DeptEntity } from './dept.entity'
-
-import type { DeptService } from './dept.service'
+import { DeptDto, DeptQueryDto } from './dept.dto'
+import { DeptService } from './dept.service'
 
 export const permissions = definePermission('system:dept', {
   LIST: 'list',

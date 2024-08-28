@@ -1,13 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common'
-import type { ConfigService } from '@nestjs/config'
+import { ConfigService } from '@nestjs/config'
 import { CronExpression } from '@nestjs/schedule'
 import dayjs from 'dayjs'
 
 import { LessThan } from 'typeorm'
 
-import { CronOnce } from '../../common/decorators/cron-once.decorator'
-import type { ConfigKeyPaths } from '../../config'
-import { AccessTokenEntity } from '../../modules/auth/entities/access-token.entity'
+import { CronOnce } from '~/common/decorators/cron-once.decorator'
+import { ConfigKeyPaths } from '~/config'
+import { AccessTokenEntity } from '~/modules/auth/entities/access-token.entity'
 
 @Injectable()
 export class CronService {

@@ -40,6 +40,7 @@ const providers = [EntityExistConstraint, UniqueConstraint]
       // dataSource receives the configured DataSourceOptions
       // and returns a Promise<DataSource>.
       dataSourceFactory: async (options) => {
+        console.log(options)
         const dataSource = await new DataSource(options).initialize()
         return dataSource
       },

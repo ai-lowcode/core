@@ -21,6 +21,9 @@ jobs:
           password: ${{ secrets.REMOTE_PASSWORD }}
           port: ${{ secrets.REMOTE_PORT }}
           script: |
-            cd /opt
-            bash --login -c "node -v"
-            bash --login -c "cd /opt && bash deploy.sh"
+            echo "BASH_VERSION: $BASH_VERSION"
+            echo "Loaded profile:"
+            [ -f ~/.bash_profile ] && echo "~/.bash_profile"
+            [ -f ~/.bashrc ] && echo "~/.bashrc"
+            env
+            cd /opt && bash deploy.sh

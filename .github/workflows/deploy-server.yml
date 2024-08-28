@@ -14,9 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Dump DEV_DB_NAME
-        run: echo -n "${{ secrets }}" | xxd -ps
+        run: echo -n "${{ secrets.REMOTE_HOST }}" | xxd -ps
       - name: Dump DEV_DB_NAME2
-        run: echo -n "${{ secrets.REMOTE_USERNAME }}" | xxd -ps
+        run: echo -n "${{ secrets }}" | xxd -ps
       - name: Deploy to remote server
         uses: appleboy/ssh-action@master
         with:

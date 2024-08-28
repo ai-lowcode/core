@@ -23,6 +23,8 @@ jobs:
           script: |
             cd /opt
             echo $SHELL
+            source ~/.bashrc
+            echo $SHELL
             node -v
             npm -v
             pm2 -v

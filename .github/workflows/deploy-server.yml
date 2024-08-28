@@ -13,12 +13,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Dump DEV_DB_NAME
-        run: echo -n "${{ secrets.REMOTE_HOST }}"
-      - name: Dump REMOTE_USERNAME
-        run: echo -n "${{ secrets.REMOTE_USERNAME }}"
-      - name: Dump REMOTE_PORT
-        run: echo -n "${{ secrets.REMOTE_PORT }}"
       - name: Deploy to remote server
         uses: appleboy/ssh-action@master
         with:
@@ -28,6 +22,11 @@ jobs:
           port: ${{ secrets.REMOTE_PORT }}
           script: |
             cd /opt
+            echo $SHELL
+            cat /etc/shells
+            source ~/.bashrc
+            echo $SHELL
+            cat /etc/shells
             node -v
             npm -v
             pm2 -v

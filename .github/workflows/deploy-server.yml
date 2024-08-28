@@ -23,10 +23,6 @@ jobs:
           script: |
             cd /opt
             echo $SHELL
-            cat /etc/shells
-            source ~/.bashrc
-            echo $SHELL
-            cat /etc/shells
             node -v
             npm -v
             pm2 -v

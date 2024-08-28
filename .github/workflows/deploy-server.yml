@@ -28,4 +28,8 @@ jobs:
           port: ${{ secrets.REMOTE_PORT }}
           script: |
             cd /opt
+            node -v
+            npm -v
+            pm2 -v
+            pnpm -v
             bash deploy.sh

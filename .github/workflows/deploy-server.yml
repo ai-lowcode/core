@@ -21,14 +21,7 @@ jobs:
           password: ${{ secrets.REMOTE_PASSWORD }}
           port: ${{ secrets.REMOTE_PORT }}
           script: |
-            echo "BASH_VERSION: $BASH_VERSION"
-            echo "Loaded profile:"
-            [ -f ~/.bashrc ] && echo "/root/.bashrc"
-            echo "Loaded profile2:"
-            source /root/.bashrc
-            echo "Loaded profile3:"
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
             [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-            env
             cd /opt && bash deploy.sh

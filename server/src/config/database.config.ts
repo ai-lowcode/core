@@ -25,10 +25,10 @@ const dataSourceOptions: DataSourceOptions = {
   entities: ['dist/modules/**/*.entity{.ts,.js}'],
   migrations: ['dist/migrations/*{.ts,.js}'],
   subscribers: ['dist/modules/**/*.subscriber{.ts,.js}'],
-  ssl: {
-    ca: '/etc/ssl/cert.pem',
-    rejectUnauthorized: false,
-  },
+  // ssl: {
+  //   ca: '/etc/ssl/cert.pem',
+  //   rejectUnauthorized: false,
+  // },
 }
 export const dbRegToken = 'database'
 

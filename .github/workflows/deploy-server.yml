@@ -23,7 +23,9 @@ jobs:
           script: |
             echo "BASH_VERSION: $BASH_VERSION"
             echo "Loaded profile:"
-            [ -f ~/.bash_profile ] && echo "~/.bash_profile"
-            [ -f ~/.bashrc ] && echo "~/.bashrc"
+            [ -f ~/.bashrc ] && echo "/root/.bashrc"
+            echo "Loaded profile2:"
+            source /root/.bashrc
+            echo "Loaded profile3:"
             env
             cd /opt && bash deploy.sh

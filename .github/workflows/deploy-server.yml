@@ -22,12 +22,5 @@ jobs:
           port: ${{ secrets.REMOTE_PORT }}
           script: |
             cd /opt
-            echo $SHELL
-            source ~/.bashrc
-            echo $SHELL
-            env
-            node -v
-            npm -v
-            pm2 -v
-            pnpm -v
-            bash deploy.sh
+            bash --login -c "node -v"
+            bash --login -c "cd /opt && bash deploy.sh"

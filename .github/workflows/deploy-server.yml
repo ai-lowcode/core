@@ -25,6 +25,7 @@ jobs:
             echo $SHELL
             source ~/.bashrc
             echo $SHELL
+            env
             node -v
             npm -v
             pm2 -v

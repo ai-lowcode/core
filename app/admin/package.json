@@ -15,8 +15,8 @@
     "clean:dist": "rimraf dist"
   },
   "dependencies": {
-    "@ai-lowcode/element-plus": "workspace:^",
     "@ai-lowcode/designer": "workspace:^",
+    "@ai-lowcode/element-plus": "workspace:^",
     "@ai-lowcode/hooks": "workspace:^",
     "@ai-lowcode/request": "workspace:^",
     "@ai-lowcode/styles": "workspace:^",

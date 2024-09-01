@@ -26,7 +26,7 @@ const configFormData = ref({
   keepAlive: false,
 })
 
-const settingConfig = [
+const settingConfig: any = [
   {
     title: '整体风格',
     slug: 'globalStyle',
@@ -119,7 +119,7 @@ function showSetting() {
   settingVisible.value = true
 }
 
-function changeFormDataValue(key: string, value: string) {
+function changeFormDataValue(key: string, value: any) {
   configFormData.value[key] = value
 }
 
@@ -162,7 +162,7 @@ defineExpose({
           <div class="text-sm">
             {{ item.title }}
           </div>
-          <AlSwitch v-model="configFormData[item.slug]" @change="$event => changeFormDataValue(item.slug, $event)" />
+          <AlSwitch v-model="configFormData[item.slug]" @change="changeFormDataValue(item.slug, $event)" />
         </div>
       </div>
     </div>

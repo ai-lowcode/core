@@ -6,11 +6,12 @@ import tailwindcss from 'tailwindcss'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
+  base: './',
   envPrefix: 'APP_', // APP_  为自定义开头名
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      '@ai-lowcode/request': path.resolve(__dirname, '../../packages/request/src'),
+      // '@ai-lowcode/request': path.resolve(__dirname, '../../packages/request/src'),
     },
   },
   css: {

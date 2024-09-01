@@ -78,7 +78,7 @@ export class AlAxios {
         const regex = /^(http|https):\/\//i
         config.url = regex.test(config.url!)
           ? config.url
-          : globalConfig.GLOBAL_URL + config.url
+          : globalConfig.SERVER_URL + config.url
 
         // 将请求参数处理成为params形式
         if (joinParamsToUrl) {

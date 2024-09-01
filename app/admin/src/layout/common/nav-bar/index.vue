@@ -4,6 +4,7 @@ import {
   AlDropdownItem,
   AlDropdownMenu,
   AlIcon,
+  AlMessageBox,
   Bell,
   Expand,
   Fold,
@@ -14,34 +15,57 @@ import {
 
 import { Icon } from '@iconify/vue'
 
-import { ref } from 'vue'
+import { ref, toRefs } from 'vue'
 
 import setting from '@/layout/common/setting/index.vue'
-
-defineProps<{
-  isCollapse: boolean
-}>()
+import { useAppStore } from '@/store/modules/app'
+import { useUserStore } from '@/store/modules/user'
 
 const emits = defineEmits(['changeCollapse'])
 
+const userStore = useUserStore()
+
+const appStore = useAppStore()
+
+const { isCollapse } = toRefs(appStore)
+
 const settingRef = ref()
+
 function showSetting() {
   settingRef.value.showSetting()
 }
 
-function changeCollapse(value: boolean) {
-  emits('changeCollapse', !value)
+async function handleLogout() {
+  await AlMessageBox.confirm(
+    '退出登录当前账户?',
+    '警告',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+      beforeClose: async (action, instance, done) => {
+        if (action === 'confirm') {
+          instance.confirmButtonLoading = true
+          instance.confirmButtonText = '加载中...'
+          await userStore.logout()
+          instance.confirmButtonLoading = false
+          done()
+        }
+        else {
+          done()
+        }
+      },
+    },
+  )
 }
 </script>
 
 <template>
-  <div class="h-[50px] w-full border-b border-b-gray-100 flex justify-between items-center">
-    <div>
-      <AlIcon class="cursor-pointer h-full w-[40px]" @click="changeCollapse(isCollapse)">
-        <Expand v-if="isCollapse" />
-        <Fold v-else />
-      </AlIcon>
-    </div>
+  <div class="h-[50px] w-full border-b-[0.5px] bg-basic-color border-b-[#dbdde0] flex justify-between items-center">
+    <AlIcon class="cursor-pointer h-full w-[40px] hover:bg-[#eee] duration-300" @click="appStore.changeCollapse()">
+      <Expand v-if="isCollapse" />
+      <Fold v-else />
+    </AlIcon>
     <div class="mr-2 flex h-full items-center">
       <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100">
         <Search />
@@ -68,7 +92,7 @@ function changeCollapse(value: boolean) {
               <Icon icon="icon-park-solid:setting" class="mr-1" />
               账户设置
             </AlDropdownItem>
-            <AlDropdownItem>
+            <AlDropdownItem @click="handleLogout">
               <Icon icon="ri:logout-circle-r-line" class="mr-1" />
               退出系统
             </AlDropdownItem>

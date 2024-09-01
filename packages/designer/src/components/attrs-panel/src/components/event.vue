@@ -186,13 +186,13 @@ function confirmEvent() {
     <template v-for="(eventGroup, eventGroupIndex) in events" :key="eventGroupIndex">
       <AlCollapseItem v-if="eventGroup.children?.length" :title="eventGroup.label" :name="eventGroup.index">
         <div v-for="(event, eventIndex) in eventGroup.children" :key="eventIndex">
-          <div :class="eventIndex === 0 ? 'mt-2' : eventIndex === eventGroup.children.length - 1 ? 'mb-2 !border-b' : ''" class="flex items-center justify-between mx-2 bg-[#f8f8f8] px-2 py-1 border border-solid border-[#e3e3e3] border-b-0">
+          <div :class="eventIndex === 0 ? 'mt-2' : eventIndex === eventGroup.children.length - 1 ? 'mb-2 !border-b' : ''" class="flex items-center justify-between mx-2 bg-[#f8f8f8] px-2 py-1 border border-solid border-basic-color border-b-0">
             <div>{{ event.label }}&nbsp;({{ event.key }})</div>
             <AlIcon size="18" class="cursor-pointer" @click="handleEvent('add', eventGroupIndex, eventIndex)">
               <Icon icon="material-symbols:add" />
             </AlIcon>
           </div>
-          <div v-for="(_, eventItemIdx) in event.children" :key="eventItemIdx" class="flex m-2 items-center justify-between mx-2 bg-white px-2 py-1 border border-solid border-[#e3e3e3]">
+          <div v-for="(_, eventItemIdx) in event.children" :key="eventItemIdx" class="flex m-2 items-center justify-between mx-2 bg-basic-color px-2 py-1 border border-solid border-basic-color">
             <div class="flex items-center">
               <AlIcon size="22" class="cursor-move text-gray-600">
                 <Icon icon="mdi:drag" />
@@ -215,7 +215,7 @@ function confirmEvent() {
   <AlDialog v-model="visibleEvent" title="事件配置" width="1200" top="5vh" style="height: calc(100vh - 100px)">
     <div class="flex h-full w-full flex-nowrap">
       <div
-        class="w-[240px] border border-solid border-[#e3e3e3] mr-4 flex flex-col py-3 px-1"
+        class="w-[240px] border border-solid border-basic-color mr-4 flex flex-col py-3 px-1"
         style="height: calc(100vh - 244px)"
       >
         <div class="px-2">
@@ -229,7 +229,7 @@ function confirmEvent() {
           </div>
         </div>
       </div>
-      <div class="flex-1 border border-solid border-[#e3e3e3] py-2">
+      <div class="flex-1 border border-solid border-basic-color py-2">
         <div
           class="ml-4 mb-2 text-sm"
         >

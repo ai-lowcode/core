@@ -4,7 +4,7 @@ import { App } from 'vue'
 import { NavigationGuardNext, RouteLocationNormalized, Router } from 'vue-router'
 
 import { ROUTER_WHITE_LIST, RouteNameEnum } from '@/router/types'
-import useUserStore from '@/store/modules/user'
+import { useUserStore } from '@/store/modules/user'
 
 /**
  * 放行规则

@@ -1,5 +1,5 @@
-import '@ai-lowcode/element-plus/css'
-
+import { initComponents } from '@ai-lowcode/designer'
+import '@ai-lowcode/designer/css'
 import '@ai-lowcode/styles/css'
 
 import { createApp } from 'vue'
@@ -17,6 +17,7 @@ const app = createApp(App)
 function setupApp() {
   setupStore(app)
   setupRouter(app)
+  initComponents(app)
   setupStorage()
   app.mount('#app')
 }

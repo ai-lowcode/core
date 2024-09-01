@@ -60,10 +60,10 @@ jobs:
         run: pnpm build --pkg @ai-lowcode/core
       - name: Build with @ai-lowcode/designer
         run: pnpm build --pkg @ai-lowcode/designer
-      - name: Build with designer
-        run: pnpm turbo run build --filter=designer
-      - name: remove designer
-        run: mkdir dist/designer -p && cp -r app/designer/dist/* dist/designer
+      - name: Build with admin
+        run: pnpm turbo run build --filter=ai-lowcode-admin
+      - name: remove admin
+        run: mkdir dist/admin -p && cp -r app/admin/dist/* dist/admin
       - name: remove docs
         run: cp -r docs/.vitepress/dist/* dist
       - name: Upload artifact

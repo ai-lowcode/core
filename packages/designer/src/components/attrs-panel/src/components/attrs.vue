@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlRenderer } from '@ai-lowcode/core'
+import { AlRenderer, Schema } from '@ai-lowcode/core'
 import { AlCollapse, AlCollapseItem } from '@ai-lowcode/element-plus'
 
 import { computed, inject, ref, watch } from 'vue'
@@ -9,7 +9,7 @@ import { FormAttrsSchema } from '../schema/form.ts'
 
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
 import componentSchemaList from '@/schema'
-import { DesignerContext, Schema } from '@/types'
+import { DesignerContext } from '@/types'
 import { findAndModifyById } from '@/utils'
 
 defineOptions({
@@ -103,8 +103,8 @@ watch(() => context?.selectComponent, (newValue) => {
         slots: {},
       }
     }
-    if (node?.type === 'el-text') {
-      propsData.value.props['el-text'] = String(node.children?.[0])
+    if (node?.type === 'al-text') {
+      propsData.value.props['al-text'] = String(node.children?.[0])
     }
     (node?.children as Schema[])?.map((slot: Schema) => {
       slotsData.value.slots[slot.slotName ?? 'default'] = slot.slotHidden ? slot.slotHidden : false
@@ -143,6 +143,6 @@ watch(() => context?.selectComponent, (newValue) => {
   --el-collapse-header-height: 38px;
   --el-collapse-header-text-color: #6e6e6e;
   --el-collapse-header-bg-color:#f8f8f8;
-  --el-collapse-border-color: #e3e3e3;
+  --el-collapse-border-color: var(--al-basic-border-color);
 }
 </style>

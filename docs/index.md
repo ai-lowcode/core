@@ -8,9 +8,6 @@ hero:
   tagline: ai 低代码设计器
   actions:
     - theme: brand
-      text: 预览设计器
-      link: https://ailowcode.app/designer/
-    - theme: alt
       text: 预览管理端
       link: https://ailowcode.app/admin/
 

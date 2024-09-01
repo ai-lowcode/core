@@ -1,3 +1,4 @@
+import { AlMessage } from '@ai-lowcode/element-plus'
 import { webStorage } from '@ai-lowcode/hooks'
 import { LoginParamType, ResponseCodeEnum, authApi } from '@ai-lowcode/request'
 import { defineStore } from 'pinia'
@@ -9,7 +10,7 @@ import { resetRouter } from '@/router'
 import { generatorRouter } from '@/router/generator-router'
 import { RouteNameEnum } from '@/router/types'
 
-const useUserStore = defineStore('user', () => {
+export const useUserStore = defineStore('user', () => {
   const router = useRouter()
   const route = useRoute()
   const token = ref()
@@ -54,19 +55,16 @@ const useUserStore = defineStore('user', () => {
     })
   }
 
-  const login = async (params: LoginParamType) => {
-    // 登录
-    const { data, code } = await authApi.login(params)
-    // 设置授权信息
-    handleAuthStorage({ token: data?.token })
-    await router.push('/')
-    return code
-  }
-
   const logout = async () => {
     try {
       // 退出登录
-      await authApi.logout()
+      const { code, message } = await authApi.logout()
+      if (code !== ResponseCodeEnum.SUCCESS)
+        throw new Error(message)
+      AlMessage.success('退出登录成功')
+    }
+    catch (e) {
+      AlMessage.error(e || '退出登录失败')
     }
     finally {
       // 清空授权信息
@@ -93,6 +91,21 @@ const useUserStore = defineStore('user', () => {
     }
   }
 
+  const login = async (params: LoginParamType, loginSuccessMessage?: string, loginErrorMessage?: string) => {
+    // 登录
+    const { data, code, message } = await authApi.login(params)
+    if (code === ResponseCodeEnum.SUCCESS) {
+      // 设置授权信息
+      handleAuthStorage({ token: data?.token })
+      await initRouter()
+      await router.push('/')
+      AlMessage.success(loginSuccessMessage || '登录成功')
+    }
+    else {
+      AlMessage.error(message || loginErrorMessage || '登录失败')
+    }
+  }
+
   return {
     token,
     isLogin,
@@ -104,5 +117,3 @@ const useUserStore = defineStore('user', () => {
     handleAuthStorage,
   }
 })
-
-export default useUserStore

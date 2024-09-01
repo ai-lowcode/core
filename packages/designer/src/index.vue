@@ -1,14 +1,10 @@
 <script lang="ts" setup>
 import type { Schema } from '@ai-lowcode/core'
-import { AlContainer } from '@ai-lowcode/element-plus'
 
+import { AlContainer } from '@ai-lowcode/element-plus'
 import { provide, ref } from 'vue'
 
-import { AlAttrsPanel } from '@/components/attrs-panel'
-import { AlComponentsPanel } from '@/components/components-panel'
-import { AlHeader } from '@/components/header'
-import { AlWorkspace } from '@/components/workspace'
-
+import { AlAttrsPanel, AlComponentsPanel, AlHeader, AlWorkspace } from '@/components'
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
 import { DesignerContext } from '@/types'
 
@@ -34,12 +30,12 @@ provide<DesignerContext>(DESIGNER_CTX, {
 </script>
 
 <template>
-  <AlContainer style="height: 100vh" class="p-4">
+  <div class="h-full flex">
     <AlComponentsPanel />
     <AlContainer class="flex flex-col">
       <AlHeader />
       <AlWorkspace ref="workspaceRef" />
     </AlContainer>
     <AlAttrsPanel />
-  </AlContainer>
+  </div>
 </template>

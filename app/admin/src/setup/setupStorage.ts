@@ -2,6 +2,6 @@ import { webStorage } from '@ai-lowcode/hooks'
 
 export function setupStorage() {
   webStorage.setStorage('config', {
-    GLOBAL_URL: 'https://nest-api.buqiyuan.site/api',
+    SERVER_URL: import.meta.env.APP_SERVER_URL,
   })
 }

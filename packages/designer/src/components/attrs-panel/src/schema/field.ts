@@ -2,8 +2,8 @@ import type { Schema } from '@ai-lowcode/core'
 
 export const FieldAttrsSchema = <Array<Schema>>[
   {
-    type: 'el-form',
-    id: 'el-form',
+    type: 'al-form',
+    id: 'al-form',
     field: 'field',
     modelField: 'modelValue',
     props: {
@@ -13,14 +13,14 @@ export const FieldAttrsSchema = <Array<Schema>>[
     },
     children: [
       {
-        type: 'el-form-item',
+        type: 'al-form-item',
         id: 'id',
         props: {
           label: '字段id',
         },
         children: [
           {
-            type: 'el-input',
+            type: 'al-input',
             id: 'id',
             field: 'field.id',
             modelField: 'modelValue',
@@ -32,14 +32,14 @@ export const FieldAttrsSchema = <Array<Schema>>[
         ],
       },
       {
-        type: 'el-form-item',
+        type: 'al-form-item',
         id: 'name',
         props: {
           label: '字段标识',
         },
         children: [
           {
-            type: 'el-input',
+            type: 'al-input',
             id: 'name',
             field: 'field.name',
             modelField: 'modelValue',
@@ -51,14 +51,14 @@ export const FieldAttrsSchema = <Array<Schema>>[
         ],
       },
       {
-        type: 'el-form-item',
+        type: 'al-form-item',
         id: 'label',
         props: {
           label: '字段标题',
         },
         children: [
           {
-            type: 'el-input',
+            type: 'al-input',
             id: 'label',
             field: 'field.label',
             modelField: 'modelValue',

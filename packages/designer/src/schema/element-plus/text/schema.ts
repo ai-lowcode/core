@@ -14,7 +14,7 @@ export const TextSchema = <CompSchema>{
   name,
   schema: () => {
     return <Schema>{
-      type: 'el-text',
+      type: 'al-text',
       id: `__${uniqueId()}`,
       icon,
       label,
@@ -31,8 +31,8 @@ export const TextSchema = <CompSchema>{
   props: () => {
     return <Schema[]>[
       {
-        type: 'el-form',
-        id: 'el-form',
+        type: 'al-form',
+        id: 'al-form',
         field: 'props',
         modelField: 'modelValue',
         props: {
@@ -42,14 +42,14 @@ export const TextSchema = <CompSchema>{
         },
         children: [
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'elText',
             props: {
               label: '文本内容',
             },
             children: [
               {
-                type: 'el-input',
+                type: 'al-input',
                 id: 'elText',
                 field: 'props.elText',
                 modelField: 'modelValue',
@@ -57,20 +57,20 @@ export const TextSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'type',
             props: {
               label: '尺寸',
             },
             children: [
               {
-                type: 'el-select',
+                type: 'al-select',
                 id: 'type',
                 field: 'props.type',
                 modelField: 'modelValue',
                 children: [
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'primary',
                     props: {
                       label: '基本',
@@ -78,7 +78,7 @@ export const TextSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'success',
                     props: {
                       label: '成功',
@@ -86,7 +86,7 @@ export const TextSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'warning',
                     props: {
                       label: '警告',
@@ -94,7 +94,7 @@ export const TextSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'danger',
                     props: {
                       label: '危险',
@@ -102,7 +102,7 @@ export const TextSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'info',
                     props: {
                       label: '信息',
@@ -114,20 +114,20 @@ export const TextSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'size',
             props: {
               label: '尺寸',
             },
             children: [
               {
-                type: 'el-select',
+                type: 'al-select',
                 id: 'size',
                 field: 'props.size',
                 modelField: 'modelValue',
                 children: [
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'large',
                     props: {
                       label: '大',
@@ -135,7 +135,7 @@ export const TextSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'default',
                     props: {
                       label: '默认',
@@ -143,7 +143,7 @@ export const TextSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'small',
                     props: {
                       label: '小',
@@ -155,14 +155,14 @@ export const TextSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'truncated',
             props: {
               label: '显示省略号',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'truncated',
                 field: 'props.truncated',
                 modelField: 'modelValue',
@@ -170,14 +170,14 @@ export const TextSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'lineClamp',
             props: {
               label: '最大行数',
             },
             children: [
               {
-                type: 'el-input',
+                type: 'al-input',
                 id: 'lineClamp',
                 field: 'props.lineClamp',
                 modelField: 'modelValue',
@@ -185,14 +185,14 @@ export const TextSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'tag',
             props: {
               label: '自定义元素标签',
             },
             children: [
               {
-                type: 'el-input',
+                type: 'al-input',
                 id: 'tag',
                 field: 'props.tag',
                 modelField: 'modelValue',

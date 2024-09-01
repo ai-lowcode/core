@@ -14,7 +14,7 @@ export const InputSchema = <CompSchema>{
   name,
   schema: () => {
     return <Schema>{
-      type: 'el-input',
+      type: 'al-input',
       id: `__${uniqueId()}`,
       icon,
       label,
@@ -57,8 +57,8 @@ export const InputSchema = <CompSchema>{
   props: () => {
     return <Schema[]>[
       {
-        type: 'el-form',
-        id: 'el-form',
+        type: 'al-form',
+        id: 'al-form',
         field: 'props',
         modelField: 'modelValue',
         props: {
@@ -68,20 +68,20 @@ export const InputSchema = <CompSchema>{
         },
         children: [
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'type',
             props: {
               label: '类型',
             },
             children: [
               {
-                type: 'el-select',
+                type: 'al-select',
                 id: 'type',
                 field: 'props.type',
                 modelField: 'modelValue',
                 children: [
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'text',
                     props: {
                       label: '文本',
@@ -89,7 +89,7 @@ export const InputSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'textarea',
                     props: {
                       label: '文本域',
@@ -97,7 +97,7 @@ export const InputSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'password',
                     props: {
                       label: '密码',
@@ -105,7 +105,7 @@ export const InputSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'button',
                     props: {
                       label: '按钮',
@@ -113,7 +113,7 @@ export const InputSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'checkbox',
                     props: {
                       label: '复选框',
@@ -121,7 +121,7 @@ export const InputSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'file',
                     props: {
                       label: '文件',
@@ -129,7 +129,7 @@ export const InputSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'number',
                     props: {
                       label: '数字',
@@ -137,7 +137,7 @@ export const InputSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'radio',
                     props: {
                       label: '单选',
@@ -149,14 +149,14 @@ export const InputSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'maxlength',
             props: {
               label: '最大输入长度',
             },
             children: [
               {
-                type: 'el-input-number',
+                type: 'al-input-number',
                 id: 'maxlength',
                 field: 'props.maxlength',
                 modelField: 'modelValue',
@@ -165,14 +165,14 @@ export const InputSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'minlength',
             props: {
               label: '最小输入长度',
             },
             children: [
               {
-                type: 'el-input-number',
+                type: 'al-input-number',
                 id: 'minlength',
                 field: 'props.minlength',
                 modelField: 'modelValue',
@@ -181,14 +181,14 @@ export const InputSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'showWordLimit',
             props: {
               label: '是否显示统计字数',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'showWordLimit',
                 field: 'props.showWordLimit',
                 modelField: 'modelValue',
@@ -196,14 +196,14 @@ export const InputSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'placeholder',
             props: {
               label: '输入框占位文本',
             },
             children: [
               {
-                type: 'el-input',
+                type: 'al-input',
                 id: 'placeholder',
                 field: 'props.placeholder',
                 modelField: 'modelValue',
@@ -211,14 +211,14 @@ export const InputSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'clearable',
             props: {
               label: '是否显示清除按钮',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'clearable',
                 field: 'props.clearable',
                 modelField: 'modelValue',
@@ -226,14 +226,14 @@ export const InputSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'showPassword',
             props: {
               label: '是否显示切换密码图标',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'showPassword',
                 field: 'props.showPassword',
                 modelField: 'modelValue',
@@ -241,14 +241,14 @@ export const InputSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'disabled',
             props: {
               label: '是否禁用',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'disabled',
                 field: 'props.disabled',
                 modelField: 'modelValue',
@@ -256,20 +256,20 @@ export const InputSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'size',
             props: {
               label: '输入框尺寸',
             },
             children: [
               {
-                type: 'el-select',
+                type: 'al-select',
                 id: 'size',
                 field: 'props.size',
                 modelField: 'modelValue',
                 children: [
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'large',
                     props: {
                       label: '大',
@@ -277,7 +277,7 @@ export const InputSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'default',
                     props: {
                       label: '默认',
@@ -285,7 +285,7 @@ export const InputSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'small',
                     props: {
                       label: '小',
@@ -297,14 +297,14 @@ export const InputSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'rows',
             props: {
               label: '输入框行数',
             },
             children: [
               {
-                type: 'el-input',
+                type: 'al-input',
                 id: 'rows',
                 field: 'props.rows',
                 modelField: 'modelValue',
@@ -312,14 +312,14 @@ export const InputSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'readonly',
             props: {
               label: '是否只读',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'readonly',
                 field: 'props.readonly',
                 modelField: 'modelValue',

@@ -233,7 +233,7 @@ onMounted(() => {
 
 <template>
   <div class="mr-[10px] max-w-[360px] flex flex-row">
-    <div class="w-[45px] flex flex-col border border-solid border-[#e3e3e3] bg-white" :class="!activeComponentMenu.expand ? 'border-r' : 'border-r-0'">
+    <div class="w-[45px] flex flex-col border border-solid border-basic-color bg-basic-color" :class="!activeComponentMenu.expand ? 'border-r' : 'border-r-0'">
       <AlTooltip
         v-for="(item, index) in slideMenu"
         :key="index"
@@ -253,8 +253,8 @@ onMounted(() => {
     </div>
     <AlTabs
       v-model="activeMenuTab"
-      :class="activeComponentMenu.menu === ComponentMenu.COMPONENT && activeComponentMenu.expand ? 'animate-fade-in block' : 'animate-fade-out hidden'"
-      class="h-full overflow-auto flex-1 w-[272px] border border-solid border-[#e3e3e3] bg-white tabs-component"
+      :class="activeComponentMenu.menu === ComponentMenu.COMPONENT && activeComponentMenu.expand ? 'animate-fade-in !block' : 'animate-fade-out !hidden'"
+      class="h-full overflow-auto flex-1 w-[272px] border border-solid border-basic-color bg-basic-color tabs-component"
       stretch
     >
       <AlInput class="w-full mb-2 px-3" placeholder="输入关键词查询组件" size="small" />
@@ -289,7 +289,7 @@ onMounted(() => {
       </AlTabPane>
     </AlTabs>
     <div
-      :class="activeComponentMenu.menu === ComponentMenu.OUTLINE && activeComponentMenu.expand ? 'animate-fade-in block' : 'animate-fade-out hidden'"
+      :class="activeComponentMenu.menu === ComponentMenu.OUTLINE && activeComponentMenu.expand ? 'animate-fade-in !block' : 'animate-fade-out !hidden'"
       class="border border-solid border-gray-200 flex-1 component-tree w-[272px]"
     >
       <AlInput class="w-full mt-2 px-2" placeholder="输入关键词查询大纲" size="small" />
@@ -345,8 +345,8 @@ onMounted(() => {
       </AlTree>
     </div>
     <div
-      class="flex-1 flex py-4 bg-white border border-solid border-gray-200 w-[272px]"
-      :class="activeComponentMenu.menu === ComponentMenu.CODE && activeComponentMenu.expand ? 'animate-fade-in block' : 'animate-fade-out hidden'"
+      class="flex-1 flex py-4 bg-basic-color border border-solid border-gray-200 w-[272px]"
+      :class="activeComponentMenu.menu === ComponentMenu.CODE && activeComponentMenu.expand ? 'animate-fade-in !block' : 'animate-fade-out !hidden'"
     >
       <AlEventEditor
         ref="editor"
@@ -355,8 +355,8 @@ onMounted(() => {
       />
     </div>
     <div
-      class="flex-1 flex py-4 bg-white border border-solid border-gray-200 w-[272px]"
-      :class="activeComponentMenu.menu === ComponentMenu.AICHAT && activeComponentMenu.expand ? 'animate-fade-in block' : 'animate-fade-out hidden'"
+      class="flex-1 flex py-4 bg-basic-color border border-solid border-gray-200 w-[272px]"
+      :class="activeComponentMenu.menu === ComponentMenu.AICHAT && activeComponentMenu.expand ? 'animate-fade-in !block' : 'animate-fade-out !hidden'"
     >
       1212
     </div>

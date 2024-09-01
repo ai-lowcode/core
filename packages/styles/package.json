@@ -17,6 +17,10 @@
     },
     "./css": {
       "import": "./dist/style.css"
+    },
+    "./tailwindcss": {
+      "import": "./src/tailwind.config.ts",
+      "require": "./src/tailwind.config.ts"
     }
   },
   "main": "./dist/ai-lowcode-styles.js",

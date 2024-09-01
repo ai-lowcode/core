@@ -1,5 +1,5 @@
 {
-  "name": "admin-template",
+  "name": "ai-lowcode-admin",
   "type": "module",
   "version": "1.0.0",
   "private": true,
@@ -16,9 +16,11 @@
   },
   "dependencies": {
     "@ai-lowcode/element-plus": "workspace:^",
+    "@ai-lowcode/designer": "workspace:^",
     "@ai-lowcode/hooks": "workspace:^",
     "@ai-lowcode/request": "workspace:^",
     "@ai-lowcode/styles": "workspace:^",
+    "element-plus": "2.7.8",
     "lodash": "^4.17.21",
     "pinia": "^2.2.0",
     "vue": "^3.4.34",

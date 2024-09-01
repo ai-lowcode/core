@@ -1,6 +1,8 @@
+import * as elementPlus from '@ai-lowcode/element-plus'
+
 import '@ai-lowcode/element-plus/css'
 
-import { App } from 'vue'
+import { App, Component } from 'vue'
 
 import Designer from './index.vue'
 
@@ -23,4 +25,7 @@ export const AlDesigner = Designer
 export function initComponents(app: App) {
   app.component(AlDragBox.name as string, AlDragBox)
   app.component(AlVueDragAble.name as string, AlVueDragAble)
+  for (const elementPlusKey in elementPlus) {
+    app.component(elementPlusKey, (elementPlus as Record<string, Component>)[elementPlusKey] as Component)
+  }
 }

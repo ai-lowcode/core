@@ -14,7 +14,7 @@ export const ButtonSchema = <CompSchema>{
   name,
   schema: () => {
     return <Schema>{
-      type: 'el-button',
+      type: 'al-button',
       id: `__${uniqueId()}`,
       icon,
       label,
@@ -40,8 +40,8 @@ export const ButtonSchema = <CompSchema>{
   slots: () => {
     return <Schema[]>[
       {
-        type: 'el-form',
-        id: 'el-form',
+        type: 'al-form',
+        id: 'al-form',
         field: 'slots',
         modelField: 'modelValue',
         props: {
@@ -51,14 +51,14 @@ export const ButtonSchema = <CompSchema>{
         },
         children: [
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'default',
             props: {
               label: '隐藏默认插槽',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'default',
                 field: 'slots.default',
                 modelField: 'modelValue',
@@ -75,8 +75,8 @@ export const ButtonSchema = <CompSchema>{
   props: () => {
     return <Schema[]>[
       {
-        type: 'el-form',
-        id: 'el-form',
+        type: 'al-form',
+        id: 'al-form',
         field: 'props',
         modelField: 'modelValue',
         props: {
@@ -86,20 +86,20 @@ export const ButtonSchema = <CompSchema>{
         },
         children: [
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'size',
             props: {
               label: '尺寸',
             },
             children: [
               {
-                type: 'el-select',
+                type: 'al-select',
                 id: 'size',
                 field: 'props.size',
                 modelField: 'modelValue',
                 children: [
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'large',
                     props: {
                       label: '大',
@@ -107,7 +107,7 @@ export const ButtonSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'default',
                     props: {
                       label: '默认',
@@ -115,7 +115,7 @@ export const ButtonSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'small',
                     props: {
                       label: '小',
@@ -127,20 +127,20 @@ export const ButtonSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'type',
             props: {
               label: '类型',
             },
             children: [
               {
-                type: 'el-select',
+                type: 'al-select',
                 id: 'type',
                 field: 'props.type',
                 modelField: 'modelValue',
                 children: [
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'primary',
                     props: {
                       label: '基本',
@@ -148,7 +148,7 @@ export const ButtonSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'success',
                     props: {
                       label: '成功',
@@ -156,7 +156,7 @@ export const ButtonSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'warning',
                     props: {
                       label: '警告',
@@ -164,7 +164,7 @@ export const ButtonSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'danger',
                     props: {
                       label: '危险',
@@ -172,7 +172,7 @@ export const ButtonSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'info',
                     props: {
                       label: '信息',
@@ -180,7 +180,7 @@ export const ButtonSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'text',
                     props: {
                       label: '文本',
@@ -188,7 +188,7 @@ export const ButtonSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'warning',
                     props: {
                       label: '小',
@@ -200,14 +200,14 @@ export const ButtonSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'plain',
             props: {
               label: '是否为朴素按钮',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'plain',
                 field: 'props.plain',
                 modelField: 'modelValue',
@@ -215,14 +215,14 @@ export const ButtonSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'text',
             props: {
               label: '是否为文字按钮',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'text',
                 field: 'props.text',
                 modelField: 'modelValue',
@@ -230,14 +230,14 @@ export const ButtonSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'bg',
             props: {
               label: '是否显示文字按钮背景颜色',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'bg',
                 field: 'props.bg',
                 modelField: 'modelValue',
@@ -245,14 +245,14 @@ export const ButtonSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'link',
             props: {
               label: '是否为链接按钮',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'link',
                 field: 'props.link',
                 modelField: 'modelValue',
@@ -260,14 +260,14 @@ export const ButtonSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'round',
             props: {
               label: '是否为圆角按钮',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'round',
                 field: 'props.round',
                 modelField: 'modelValue',
@@ -275,14 +275,14 @@ export const ButtonSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'circle',
             props: {
               label: '是否为圆形按钮',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'circle',
                 field: 'props.circle',
                 modelField: 'modelValue',
@@ -290,14 +290,14 @@ export const ButtonSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'loading',
             props: {
               label: '是否为加载中状态',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'loading',
                 field: 'props.loading',
                 modelField: 'modelValue',
@@ -305,14 +305,14 @@ export const ButtonSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'disabled',
             props: {
               label: '按钮是否为禁用状态',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'disabled',
                 field: 'props.disabled',
                 modelField: 'modelValue',
@@ -320,14 +320,14 @@ export const ButtonSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'autofocus',
             props: {
               label: '原生 autofocus 属性',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'autofocus',
                 field: 'props.autofocus',
                 modelField: 'modelValue',
@@ -335,20 +335,20 @@ export const ButtonSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'nativeType',
             props: {
               label: '尺寸',
             },
             children: [
               {
-                type: 'el-select',
+                type: 'al-select',
                 id: 'nativeType',
                 field: 'props.nativeType',
                 modelField: 'modelValue',
                 children: [
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'button',
                     props: {
                       label: '按钮',
@@ -356,7 +356,7 @@ export const ButtonSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'submit',
                     props: {
                       label: '提交',
@@ -364,7 +364,7 @@ export const ButtonSchema = <CompSchema>{
                     },
                   },
                   {
-                    type: 'el-option',
+                    type: 'al-option',
                     id: 'reset',
                     props: {
                       label: '重置',
@@ -376,14 +376,14 @@ export const ButtonSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'autoInsertSpace',
             props: {
               label: '自动在两个中文字符之间插入空格',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'autoInsertSpace',
                 field: 'props.autoInsertSpace',
                 modelField: 'modelValue',
@@ -391,14 +391,14 @@ export const ButtonSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'color',
             props: {
               label: '自定义按钮颜色',
             },
             children: [
               {
-                type: 'el-input',
+                type: 'al-input',
                 id: 'color',
                 field: 'props.color',
                 modelField: 'modelValue',
@@ -406,14 +406,14 @@ export const ButtonSchema = <CompSchema>{
             ],
           },
           {
-            type: 'el-form-item',
+            type: 'al-form-item',
             id: 'dark',
             props: {
               label: 'dark 模式',
             },
             children: [
               {
-                type: 'el-switch',
+                type: 'al-switch',
                 id: 'dark',
                 field: 'props.dark',
                 modelField: 'modelValue',

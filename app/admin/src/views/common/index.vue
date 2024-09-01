@@ -1,5 +1,7 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { AlDesigner } from '@ai-lowcode/designer'
+</script>
 
 <template>
-  <div>common</div>
+  <AlDesigner class="flex-1 p-2" />
 </template>

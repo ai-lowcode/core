@@ -74,6 +74,8 @@ export const TableSchema = <CompSchema>{
                 id: 'data',
                 events: {
                   onClick() {
+                    // eslint-disable-next-line ts/ban-ts-comment
+                    // @ts-expect-error
                     this.exposeApi.formData.value.value.visibleDialog = true
                   },
                 },
@@ -179,6 +181,8 @@ export const TableSchema = <CompSchema>{
                         id: 'button',
                         events: {
                           onClick() {
+                            // eslint-disable-next-line ts/ban-ts-comment
+                            // @ts-expect-error
                             this.exposeApi.formData.value.value.visibleDialog = false
                           },
                         },
@@ -189,6 +193,8 @@ export const TableSchema = <CompSchema>{
                         id: 'button',
                         events: {
                           onClick() {
+                            // eslint-disable-next-line ts/ban-ts-comment
+                            // @ts-expect-error
                             this.exposeApi.formData.value.value.visibleDialog = false
                           },
                         },

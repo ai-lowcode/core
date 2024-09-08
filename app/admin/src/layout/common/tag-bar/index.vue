@@ -109,7 +109,7 @@ function selectMenu(operation) {
       closeOtherTags.value(currentSelectTag.value)
       break
     case OperationEnum.CLOSE_ALL:
-      closeAllTags.value(currentSelectTag.value)
+      closeAllTags.value()
       break
   }
 }

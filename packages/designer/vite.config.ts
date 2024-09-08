@@ -1,7 +1,6 @@
 import path from 'node:path'
 
 import { definePkgConfig } from '@al-config/vite'
-import monaco from '@tomjs/vite-plugin-monaco-editor'
 import vue from '@vitejs/plugin-vue'
 import autoprefixer from 'autoprefixer'
 import tailwindcss from 'tailwindcss'
@@ -25,7 +24,7 @@ export default defineConfig(async () => {
           ],
         },
       },
-      plugins: [vue(), monaco({ local: true })],
+      plugins: [vue()],
     },
   })
 })

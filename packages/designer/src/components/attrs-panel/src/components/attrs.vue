@@ -2,6 +2,7 @@
 import { AlRenderer, Schema } from '@ai-lowcode/core'
 import { AlCollapse, AlCollapseItem } from '@ai-lowcode/element-plus'
 
+import { deepCopy } from '@ai-lowcode/utils'
 import { computed, inject, ref, watch } from 'vue'
 
 import { FieldAttrsSchema } from '../schema/field.ts'
@@ -37,7 +38,7 @@ const compSchema = computed(() => componentSchemaList.find(item => item.name ===
 watch(() => fieldData.value, (newValue) => {
   if (context?.workspaceRef?.value?.schema) {
     // 调用函数，查找并修改
-    const newNodes = findAndModifyById(context?.workspaceRef?.value.schema, context?.selectComponent?.value.id, (node: Schema) => {
+    const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.selectComponent?.value.id, (node: Schema) => {
       if (newValue?.field?.id)
         node.id = newValue.field.id
       if (newValue?.field?.name)
@@ -54,7 +55,7 @@ watch(() => fieldData.value, (newValue) => {
 // 监听属性变化
 watch(() => propsData.value, (newValue) => {
   // 调用函数，查找并修改
-  const newNodes = findAndModifyById(context?.workspaceRef?.value.schema, context?.selectComponent?.value.id, (node: Schema) => {
+  const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.selectComponent?.value.id, (node: Schema) => {
     node.props = {
       ...node.props,
       ...newValue.props,
@@ -70,7 +71,7 @@ watch(() => propsData.value, (newValue) => {
 // 监听插槽变化
 watch(() => slotsData.value, (newValue) => {
   // 调用函数，查找并修改
-  const newNodes = findAndModifyById(context?.workspaceRef?.value.schema, context?.selectComponent?.value.id, (node: Schema) => {
+  const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.selectComponent?.value.id, (node: Schema) => {
     node.children = (node.children as Schema[])?.map((item) => {
       return {
         ...item,
@@ -80,14 +81,13 @@ watch(() => slotsData.value, (newValue) => {
     })
   })
   context?.workspaceRef?.value.changeSchema(newNodes)
-  slotsRef.value?.updateComponent(newValue)
 }, {
   deep: true,
 })
 
 // 选中组件改变时
 watch(() => context?.selectComponent, (newValue) => {
-  findAndModifyById(context?.workspaceRef?.value.schema, newValue?.value.id, (node: Schema) => {
+  findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), newValue?.value.id, (node: Schema) => {
     propsData.value = {
       props: node.props,
     }

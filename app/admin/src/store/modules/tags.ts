@@ -33,9 +33,42 @@ export const useTagsStore = defineStore('tags', () => {
     webStorage.setStorage('tags', tagsList.value)
   }
 
+  const closeLeftTags = (route: MenuType) => {
+    const routeIndex = tagsList.value.findIndex(r => r.path === route.path)
+    tagsList.value = tagsList.value?.slice(routeIndex, tagsList.value.length)
+    router.push(route.path)
+    webStorage.setStorage('tags', tagsList.value)
+  }
+
+  const closeRightTags = (route: MenuType) => {
+    const routeIndex = tagsList.value.findIndex(r => r.path === route.path)
+    tagsList.value = tagsList.value?.slice(0, routeIndex + 1)
+    router.push(route.path)
+    webStorage.setStorage('tags', tagsList.value)
+  }
+
+  const closeOtherTags = (route: MenuType) => {
+    tagsList.value = [route]
+    router.push(route?.path)
+    webStorage.setStorage('tags', tagsList.value)
+  }
+
+  const closeAllTags = () => {
+    tagsList.value = [{
+      name: '首页',
+      path: '/',
+    } as MenuType]
+    router.push('/')
+    webStorage.setStorage('tags', tagsList.value)
+  }
+
   return {
     tagsList,
     addTags,
     closeTags,
+    closeAllTags,
+    closeOtherTags,
+    closeLeftTags,
+    closeRightTags,
   }
 })

@@ -16,18 +16,16 @@ const activeTab = ref('props')
   <div class="ml-[10px] w-[300px] h-full">
     <AlTabs
       v-model="activeTab"
-      class="h-full overflow-auto attrs-content border border-solid border-basic-color bg-basic-color"
+      class="h-full attrs-content border border-solid border-basic-color bg-basic-color"
       stretch
     >
-      <AlTabPane
-        label="属性" name="props"
-      >
+      <AlTabPane label="属性" name="props" class="h-full overflow-auto">
         <CompAttrs />
       </AlTabPane>
-      <AlTabPane label="外观" name="style">
-        <CompStyle />
+      <AlTabPane label="外观" name="style" class="h-full overflow-auto">
+        <CompStyle v-if="activeTab === 'style'" />
       </AlTabPane>
-      <AlTabPane label="事件" name="event">
+      <AlTabPane label="事件" name="event" class="h-full overflow-auto">
         <CompEvent />
       </AlTabPane>
     </AlTabs>

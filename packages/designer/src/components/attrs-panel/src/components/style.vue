@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Schema } from '@ai-lowcode/core'
 import {
   AlCollapse,
   AlCollapseItem,
@@ -13,12 +14,13 @@ import {
   AlTooltip,
 } from '@ai-lowcode/element-plus'
 
+import { deepCopy } from '@ai-lowcode/utils'
 import { Icon } from '@iconify/vue'
 import { inject, ref, watch } from 'vue'
 
 import AlEventEditor from '@/components/attrs-panel/src/components/event-editor.vue'
 import { DESIGNER_CTX } from '@/global'
-import { DesignerContext, Schema } from '@/types'
+import { DesignerContext } from '@/types'
 import { findAndModifyById } from '@/utils'
 
 const editor = ref()
@@ -26,12 +28,16 @@ const editor = ref()
 // 全局上下文
 const context = inject<DesignerContext>(DESIGNER_CTX)
 
+const css = ref()
+
 const editorOptions = ref({
-  el: 'monaco',
-  options: {
-    language: 'css',
-    code: ``,
-  },
+  mode: 'css',
+  theme: 'default', // 主题
+  readOnly: false,
+  lineNumbers: true,
+  lineWiseCopyCut: true,
+  gutters: ['CodeMirror-lint-markers'],
+  lint: true,
 })
 
 const displayConfig = {
@@ -210,7 +216,7 @@ const style = ref({
 // 监听插槽变化
 watch(() => style.value, () => {
   // 调用函数，查找并修改
-  const newNodes = findAndModifyById(context?.workspaceRef?.value.schema, context?.selectComponent?.value.id, (node: Schema) => {
+  const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.selectComponent?.value.id, (node: Schema) => {
     node.props.style = {
       ...style.value,
       opacity: style.value.opacity / 100,
@@ -405,6 +411,7 @@ watch(() => context?.selectComponent, (newValue) => {
       <div class="p-4">
         <AlEventEditor
           ref="editor"
+          v-model="css"
           style="height: calc(100vh - 290px)"
           :option="editorOptions"
         />

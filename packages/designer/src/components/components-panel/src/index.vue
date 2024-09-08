@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Schema } from '@ai-lowcode/core'
 import {
   AlDropdown,
   AlDropdownItem,
@@ -11,7 +12,7 @@ import {
   AlTree,
 } from '@ai-lowcode/element-plus'
 import { Icon } from '@iconify/vue'
-import { computed, inject, onMounted, ref, toRaw, watch } from 'vue'
+import { computed, inject, onMounted, ref, watch } from 'vue'
 import AlDraggable from 'vuedraggable/src/vuedraggable'
 
 import { AlEventEditor } from '@/components/attrs-panel'
@@ -19,7 +20,7 @@ import createMenu from '@/components/components-panel/src/config/menu.ts'
 import { ComponentMenu } from '@/enums'
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
 import componentSchemaList from '@/schema'
-import { ActiveComponentMenu, CompSchema, DesignerContext, Menu, MenuList, Schema } from '@/types'
+import { ActiveComponentMenu, CompSchema, DesignerContext, Menu, MenuList } from '@/types'
 import { removeAlDragBoxAndPromoteChildren } from '@/utils'
 
 defineEmits<{
@@ -70,12 +71,16 @@ const currentSelectNode = computed(() => context?.selectComponent?.value?.id)
 
 // 编辑器选项
 const editorOptions = ref({
-  el: 'monaco',
-  options: {
-    language: 'json',
-    code: ``,
-  },
+  mode: 'javascript',
+  theme: 'default', // 主题
+  readOnly: false,
+  lineNumbers: true,
+  lineWiseCopyCut: true,
+  gutters: ['CodeMirror-lint-markers'],
+  lint: true,
 })
+
+const code = ref()
 
 // 当前激活面板
 const activeComponentMenu = ref<ActiveComponentMenu>({
@@ -92,10 +97,10 @@ const outLineTree = computed({
 })
 
 watch(() => context?.workspaceRef?.value?.schema, (newValue) => {
-  editorOptions.value.options.code = newValue
-  toRaw(editor.value.editor)?.setValue(JSON.stringify(newValue, null, 2))
+  code.value = JSON.stringify(newValue, null, 2) ?? ''
+  // toRaw(editor.value.editor)?.setValue(JSON.stringify(newValue, null, 2))
   // toRaw(editor.value.editor)?.getAction('editor.action.formatDocument').run()
-  toRaw(editor.value.editor)?.setValue(toRaw(editor.value.editor)?.getValue())
+  // toRaw(editor.value.editor)?.setValue(toRaw(editor.value.editor)?.getValue())
 }, { deep: true })
 
 /**
@@ -251,43 +256,46 @@ onMounted(() => {
         </AlIcon>
       </AlTooltip>
     </div>
-    <AlTabs
-      v-model="activeMenuTab"
+    <div
       :class="activeComponentMenu.menu === ComponentMenu.COMPONENT && activeComponentMenu.expand ? 'animate-fade-in !block' : 'animate-fade-out !hidden'"
-      class="h-full overflow-auto flex-1 w-[272px] border border-solid border-basic-color bg-basic-color tabs-component"
-      stretch
     >
-      <AlInput class="w-full mb-2 px-3" placeholder="输入关键词查询组件" size="small" />
-      <AlTabPane v-for="(item, index) in menuList" :key="index" :label="item.title" :name="item.name">
-        <div class="mx-2">
-          <AlDraggable
-            :group="{ name: 'default', pull: 'clone', put: true }"
-            :sort="false"
-            item-key="name"
-            class="flex flex-wrap"
-            :list="item.list"
-            @end="onEnd"
-          >
-            <template #item="{ element }">
-              <div
-                class="w-1/2 flex justify-center items-center"
-                @click="insertComponent(element)"
-              >
-                <div class="rounded-md text-gray-600 border bg-blue-50 hover:border-dashed border-solid border-gray-200 w-full mx-1 my-1 flex justify-center items-center cursor-move px-2 py-1 hover:border-blue-600 duration-300">
-                  <div class="text-sm">
-                    <i class="fc-icon !text-[18px]" :class="element.icon || 'icon-input'" />
+      <AlTabs
+        v-model="activeMenuTab"
+        class="h-full overflow-auto flex-1 w-[272px] border border-solid border-basic-color bg-basic-color tabs-component"
+        stretch
+      >
+        <AlInput class="w-full mb-2 px-3" placeholder="输入关键词查询组件" size="small" />
+        <AlTabPane v-for="(item, index) in menuList" :key="index" :label="item.title" :name="item.name">
+          <div class="mx-2">
+            <AlDraggable
+              :group="{ name: 'default', pull: 'clone', put: true }"
+              :sort="false"
+              item-key="name"
+              class="flex flex-wrap"
+              :list="item.list"
+              @end="onEnd"
+            >
+              <template #item="{ element }">
+                <div
+                  class="w-1/2 flex justify-center items-center"
+                  @click="insertComponent(element)"
+                >
+                  <div class="rounded-md text-gray-600 border bg-blue-50 hover:border-dashed border-solid border-gray-200 w-full mx-1 my-1 flex justify-center items-center cursor-move px-2 py-1 hover:border-blue-600 duration-300">
+                    <div class="text-sm">
+                      <i class="fc-icon !text-[18px]" :class="element.icon || 'icon-input'" />
+                    </div>
+                    <AlIcon size="18" class="cursor-pointer text-gray-600 mr-1">
+                      <Icon :icon="element?.icon" />
+                    </AlIcon>
+                    <span class="text-sm">{{ element.label }}</span>
                   </div>
-                  <AlIcon size="18" class="cursor-pointer text-gray-600 mr-1">
-                    <Icon :icon="element?.icon" />
-                  </AlIcon>
-                  <span class="text-sm">{{ element.label }}</span>
                 </div>
-              </div>
-            </template>
-          </AlDraggable>
-        </div>
-      </AlTabPane>
-    </AlTabs>
+              </template>
+            </AlDraggable>
+          </div>
+        </AlTabPane>
+      </AlTabs>
+    </div>
     <div
       :class="activeComponentMenu.menu === ComponentMenu.OUTLINE && activeComponentMenu.expand ? 'animate-fade-in !block' : 'animate-fade-out !hidden'"
       class="border border-solid border-gray-200 flex-1 component-tree w-[272px]"
@@ -349,8 +357,10 @@ onMounted(() => {
       :class="activeComponentMenu.menu === ComponentMenu.CODE && activeComponentMenu.expand ? 'animate-fade-in !block' : 'animate-fade-out !hidden'"
     >
       <AlEventEditor
+        v-if="activeComponentMenu.menu === ComponentMenu.CODE && activeComponentMenu.expand"
         ref="editor"
-        style="width: 275px;height: 100%"
+        v-model="code"
+        style="width: 270px;height: 100%"
         :option="editorOptions"
       />
     </div>

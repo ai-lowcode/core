@@ -11,7 +11,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      // '@ai-lowcode/request': path.resolve(__dirname, '../../packages/request/src'),
     },
   },
   css: {
@@ -23,15 +22,11 @@ export default defineConfig({
     },
   },
   build: {
-    // https://cn.vitejs.dev/guide/build.html#browser-compatibility
     target: 'es2015',
     sourcemap: false,
     // 消除打包大小超过500kb警告
     chunkSizeWarningLimit: 4000,
     rollupOptions: {
-      // input: {
-      //   index: pathResolve('./index.html', import.meta.url),
-      // },
       // 静态资源分类打包
       output: {
         chunkFileNames: 'static/js/[name]-[hash].js',

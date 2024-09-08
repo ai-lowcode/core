@@ -24,7 +24,7 @@ export const FormSchema = <CompSchema>{
       // modelValue 绑定参数
       modelField: 'modelValue',
       props: {
-        class: 'm-4 w-full',
+        class: 'w-full',
       },
       children: [
         {
@@ -32,7 +32,7 @@ export const FormSchema = <CompSchema>{
           id: `__${uniqueId()}`,
           label: '拖拽区',
           props: {
-            class: 'min-h-[100px] bg-[#f5f5f5]',
+            class: 'min-h-[20px] bg-[#f5f5f5]',
           },
           slotHidden: false,
           children: [],

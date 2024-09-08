@@ -14,6 +14,7 @@ import { computed, inject, ref } from 'vue'
 
 import { DeviceEnum } from '@/enums'
 import { DESIGNER_CTX } from '@/global'
+import { DesignerContext } from '@/types'
 import { removeAlDragBoxAndPromoteChildren } from '@/utils'
 
 // 设备

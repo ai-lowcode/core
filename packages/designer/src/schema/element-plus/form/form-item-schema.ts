@@ -5,22 +5,39 @@ import { CompSchema } from '@/types'
 
 const label = '表单项'
 const name = 'form-item'
+const icon = 'mdi:form-outline'
 
 export const FormItemSchema = <CompSchema>{
   menu: 'main',
-  icon: 'fluent:form-multiple-20-regular',
+  icon,
   label,
   name,
   schema: () => {
     return <Schema>{
       type: 'al-form-item',
-      id: `__${uniqueId()}`,
+      id: uniqueId(),
+      icon,
       label,
       name,
       // 值存储字段
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
+      props: {
+        class: 'w-full',
+      },
+      children: [
+        {
+          type: 'AlVueDragAble',
+          id: `__${uniqueId()}`,
+          label: '拖拽区',
+          props: {
+            class: 'min-h-[20px] bg-[#f5f5f5]',
+          },
+          slotHidden: false,
+          children: [],
+        },
+      ],
     }
   },
   // 插槽
@@ -34,13 +51,14 @@ export const FormItemSchema = <CompSchema>{
         props: {
           labelWidth: 100,
           labelPosition: 'top',
+          size: 'small',
         },
         children: [
           {
             type: 'al-form-item',
             id: 'default',
             props: {
-              label: '是否开启默认插槽',
+              label: '隐藏默认插槽',
             },
             children: [
               {
@@ -68,34 +86,35 @@ export const FormItemSchema = <CompSchema>{
         props: {
           labelWidth: 100,
           labelPosition: 'top',
+          size: 'small',
         },
         children: [
           {
             type: 'al-form-item',
-            id: 'rules',
+            id: 'prop',
             props: {
-              label: '表单验证规则',
+              label: 'model 的键名',
             },
             children: [
               {
                 type: 'al-input',
-                id: 'rules',
-                field: 'props.rules',
+                id: 'prop',
+                field: 'props.prop',
                 modelField: 'modelValue',
               },
             ],
           },
           {
             type: 'al-form-item',
-            id: 'inline',
+            id: 'label',
             props: {
-              label: '行内表单模式',
+              label: '标签文本',
             },
             children: [
               {
-                type: 'al-switch',
-                id: 'inline',
-                field: 'props.inline',
+                type: 'al-input',
+                id: 'label',
+                field: 'props.label',
                 modelField: 'modelValue',
               },
             ],
@@ -158,64 +177,46 @@ export const FormItemSchema = <CompSchema>{
           },
           {
             type: 'al-form-item',
-            id: 'labelSuffix',
+            id: 'required',
             props: {
-              label: '表单域标签的后缀',
+              label: '是否为必填项',
             },
             children: [
               {
                 type: 'al-input',
-                id: 'labelSuffix',
-                field: 'props.labelSuffix',
+                id: 'required',
+                field: 'props.required',
                 modelField: 'modelValue',
               },
             ],
           },
           {
             type: 'al-form-item',
-            id: 'hideRequiredAsterisk',
+            id: 'rules',
             props: {
-              label: '表单域标签的后缀',
+              label: '表单验证规则',
+            },
+            children: [
+              {
+                type: 'al-input',
+                id: 'rules',
+                field: 'props.rules',
+                modelField: 'modelValue',
+              },
+            ],
+          },
+          {
+            type: 'al-form-item',
+            id: 'error',
+            props: {
+              label: '表单域验证错误时的提示信息',
             },
             children: [
               {
                 type: 'al-switch',
-                id: 'hideRequiredAsterisk',
-                field: 'props.hideRequiredAsterisk',
+                id: 'error',
+                field: 'props.error',
                 modelField: 'modelValue',
-              },
-            ],
-          },
-          {
-            type: 'al-form-item',
-            id: 'requireAsteriskPosition',
-            props: {
-              label: '星号的位置',
-            },
-            children: [
-              {
-                type: 'al-select',
-                id: 'requireAsteriskPosition',
-                field: 'props.requireAsteriskPosition',
-                modelField: 'modelValue',
-                children: [
-                  {
-                    type: 'al-option',
-                    id: 'left',
-                    props: {
-                      label: '左侧',
-                      value: 'left',
-                    },
-                  },
-                  {
-                    type: 'al-option',
-                    id: 'right',
-                    props: {
-                      label: '右侧',
-                      value: 'right',
-                    },
-                  },
-                ],
               },
             ],
           },
@@ -245,36 +246,6 @@ export const FormItemSchema = <CompSchema>{
                 type: 'al-switch',
                 id: 'inlineMessage',
                 field: 'props.inlineMessage',
-                modelField: 'modelValue',
-              },
-            ],
-          },
-          {
-            type: 'al-form-item',
-            id: 'statusIcon',
-            props: {
-              label: '是否在输入框中显示校验结果反馈图标',
-            },
-            children: [
-              {
-                type: 'al-switch',
-                id: 'statusIcon',
-                field: 'props.statusIcon',
-                modelField: 'modelValue',
-              },
-            ],
-          },
-          {
-            type: 'al-form-item',
-            id: 'validateOnRuleChange',
-            props: {
-              label: '是否在 rules 属性改变后立即触发一次验证',
-            },
-            children: [
-              {
-                type: 'al-switch',
-                id: 'validateOnRuleChange',
-                field: 'props.validateOnRuleChange',
                 modelField: 'modelValue',
               },
             ],
@@ -322,31 +293,57 @@ export const FormItemSchema = <CompSchema>{
           },
           {
             type: 'al-form-item',
-            id: 'disabled',
+            id: 'for',
             props: {
-              label: '是否禁用该表单内的所有组件',
+              label: '和原生标签相同能力',
             },
             children: [
               {
-                type: 'al-switch',
-                id: 'disabled',
-                field: 'props.disabled',
+                type: 'al-input',
+                id: 'for',
+                field: 'props.for',
                 modelField: 'modelValue',
               },
             ],
           },
           {
             type: 'al-form-item',
-            id: 'scrollToError',
+            id: 'validateStatus',
             props: {
-              label: '当校验失败时，滚动到第一个错误表单项',
+              label: 'formitem 校验的状态',
             },
             children: [
               {
-                type: 'al-switch',
-                id: 'scrollToError',
-                field: 'props.scrollToError',
+                type: 'al-select',
+                id: 'validateStatus',
+                field: 'props.validateStatus',
                 modelField: 'modelValue',
+                children: [
+                  {
+                    type: 'al-option',
+                    id: 'error',
+                    props: {
+                      label: '错误',
+                      value: 'error',
+                    },
+                  },
+                  {
+                    type: 'al-option',
+                    id: 'validating',
+                    props: {
+                      label: '验证',
+                      value: 'validating',
+                    },
+                  },
+                  {
+                    type: 'al-option',
+                    id: 'success',
+                    props: {
+                      label: '成功',
+                      value: 'success',
+                    },
+                  },
+                ],
               },
             ],
           },

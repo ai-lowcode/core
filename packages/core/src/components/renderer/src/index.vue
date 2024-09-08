@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import { accessOrSetNestedValue, setNestedObjectValue, uniqueId } from '@ai-lowcode/utils'
-import { Ref, provide, ref, watch } from 'vue'
+import { generateObjectFromPath, getValueFromPath, setValueAtPath } from '@ai-lowcode/utils'
+import { nextTick, provide, ref, watch } from 'vue'
 
 import { AlNode } from '../../node'
+
+import { FormDataType } from './types'
 
 import { Schema } from '@/components'
 
@@ -15,31 +17,31 @@ const props = defineProps<{
 
 const emits = defineEmits(['update:modelValue'])
 
-const key = ref(uniqueId())
-
 const nodeRef = ref()
 
 const formData = ref<Record<string, any>>(props.modelValue ?? {})
 
-export interface FormDataType {
-  value: Ref<Record<string, any>>
-  createFormKeys: (key: string[]) => void
-  getOrSetFormValue: (key: string[], newValue?: any) => void
-}
-
 provide<FormDataType>('formData', {
   value: formData,
-  createFormKeys: (keys: string[]) => {
-    setNestedObjectValue(formData.value, keys)
+  getValueFromPath: (path?: string) => {
+    if (path)
+      return getValueFromPath(formData.value, path)
   },
-  getOrSetFormValue: (keys: string[], newValue?: any) => {
-    return accessOrSetNestedValue(formData.value, keys, newValue)
+  generateObjectFromPath: (path?: string) => {
+    if (path)
+      generateObjectFromPath(formData.value, path)
+  },
+  setValueAtPath: (path?: string, newValue?: any) => {
+    if (path)
+      return setValueAtPath(formData.value, path, newValue)
   },
 })
 
+const show = ref(true)
+
 // 根据 schemas 值变化更新视图
 watch(() => props.schemas, () => {
-  key.value = uniqueId()
+  updateRender()
 })
 
 // 监听 form 值变化
@@ -49,9 +51,21 @@ watch(() => formData.value, (newValue) => {
   deep: true,
 })
 
+watch(() => props.modelValue, (newValue) => {
+  formData.value = newValue
+  updateRender()
+})
+
+async function updateRender() {
+  await nextTick()
+  show.value = false
+  await nextTick()
+  show.value = true
+}
+
 function updateComponent(form: Record<string, any>) {
   formData.value = form
-  key.value = uniqueId()
+  updateRender()
 }
 
 defineExpose({
@@ -62,7 +76,7 @@ defineExpose({
 </script>
 
 <template>
-  <div v-if="schemas?.length" :key="key" class="h-full w-full">
+  <div v-if="schemas?.length && show" class="h-full w-full">
     <AlNode v-for="(schema, index) in schemas" ref="nodeRef" :key="index" :component-schema="schema" />
   </div>
 </template>

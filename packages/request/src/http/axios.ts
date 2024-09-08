@@ -73,6 +73,7 @@ export class AlAxios {
         config.headers = Object.assign(config.headers, headers)
 
         const globalConfig = webStorage.getStorageFromKey('config')
+        console.log('globalConfig:::::::::', globalConfig)
         const token = webStorage.getStorageFromKey('token')
         // 处理请求路径(适配单体地址情况)
         const regex = /^(http|https):\/\//i

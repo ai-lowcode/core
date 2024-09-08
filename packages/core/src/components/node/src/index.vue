@@ -30,35 +30,13 @@ const slotRef = ref()
 const nodeData = ref()
 
 const formData = inject<FormDataType>('formData')
-const keys = (props.componentSchema as Schema)?.field?.split('.')
 
 // 处理 modelValue
 const modelValue = computed({
   get() {
-    return keys?.length ? formData?.getOrSetFormValue(keys ?? [], (props.componentSchema as Schema)?.defaultValue) : null
+    return formData?.getValueFromPath((props.componentSchema as Schema)?.field)
   },
   set() {},
-})
-
-// 处理 modelValue
-function getModelValue() {
-  formData?.createFormKeys(keys ?? [])
-  return {
-    [(props.componentSchema as Schema)?.modelField as string]: modelValue,
-    [`onUpdate:${(props.componentSchema as Schema)?.modelField}`]: (value: any) => {
-      formData?.getOrSetFormValue(keys ?? [], value)
-    },
-  }
-}
-
-// 组装绑定数据
-const bindValue = ref({
-  ...(props.componentSchema as Schema)?.props,
-  ...(props.componentSchema as Schema)?.binds,
-  ...(props.componentSchema as Schema)?.events,
-  id: (props.componentSchema as Schema).id,
-  ...getModelValue(),
-  __schema: props.componentSchema,
 })
 
 const exposeApi = {
@@ -68,7 +46,43 @@ const exposeApi = {
   componentRef,
   childrenRef,
   slotRef,
+  modelValue,
+  formData,
 }
+
+// 处理 modelValue
+function parseModelValue() {
+  formData?.generateObjectFromPath((props.componentSchema as Schema)?.field)
+  formData?.setValueAtPath((props.componentSchema as Schema)?.field, (props.componentSchema as Schema)?.defaultValue)
+  return {
+    [(props.componentSchema as Schema)?.modelField as string]: modelValue,
+    [`onUpdate:${(props.componentSchema as Schema)?.modelField}`]: (value: any) => {
+      formData?.setValueAtPath((props.componentSchema as Schema)?.field, value)
+      console.log(formData?.value)
+    },
+  }
+}
+
+function injectContextToEvents() {
+  const newEvents: Record<string, any> = {}
+  for (const eventsKey in (props.componentSchema as Schema)?.events) {
+    newEvents[eventsKey] = (props.componentSchema as Schema)?.events?.[eventsKey].bind({
+      exposeApi,
+      props,
+    })
+  }
+  return newEvents
+}
+
+// 组装绑定数据
+const bindValue = ref({
+  ...(props.componentSchema as Schema)?.props,
+  ...(props.componentSchema as Schema)?.binds,
+  ...injectContextToEvents(),
+  id: (props.componentSchema as Schema).id,
+  ...parseModelValue(),
+  __schema: props.componentSchema,
+})
 
 onBeforeMount(() => {
   if (typeof props.componentSchema !== 'string')
@@ -107,16 +121,26 @@ onErrorCaptured(() => {
 
 defineExpose(exposeApi)
 
-const slotComputed = computed(() => (props.componentSchema as Schema)?.slotName ?? 'default')
+const newComponentSchema = props.componentSchema?.children?.map((child) => {
+  return typeof child === 'string'
+    ? {
+        content: child,
+        slotName: 'default',
+      }
+    : {
+        ...child,
+        slotName: child?.slotName ?? 'default',
+      }
+})
 </script>
 
 <template>
   <component :is="componentSchema?.type" v-if="typeof componentSchema !== 'string' && !componentSchema?.slotHidden" ref="componentRef" v-bind="bindValue">
-    <template #[slotComputed]>
-      <AlNode v-for="(schema, index) in componentSchema?.children" :key="index" ref="childrenRef" :component-schema="schema" />
+    <template v-for="childrens in newComponentSchema" #[childrens.slotName]>
+      <AlNode v-for="(schema, index) in newComponentSchema.filter(i => i?.slotName === childrens?.slotName)" :key="index" ref="childrenRef" :component-schema="schema" />
     </template>
   </component>
-  <template v-if="typeof componentSchema === 'string'">
-    {{ componentSchema }}
+  <template v-if="typeof componentSchema?.content === 'string'">
+    {{ componentSchema?.content }}
   </template>
 </template>

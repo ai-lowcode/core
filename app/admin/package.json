@@ -20,6 +20,7 @@
     "@ai-lowcode/hooks": "workspace:^",
     "@ai-lowcode/request": "workspace:^",
     "@ai-lowcode/styles": "workspace:^",
+    "@vueuse/core": "^11.0.3",
     "element-plus": "2.7.8",
     "lodash": "^4.17.21",
     "pinia": "^2.2.0",

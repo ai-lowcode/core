@@ -39,13 +39,13 @@ const showOptions = ref(false)
       {{ currentField?.label }}
     </div>
     <template v-if="show && context?.selectComponent?.value?.id !== PAGE_COMP">
-      <AlIcon :class="showOptions ? 'opacity-100' : 'opacity-40'" class="absolute bottom-0 bg-blue-600 duration-300 text-white rounded-tr-md left-0 z-10 cursor-move p-[3px] option-icon">
+      <AlIcon :class="showOptions ? 'opacity-100' : 'opacity-40'" class="absolute w-[20px] h-[20px] bottom-0 bg-blue-600 duration-300 text-white rounded-tr-md left-0 z-10 cursor-move p-[3px] option-icon">
         <Icon icon="fluent:drag-20-filled" />
       </AlIcon>
-      <AlIcon :class="showOptions ? 'opacity-100' : 'opacity-40'" class="absolute bottom-0 bg-blue-600 duration-300 text-white rounded-tl-md right-[22px] z-10 cursor-pointer p-[3px] option-icon" @click="copyComponent">
+      <AlIcon :class="showOptions ? 'opacity-100' : 'opacity-40'" class="absolute w-[20px] h-[20px] bottom-0 bg-blue-600 duration-300 text-white rounded-tl-md right-[20px] z-10 cursor-pointer p-[3px] option-icon" @click="copyComponent">
         <Icon icon="solar:copy-bold" />
       </AlIcon>
-      <AlIcon :class="showOptions ? 'opacity-100' : 'opacity-40'" class="absolute bottom-0 bg-red-600 duration-300 text-white right-0 z-10 cursor-pointer p-[3px] option-icon" @click="deleteComponent">
+      <AlIcon :class="showOptions ? 'opacity-100' : 'opacity-40'" class="absolute w-[20px] h-[20px] bottom-0 bg-red-600 duration-300 text-white right-0 z-10 cursor-pointer p-[3px] option-icon" @click="deleteComponent">
         <Icon icon="ic:baseline-delete" />
       </AlIcon>
     </template>

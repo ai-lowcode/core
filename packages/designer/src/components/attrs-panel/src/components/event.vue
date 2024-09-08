@@ -1,9 +1,10 @@
 <script lang="ts" setup>
+import { Schema } from '@ai-lowcode/core'
 import { AlButton, AlCollapse, AlCollapseItem, AlDialog, AlIcon, AlMessage } from '@ai-lowcode/element-plus'
 
 import { deepCopy } from '@ai-lowcode/utils'
 import { Icon } from '@iconify/vue'
-import { computed, inject, ref, toRaw, watch } from 'vue'
+import { computed, inject, ref, watch } from 'vue'
 
 import { EventGroup } from '../types'
 
@@ -11,7 +12,7 @@ import AlEventEditor from './event-editor.vue'
 
 import { DESIGNER_CTX } from '@/global'
 import componentSchemaList from '@/schema'
-import { DesignerContext, Schema } from '@/types'
+import { DesignerContext } from '@/types'
 import { findAndModifyById } from '@/utils'
 
 defineOptions({
@@ -88,15 +89,16 @@ watch(() => context?.selectComponent, () => {
 })
 
 const editorOptions = ref({
-  el: 'monaco',
-  options: {
-    language: 'javascript',
-    code: `function demo() {
-  console.log(1212)
-}
-demo()`,
-  },
+  mode: 'javascript',
+  theme: 'default', // 主题
+  readOnly: false,
+  lineNumbers: true,
+  lineWiseCopyCut: true,
+  gutters: ['CodeMirror-lint-markers'],
+  lint: true,
 })
+
+const code = ref()
 
 /**
  * 编辑事件
@@ -113,8 +115,8 @@ function handleEvent(option?: string, eventGroupIndex?: number, eventIndex?: num
       eventIndex,
       eventItemIdx,
     }
-    editorOptions.value.options.code = events.value[eventGroupIndex!].children[eventIndex!].children?.[eventItemIdx!]
-    toRaw(editor.value?.editor)?.setValue(editorOptions.value.options.code)
+    code.value = events.value[eventGroupIndex!].children[eventIndex!].children?.[eventItemIdx!]
+    // toRaw(editor.value?.editor)?.setValue(code.value)
   }
   if (option === 'add') {
     editOption.value = {
@@ -123,8 +125,8 @@ function handleEvent(option?: string, eventGroupIndex?: number, eventIndex?: num
       eventIndex,
       eventItemIdx,
     }
-    editorOptions.value.options.code = ''
-    toRaw(editor.value?.editor)?.setValue(editorOptions.value.options.code)
+    code.value = ''
+    // toRaw(editor.value?.editor)?.setValue(code.value)
   }
   if (option === 'delete') {
     editOption.value = null
@@ -138,9 +140,9 @@ function handleEvent(option?: string, eventGroupIndex?: number, eventIndex?: num
  * 确定事件
  */
 function confirmEvent() {
-  editorOptions.value.options.code = toRaw(editor.value.editor).getValue()
+  // code.value = toRaw(editor.value.editor).getValue()
   try {
-    new Function('api', editorOptions.value.options.code)
+    new Function('api', code.value)
   }
   catch (e) {
     console.log(e)
@@ -152,14 +154,14 @@ function confirmEvent() {
   // 添加事件
   if (editOption.value?.option === 'add') {
     if (currentEvent.children?.length)
-      currentEvent.children.push(editorOptions.value.options.code)
-    else currentEvent.children = [editorOptions.value.options.code]
+      currentEvent.children.push(code.value)
+    else currentEvent.children = [code.value]
   }
   // 编辑事件
   if (editOption.value?.option === 'edit')
-    currentEvent.children?.splice(editOption.value?.idx, 1, editorOptions.value.options.code)
+    currentEvent.children?.splice(editOption.value?.idx, 1, code.value)
   // 调用函数，查找并修改
-  const newNodes = findAndModifyById(context?.workspaceRef?.value.schema, context?.selectComponent?.value.id, (node: Schema) => {
+  const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.selectComponent?.value.id, (node: Schema) => {
     const index = deepCopy(events.value[editOption.value?.eventGroupIndex].children[editOption.value?.eventIndex])
     // 修改事件
     node[events.value[editOption.value?.eventGroupIndex].key as keyof Schema] = {
@@ -237,6 +239,7 @@ function confirmEvent() {
         </div>
         <AlEventEditor
           ref="editor"
+          v-model="code"
           style="height: calc(100vh - 290px)"
           :option="editorOptions"
         />

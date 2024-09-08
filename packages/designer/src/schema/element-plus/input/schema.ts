@@ -23,9 +23,7 @@ export const InputSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
-      props: {
-        class: 'p-4',
-      },
+      props: {},
     }
   },
   // 事件

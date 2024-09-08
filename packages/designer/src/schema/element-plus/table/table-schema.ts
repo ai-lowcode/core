@@ -72,6 +72,9 @@ export const TableSchema = <CompSchema>{
               {
                 type: 'al-button',
                 id: 'data',
+                props: {
+                  type: 'primary',
+                },
                 events: {
                   onClick() {
                     // eslint-disable-next-line ts/ban-ts-comment
@@ -86,6 +89,9 @@ export const TableSchema = <CompSchema>{
                 id: 'dialog',
                 field: 'visibleDialog',
                 modelField: 'modelValue',
+                props: {
+                  title: '设置字段列',
+                },
                 children: [
                   {
                     type: 'al-array-setter',
@@ -179,6 +185,9 @@ export const TableSchema = <CompSchema>{
                       {
                         type: 'al-button',
                         id: 'button',
+                        props: {
+                          size: 'normal',
+                        },
                         events: {
                           onClick() {
                             // eslint-disable-next-line ts/ban-ts-comment
@@ -191,6 +200,10 @@ export const TableSchema = <CompSchema>{
                       {
                         type: 'al-button',
                         id: 'button',
+                        props: {
+                          size: 'normal',
+                          type: 'primary',
+                        },
                         events: {
                           onClick() {
                             // eslint-disable-next-line ts/ban-ts-comment

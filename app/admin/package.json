@@ -21,10 +21,9 @@
     "@ai-lowcode/request": "workspace:^",
     "@ai-lowcode/styles": "workspace:^",
     "@vueuse/core": "^11.0.3",
-    "element-plus": "2.7.8",
     "lodash": "^4.17.21",
-    "pinia": "^2.2.0",
-    "vue": "^3.4.34",
+    "pinia": "^2.2.2",
+    "vue": "^3.5.3",
     "vue-router": "4"
   },
   "devDependencies": {
@@ -42,7 +41,7 @@
     "stylelint": "^16.8.0",
     "tailwindcss": "^3.4.7",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5",
+    "vite": "^5.4.3",
     "vite-plugin-html": "^3.2.2",
     "vue-tsc": "^2.0.29"
   }

@@ -135,15 +135,6 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.4.5"
   },
-  "pnpm": {
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "@liaoliaots/nestjs-redis>@nestjs/common": "^10.0.0",
-        "@liaoliaots/nestjs-redis>@nestjs/core": "^10.0.0",
-        "eslint": "^9.2.0"
-      }
-    }
-  },
   "jest": {
     "moduleFileExtensions": [
       "js",

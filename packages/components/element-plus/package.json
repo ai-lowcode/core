@@ -41,7 +41,7 @@
     "@al-config/scripts": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",
-    "vite": "^5.3.5",
+    "vite": "^5.4.3",
     "vitest": "^2.0.4"
   },
   "publishConfig": {

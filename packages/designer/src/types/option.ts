@@ -1,5 +1,4 @@
 import type { Schema } from '@ai-lowcode/core'
-import { ButtonProps, ColProps, FormItemProps, FormProps, RowProps } from 'element-plus'
 
 import { FetchEffectOption } from './basic.ts'
 
@@ -22,10 +21,10 @@ export interface Option {
   }) => void
   mounted?: (api: Api) => void
   reload?: (api: Api) => void
-  col?: boolean | ColProps & {
+  col?: boolean | any & {
     show?: boolean
   }
-  row?: boolean | RowProps & {
+  row?: boolean | any & {
     show?: boolean
   }
   info?: boolean | VNodeRule & {
@@ -35,14 +34,14 @@ export interface Option {
     align?: 'left' | 'right'
     info?: string
   }
-  wrap?: boolean | (VNodeRule & FormItemProps & { show?: boolean })
-  form?: FormProps
-  submitBtn?: boolean | ButtonProps & {
+  wrap?: boolean | (VNodeRule & any & { show?: boolean })
+  form?: any
+  submitBtn?: boolean | any & {
     click?: Function
     innerText?: string
     show?: boolean
   }
-  resetBtn?: boolean | ButtonProps & {
+  resetBtn?: boolean | any & {
     click?: Function
     innerText?: string
     show?: boolean

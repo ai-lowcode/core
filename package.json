@@ -50,9 +50,18 @@
     "ts-node": "^10.9.2",
     "turbo": "^2.0.9",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5",
+    "vite": "^5.4.3",
     "vitepress": "^1.3.1",
     "vitest": "^2.0.4"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "@liaoliaots/nestjs-redis>@nestjs/common": "^10.0.0",
+        "@liaoliaots/nestjs-redis>@nestjs/core": "^10.0.0",
+        "eslint": "^9.2.0"
+      }
+    }
   },
   "lint-staged": {
     "**/**/*.{vue,js,jsx,ts,tsx}": "pnpm lint:fix"

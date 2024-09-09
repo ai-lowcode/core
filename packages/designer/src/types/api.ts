@@ -1,5 +1,4 @@
 import type { Schema } from '@ai-lowcode/core'
-import { ButtonProps } from 'element-plus'
 
 import { ComponentInternalInstance } from 'vue'
 
@@ -40,9 +39,9 @@ export interface Api {
   // 获取`FormItem`组件的vm
   wrapEl: (id: string) => undefined | ComponentInternalInstance
   // 更新表单提交按钮配置
-  submitBtnProps: (props: ButtonProps) => void
+  submitBtnProps: (props: any) => void
   // 更新表单重置按钮配置
-  resetBtnProps: (props: ButtonProps) => void
+  resetBtnProps: (props: any) => void
   // 获取表单数据
   formData: (() => object) & ((field: string[]) => object)
   // 根据field获取value

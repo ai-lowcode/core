@@ -4,7 +4,7 @@ import { AlButton, AlCollapse, AlCollapseItem, AlDialog, AlIcon, AlMessage } fro
 
 import { deepCopy } from '@ai-lowcode/utils'
 import { Icon } from '@iconify/vue'
-import { computed, inject, ref, watch } from 'vue'
+import { computed, inject, onMounted, ref, watch } from 'vue'
 
 import { EventGroup } from '../types'
 
@@ -13,11 +13,13 @@ import AlEventEditor from './event-editor.vue'
 import { DESIGNER_CTX } from '@/global'
 import componentSchemaList from '@/schema'
 import { DesignerContext } from '@/types'
-import { findAndModifyById } from '@/utils'
+import { addEditorThemeListener, findAndModifyById } from '@/utils'
 
 defineOptions({
   name: 'Event',
 })
+
+const code = ref()
 
 // 编辑器 ref
 const editor = ref()
@@ -29,6 +31,16 @@ const visibleEvent = ref(false)
 const context = inject<DesignerContext>(DESIGNER_CTX)
 
 const compSchema = computed(() => componentSchemaList.find(item => item.name === context?.selectComponent?.value.name))
+
+const editorOptions = ref({
+  mode: 'javascript',
+  theme: 'default', // 主题
+  readOnly: false,
+  lineNumbers: true,
+  lineWiseCopyCut: true,
+  gutters: ['CodeMirror-lint-markers'],
+  lint: true,
+})
 
 // 生命周期事件
 const events = ref<Array<EventGroup>>([
@@ -88,18 +100,6 @@ watch(() => context?.selectComponent, () => {
   deep: true,
 })
 
-const editorOptions = ref({
-  mode: 'javascript',
-  theme: 'default', // 主题
-  readOnly: false,
-  lineNumbers: true,
-  lineWiseCopyCut: true,
-  gutters: ['CodeMirror-lint-markers'],
-  lint: true,
-})
-
-const code = ref()
-
 /**
  * 编辑事件
  * @param option
@@ -116,7 +116,6 @@ function handleEvent(option?: string, eventGroupIndex?: number, eventIndex?: num
       eventItemIdx,
     }
     code.value = events.value[eventGroupIndex!].children[eventIndex!].children?.[eventItemIdx!]
-    // toRaw(editor.value?.editor)?.setValue(code.value)
   }
   if (option === 'add') {
     editOption.value = {
@@ -126,7 +125,6 @@ function handleEvent(option?: string, eventGroupIndex?: number, eventIndex?: num
       eventItemIdx,
     }
     code.value = ''
-    // toRaw(editor.value?.editor)?.setValue(code.value)
   }
   if (option === 'delete') {
     editOption.value = null
@@ -140,7 +138,6 @@ function handleEvent(option?: string, eventGroupIndex?: number, eventIndex?: num
  * 确定事件
  */
 function confirmEvent() {
-  // code.value = toRaw(editor.value.editor).getValue()
   try {
     new Function('api', code.value)
   }
@@ -181,6 +178,15 @@ function confirmEvent() {
   context?.workspaceRef?.value.changeSchema(newNodes)
   visibleEvent.value = false
 }
+
+onMounted(() => {
+  addEditorThemeListener((hasDark: boolean) => {
+    if (hasDark)
+      editorOptions.value.theme = 'dracula'
+    else
+      editorOptions.value.theme = 'default'
+  })
+})
 </script>
 
 <template>
@@ -259,8 +265,5 @@ function confirmEvent() {
 <style lang="scss" scoped>
 .el-collapse {
   --el-collapse-header-height: 38px;
-  --el-collapse-header-text-color: #6e6e6e;
-  --el-collapse-header-bg-color:#f8f8f8;
-  --el-collapse-border-color: #e3e3e3;
 }
 </style>

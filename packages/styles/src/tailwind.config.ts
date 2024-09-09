@@ -1,17 +1,7 @@
 import type { Config } from 'tailwindcss'
-// 生成颜色css变量名
-function genSimilarColorsName(brandName: string) {
-  return {
-    lighter: `var(--${brandName}-lighter-color)`,
-    light: `var(--${brandName}-light-color)`,
-    DEFAULT: `var(--${brandName}-color)`,
-    deep: `var(--${brandName}-deep-color)`,
-    deeper: `var(--${brandName}-deeper-color)`,
-  }
-}
 
 export default {
-  darkMode: 'class',
+  darkMode: 'selector',
   corePlugins: {
     preflight: false,
   },
@@ -37,16 +27,22 @@ export default {
       },
       textColor: {
         'black-color': 'var(--al-black-color)',
+        'active-color': 'var(--al-text-active-color)',
       },
       fontWeight: {
         'bold-weight': 'var(--al-bold-title-weight)',
       },
       backgroundColor: {
         'basic-color': 'var(--al-basic-background-color)',
+        'active-color': 'var(--al-active-bg-color)',
+        'hover-color': 'var(--al-hover-bg-color)',
+      },
+      outlineColor: {
+        'active-color': 'var(--al-text-active-color)',
       },
       borderColor: {
-        // 添加自定义颜色
-        'basic-color': 'var(--al-basic-border-color)', // 自定义的蓝色
+        'basic-color': 'var(--al-basic-border-color)',
+        'active-color': 'var(--al-border-active-color)',
       },
     },
   },

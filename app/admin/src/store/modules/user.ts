@@ -104,6 +104,7 @@ export const useUserStore = defineStore('user', () => {
     else {
       AlMessage.error(message || loginErrorMessage || '登录失败')
     }
+    return code
   }
 
   return {

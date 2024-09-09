@@ -40,7 +40,8 @@
     "docker:down": "docker compose --env-file .env --env-file .env.production down",
     "docker:rmi": "docker compose --env-file .env --env-file .env.production stop nest-admin-server && docker container rm nest-admin-server && docker rmi nest-admin-server",
     "docker:logs": "docker compose --env-file .env --env-file .env.production logs -f",
-    "clean": "rimraf node_modules"
+    "clean": "rimraf node_modules",
+    "clean:dist": "rimraf dist"
   },
   "dependencies": {
     "@fastify/cookie": "^9.3.1",

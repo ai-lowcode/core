@@ -14,7 +14,7 @@ import { useUserStore } from '@/store/modules/user'
 function through(to: RouteLocationNormalized, next: NavigationGuardNext) {
   // 如果当前路由是由于重定向而来的，则使用redirectedFrom属性提供的原
   if (to.redirectedFrom) {
-    next(to.redirectedFrom.path)
+    next(to.redirectedFrom.fullPath)
     return
   }
   // 如果查询参数中包含redirect字段，则使用该字段的值进行导航。

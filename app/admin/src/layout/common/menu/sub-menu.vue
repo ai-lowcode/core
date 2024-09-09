@@ -8,27 +8,32 @@ import { toRefs } from 'vue'
 import MenuItem from '@/layout/common/menu/menu-item.vue'
 import { useAppStore } from '@/store/modules/app'
 
+defineOptions({
+  name: 'SubMenu',
+})
+
 defineProps<{
-  menuInfo: Array<MenuType>
+  menuList: Array<MenuType>
+  firstLevel?: boolean
 }>()
 
 const appStore = useAppStore()
 
-const { isCollapse } = toRefs(appStore)
+const { appSettingConfig } = toRefs(appStore)
 </script>
 
 <template>
-  <template v-for="(menu, index) in menuInfo" :key="index">
+  <template v-for="(menu, index) in menuList" :key="index">
     <AlSubMenu v-if="menu.children && menu.children.length" :index="String(menu?.id)">
       <template #title>
         <div class="mr-8">
           <AlIcon>
             <Icon :icon="menu?.meta?.icon" />
           </AlIcon>
-          <span v-if="!isCollapse">{{ menu?.name }}</span>
+          <span v-if="!firstLevel || !appSettingConfig.isCollapse ">{{ menu?.name }}</span>
         </div>
       </template>
-      <SubMenu v-if="menu.children && menu.children.length" :is-collapse="isCollapse" :menu-info="menu.children" />
+      <SubMenu v-if="menu.children && menu.children.length" :menu-list="menu.children" />
     </AlSubMenu>
     <MenuItem v-else :menu="menu" />
   </template>

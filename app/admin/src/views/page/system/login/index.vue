@@ -4,6 +4,7 @@ import {
   AlCheckbox,
   AlIcon,
   AlInput,
+  AlLoading,
   Hide,
   Lock,
   SuccessFilled,
@@ -11,7 +12,7 @@ import {
   View,
 } from '@ai-lowcode/element-plus'
 
-import { AlHttp } from '@ai-lowcode/request'
+import { AlHttp, ResponseCodeEnum } from '@ai-lowcode/request'
 import { onMounted, ref } from 'vue'
 
 import loginBg from '@/assets/img/login-bg.png'
@@ -42,14 +43,21 @@ function changePasswordStatus() {
 
 async function handleLogin() {
   loginLoading.value = true
-  await userStore.login({
+  const code = await userStore.login({
     ...loginForm.value,
     captchaId: verificationCode.value.id,
   })
+  if (code === ResponseCodeEnum.FAIL)
+    await handleVerificationCode()
   loginLoading.value = false
 }
 
 async function handleVerificationCode() {
+  const loading = AlLoading.service({
+    spinner: 'el-icon-loading',
+    target: '.verification-code',
+    background: 'rgba(255, 255, 255, 0.7)',
+  })
   const { data } = await AlHttp.get('/auth/captcha/img', {
     width: 100,
     height: 50,
@@ -58,6 +66,7 @@ async function handleVerificationCode() {
     isShowErrorMessage: false,
   })
   verificationCode.value = data
+  loading.close()
 }
 
 onMounted(() => {
@@ -85,12 +94,14 @@ onMounted(() => {
           </AlInput>
           <AlInput v-model="loginForm.verifyCode" :prefix-icon="SuccessFilled" class="mt-[20px]" placeholder="请输入验证码">
             <template #suffix>
-              <img :src="verificationCode.img" alt="验证码" class="cursor-pointer h-[30px]" @click="handleVerificationCode">
+              <div class="verification-code h-[30px]">
+                <img :src="verificationCode.img" alt="验证码" class="cursor-pointer h-full" @click="handleVerificationCode">
+              </div>
             </template>
           </AlInput>
           <div class="flex justify-between items-center mt-[15px]">
             <AlCheckbox>记住密码</AlCheckbox>
-            <div class="text-sm cursor-pointer text-blue-600 select-none">
+            <div class="text-sm cursor-pointer text-active-color select-none">
               忘记密码
             </div>
           </div>

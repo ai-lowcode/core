@@ -27,7 +27,13 @@ enum OperationEnum {
   CLOSE_ALL = 'CLOSE_ALL',
 }
 
-const menuOperation = ref([
+interface MenuOperation {
+  icon: string
+  type: OperationEnum
+  title: string
+}
+
+const menuOperation = ref<Array<MenuOperation>>([
   {
     icon: 'tabler:refresh',
     type: OperationEnum.REFRESH,
@@ -82,7 +88,7 @@ function closeMenu() {
   visibleMenu.value = false
 }
 
-function openMenu(tag, { clientX, clientY }) {
+function openMenu(tag: MenuType, { clientX, clientY }) {
   closeMenu()
   currentSelectTag.value = tag
   contextMenu.value.x = clientX
@@ -92,10 +98,12 @@ function openMenu(tag, { clientX, clientY }) {
   })
 }
 
-function selectMenu(operation) {
+function selectMenu(operation: MenuOperation) {
   closeMenu()
   switch (operation?.type) {
     case OperationEnum.REFRESH:
+      router.push(`/redirect${route.path}`)
+      break
     case OperationEnum.CLOSE_CURRENT:
       closeTags.value(currentSelectTag.value)
       break
@@ -116,10 +124,10 @@ function selectMenu(operation) {
 </script>
 
 <template>
-  <div class="bg-white border-b border-solid border-basic-color flex">
+  <div class="bg-white border-b border-solid border-basic-color flex dark:bg-basic-color">
     <div
-      v-for="(tag, index) in tagsList" :key="index" :class="route.path === tag.path ? 'text-blue-600 border-b-blue-600' : 'border-b-transparent'"
-      class="text-sm pl-4 pr-2 py-[5px] select-none hover:text-blue-600 flex items-center cursor-pointer border-r border-solid border-r-basic-color border-b-2 duration-300 hover:border-b-blue-600"
+      v-for="(tag, index) in tagsList" :key="index" :class="route.path === tag.path ? 'text-active-color border-active-color' : 'border-b-transparent'"
+      class="text-sm pl-4 pr-2 py-[5px] select-none hover:text-active-color flex items-center cursor-pointer border-r border-solid border-r-basic-color border-b-2 duration-300 hover:border-b-active-color"
       @click="handlePage(tag)"
       @contextmenu.prevent="openMenu(tag, $event)"
     >
@@ -133,12 +141,12 @@ function selectMenu(operation) {
     <transition name="el-zoom-in-top">
       <div
         v-show="visibleMenu"
-        ref="contextmenuRef" class="bg-white fixed z-10 p-1.5 rounded-md shadow-md" :style="{
+        ref="contextmenuRef" class="bg-white dark:bg-basic-color fixed z-10 p-1.5 rounded-md shadow-md" :style="{
           top: `${contextMenu?.y}px`,
           left: `${contextMenu?.x}px`,
         }"
       >
-        <div v-for="(operation, index) in menuOperation" :key="index" class="flex items-center py-1.5 px-2 cursor-pointer text-black-color select-none hover:bg-gray-100 rounded-md duration-300" @click="selectMenu(operation)">
+        <div v-for="(operation, index) in menuOperation" :key="index" class="flex items-center py-1.5 px-2 cursor-pointer text-black-color select-none hover:bg-gray-100 dark:hover:bg-active-color rounded-md duration-300" @click="selectMenu(operation)">
           <AlIcon class="mr-1">
             <Icon :icon="operation?.icon" />
           </AlIcon>

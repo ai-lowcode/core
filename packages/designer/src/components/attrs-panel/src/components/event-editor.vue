@@ -13,7 +13,7 @@ import 'codemirror/theme/dracula.css'
 
 import Codemirror from 'codemirror-editor-vue3'
 
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
 defineOptions({
   name: 'AlEventEditor',
@@ -37,6 +37,11 @@ function onInput(val: string) {
   emits('update:modelValue', val)
 }
 
+watch(() => props.option, (newValue) => {
+  cmOptions.value = newValue
+  cmRef.value?.refresh()
+})
+
 onMounted(() => {
   cmRef.value?.refresh()
 })
@@ -58,6 +63,6 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 .codemirror-container.bordered {
-  border: 1px solid #f2f2f2;
+  border: 1px solid var(--al-basic-border-color);
 }
 </style>

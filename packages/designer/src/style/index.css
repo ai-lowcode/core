@@ -2,10 +2,6 @@ body {
     margin: 0;
 }
 
-#app {
-    background: #fafafc;
-}
-
 @keyframes fade-in {
     from {
         width: 0px;

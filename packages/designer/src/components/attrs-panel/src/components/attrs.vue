@@ -122,12 +122,12 @@ watch(() => context?.selectComponent, (newValue) => {
   <AlCollapse :model-value="['1', '2', '3']">
     <AlCollapseItem v-if="context?.selectComponent?.value?.id !== PAGE_COMP" title="基础属性" name="1">
       <div class="p-4">
-        <AlRenderer ref="fieldRef" v-model="fieldData" :schemas="FieldAttrsSchema" />
+        <AlRenderer ref="fieldRef" v-model="fieldData" :schemas="context?.selectComponent?.value?.field === PAGE_COMP ? {} : FieldAttrsSchema" />
       </div>
     </AlCollapseItem>
     <AlCollapseItem title="组件属性" name="2">
       <div class="p-4">
-        <AlRenderer ref="compAttrsRef" v-model="propsData" :schemas="context?.selectComponent?.value?.id === PAGE_COMP ? FormAttrsSchema : compSchema?.props()!" />
+        <AlRenderer ref="compAttrsRef" v-model="propsData" :schemas="context?.selectComponent?.value?.field === PAGE_COMP ? FormAttrsSchema : compSchema?.props()!" />
       </div>
     </AlCollapseItem>
     <AlCollapseItem v-if="context?.selectComponent?.value?.id !== PAGE_COMP && compSchema?.slots?.()!" title="插槽属性" name="3">
@@ -141,8 +141,5 @@ watch(() => context?.selectComponent, (newValue) => {
 <style lang="scss" scoped>
 .el-collapse {
   --el-collapse-header-height: 38px;
-  --el-collapse-header-text-color: #6e6e6e;
-  --el-collapse-header-bg-color:#f8f8f8;
-  --el-collapse-border-color: var(--al-basic-border-color);
 }
 </style>

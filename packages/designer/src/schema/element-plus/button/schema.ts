@@ -28,7 +28,7 @@ export const ButtonSchema = <CompSchema>{
           id: `__${uniqueId()}`,
           label: '拖拽区',
           props: {
-            class: 'min-h-[30px] w-[200px] bg-[#f5f5f5]',
+            class: 'min-h-[30px] w-[200px] bg-basic-color',
           },
           slotHidden: false,
           children: [],

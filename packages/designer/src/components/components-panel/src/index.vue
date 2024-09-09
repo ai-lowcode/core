@@ -21,7 +21,7 @@ import { ComponentMenu } from '@/enums'
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
 import componentSchemaList from '@/schema'
 import { ActiveComponentMenu, CompSchema, DesignerContext, Menu, MenuList } from '@/types'
-import { removeAlDragBoxAndPromoteChildren } from '@/utils'
+import { addEditorThemeListener, removeAlDragBoxAndPromoteChildren } from '@/utils'
 
 defineEmits<{
   /**
@@ -54,6 +54,8 @@ const slideMenu = [
   },
 ]
 
+const code = ref()
+
 // 编辑器 ref
 const editor = ref()
 
@@ -80,8 +82,6 @@ const editorOptions = ref({
   lint: true,
 })
 
-const code = ref()
-
 // 当前激活面板
 const activeComponentMenu = ref<ActiveComponentMenu>({
   menu: ComponentMenu.COMPONENT,
@@ -98,9 +98,6 @@ const outLineTree = computed({
 
 watch(() => context?.workspaceRef?.value?.schema, (newValue) => {
   code.value = JSON.stringify(newValue, null, 2) ?? ''
-  // toRaw(editor.value.editor)?.setValue(JSON.stringify(newValue, null, 2))
-  // toRaw(editor.value.editor)?.getAction('editor.action.formatDocument').run()
-  // toRaw(editor.value.editor)?.setValue(toRaw(editor.value.editor)?.getValue())
 }, { deep: true })
 
 /**
@@ -233,6 +230,12 @@ function onEnd({ item, newIndex, pullMode, to }: any) {
 
 onMounted(() => {
   addComponent(componentSchemaList)
+  addEditorThemeListener((hasDark: boolean) => {
+    if (hasDark)
+      editorOptions.value.theme = 'dracula'
+    else
+      editorOptions.value.theme = 'default'
+  })
 })
 </script>
 
@@ -248,8 +251,8 @@ onMounted(() => {
         placement="right"
       >
         <AlIcon
-          size="20" class="h-[45px] cursor-pointer hover:bg-blue-600 hover:text-white duration-300 w-full"
-          :class="activeComponentMenu.menu === item.slug ? 'bg-blue-600 text-white' : 'text-gray-500'"
+          size="20" class="h-[45px] cursor-pointer hover:bg-hover-color hover:text-white duration-300 w-full"
+          :class="activeComponentMenu.menu === item.slug ? 'bg-active-color text-white' : 'text-gray-500'"
           @click="changeComponentSlide(item.slug)"
         >
           <Icon :icon="item.icon" />
@@ -280,7 +283,7 @@ onMounted(() => {
                   class="w-1/2 flex justify-center items-center"
                   @click="insertComponent(element)"
                 >
-                  <div class="rounded-md text-gray-600 border bg-blue-50 hover:border-dashed border-solid border-gray-200 w-full mx-1 my-1 flex justify-center items-center cursor-move px-2 py-1 hover:border-blue-600 duration-300">
+                  <div style="color: var(--el-color-primary-light-3);background: var(--el-color-primary-light-9)" class="rounded-md text-gray-600 border hover:border-dashed border-basic-color border-solid w-full mx-1 my-1 flex justify-center items-center cursor-move px-2 py-1 hover:border-active-color duration-300">
                     <div class="text-sm">
                       <i class="fc-icon !text-[18px]" :class="element.icon || 'icon-input'" />
                     </div>
@@ -298,7 +301,7 @@ onMounted(() => {
     </div>
     <div
       :class="activeComponentMenu.menu === ComponentMenu.OUTLINE && activeComponentMenu.expand ? 'animate-fade-in !block' : 'animate-fade-out !hidden'"
-      class="border border-solid border-gray-200 flex-1 component-tree w-[272px]"
+      class="border border-solid border-basic-color flex-1 component-tree w-[272px]"
     >
       <AlInput class="w-full mt-2 px-2" placeholder="输入关键词查询大纲" size="small" />
       <AlTree
@@ -317,13 +320,13 @@ onMounted(() => {
             <div class="flex items-center justify-between w-full">
               <div class="flex items-center">
                 <AlIcon size="14" class="cursor-pointer text-gray-600 mr-1">
-                  <Icon :icon="data?.icon" :class="currentSelectNode === data?.id ? 'text-blue-600' : ''" />
+                  <Icon :icon="data?.icon" :class="currentSelectNode === data?.id ? 'text-active-color' : ''" />
                 </AlIcon>
                 <div>{{ data?.label }}</div>
               </div>
             </div>
             <div v-if="!data?.slot && data?.id !== PAGE_COMP" @click.stop>
-              <AlDropdown trigger="click" size="default" :class="currentSelectNode === data?.id ? 'text-blue-600' : ''" @command="(command: string | number | object) => handleCommand(command, data?.id)">
+              <AlDropdown trigger="click" size="default" :class="currentSelectNode === data?.id ? 'text-active-color' : ''" @command="(command: string | number | object) => handleCommand(command, data?.id)">
                 <AlIcon>
                   <Icon icon="mingcute:more-2-fill" />
                 </AlIcon>
@@ -353,7 +356,7 @@ onMounted(() => {
       </AlTree>
     </div>
     <div
-      class="flex-1 flex py-4 bg-basic-color border border-solid border-gray-200 w-[272px]"
+      class="flex-1 flex py-4 bg-basic-color border border-solid border-basic-color w-[272px]"
       :class="activeComponentMenu.menu === ComponentMenu.CODE && activeComponentMenu.expand ? 'animate-fade-in !block' : 'animate-fade-out !hidden'"
     >
       <AlEventEditor
@@ -365,7 +368,7 @@ onMounted(() => {
       />
     </div>
     <div
-      class="flex-1 flex py-4 bg-basic-color border border-solid border-gray-200 w-[272px]"
+      class="flex-1 flex py-4 bg-basic-color border border-solid border-basic-color w-[272px]"
       :class="activeComponentMenu.menu === ComponentMenu.AICHAT && activeComponentMenu.expand ? 'animate-fade-in !block' : 'animate-fade-out !hidden'"
     >
       1212

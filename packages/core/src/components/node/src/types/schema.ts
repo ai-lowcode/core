@@ -7,6 +7,7 @@ export interface Schema {
   binds?: Record<string, any>
   events?: Record<string, any>
   lifeCycle?: Record<string, any>
+  content?: string
   // 插槽列表，可选
   slotName?: string
   slotHidden?: boolean

@@ -16,19 +16,19 @@ import {
 
 import { deepCopy } from '@ai-lowcode/utils'
 import { Icon } from '@iconify/vue'
-import { inject, ref, watch } from 'vue'
+import { inject, onMounted, ref, watch } from 'vue'
 
 import AlEventEditor from '@/components/attrs-panel/src/components/event-editor.vue'
 import { DESIGNER_CTX } from '@/global'
 import { DesignerContext } from '@/types'
-import { findAndModifyById } from '@/utils'
+import { addEditorThemeListener, findAndModifyById } from '@/utils'
+
+const css = ref()
 
 const editor = ref()
 
 // 全局上下文
 const context = inject<DesignerContext>(DESIGNER_CTX)
-
-const css = ref()
 
 const editorOptions = ref({
   mode: 'css',
@@ -240,6 +240,15 @@ watch(() => context?.selectComponent, (newValue) => {
 }, {
   deep: true,
 })
+
+onMounted(() => {
+  addEditorThemeListener((hasDark: boolean) => {
+    if (hasDark)
+      editorOptions.value.theme = 'dracula'
+    else
+      editorOptions.value.theme = 'default'
+  })
+})
 </script>
 
 <template>
@@ -433,5 +442,9 @@ watch(() => context?.selectComponent, (newValue) => {
   .el-radio-button--small .el-radio-button__inner{
     width: 100%
   }
+}
+
+.el-collapse {
+  --el-collapse-header-height: 38px;
 }
 </style>

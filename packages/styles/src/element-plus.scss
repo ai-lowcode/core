@@ -3,17 +3,41 @@
   --el-menu-base-level-padding: 14px;
 
   // 基础边框颜色
-  --al-basic-border-color: #e7e7e7;
+  --al-basic-border-color: hsl(0deg 0% 99% / 12%);
 
   // 基础背景色
   --al-basic-background-color: #fff;
 
+  // 菜单背景色
+  --al-menu-bg-color: #fff;
+  --al-active-bg-color: rgb(37 99 235);
+  --al-hover-bg-color: hsl(0deg 0% 99% / 12%);
+  --el-dialog-bg-color: #fff;
+
+  // 菜单激活背景色
+  --al-menu-active-bg-color: rgb(37 99 235);
+
   // 基础标题颜色
   --al-black-title-color: #000;
+
+  // 文字基础颜色
+  --al-text-color: #303133;
+
+  // 文字 active 颜色
+  --al-text-active-color: rgb(37 99 235);
+  --al-border-active-color: rgb(37 99 235);
 
   // 基础标题字体 weight
   --al-bold-title-weight: 700;
   --el-dialog-padding-primary: 15px;
+}
+
+.html-weakness {
+  filter: invert(80%);
+}
+
+.html-grey {
+  filter: grayscale(100%);
 }
 
 .el-form-item__label {
@@ -56,6 +80,10 @@
   }
 }
 
+.el-drawer {
+  --el-drawer-bg-color: var(--el-dialog-bg-color)
+}
+
 .el-drawer__header {
   padding-bottom: var(--el-drawer-padding-primary);
   margin-bottom: 0;
@@ -88,12 +116,16 @@
     z-index: 999;
     width: 50px;
     overflow: hidden;
-    background-color: #fff;
+    background-color: var(--al-menu-bg-color);
     border-right: 1px solid var(--al-basic-border-color);
     transition: width 0.28s;
 
     .el-menu {
       border: none;
+
+      .el-menu-item.is-active {
+        background-color: var(--al-menu-active-bg-color);
+      }
     }
   }
 

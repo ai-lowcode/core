@@ -19,10 +19,6 @@ export enum RouteNameEnum {
    */
   REDIRECT = 'redirect',
   /**
-   * 403
-   */
-  FORBIDDEN = 'forbidden',
-  /**
    * 404
    */
   NOT_FOUND = 'notfound',
@@ -32,7 +28,6 @@ export enum RouteNameEnum {
  * 路由白名单
  */
 export const ROUTER_WHITE_LIST = [
-  RouteNameEnum.FORBIDDEN,
   RouteNameEnum.NOT_FOUND,
   RouteNameEnum.REDIRECT,
   RouteNameEnum.LOGIN,

@@ -3,7 +3,7 @@ import {
   AlMenu,
 } from '@ai-lowcode/element-plus'
 
-import { onMounted, toRefs } from 'vue'
+import { toRefs } from 'vue'
 
 import SubMenu from '@/layout/common/menu/sub-menu.vue'
 import { useAppStore } from '@/store/modules/app'
@@ -13,7 +13,7 @@ const userStore = useUserStore()
 
 const appStore = useAppStore()
 
-const { isCollapse } = toRefs(appStore)
+const { appSettingConfig } = toRefs(appStore)
 
 function handleOpen(key: string, keyPath: string[]) {
   console.log(key, keyPath)
@@ -21,20 +21,16 @@ function handleOpen(key: string, keyPath: string[]) {
 function handleClose(key: string, keyPath: string[]) {
   console.log(key, keyPath)
 }
-
-onMounted(() => {
-  console.log(userStore.menuInfo)
-})
 </script>
 
 <template>
   <AlMenu
     default-active="2"
-    :collapse="isCollapse"
+    :collapse="appSettingConfig.isCollapse"
     :collapse-transition="false"
     @open="handleOpen"
     @close="handleClose"
   >
-    <SubMenu :menu-info="userStore.menuInfo" />
+    <SubMenu :first-level="true" :menu-list="userStore.menuInfo" />
   </AlMenu>
 </template>

@@ -27,7 +27,7 @@ const userStore = useUserStore()
 
 const appStore = useAppStore()
 
-const { isCollapse } = toRefs(appStore)
+const { appSettingConfig, changeAppSettingConfig } = toRefs(appStore)
 
 const settingRef = ref()
 
@@ -61,25 +61,25 @@ async function handleLogout() {
 </script>
 
 <template>
-  <div class="h-[50px] w-full border-b-[0.5px] bg-basic-color border-b-[#dbdde0] flex justify-between items-center">
-    <AlIcon class="cursor-pointer h-full w-[40px] hover:bg-[#eee] duration-300" @click="appStore.changeCollapse()">
-      <Expand v-if="isCollapse" />
+  <div class="h-[50px] w-full border-b-[0.5px] bg-basic-color border-b-basic-color border-basic-color flex justify-between items-center">
+    <AlIcon class="cursor-pointer h-full w-[40px] hover:bg-gray-100 hover:bg-hover-color duration-300" @click="changeAppSettingConfig('isCollapse', !appSettingConfig.isCollapse)">
+      <Expand v-if="appSettingConfig.isCollapse" />
       <Fold v-else />
     </AlIcon>
     <div class="mr-2 flex h-full items-center">
-      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100">
+      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100 hover:bg-hover-color">
         <Search />
       </AlIcon>
-      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100">
+      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100 hover:bg-hover-color">
         <FullScreen />
       </AlIcon>
-      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100">
+      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100 hover:bg-hover-color">
         <Bell />
       </AlIcon>
-      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100">
+      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100 hover:bg-hover-color">
         <Icon icon="ri:translate" />
       </AlIcon>
-      <AlDropdown trigger="click" class="px-2 h-full duration-300 hover:bg-gray-100">
+      <AlDropdown trigger="click" class="px-2 h-full duration-300 hover:bg-gray-100 hover:bg-hover-color">
         <div class="flex justify-center items-center">
           <img src="https://avatars.githubusercontent.com/u/44761321" class="w-[25px] h-[25px] rounded-full" alt="头像">
           <div class="ml-2">
@@ -99,7 +99,7 @@ async function handleLogout() {
           </AlDropdownMenu>
         </template>
       </AlDropdown>
-      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100" @click="showSetting">
+      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100 hover:bg-hover-color" @click="showSetting">
         <Tools />
       </AlIcon>
     </div>

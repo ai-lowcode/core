@@ -55,7 +55,7 @@ function onMove(event: any) {
       put: true,
     }"
     class="w-full"
-    :class="list?.length ? 'h-full' : 'h-full bg-[#f5f5f5] rounded-md drag-content relative'"
+    :class="list?.length ? 'h-full' : 'h-full bg-basic-color rounded-md drag-content relative'"
     ghost-class="ghost"
     animation="300"
     empty-insert-threshold="0"

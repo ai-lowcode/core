@@ -29,6 +29,9 @@
     "clean": "rimraf node_modules",
     "clean:dist": "rimraf dist"
   },
+  "peerDependencies": {
+    "vue": "^3.5.3"
+  },
   "dependencies": {
     "vue": "^3.5.3"
   },
@@ -37,9 +40,6 @@
     "@al-config/vite": "workspace:^",
     "vite": "^5.4.3",
     "vitest": "^2.0.4"
-  },
-  "peerDependencies": {
-    "vue": "^3.5.3"
   },
   "publishConfig": {
     "access": "public",

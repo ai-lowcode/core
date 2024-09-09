@@ -29,6 +29,9 @@
     "clean": "rimraf node_modules",
     "clean:dist": "rimraf dist"
   },
+  "peerDependencies": {
+    "vue": "^3.5.3"
+  },
   "dependencies": {
     "crypto-js": "^4.2.0",
     "hotkeys-js": "^3.13.7",
@@ -42,9 +45,6 @@
     "@types/crypto-js": "^4.2.2",
     "vite": "^5.4.3",
     "vitest": "^2.0.4"
-  },
-  "peerDependencies": {
-    "vue": "^3.5.3"
   },
   "publishConfig": {
     "access": "public",

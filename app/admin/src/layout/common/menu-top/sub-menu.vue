@@ -5,7 +5,8 @@ import { Icon } from '@iconify/vue'
 
 import { toRefs } from 'vue'
 
-import MenuItem from '@/layout/common/menu/menu-item.vue'
+import MenuItem from './menu-item.vue'
+
 import { useAppStore } from '@/store/modules/app'
 
 defineOptions({
@@ -26,7 +27,7 @@ const { appSettingConfig } = toRefs(appStore)
   <template v-for="(menu, index) in menuList" :key="index">
     <AlSubMenu v-if="menu.children && menu.children.length" :index="String(menu?.id)">
       <template #title>
-        <div class="mr-8">
+        <div class="mr-0">
           <AlIcon>
             <Icon :icon="menu?.meta?.icon" />
           </AlIcon>

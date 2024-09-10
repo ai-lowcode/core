@@ -5,7 +5,8 @@ import {
 
 import { toRefs } from 'vue'
 
-import SubMenu from '@/layout/common/menu/sub-menu.vue'
+import SubMenu from './sub-menu.vue'
+
 import { useAppStore } from '@/store/modules/app'
 import { useUserStore } from '@/store/modules/user'
 

@@ -35,6 +35,7 @@ export default {
       backgroundColor: {
         'basic-color': 'var(--al-basic-background-color)',
         'active-color': 'var(--al-active-bg-color)',
+        'menu-color': 'var(--al-menu-bg-color)',
         'hover-color': 'var(--al-hover-bg-color)',
       },
       outlineColor: {

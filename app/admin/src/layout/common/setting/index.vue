@@ -49,6 +49,19 @@ defineExpose({
           </div>
         </AlRadioButton>
       </AlRadioGroup>
+      <div v-if="config.type === 'menu'" class="flex">
+        <div class="bg-[#f0f2f5] rounded-md overflow-hidden mr-4 cursor-pointer h-[36px] w-[46px] relative shadow-md" :style="appSettingConfig[config.slug] === 'left' ? 'border: 2px solid var(--el-border-color)' : ''" @click="changeAppSettingConfig(config.slug, 'left')">
+          <div class="bg-[#1b2a47] h-full w-[30%]" />
+          <div class="bg-white h-[30%] absolute right-0 top-0 w-[70%] shadow-sm" />
+        </div>
+        <div class="bg-[#f0f2f5] rounded-md overflow-hidden mr-4 cursor-pointer h-[36px] w-[46px] relative shadow-md" :style="appSettingConfig[config.slug] === 'top' ? 'border: 2px solid var(--el-border-color)' : ''" @click="changeAppSettingConfig(config.slug, 'top')">
+          <div class="bg-[#1b2a47] h-[30%] absolute right-0 top-0 w-full shadow-sm" />
+        </div>
+        <div class="bg-[#f0f2f5] rounded-md overflow-hidden mr-4 cursor-pointer h-[36px] w-[46px] relative shadow-md" :style="appSettingConfig[config.slug] === 'mix' ? 'border: 2px solid var(--el-border-color)' : ''" @click="changeAppSettingConfig(config.slug, 'mix')">
+          <div class="bg-white h-full w-[30%]" />
+          <div class="bg-[#1b2a47] h-[30%] absolute right-0 top-0 w-full shadow-sm" />
+        </div>
+      </div>
       <div v-if="config.type === 'color'">
         <div class="flex items-center">
           <div

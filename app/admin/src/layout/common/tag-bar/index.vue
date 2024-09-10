@@ -7,6 +7,7 @@ import { nextTick, ref, toRefs } from 'vue'
 
 import { useRoute, useRouter } from 'vue-router'
 
+import { useAppStore } from '@/store/modules/app'
 import { useTagsStore } from '@/store/modules/tags'
 
 const visibleMenu = ref()
@@ -74,6 +75,10 @@ const currentSelectTag = ref<MenuType>()
 
 const tagsStore = useTagsStore()
 
+const appStore = useAppStore()
+
+const { appSettingConfig } = toRefs(appStore)
+
 const route = useRoute()
 
 const router = useRouter()
@@ -126,8 +131,15 @@ function selectMenu(operation: MenuOperation) {
 <template>
   <div class="bg-white border-b border-solid border-basic-color flex dark:bg-basic-color">
     <div
-      v-for="(tag, index) in tagsList" :key="index" :class="route.path === tag.path ? 'text-active-color border-active-color' : 'border-b-transparent'"
-      class="text-sm pl-4 pr-2 py-[5px] select-none hover:text-active-color flex items-center cursor-pointer border-r border-solid border-r-basic-color border-b-2 duration-300 hover:border-b-active-color"
+      v-for="(tag, index) in tagsList" :key="index"
+      class="text-sm pl-4 pr-2 py-[5px] select-none hover:text-active-color flex items-center cursor-pointer border-r border-solid border-r-basic-color border-b-2 duration-300"
+      :class="{
+        'hover:border-b-active-color': appSettingConfig.tagStyle === 'dynamic',
+        'hover:border-b-transparent border-transparent': appSettingConfig.tagStyle === 'card',
+        'border-active-color': route.path === tag.path && appSettingConfig.tagStyle === 'dynamic',
+        'text-active-color': route.path === tag.path,
+        'border-b-transparent': route.path !== tag.path,
+      }"
       @click="handlePage(tag)"
       @contextmenu.prevent="openMenu(tag, $event)"
     >

@@ -5,18 +5,16 @@ import {
   AlDropdownMenu,
   AlIcon,
   AlMessageBox,
-  Bell,
   Expand,
   Fold,
-  FullScreen,
-  Search,
-  Tools,
 } from '@ai-lowcode/element-plus'
 
 import { Icon } from '@iconify/vue'
 
 import { ref, toRefs } from 'vue'
 
+import Logo from '@/layout/common/logo/index.vue'
+import MenuTop from '@/layout/common/menu-top/index.vue'
 import setting from '@/layout/common/setting/index.vue'
 import { useAppStore } from '@/store/modules/app'
 import { useUserStore } from '@/store/modules/user'
@@ -30,6 +28,39 @@ const appStore = useAppStore()
 const { appSettingConfig, changeAppSettingConfig } = toRefs(appStore)
 
 const settingRef = ref()
+
+const rightOperationConfig = [
+  {
+    icon: 'ic:round-search',
+    type: 'button',
+    click: () => {},
+  },
+  {
+    icon: 'ic:baseline-fullscreen',
+    type: 'button',
+    click: () => {},
+  },
+  {
+    icon: 'ph:bell',
+    type: 'button',
+    click: () => {},
+  },
+  {
+    icon: 'ri:translate',
+    type: 'button',
+    click: () => {},
+  },
+  {
+    icon: 'uil:setting',
+    type: 'user',
+    click: () => {},
+  },
+  {
+    icon: 'uil:setting',
+    type: 'button',
+    click: showSetting,
+  },
+]
 
 function showSetting() {
   settingRef.value.showSetting()
@@ -61,47 +92,56 @@ async function handleLogout() {
 </script>
 
 <template>
-  <div class="h-[50px] w-full border-b-[0.5px] bg-basic-color border-b-basic-color border-basic-color flex justify-between items-center">
-    <AlIcon class="cursor-pointer h-full w-[40px] hover:bg-gray-100 hover:bg-hover-color duration-300" @click="changeAppSettingConfig('isCollapse', !appSettingConfig.isCollapse)">
+  <div
+    class="h-[50px] overflow-hidden w-full border-b-[0.5px] border-b-basic-color border-basic-color flex justify-between items-center" :class="{
+      'bg-basic-color': appSettingConfig.menuMode === 'left',
+      'bg-menu-color': appSettingConfig.menuMode === 'top',
+    }"
+  >
+    <div v-if="appSettingConfig.menuMode === 'top'" class="flex items-center">
+      <Logo v-if="appSettingConfig.logo" class="w-[100px] h-[50px]" />
+      <MenuTop />
+    </div>
+    <AlIcon v-if="appSettingConfig.menuMode === 'left'" class="cursor-pointer h-full w-[40px] hover:bg-gray-100 hover:bg-hover-color duration-300" @click="changeAppSettingConfig('isCollapse', !appSettingConfig.isCollapse)">
       <Expand v-if="appSettingConfig.isCollapse" />
       <Fold v-else />
     </AlIcon>
     <div class="mr-2 flex h-full items-center">
-      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100 hover:bg-hover-color">
-        <Search />
-      </AlIcon>
-      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100 hover:bg-hover-color">
-        <FullScreen />
-      </AlIcon>
-      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100 hover:bg-hover-color">
-        <Bell />
-      </AlIcon>
-      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100 hover:bg-hover-color">
-        <Icon icon="ri:translate" />
-      </AlIcon>
-      <AlDropdown trigger="click" class="px-2 h-full duration-300 hover:bg-gray-100 hover:bg-hover-color">
-        <div class="flex justify-center items-center">
-          <img src="https://avatars.githubusercontent.com/u/44761321" class="w-[25px] h-[25px] rounded-full" alt="头像">
-          <div class="ml-2">
-            Axelu
+      <template v-for="(operation, index) in rightOperationConfig" :key="index">
+        <AlIcon
+          v-if="operation.type === 'button'" class="cursor-pointer h-full w-[40px] duration-300 " :class="{
+            'hover:bg-hover-color': appSettingConfig.menuMode === 'left',
+            'hover:bg-active-color': appSettingConfig.menuMode === 'top',
+          }" @click="operation.click()"
+        >
+          <Icon :icon="operation?.icon" />
+        </AlIcon>
+        <AlDropdown
+          v-if="operation.type === 'user'" trigger="click" class="px-2 h-full duration-300" :class="{
+            'hover:bg-hover-color': appSettingConfig.menuMode === 'left',
+            'hover:bg-active-color': appSettingConfig.menuMode === 'top',
+          }"
+        >
+          <div class="flex justify-center items-center">
+            <img src="https://avatars.githubusercontent.com/u/44761321" class="w-[25px] h-[25px] rounded-full" alt="头像">
+            <div class="ml-2">
+              Axelu
+            </div>
           </div>
-        </div>
-        <template #dropdown>
-          <AlDropdownMenu>
-            <AlDropdownItem>
-              <Icon icon="icon-park-solid:setting" class="mr-1" />
-              账户设置
-            </AlDropdownItem>
-            <AlDropdownItem @click="handleLogout">
-              <Icon icon="ri:logout-circle-r-line" class="mr-1" />
-              退出系统
-            </AlDropdownItem>
-          </AlDropdownMenu>
-        </template>
-      </AlDropdown>
-      <AlIcon class="cursor-pointer h-full w-[40px] duration-300 hover:bg-gray-100 hover:bg-hover-color" @click="showSetting">
-        <Tools />
-      </AlIcon>
+          <template #dropdown>
+            <AlDropdownMenu>
+              <AlDropdownItem>
+                <Icon icon="icon-park-solid:setting" class="mr-1" />
+                账户设置
+              </AlDropdownItem>
+              <AlDropdownItem @click="handleLogout">
+                <Icon icon="ri:logout-circle-r-line" class="mr-1" />
+                退出系统
+              </AlDropdownItem>
+            </AlDropdownMenu>
+          </template>
+        </AlDropdown>
+      </template>
     </div>
     <setting ref="settingRef" />
   </div>

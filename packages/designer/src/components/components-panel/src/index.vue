@@ -251,7 +251,7 @@ onMounted(() => {
         placement="right"
       >
         <AlIcon
-          size="20" class="h-[45px] cursor-pointer hover:bg-hover-color hover:text-white duration-300 w-full"
+          size="20" class="h-[45px] cursor-pointer hover:bg-active-color hover:text-white duration-300 w-full"
           :class="activeComponentMenu.menu === item.slug ? 'bg-active-color text-white' : 'text-gray-500'"
           @click="changeComponentSlide(item.slug)"
         >
@@ -283,7 +283,7 @@ onMounted(() => {
                   class="w-1/2 flex justify-center items-center"
                   @click="insertComponent(element)"
                 >
-                  <div style="color: var(--el-color-primary-light-3);background: var(--el-color-primary-light-9)" class="rounded-md text-gray-600 border hover:border-dashed border-basic-color border-solid w-full mx-1 my-1 flex justify-center items-center cursor-move px-2 py-1 hover:border-active-color duration-300">
+                  <div style="color: var(--el-text-color-primary);background: var(--el-color-primary-light-9)" class="rounded-md text-gray-600 border hover:border-dashed border-basic-color border-solid w-full mx-1 my-1 flex justify-center items-center cursor-move px-2 py-1 hover:border-active-color duration-300">
                     <div class="text-sm">
                       <i class="fc-icon !text-[18px]" :class="element.icon || 'icon-input'" />
                     </div>

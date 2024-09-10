@@ -3,7 +3,7 @@ import { toRefs } from 'vue'
 
 import Footer from '@/layout/common/footer/index.vue'
 import Logo from '@/layout/common/logo/index.vue'
-import Menu from '@/layout/common/menu/index.vue'
+import MenuLeft from '@/layout/common/menu-left/index.vue'
 import NavBar from '@/layout/common/nav-bar/index.vue'
 import TagBar from '@/layout/common/tag-bar/index.vue'
 import { useAppStore } from '@/store/modules/app'
@@ -20,11 +20,11 @@ const { appSettingConfig } = toRefs(appStore)
       hideSidebar: !appSettingConfig.isCollapse,
     }"
   >
-    <div class="sidebar-container">
+    <div v-if="appSettingConfig.menuMode === 'left'" class="sidebar-container">
       <Logo v-if="appSettingConfig.logo" />
-      <Menu />
+      <MenuLeft />
     </div>
-    <div class="w-full flex flex-col main-container">
+    <div class="w-full flex flex-col main-container" :style="appSettingConfig.menuMode === 'top' ? 'margin-left: 0px' : ''">
       <NavBar />
       <TagBar v-if="!appSettingConfig.hideTag" />
       <router-view />
@@ -32,3 +32,54 @@ const { appSettingConfig } = toRefs(appStore)
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+// 左侧菜单样式
+.layout-left {
+  &.hideSidebar {
+    .sidebar-container {
+      width: 210px !important;
+    }
+
+    .main-container {
+      margin-left: 210px
+    }
+  }
+
+  .sidebar-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    width: 50px;
+    overflow: hidden;
+    background-color: var(--al-menu-bg-color);
+    border-right: 1px solid var(--al-basic-border-color);
+    transition: width 0.28s;
+
+    .el-menu {
+      border: none;
+
+      .el-menu-item.is-active {
+        background-color: var(--al-menu-active-bg-color);
+      }
+    }
+  }
+
+  .main-container {
+    position: relative;
+    height: 100%;
+    margin-left: 50px;
+    overflow-y: auto;
+    transition: margin-left 0.28s;
+
+    .fixed-header {
+      position: sticky;
+      top: 0;
+      z-index: 9;
+      transition: width 0.28s;
+    }
+  }
+}
+</style>

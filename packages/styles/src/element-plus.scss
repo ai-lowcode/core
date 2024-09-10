@@ -1,6 +1,7 @@
 :root {
   --el-menu-item-height: 50px;
   --el-menu-base-level-padding: 14px;
+  --el-menu-horizontal-height: 50px;
 
   // 基础边框颜色
   --al-basic-border-color: hsl(0deg 0% 99% / 12%);
@@ -10,12 +11,12 @@
 
   // 菜单背景色
   --al-menu-bg-color: #fff;
-  --al-active-bg-color: rgb(37 99 235);
+  --al-active-bg-color: #2563EB;
   --al-hover-bg-color: hsl(0deg 0% 99% / 12%);
   --el-dialog-bg-color: #fff;
 
   // 菜单激活背景色
-  --al-menu-active-bg-color: rgb(37 99 235);
+  --al-menu-active-bg-color: #2563EB;
 
   // 基础标题颜色
   --al-black-title-color: #000;
@@ -24,8 +25,8 @@
   --al-text-color: #303133;
 
   // 文字 active 颜色
-  --al-text-active-color: rgb(37 99 235);
-  --al-border-active-color: rgb(37 99 235);
+  --al-text-active-color: #2563EB;
+  --al-border-active-color: #2563EB;
 
   // 基础标题字体 weight
   --al-bold-title-weight: 700;
@@ -80,6 +81,22 @@
   }
 }
 
+.el-sub-menu.is-active, .el-menu-item.is-active{
+  background-color: var(--el-menu-hover-bg-color);
+}
+
+.el-menu-item:hover {
+  color: #fff;
+}
+
+.el-sub-menu.is-opened{
+  background-color: transparent!important;
+}
+
+.el-menu--popup {
+  min-width: 140px;
+}
+
 .el-drawer {
   --el-drawer-bg-color: var(--el-dialog-bg-color)
 }
@@ -94,53 +111,4 @@
 
 .el-drawer__footer {
   border-top: 1px solid var(--al-basic-border-color);
-}
-
-// 左侧菜单样式
-.layout-left {
-  &.hideSidebar {
-    .sidebar-container {
-      width: 210px !important;
-    }
-
-    .main-container {
-      margin-left: 210px
-    }
-  }
-
-  .sidebar-container {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 999;
-    width: 50px;
-    overflow: hidden;
-    background-color: var(--al-menu-bg-color);
-    border-right: 1px solid var(--al-basic-border-color);
-    transition: width 0.28s;
-
-    .el-menu {
-      border: none;
-
-      .el-menu-item.is-active {
-        background-color: var(--al-menu-active-bg-color);
-      }
-    }
-  }
-
-  .main-container {
-    position: relative;
-    height: 100%;
-    margin-left: 50px;
-    overflow-y: auto;
-    transition: margin-left 0.28s;
-
-    .fixed-header {
-      position: sticky;
-      top: 0;
-      z-index: 9;
-      transition: width 0.28s;
-    }
-  }
 }

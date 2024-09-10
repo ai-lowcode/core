@@ -8,8 +8,7 @@ import { computed, inject, onMounted, ref, watch } from 'vue'
 
 import { EventGroup } from '../types'
 
-import AlEventEditor from './event-editor.vue'
-
+import { AlCodeEditorAtom } from '@/atoms'
 import { DESIGNER_CTX } from '@/global'
 import componentSchemaList from '@/schema'
 import { DesignerContext } from '@/types'
@@ -243,7 +242,7 @@ onMounted(() => {
         >
           自定义函数编辑
         </div>
-        <AlEventEditor
+        <AlCodeEditorAtom
           ref="editor"
           v-model="code"
           style="height: calc(100vh - 290px)"

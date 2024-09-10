@@ -1,18 +1,5 @@
 <script lang="ts" setup>
-// placeholder
-import 'codemirror/addon/display/placeholder.js'
-
-// language
-import 'codemirror/mode/css/css.js'
-
-// language
-import 'codemirror/mode/javascript/javascript.js'
-
-// theme
-import 'codemirror/theme/dracula.css'
-
 import Codemirror from 'codemirror-editor-vue3'
-
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
 defineOptions({

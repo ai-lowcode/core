@@ -129,7 +129,7 @@ function selectMenu(operation: MenuOperation) {
 </script>
 
 <template>
-  <div class="bg-white border-b border-solid border-basic-color flex dark:bg-basic-color">
+  <div class="bg-white border-b border-solid border-basic-color flex dark:bg-basic-color overflow-x-auto">
     <div
       v-for="(tag, index) in tagsList" :key="index"
       class="text-sm pl-4 pr-2 py-[5px] select-none hover:text-active-color flex items-center cursor-pointer border-r border-solid border-r-basic-color border-b-2 duration-300"
@@ -143,7 +143,7 @@ function selectMenu(operation: MenuOperation) {
       @click="handlePage(tag)"
       @contextmenu.prevent="openMenu(tag, $event)"
     >
-      <div class="mr-2">
+      <div class="mr-2 text-nowrap">
         {{ tag.name }}
       </div>
       <AlIcon class="rounded-full" @click.stop="closeTags(tag)">

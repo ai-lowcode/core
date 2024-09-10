@@ -18,7 +18,7 @@ import { deepCopy } from '@ai-lowcode/utils'
 import { Icon } from '@iconify/vue'
 import { inject, onMounted, ref, watch } from 'vue'
 
-import AlEventEditor from '@/components/attrs-panel/src/components/event-editor.vue'
+import { AlCodeEditorAtom } from '@/atoms'
 import { DESIGNER_CTX } from '@/global'
 import { DesignerContext } from '@/types'
 import { addEditorThemeListener, findAndModifyById } from '@/utils'
@@ -418,7 +418,7 @@ onMounted(() => {
     </AlCollapseItem>
     <AlCollapseItem title="自定义样式" name="2">
       <div class="p-4">
-        <AlEventEditor
+        <AlCodeEditorAtom
           ref="editor"
           v-model="css"
           style="height: calc(100vh - 290px)"

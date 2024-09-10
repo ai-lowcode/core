@@ -18,6 +18,7 @@ import MenuTop from '@/layout/common/menu-top/index.vue'
 import setting from '@/layout/common/setting/index.vue'
 import { useAppStore } from '@/store/modules/app'
 import { useUserStore } from '@/store/modules/user'
+import { useFullscreen } from '@/utils/full-screen'
 
 const emits = defineEmits(['changeCollapse'])
 
@@ -29,6 +30,8 @@ const { appSettingConfig, changeAppSettingConfig } = toRefs(appStore)
 
 const settingRef = ref()
 
+const fullScreen = useFullscreen()
+
 const rightOperationConfig = [
   {
     icon: 'ic:round-search',
@@ -38,7 +41,9 @@ const rightOperationConfig = [
   {
     icon: 'ic:baseline-fullscreen',
     type: 'button',
-    click: () => {},
+    click: () => {
+      fullScreen.toggle()
+    },
   },
   {
     icon: 'ph:bell',

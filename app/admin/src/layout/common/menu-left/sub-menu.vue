@@ -31,7 +31,7 @@ const { appSettingConfig } = toRefs(appStore)
           <AlIcon>
             <Icon :icon="menu?.meta?.icon" />
           </AlIcon>
-          <span v-if="!firstLevel || !appSettingConfig.isCollapse ">{{ menu?.name }}</span>
+          <span v-if="!firstLevel || !appSettingConfig.isCollapse">{{ menu?.name }}</span>
         </div>
       </template>
       <SubMenu v-if="menu.children && menu.children.length" :menu-list="menu.children" />

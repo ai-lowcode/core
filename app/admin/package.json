@@ -22,6 +22,8 @@
     "@ai-lowcode/styles": "workspace:^",
     "@vueuse/core": "^11.0.3",
     "lodash": "^4.17.21",
+    "jsonlint-mod": "^1.7.6",
+    "codemirror": "^5",
     "pinia": "^2.2.2",
     "vue": "^3.5.3",
     "vue-router": "4"

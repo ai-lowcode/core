@@ -29,6 +29,6 @@ function handleClose(key: string, keyPath: string[]) {
     @open="handleOpen"
     @close="handleClose"
   >
-    <SubMenu :first-level="true" :menu-list="userStore.menuInfo" />
+    <SubMenu :menu-list="userStore.menuInfo" />
   </AlMenu>
 </template>

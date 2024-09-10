@@ -167,7 +167,7 @@ defineExpose({
 <template>
   <AlMain class="relative bg-[#F5F5F5] flex items-center justify-center" style="background: var(--el-color-primary-light-2);background-size: 15px 15px;">
     <div
-      class="relative bg-basic-color h-full border border-dashed border-active-color p-[2px] duration-300 overflow-auto shadow-workspace"
+      class="relative bg-basic-color h-full p-[2px] duration-300 overflow-auto shadow-workspace"
       :class="currentDevice"
     >
       <!-- 工作区表单展示区 -->

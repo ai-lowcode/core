@@ -20,7 +20,7 @@ export const TableSchema = <CompSchema>{
       label,
       name,
       // 值存储字段
-      field: `__${uniqueId()}`,
+      field: 'dataSource',
       // modelValue 绑定参数
       modelField: 'modelValue',
       props: {
@@ -55,21 +55,6 @@ export const TableSchema = <CompSchema>{
             },
             children: [
               {
-                type: 'al-data-source',
-                id: 'data',
-                field: 'props.data',
-                modelField: 'modelValue',
-              },
-            ],
-          },
-          {
-            type: 'al-form-item',
-            id: 'columnList',
-            props: {
-              label: '列字段',
-            },
-            children: [
-              {
                 type: 'al-button',
                 id: 'data',
                 props: {
@@ -79,98 +64,27 @@ export const TableSchema = <CompSchema>{
                   onClick() {
                     // eslint-disable-next-line ts/ban-ts-comment
                     // @ts-expect-error
-                    this.exposeApi.formData.value.value.visibleDialog = true
+                    this.exposeApi.formData.value.value.visibleDataSourceDialog = true
                   },
                 },
-                children: ['设置列字段'],
+                children: ['设置数据源'],
               },
               {
                 type: 'al-dialog',
                 id: 'dialog',
-                field: 'visibleDialog',
+                field: 'visibleDataSourceDialog',
                 modelField: 'modelValue',
                 props: {
-                  title: '设置字段列',
+                  title: '设置数据源',
                 },
                 children: [
                   {
-                    type: 'al-array-setter',
+                    type: 'al-data-source-atom',
                     id: 'array',
-                    field: 'props.columnList',
+                    field: 'props.dataSource',
                     modelField: 'modelValue',
                     props: {
                       class: 'flex item-center mt-2',
-                      items: [
-                        {
-                          type: 'div',
-                          id: 'input',
-                          props: {
-                            class: 'flex item-center flex-1 pr-[10px]',
-                          },
-                          children: [
-                            {
-                              type: 'div',
-                              id: 'input',
-                              props: {
-                                class: 'w-[60px]',
-                              },
-                              children: ['名称:'],
-                            },
-                            {
-                              type: 'al-input',
-                              id: 'input',
-                              field: 'label',
-                              modelField: 'modelValue',
-                            },
-                          ],
-                        },
-                        {
-                          type: 'div',
-                          id: 'input',
-                          props: {
-                            class: 'flex item-center flex-1 pr-[10px]',
-                          },
-                          children: [
-                            {
-                              type: 'div',
-                              id: 'input',
-                              props: {
-                                class: 'w-[60px]',
-                              },
-                              children: ['属性:'],
-                            },
-                            {
-                              type: 'al-input',
-                              id: 'input',
-                              field: 'property',
-                              modelField: 'modelValue',
-                            },
-                          ],
-                        },
-                        {
-                          type: 'div',
-                          id: 'input',
-                          props: {
-                            class: 'flex item-center flex-1 pr-[10px]',
-                          },
-                          children: [
-                            {
-                              type: 'div',
-                              id: 'input',
-                              props: {
-                                class: 'w-[60px]',
-                              },
-                              children: ['宽度:'],
-                            },
-                            {
-                              type: 'al-input',
-                              id: 'input',
-                              field: 'width',
-                              modelField: 'modelValue',
-                            },
-                          ],
-                        },
-                      ],
                     },
                   },
                   {
@@ -192,7 +106,7 @@ export const TableSchema = <CompSchema>{
                           onClick() {
                             // eslint-disable-next-line ts/ban-ts-comment
                             // @ts-expect-error
-                            this.exposeApi.formData.value.value.visibleDialog = false
+                            this.exposeApi.formData.value.value.visibleDataSourceDialog = false
                           },
                         },
                         children: ['取消'],
@@ -208,7 +122,93 @@ export const TableSchema = <CompSchema>{
                           onClick() {
                             // eslint-disable-next-line ts/ban-ts-comment
                             // @ts-expect-error
-                            this.exposeApi.formData.value.value.visibleDialog = false
+                            this.exposeApi.formData.value.value.visibleDataSourceDialog = false
+                          },
+                        },
+                        children: ['确定'],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: 'al-form-item',
+            id: 'columnList',
+            props: {
+              label: '列字段',
+            },
+            children: [
+              {
+                type: 'al-button',
+                id: 'data',
+                props: {
+                  type: 'primary',
+                },
+                events: {
+                  onClick() {
+                    // eslint-disable-next-line ts/ban-ts-comment
+                    // @ts-expect-error
+                    this.exposeApi.formData.value.value.visibleTableCoulmnDialog = true
+                  },
+                },
+                children: ['设置列字段'],
+              },
+              {
+                type: 'al-dialog',
+                id: 'dialog',
+                field: 'visibleTableCoulmnDialog',
+                modelField: 'modelValue',
+                props: {
+                  title: '设置字段列',
+                },
+                children: [
+                  {
+                    type: 'al-table-column-atom',
+                    id: 'array',
+                    field: 'props.columnList',
+                    modelField: 'modelValue',
+                    props: {
+                      class: 'flex item-center mt-2',
+                    },
+                  },
+                  {
+                    type: 'div',
+                    id: 'footer',
+                    slotName: 'footer',
+                    slotHidden: false,
+                    props: {
+                      label: '数据源',
+                    },
+                    children: [
+                      {
+                        type: 'al-button',
+                        id: 'button',
+                        props: {
+                          size: 'normal',
+                        },
+                        events: {
+                          onClick() {
+                            // eslint-disable-next-line ts/ban-ts-comment
+                            // @ts-expect-error
+                            this.exposeApi.formData.value.value.visibleTableCoulmnDialog = false
+                          },
+                        },
+                        children: ['取消'],
+                      },
+                      {
+                        type: 'al-button',
+                        id: 'button',
+                        props: {
+                          size: 'normal',
+                          type: 'primary',
+                        },
+                        events: {
+                          onClick() {
+                            // eslint-disable-next-line ts/ban-ts-comment
+                            // @ts-expect-error
+                            this.exposeApi.formData.value.value.visibleTableCoulmnDialog = false
                           },
                         },
                         children: ['确定'],

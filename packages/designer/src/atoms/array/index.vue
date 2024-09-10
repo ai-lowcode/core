@@ -5,7 +5,7 @@ import { Icon } from '@iconify/vue'
 import { ref, watch } from 'vue'
 
 defineOptions({
-  name: 'AlArraySetter',
+  name: 'AlArrayAtom',
 })
 
 const props = defineProps<{

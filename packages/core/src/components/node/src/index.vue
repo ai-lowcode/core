@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import {
-  computed,
   inject,
   onBeforeMount,
   onBeforeUnmount,
@@ -10,6 +9,7 @@ import {
   onUnmounted,
   onUpdated,
   ref,
+  watch,
 } from 'vue'
 
 import { FormDataType } from '../../renderer/src/index.vue'
@@ -32,12 +32,11 @@ const nodeData = ref()
 const formData = inject<FormDataType>('formData')
 
 // 处理 modelValue
-const modelValue = computed({
-  get() {
-    return formData?.getValueFromPath((props.componentSchema as Schema)?.field)
-  },
-  set() {},
-})
+const modelValue = ref(formData?.getValueFromPath((props.componentSchema as Schema)?.field))
+
+watch(() => formData?.getValueFromPath((props.componentSchema as Schema)?.field), (newValue) => {
+  modelValue.value = newValue
+}, { deep: true })
 
 const exposeApi = {
   data: {

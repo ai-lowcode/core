@@ -85,7 +85,7 @@
   background-color: var(--el-menu-hover-bg-color);
 }
 
-.el-menu-item:hover {
+.el-menu-item:hover, .el-sub-menu__title:hover {
   color: #fff;
 }
 

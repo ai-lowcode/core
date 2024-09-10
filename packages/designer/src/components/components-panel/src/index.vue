@@ -15,7 +15,7 @@ import { Icon } from '@iconify/vue'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 import AlDraggable from 'vuedraggable/src/vuedraggable'
 
-import { AlEventEditor } from '@/components/attrs-panel'
+import { AlCodeEditorAtom } from '@/atoms'
 import createMenu from '@/components/components-panel/src/config/menu.ts'
 import { ComponentMenu } from '@/enums'
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
@@ -271,7 +271,7 @@ onMounted(() => {
         <AlTabPane v-for="(item, index) in menuList" :key="index" :label="item.title" :name="item.name">
           <div class="mx-2">
             <AlDraggable
-              :group="{ name: 'default', pull: 'clone', put: true }"
+              :group="{ name: 'default', pull: 'clone', put: false }"
               :sort="false"
               item-key="name"
               class="flex flex-wrap"
@@ -359,7 +359,7 @@ onMounted(() => {
       class="flex-1 flex py-4 bg-basic-color border border-solid border-basic-color w-[272px]"
       :class="activeComponentMenu.menu === ComponentMenu.CODE && activeComponentMenu.expand ? 'animate-fade-in !block' : 'animate-fade-out !hidden'"
     >
-      <AlEventEditor
+      <AlCodeEditorAtom
         v-if="activeComponentMenu.menu === ComponentMenu.CODE && activeComponentMenu.expand"
         ref="editor"
         v-model="code"

@@ -1,41 +1,29 @@
 <script lang="ts" setup>
-import { AlTable, AlTableColumn } from '@ai-lowcode/element-plus'
+import { AlButton, AlTable, AlTableColumn } from '@ai-lowcode/element-plus'
 
 defineOptions({
   name: 'AlDataTable',
 })
 
 defineProps<{
-  modelValue: any
-  columnList: Array<any>
+  dataSource: any
+  columnList: any
 }>()
-
-const tableData = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-]
 </script>
 
 <template>
-  <AlTable :data="tableData" v-bind="$attrs">
-    <AlTableColumn v-for="(column, index) in columnList" :key="index" v-bind="column" />
+  <AlTable v-bind="$attrs" :data="dataSource?.()">
+    <AlTableColumn v-for="(column, index) in columnList?.()" :key="index" v-bind="column" />
+    <AlTableColumn fixed="right" label="操作" min-width="120">
+      <template>
+        <AlButton
+          link
+          type="primary"
+          size="small"
+        >
+          删除
+        </AlButton>
+      </template>
+    </AlTableColumn>
   </AlTable>
 </template>

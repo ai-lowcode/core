@@ -44,6 +44,7 @@
     "@ai-lowcode/utils": "workspace:^",
     "codemirror": "^5",
     "codemirror-editor-vue3": "^2.7.1",
+    "jsonlint-mod": "^1.7.6",
     "vue": "^3.5.3",
     "vuedraggable": "4.1.0"
   },

@@ -33,6 +33,6 @@ export function initComponents(app: App) {
   app.component(AlVueDragAble.name as string, AlVueDragAble)
   app.component(AlDataTable.name as string, AlDataTable)
   for (const atomsKey in Atoms) {
-    app.component(Atoms[atomsKey].name as string, Atoms[atomsKey])
+    app.component((Atoms as any)[atomsKey].name as string, (Atoms as any)[atomsKey])
   }
 }

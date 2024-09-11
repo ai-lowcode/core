@@ -43,7 +43,8 @@ import { SocketModule } from './socket/socket.module'
       useFactory: () => ({
         errorMessage: '当前操作过于频繁，请稍后再试！',
         throttlers: [
-          { ttl: seconds(10), limit: 7 },
+          // { ttl: seconds(10), limit: 7 },
+          { ttl: seconds(10), limit: 1000 },
         ],
       }),
     }),

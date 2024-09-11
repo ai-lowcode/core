@@ -57,7 +57,6 @@ function parseModelValue() {
     [(props.componentSchema as Schema)?.modelField as string]: modelValue,
     [`onUpdate:${(props.componentSchema as Schema)?.modelField}`]: (value: any) => {
       formData?.setValueAtPath((props.componentSchema as Schema)?.field, value)
-      console.log(formData?.value)
     },
   }
 }

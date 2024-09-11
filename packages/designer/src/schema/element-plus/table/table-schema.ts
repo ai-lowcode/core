@@ -165,7 +165,7 @@ export const TableSchema = <CompSchema>{
                 },
                 children: [
                   {
-                    type: 'al-table-column-atom',
+                    type: 'al-data-source-atom',
                     id: 'array',
                     field: 'props.columnList',
                     modelField: 'modelValue',

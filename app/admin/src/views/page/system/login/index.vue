@@ -28,7 +28,7 @@ const loginForm = ref({
 
 const verificationCode = ref({
   id: '',
-  img: '',
+  img: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
 })
 
 const showPassword = ref(false)
@@ -54,19 +54,23 @@ async function handleLogin() {
 
 async function handleVerificationCode() {
   const loading = AlLoading.service({
-    spinner: 'el-icon-loading',
+    customClass: 'al-verification-code',
     target: '.verification-code',
     background: 'rgba(255, 255, 255, 0.7)',
   })
-  const { data } = await AlHttp.get('/auth/captcha/img', {
-    width: 100,
-    height: 50,
-  }, {
-    isShowSuccessMessage: false,
-    isShowErrorMessage: false,
-  })
-  verificationCode.value = data
-  loading.close()
+  try {
+    const { data } = await AlHttp.get('/auth/captcha/img', {
+      width: 100,
+      height: 50,
+    }, {
+      isShowSuccessMessage: false,
+      isShowErrorMessage: false,
+    })
+    verificationCode.value = data
+  }
+  finally {
+    loading.close()
+  }
 }
 
 onMounted(() => {
@@ -120,3 +124,16 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+:deep(.al-verification-code){
+  .el-loading-spinner {
+    margin-top: -10px;
+
+    .circular {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+</style>

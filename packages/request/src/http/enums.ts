@@ -49,13 +49,13 @@ export enum ResponseCodeEnum {
   /**
    * 请求失败
    */
-  FAILURE = -1,
+  FAILURE = 0,
   /**
    * 请求失败
    */
-  FAIL = 1,
+  FAIL = 500,
   /**
    * 权限过期
    */
-  EXPIRED = 2,
+  EXPIRED = 1101,
 }

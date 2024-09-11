@@ -9,7 +9,7 @@ export const useAppStore = defineStore('app', () => {
     isCollapse: true,
     globalStyle: 'sun',
     themeColor: 'bg-white',
-    menuMode: '',
+    menuMode: 'left',
     tagStyle: '',
     grayMode: false,
     weaknessMode: false,

@@ -9,6 +9,7 @@ defineOptions({
 const props = defineProps<{
   dataSource: Promise<any> | any
   columnList: Promise<any> | any
+  operationBtn: any
 }>()
 
 const data = ref()
@@ -25,13 +26,15 @@ watchEffect(async () => {
   <AlTable v-bind="$attrs" :data="data">
     <AlTableColumn v-for="(column, index) in columns" :key="index" v-bind="column" />
     <AlTableColumn fixed="right" label="操作" min-width="120">
-      <template>
+      <template #default>
         <AlButton
+          v-for="(btn, index) in operationBtn"
+          :key="index"
           link
           type="primary"
           size="small"
         >
-          删除
+          {{ btn?.title }}
         </AlButton>
       </template>
     </AlTableColumn>

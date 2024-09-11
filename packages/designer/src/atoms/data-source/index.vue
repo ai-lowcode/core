@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { AlForm, AlFormItem, AlInput, AlRadioButton, AlRadioGroup } from '@ai-lowcode/element-plus'
+import { AlButton, AlForm, AlFormItem, AlInput, AlRadioButton, AlRadioGroup } from '@ai-lowcode/element-plus'
 import { AlHttp } from '@ai-lowcode/request'
 import { isJsonStringTryCatch } from '@ai-lowcode/utils'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 import { AlCodeEditorAtom } from '@/atoms'
 
@@ -10,7 +10,14 @@ defineOptions({
   name: 'AlDataSourceAtom',
 })
 
+const props = defineProps<{
+  confirmChange: Function
+  cancelChange: Function
+}>()
+
 const emits = defineEmits(['update:modelValue'])
+
+const requestRef = ref()
 
 const dataSource = ref()
 
@@ -35,8 +42,6 @@ const editorOptions = ref({
 
 const dataType = ref('staticData')
 
-const requestRef = ref()
-
 const modifyRequestForm = ref({
   name: '',
   url: '',
@@ -60,17 +65,16 @@ function dataRequestStrategy(newValue: any, type: string) {
   } as any)[type]?.()
 }
 
-watch(() => dataSource.value, (newValue) => {
+function handleData() {
   emits('update:modelValue', () => {
-    return dataRequestStrategy(newValue, dataType.value)
+    return dataRequestStrategy(dataSource.value, dataType.value)
   })
-})
+  props?.confirmChange?.()
+}
 
-watch(() => modifyRequestForm.value, (newValue) => {
-  emits('update:modelValue', () => {
-    return dataRequestStrategy(newValue, dataType.value)
-  })
-}, { deep: true })
+function cancel() {
+  props?.cancelChange?.()
+}
 </script>
 
 <template>
@@ -116,6 +120,14 @@ watch(() => modifyRequestForm.value, (newValue) => {
           <AlInput v-model="modifyRequestForm.params" type="text" autocomplete="off" />
         </AlFormItem>
       </AlForm>
+    </div>
+    <div class="flex justify-end mt-4">
+      <AlButton @click="cancel">
+        取消
+      </AlButton>
+      <AlButton type="primary" @click="handleData">
+        确定
+      </AlButton>
     </div>
   </div>
 </template>

@@ -86,48 +86,18 @@ export const TableSchema = <CompSchema>{
                     props: {
                       class: 'flex item-center mt-2',
                     },
-                  },
-                  {
-                    type: 'div',
-                    id: 'footer',
-                    slotName: 'footer',
-                    slotHidden: false,
-                    props: {
-                      label: '数据源',
+                    events: {
+                      confirmChange() {
+                        // eslint-disable-next-line ts/ban-ts-comment
+                        // @ts-expect-error
+                        this.exposeApi.formData.value.value.visibleDataSourceDialog = false
+                      },
+                      cancelChange() {
+                        // eslint-disable-next-line ts/ban-ts-comment
+                        // @ts-expect-error
+                        this.exposeApi.formData.value.value.visibleDataSourceDialog = false
+                      },
                     },
-                    children: [
-                      {
-                        type: 'al-button',
-                        id: 'button',
-                        props: {
-                          size: 'normal',
-                        },
-                        events: {
-                          onClick() {
-                            // eslint-disable-next-line ts/ban-ts-comment
-                            // @ts-expect-error
-                            this.exposeApi.formData.value.value.visibleDataSourceDialog = false
-                          },
-                        },
-                        children: ['取消'],
-                      },
-                      {
-                        type: 'al-button',
-                        id: 'button',
-                        props: {
-                          size: 'normal',
-                          type: 'primary',
-                        },
-                        events: {
-                          onClick() {
-                            // eslint-disable-next-line ts/ban-ts-comment
-                            // @ts-expect-error
-                            this.exposeApi.formData.value.value.visibleDataSourceDialog = false
-                          },
-                        },
-                        children: ['确定'],
-                      },
-                    ],
                   },
                 ],
               },
@@ -150,7 +120,7 @@ export const TableSchema = <CompSchema>{
                   onClick() {
                     // eslint-disable-next-line ts/ban-ts-comment
                     // @ts-expect-error
-                    this.exposeApi.formData.value.value.visibleTableCoulmnDialog = true
+                    this.exposeApi.formData.value.value.visibleTableColumnDialog = true
                   },
                 },
                 children: ['设置列字段'],
@@ -158,7 +128,7 @@ export const TableSchema = <CompSchema>{
               {
                 type: 'al-dialog',
                 id: 'dialog',
-                field: 'visibleTableCoulmnDialog',
+                field: 'visibleTableColumnDialog',
                 modelField: 'modelValue',
                 props: {
                   title: '设置字段列',
@@ -172,50 +142,94 @@ export const TableSchema = <CompSchema>{
                     props: {
                       class: 'flex item-center mt-2',
                     },
-                  },
-                  {
-                    type: 'div',
-                    id: 'footer',
-                    slotName: 'footer',
-                    slotHidden: false,
-                    props: {
-                      label: '数据源',
+                    events: {
+                      confirmChange() {
+                        // eslint-disable-next-line ts/ban-ts-comment
+                        // @ts-expect-error
+                        this.exposeApi.formData.value.value.visibleTableColumnDialog = false
+                      },
+                      cancelChange() {
+                        // eslint-disable-next-line ts/ban-ts-comment
+                        // @ts-expect-error
+                        this.exposeApi.formData.value.value.visibleTableColumnDialog = false
+                      },
                     },
-                    children: [
-                      {
-                        type: 'al-button',
-                        id: 'button',
-                        props: {
-                          size: 'normal',
-                        },
-                        events: {
-                          onClick() {
-                            // eslint-disable-next-line ts/ban-ts-comment
-                            // @ts-expect-error
-                            this.exposeApi.formData.value.value.visibleTableCoulmnDialog = false
-                          },
-                        },
-                        children: ['取消'],
-                      },
-                      {
-                        type: 'al-button',
-                        id: 'button',
-                        props: {
-                          size: 'normal',
-                          type: 'primary',
-                        },
-                        events: {
-                          onClick() {
-                            // eslint-disable-next-line ts/ban-ts-comment
-                            // @ts-expect-error
-                            this.exposeApi.formData.value.value.visibleTableCoulmnDialog = false
-                          },
-                        },
-                        children: ['确定'],
-                      },
-                    ],
                   },
                 ],
+              },
+            ],
+          },
+          {
+            type: 'al-form-item',
+            id: 'operationBtn',
+            props: {
+              label: '操作按钮',
+            },
+            children: [
+              {
+                type: 'al-array-atom',
+                id: 'operationBtn',
+                field: 'props.operationBtn',
+                modelField: 'modelValue',
+                props: {
+                  popoverProps: {
+                    title: '设置操作按钮',
+                  },
+                  items: [
+                    {
+                      type: 'div',
+                      id: 'div',
+                      props: {
+                        class: 'flex item-center',
+                      },
+                      children: [
+                        {
+                          type: 'div',
+                          id: 'div',
+                          props: {
+                            class: 'w-[40px] text-left',
+                          },
+                          children: ['标题:'],
+                        },
+                        {
+                          type: 'al-input',
+                          id: 'title',
+                          field: 'title',
+                          modelField: 'modelValue',
+                          props: {
+                            class: 'flex-1',
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      type: 'div',
+                      id: 'div',
+                      props: {
+                        class: 'flex item-center mt-2',
+                      },
+                      children: [
+                        {
+                          type: 'div',
+                          id: 'div',
+                          props: {
+                            class: 'w-[40px] text-left',
+                          },
+                          children: ['图标:'],
+                        },
+                        {
+                          type: 'al-input',
+                          id: 'icon',
+                          field: 'icon',
+                          modelField: 'modelValue',
+                          props: {
+                            class: 'flex-1',
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
               },
             ],
           },

@@ -12,61 +12,61 @@ import {
   watch,
 } from 'vue'
 
-import { FormDataType } from '../../renderer/src/index.vue'
-
 import { Schema } from './types'
+
+import { FormDataType, GlobalInstanceType } from '@/components'
 
 defineOptions({
   name: 'AlNode',
 })
 
 const props = defineProps<{
-  componentSchema: Schema | string
+  componentSchema: Schema
 }>()
 
 const componentRef = ref()
 const childrenRef = ref()
 const slotRef = ref()
-const nodeData = ref()
 
 const formData = inject<FormDataType>('formData')
 
-// 处理 modelValue
-const modelValue = ref(formData?.getValueFromPath((props.componentSchema as Schema)?.field))
+const globalInstance = inject<GlobalInstanceType>('globalInstance')
 
-watch(() => formData?.getValueFromPath((props.componentSchema as Schema)?.field), (newValue) => {
+// 处理 modelValue
+const modelValue = ref(formData?.getValueFromPath(props.componentSchema?.field))
+
+watch(() => formData?.getValueFromPath(props.componentSchema?.field), (newValue) => {
   modelValue.value = newValue
 }, { deep: true })
 
 const exposeApi = {
-  data: {
-    [(props.componentSchema as Schema).type!]: nodeData,
-  },
   componentRef,
   childrenRef,
   slotRef,
   modelValue,
   formData,
+  __schema: props.componentSchema,
 }
 
 // 处理 modelValue
 function parseModelValue() {
-  formData?.generateObjectFromPath((props.componentSchema as Schema)?.field)
-  formData?.setValueAtPath((props.componentSchema as Schema)?.field, (props.componentSchema as Schema)?.defaultValue)
+  formData?.generateObjectFromPath(props.componentSchema?.field)
+  formData?.setValueAtPath(props.componentSchema?.field, props.componentSchema?.defaultValue)
   return {
-    [(props.componentSchema as Schema)?.modelField as string]: modelValue,
-    [`onUpdate:${(props.componentSchema as Schema)?.modelField}`]: (value: any) => {
-      formData?.setValueAtPath((props.componentSchema as Schema)?.field, value)
+    [props.componentSchema?.modelField as string]: modelValue,
+    [`onUpdate:${props.componentSchema?.modelField}`]: (value: any) => {
+      formData?.setValueAtPath(props.componentSchema?.field, value)
     },
   }
 }
 
 function injectContextToEvents() {
   const newEvents: Record<string, any> = {}
-  for (const eventsKey in (props.componentSchema as Schema)?.events) {
-    newEvents[eventsKey] = (props.componentSchema as Schema)?.events?.[eventsKey].bind({
+  for (const eventsKey in props.componentSchema?.events) {
+    newEvents[eventsKey] = props.componentSchema?.events?.[eventsKey]?.run?.bind({
       exposeApi,
       props,
+      globalInstance,
     })
   }
   return newEvents
@@ -74,52 +74,46 @@ function injectContextToEvents() {
 
 // 组装绑定数据
 const bindValue = ref({
-  ...(props.componentSchema as Schema)?.props,
-  ...(props.componentSchema as Schema)?.binds,
+  ...props.componentSchema?.props,
+  ...props.componentSchema?.binds,
   ...injectContextToEvents(),
-  id: (props.componentSchema as Schema).id,
+  id: props.componentSchema.id,
   ...parseModelValue(),
   __schema: props.componentSchema,
 })
 
 onBeforeMount(() => {
-  if (typeof props.componentSchema !== 'string')
-    props.componentSchema?.lifeCycle?.onBeforeMount?.(exposeApi)
+  props.componentSchema?.lifeCycle?.onBeforeMount?.run?.()
 })
 
 onMounted(() => {
-  if (typeof props.componentSchema !== 'string')
-    props.componentSchema?.lifeCycle?.onMounted?.(exposeApi)
+  globalInstance?.setInstance(props.componentSchema?.name as string, exposeApi)
+  props.componentSchema?.lifeCycle?.onMounted?.run?.()
 })
 
 onBeforeUpdate(() => {
-  if (typeof props.componentSchema !== 'string')
-    props.componentSchema?.lifeCycle?.onBeforeUpdate?.(exposeApi)
+  props.componentSchema?.lifeCycle?.onBeforeUpdate?.run?.()
 })
 
 onUpdated(() => {
-  if (typeof props.componentSchema !== 'string')
-    props.componentSchema?.lifeCycle?.onUpdated?.(exposeApi)
+  props.componentSchema?.lifeCycle?.onUpdated?.run?.()
 })
 
 onBeforeUnmount(() => {
-  if (typeof props.componentSchema !== 'string')
-    props.componentSchema?.lifeCycle?.onBeforeUnmount?.(exposeApi)
+  props.componentSchema?.lifeCycle?.onBeforeUnmount?.run?.()
 })
 
 onUnmounted(() => {
-  if (typeof props.componentSchema !== 'string')
-    props.componentSchema?.lifeCycle?.onUnmounted?.(exposeApi)
+  props.componentSchema?.lifeCycle?.onUnmounted?.run?.()
 })
 
 onErrorCaptured(() => {
-  if (typeof props.componentSchema !== 'string')
-    props.componentSchema?.lifeCycle?.onErrorCaptured?.(exposeApi)
+  props.componentSchema?.lifeCycle?.onErrorCaptured?.run?.()
 })
 
 defineExpose(exposeApi)
 
-const newComponentSchema = props.componentSchema?.children?.map((child) => {
+const newComponentSchema = props.componentSchema?.children?.map((child: any) => {
   return typeof child === 'string'
     ? {
         content: child,
@@ -133,9 +127,9 @@ const newComponentSchema = props.componentSchema?.children?.map((child) => {
 </script>
 
 <template>
-  <component :is="componentSchema?.type" v-if="typeof componentSchema !== 'string' && !componentSchema?.slotHidden" ref="componentRef" v-bind="bindValue">
-    <template v-for="childrens in newComponentSchema" #[childrens.slotName]>
-      <AlNode v-for="(schema, index) in newComponentSchema.filter(i => i?.slotName === childrens?.slotName)" :key="index" ref="childrenRef" :component-schema="schema" />
+  <component :is="componentSchema?.type" v-if="!componentSchema?.slotHidden" ref="componentRef" v-bind="bindValue">
+    <template v-for="children in newComponentSchema" #[children.slotName]>
+      <AlNode v-for="(schema, index) in newComponentSchema.filter(i => i?.slotName === children?.slotName)" :key="index" ref="childrenRef" :component-schema="schema" />
     </template>
   </component>
   <template v-if="typeof componentSchema?.content === 'string'">

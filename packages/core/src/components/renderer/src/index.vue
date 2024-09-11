@@ -4,7 +4,7 @@ import { nextTick, provide, ref, watch } from 'vue'
 
 import { AlNode } from '../../node'
 
-import { FormDataType } from './types'
+import { FormDataType, GlobalInstanceType } from './types'
 
 import { Schema } from '@/components'
 
@@ -21,6 +21,16 @@ const nodeRef = ref()
 
 const formData = ref<Record<string, any>>(props.modelValue ?? {})
 
+const exposeApi = {
+  updateComponent,
+  nodeRef,
+  formData,
+}
+
+const instanceBus = ref<Record<string, any>>({
+  renderer: exposeApi,
+})
+
 provide<FormDataType>('formData', {
   value: formData,
   getValueFromPath: (path?: string) => {
@@ -34,6 +44,16 @@ provide<FormDataType>('formData', {
   setValueAtPath: (path?: string, newValue?: any) => {
     if (path)
       return setValueAtPath(formData.value, path, newValue)
+  },
+})
+
+provide<GlobalInstanceType>('globalInstance', {
+  value: instanceBus,
+  getInstanceFromKey: (key: string) => {
+    return instanceBus.value[key]
+  },
+  setInstance: (key: string, value: any) => {
+    instanceBus.value[key] = value
   },
 })
 
@@ -68,11 +88,7 @@ function updateComponent(form: Record<string, any>) {
   updateRender()
 }
 
-defineExpose({
-  updateComponent,
-  nodeRef,
-  formData,
-})
+defineExpose(exposeApi)
 </script>
 
 <template>

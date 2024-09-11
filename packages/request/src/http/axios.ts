@@ -160,15 +160,15 @@ export class AlAxios {
   /**
    * GET请求
    * @param {string} url 请求路径
-   * @param {*} data 请求参数
+   * @param {*} params 请求参数
    * @param {RequestOptionsType} options 请求选项
    * @returns 请求结果
    */
-  get<T = any>(url: string, data?: any, options?: RequestOptionsType): Promise<CommonResultType<T>> {
+  get<T = any>(url: string, params?: any, options?: RequestOptionsType): Promise<CommonResultType<T>> {
     return this.request<T>(
       {
         url,
-        data,
+        params,
         method: RequestMethodEnum.GET,
       },
       options,

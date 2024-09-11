@@ -94,7 +94,24 @@ const events = ref<Array<EventGroup>>([
 ])
 
 watch(() => context?.selectComponent, () => {
-  events.value[0].children = compSchema.value?.events?.()
+  findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.selectComponent?.value.id, (node: Schema) => {
+    const newEvents: any = []
+    compSchema.value?.events?.()?.forEach((e) => {
+      newEvents.push({
+        ...e,
+        children: node?.events?.[e.key]?.__event?.children || [],
+      })
+    })
+    events.value[0].children = newEvents
+    const lifeEvents: any = []
+    events.value[1].children.forEach((e) => {
+      lifeEvents.push({
+        ...e,
+        children: node?.lifeCycle?.[e.key]?.__event?.children || [],
+      })
+    })
+    events.value[1].children = lifeEvents
+  })
 }, {
   deep: true,
 })
@@ -114,7 +131,7 @@ function handleEvent(option?: string, eventGroupIndex?: number, eventIndex?: num
       eventIndex,
       eventItemIdx,
     }
-    code.value = events.value[eventGroupIndex!].children[eventIndex!].children?.[eventItemIdx!]
+    code.value = events.value[eventGroupIndex!].children[eventIndex!].children?.[eventItemIdx!]?.code
   }
   if (option === 'add') {
     editOption.value = {
@@ -149,27 +166,41 @@ function confirmEvent() {
   const currentEvent = events.value[editOption.value?.eventGroupIndex].children[editOption.value?.eventIndex]
   // 添加事件
   if (editOption.value?.option === 'add') {
-    if (currentEvent.children?.length)
-      currentEvent.children.push(code.value)
-    else currentEvent.children = [code.value]
+    if (currentEvent.children?.length) {
+      currentEvent.children.push({
+        code: code.value,
+      })
+    }
+    else {
+      currentEvent.children = [{
+        code: code.value,
+      }]
+    }
   }
   // 编辑事件
-  if (editOption.value?.option === 'edit')
-    currentEvent.children?.splice(editOption.value?.idx, 1, code.value)
+  if (editOption.value?.option === 'edit') {
+    currentEvent.children?.splice(editOption.value?.idx, 1, {
+      code: code.value,
+    })
+  }
   // 调用函数，查找并修改
   const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.selectComponent?.value.id, (node: Schema) => {
     const index = deepCopy(events.value[editOption.value?.eventGroupIndex].children[editOption.value?.eventIndex])
     // 修改事件
     node[events.value[editOption.value?.eventGroupIndex].key as keyof Schema] = {
       ...node[events.value[editOption.value?.eventGroupIndex].key as keyof Schema],
-      [index.key]: async (...arg: any) => {
-        const elementPlus = await import('@ai-lowcode/element-plus')
-        index.children?.map((event: string) => {
-          (new Function('api', event)).bind({
-            arg,
-            elementPlus,
-          })(arg)
-        })
+      [index.key]: {
+        __event: index,
+        async run(...arg: any) {
+          const elementPlus = await import('@ai-lowcode/element-plus')
+          index.children?.map((event: any) => {
+            (new Function('api', event?.code)).bind({
+              arg,
+              instance: this,
+              elementPlus,
+            })(arg)
+          })
+        },
       },
     }
   })

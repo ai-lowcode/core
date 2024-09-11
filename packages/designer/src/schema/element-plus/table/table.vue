@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { AlButton, AlTable, AlTableColumn } from '@ai-lowcode/element-plus'
-import { ref, watchEffect } from 'vue'
+import { AlButton, AlLoading, AlTable, AlTableColumn } from '@ai-lowcode/element-plus'
+import { onMounted, ref } from 'vue'
 
 defineOptions({
   name: 'AlDataTable',
@@ -14,29 +14,47 @@ const props = defineProps<{
 
 const data = ref()
 
+const tableRef = ref()
+
 const columns = ref()
 
-watchEffect(async () => {
-  data.value = await props.dataSource?.()
+async function handleData(params?: any, options?: any) {
+  const loading = AlLoading.service({
+    text: 'Loading',
+    target: tableRef.value,
+    background: 'rgba(0, 0, 0, 0.7)',
+  })
+  data.value = await props.dataSource?.(params, options)
   columns.value = await props.columnList?.()
+  loading.close()
+}
+
+onMounted(async () => {
+  await handleData()
+})
+
+defineExpose({
+  handleData,
 })
 </script>
 
 <template>
-  <AlTable v-bind="$attrs" :data="data">
-    <AlTableColumn v-for="(column, index) in columns" :key="index" v-bind="column" />
-    <AlTableColumn fixed="right" label="操作" min-width="120">
-      <template #default>
-        <AlButton
-          v-for="(btn, index) in operationBtn"
-          :key="index"
-          link
-          type="primary"
-          size="small"
-        >
-          {{ btn?.title }}
-        </AlButton>
-      </template>
-    </AlTableColumn>
-  </AlTable>
+  <div ref="tableRef">
+    <AlTable v-bind="$attrs" :data="data">
+      <AlTableColumn v-for="(column, index) in columns" :key="index" v-bind="column" />
+      <AlTableColumn fixed="right" label="操作" min-width="120">
+        <template #default>
+          <AlButton
+            v-for="(btn, index) in operationBtn"
+            :key="index"
+            type="primary"
+            size="small"
+            v-bind="btn"
+          >
+            {{ btn?.title }}
+          </AlButton>
+        </template>
+      </AlTableColumn>
+    </AlTable>
+  </div>
 </template>

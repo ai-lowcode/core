@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { AlButton, AlForm, AlFormItem, AlInput, AlRadioButton, AlRadioGroup } from '@ai-lowcode/element-plus'
-import { AlHttp } from '@ai-lowcode/request'
+import { AlHttp, RequestOptionsType } from '@ai-lowcode/request'
 import { isJsonStringTryCatch } from '@ai-lowcode/utils'
 import { ref } from 'vue'
 
@@ -46,11 +46,11 @@ const modifyRequestForm = ref({
   name: '',
   url: '',
   method: 'get',
-  header: '',
-  params: '',
+  header: {},
+  params: {},
 })
 
-function dataRequestStrategy(newValue: any, type: string) {
+function dataRequestStrategy(newValue: any, type: string, params?: any, options?: RequestOptionsType, target?: any) {
   return ({
     staticData: () => {
       return isJsonStringTryCatch(newValue) ? JSON.parse(newValue) : undefined
@@ -58,7 +58,14 @@ function dataRequestStrategy(newValue: any, type: string) {
     dataSource: () => {},
     modifyApi: async () => {
       if (modifyRequestForm.value.url) {
-        const { data } = await (AlHttp as any)?.[modifyRequestForm.value.method]?.(modifyRequestForm.value.url, modifyRequestForm.value.params, {})
+        console.log(params, options)
+        const { data } = await (AlHttp as any)?.[modifyRequestForm.value.method]?.(modifyRequestForm.value.url, {
+          ...modifyRequestForm.value.params,
+          ...params,
+        }, {
+          header: modifyRequestForm.value.header,
+          ...options,
+        })
         return data
       }
     },
@@ -66,8 +73,8 @@ function dataRequestStrategy(newValue: any, type: string) {
 }
 
 function handleData() {
-  emits('update:modelValue', () => {
-    return dataRequestStrategy(dataSource.value, dataType.value)
+  emits('update:modelValue', async (params?: any, options?: RequestOptionsType) => {
+    return await dataRequestStrategy(dataSource.value, dataType.value, params, options)
   })
   props?.confirmChange?.()
 }

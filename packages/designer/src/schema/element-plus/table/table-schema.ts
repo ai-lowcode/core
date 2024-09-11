@@ -61,10 +61,12 @@ export const TableSchema = <CompSchema>{
                   type: 'primary',
                 },
                 events: {
-                  onClick() {
-                    // eslint-disable-next-line ts/ban-ts-comment
-                    // @ts-expect-error
-                    this.exposeApi.formData.value.value.visibleDataSourceDialog = true
+                  onClick: {
+                    run() {
+                      // eslint-disable-next-line ts/ban-ts-comment
+                      // @ts-expect-error
+                      this.exposeApi.formData.value.value.visibleDataSourceDialog = true
+                    },
                   },
                 },
                 children: ['设置数据源'],
@@ -87,15 +89,19 @@ export const TableSchema = <CompSchema>{
                       class: 'flex item-center mt-2',
                     },
                     events: {
-                      confirmChange() {
-                        // eslint-disable-next-line ts/ban-ts-comment
-                        // @ts-expect-error
-                        this.exposeApi.formData.value.value.visibleDataSourceDialog = false
+                      confirmChange: {
+                        run() {
+                          // eslint-disable-next-line ts/ban-ts-comment
+                          // @ts-expect-error
+                          this.exposeApi.formData.value.value.visibleDataSourceDialog = false
+                        },
                       },
-                      cancelChange() {
-                        // eslint-disable-next-line ts/ban-ts-comment
-                        // @ts-expect-error
-                        this.exposeApi.formData.value.value.visibleDataSourceDialog = false
+                      cancelChange: {
+                        run() {
+                          // eslint-disable-next-line ts/ban-ts-comment
+                          // @ts-expect-error
+                          this.exposeApi.formData.value.value.visibleDataSourceDialog = false
+                        },
                       },
                     },
                   },
@@ -117,10 +123,12 @@ export const TableSchema = <CompSchema>{
                   type: 'primary',
                 },
                 events: {
-                  onClick() {
-                    // eslint-disable-next-line ts/ban-ts-comment
-                    // @ts-expect-error
-                    this.exposeApi.formData.value.value.visibleTableColumnDialog = true
+                  onClick: {
+                    run() {
+                      // eslint-disable-next-line ts/ban-ts-comment
+                      // @ts-expect-error
+                      this.exposeApi.formData.value.value.visibleTableColumnDialog = true
+                    },
                   },
                 },
                 children: ['设置列字段'],
@@ -143,15 +151,19 @@ export const TableSchema = <CompSchema>{
                       class: 'flex item-center mt-2',
                     },
                     events: {
-                      confirmChange() {
-                        // eslint-disable-next-line ts/ban-ts-comment
-                        // @ts-expect-error
-                        this.exposeApi.formData.value.value.visibleTableColumnDialog = false
+                      confirmChange: {
+                        run() {
+                          // eslint-disable-next-line ts/ban-ts-comment
+                          // @ts-expect-error
+                          this.exposeApi.formData.value.value.visibleTableColumnDialog = false
+                        },
                       },
-                      cancelChange() {
-                        // eslint-disable-next-line ts/ban-ts-comment
-                        // @ts-expect-error
-                        this.exposeApi.formData.value.value.visibleTableColumnDialog = false
+                      cancelChange: {
+                        run() {
+                          // eslint-disable-next-line ts/ban-ts-comment
+                          // @ts-expect-error
+                          this.exposeApi.formData.value.value.visibleTableColumnDialog = false
+                        },
                       },
                     },
                   },

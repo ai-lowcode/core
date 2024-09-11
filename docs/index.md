@@ -1,11 +1,16 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
+title: ai-lowcode 文档
+titleTemplate: 开发中，尽请期待～
+
 hero:
-  name: "ai-lowcode 文档"
-  text: "开发中，尽请期待～"
+  name: ai-lowcode 文档
+  text: 开发中，尽请期待～
   tagline: ai 低代码设计器
+  image:
+    src: /logo.png
+    alt: Vite
   actions:
     - theme: brand
       text: 预览管理端

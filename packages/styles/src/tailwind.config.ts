@@ -38,6 +38,10 @@ export default {
         'menu-color': 'var(--al-menu-bg-color)',
         'hover-color': 'var(--al-hover-bg-color)',
       },
+      backgroundImage: {
+        'workspace-white': 'linear-gradient(#f5f5f5 14px,transparent 0),linear-gradient(90deg,transparent 14px,#86909c 0)',
+        'workspace-dark': 'linear-gradient(#18181c 14px,transparent 0),linear-gradient(90deg,transparent 14px,#4e5969 0)',
+      },
       outlineColor: {
         'active-color': 'var(--al-text-active-color)',
       },

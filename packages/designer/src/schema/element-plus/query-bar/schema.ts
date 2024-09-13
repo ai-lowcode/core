@@ -25,7 +25,7 @@ export const QueryBarSchema = <CompSchema>{
           id: `__${uniqueId()}`,
           label: '拖拽区',
           props: {
-            class: 'min-h-[30px] w-[200px] bg-basic-color',
+            class: 'min-h-[30px] w-[200px] flex flex-wrap bg-basic-color',
           },
           slotHidden: false,
           children: [],

@@ -13,7 +13,7 @@ defineProps<{
 
 <template>
   <div class="flex justify-between items-center w-full" v-bind="$attrs">
-    <div class="flex-1 flex items-center">
+    <div class="flex-1 flex flex-wrap items-center">
       <slot />
     </div>
     <div>

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { AlRenderer, Schema } from '@ai-lowcode/core'
 import { AlMain } from '@ai-lowcode/element-plus'
-import { deepCopy, uniqueId } from '@ai-lowcode/utils'
+import { webStorage } from '@ai-lowcode/hooks'
+import { AlHttp } from '@ai-lowcode/request'
+import { deepCopy, isJsonStringTryCatch, uniqueId } from '@ai-lowcode/utils'
 import { onMounted, ref } from 'vue'
 
 import { DeviceEnum } from '@/enums'
@@ -19,6 +21,10 @@ const formData = ref()
 
 const rendererRef = ref()
 
+const workspaceScale = ref(1)
+
+const currentSelectPage = ref(webStorage.getStorageFromKey('__current_select_page'))
+
 const currentDevice = ref(DeviceEnum.PC)
 
 const schema = ref<Array<Schema>>([])
@@ -34,6 +40,15 @@ const options = ref({
     console.log(api)
   },
 })
+
+function changeSelectPage(page: any) {
+  currentSelectPage.value = page
+  webStorage.setStorage('__current_select_page', page)
+}
+
+function changeWorkspaceScale(scale: number) {
+  workspaceScale.value = scale
+}
 
 /**
  * 修改 options
@@ -145,8 +160,16 @@ function clearPage() {
   ]
 }
 
+async function initPageSchema() {
+  if (currentSelectPage.value?.id) {
+    const { data } = await AlHttp.get(`/lowcode/pages/${currentSelectPage.value?.id}`)
+    console.log(JSON.parse(data?.content))
+    schema.value = isJsonStringTryCatch(data?.content) ? JSON.parse(data?.content) : clearPage()
+  }
+}
+
 onMounted(() => {
-  clearPage()
+  initPageSchema()
 })
 
 defineExpose({
@@ -159,15 +182,20 @@ defineExpose({
   changeOptions,
   clearPage,
   changeSchema,
+  workspaceScale,
+  currentSelectPage,
+  changeSelectPage,
+  changeWorkspaceScale,
   schema,
   options,
 })
 </script>
 
 <template>
-  <AlMain class="relative bg-[#F5F5F5] flex items-center justify-center" style="background: var(--el-color-primary-light-2);background-size: 15px 15px;">
+  <AlMain class="relative bg-workspace-white bg-[#f5f5f5] dark:bg-workspace-dark dark:bg-[#18181c] flex items-center justify-center" style="background-size: 15px 15px;">
     <div
       class="relative bg-basic-color h-full p-[2px] duration-300 overflow-auto workspace shadow-workspace"
+      :style="`transform: scale(${workspaceScale});`"
       :class="currentDevice"
     >
       <!-- 工作区表单展示区 -->
@@ -189,6 +217,6 @@ defineExpose({
 
 .pc{
   width: 100%;
-  height: 94%;
+  height: 100%;
 }
 </style>

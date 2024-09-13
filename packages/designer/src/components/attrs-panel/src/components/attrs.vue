@@ -120,7 +120,7 @@ watch(() => context?.selectComponent, (newValue) => {
 
 <template>
   <AlCollapse :model-value="['1', '2', '3']">
-    <AlCollapseItem v-if="context?.selectComponent?.value?.id !== PAGE_COMP" title="基础属性" name="1">
+    <AlCollapseItem v-show="context?.selectComponent?.value?.id !== PAGE_COMP" title="基础属性" name="1">
       <div class="p-4">
         <AlRenderer ref="fieldRef" v-model="fieldData" :schemas="context?.selectComponent?.value?.field === PAGE_COMP ? {} : FieldAttrsSchema" />
       </div>

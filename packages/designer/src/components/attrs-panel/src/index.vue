@@ -3,13 +3,19 @@ import {
   AlTabPane,
   AlTabs,
 } from '@ai-lowcode/element-plus'
-import { ref } from 'vue'
+import { inject, ref } from 'vue'
 
 import CompAttrs from './components/attrs.vue'
 import CompEvent from './components/event.vue'
 import CompStyle from './components/style.vue'
 
+import { DESIGNER_CTX, PAGE_COMP } from '@/global'
+import { DesignerContext } from '@/types'
+
 const activeTab = ref('props')
+
+// 全局上下文
+const context = inject<DesignerContext>(DESIGNER_CTX)
 </script>
 
 <template>
@@ -19,7 +25,7 @@ const activeTab = ref('props')
       class="h-full attrs-content border border-solid border-basic-color bg-basic-color"
       stretch
     >
-      <AlTabPane label="属性" name="props" class="h-full overflow-auto">
+      <AlTabPane v-show="context?.selectComponent?.value.field !== PAGE_COMP" label="属性" name="props" class="h-full overflow-auto">
         <CompAttrs />
       </AlTabPane>
       <AlTabPane label="外观" name="style" class="h-full overflow-auto">

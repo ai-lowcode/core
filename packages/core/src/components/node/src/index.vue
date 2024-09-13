@@ -62,7 +62,7 @@ const bindValue = ref({
   ...props.componentSchema?.props,
   ...props.componentSchema?.binds,
   ...injectContextToEvents(),
-  id: props.componentSchema.id,
+  id: props.componentSchema?.id,
   ...parseModelValue(),
   __schema: props.componentSchema,
 })

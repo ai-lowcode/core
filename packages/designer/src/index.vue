@@ -5,6 +5,7 @@ import { AlContainer } from '@ai-lowcode/element-plus'
 import { provide, ref } from 'vue'
 
 import { AlAttrsPanel, AlComponentsPanel, AlHeader, AlWorkspace } from '@/components'
+import { AlFooter } from '@/components/footer'
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
 import { DesignerContext } from '@/types'
 
@@ -35,6 +36,7 @@ provide<DesignerContext>(DESIGNER_CTX, {
     <AlContainer class="flex flex-col">
       <AlHeader />
       <AlWorkspace ref="workspaceRef" />
+      <AlFooter />
     </AlContainer>
     <AlAttrsPanel />
   </div>

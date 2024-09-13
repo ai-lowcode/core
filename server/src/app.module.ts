@@ -8,6 +8,7 @@ import type { FastifyRequest } from 'fastify'
 import { ClsModule } from 'nestjs-cls'
 
 import config from '~/config'
+import { LowcodeModule } from '~/modules/lowcode/lowcode.module'
 import { SharedModule } from '~/shared/shared.module'
 
 import { AllExceptionsFilter } from './common/filters/any-exception.filter'
@@ -68,6 +69,7 @@ import { SocketModule } from './socket/socket.module'
 
     AuthModule,
     SystemModule,
+    LowcodeModule,
     TasksModule.forRoot(),
     ToolsModule,
     SocketModule,

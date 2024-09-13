@@ -213,6 +213,16 @@ const style = ref({
   opacity: 0,
 })
 
+const classList = ref('')
+
+watch(() => classList.value, () => {
+  // 调用函数，查找并修改
+  const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.selectComponent?.value.id, (node: Schema) => {
+    node.props.class = classList.value
+  })
+  context?.workspaceRef?.value.changeSchema(newNodes)
+})
+
 // 监听插槽变化
 watch(() => style.value, () => {
   // 调用函数，查找并修改
@@ -236,6 +246,7 @@ watch(() => context?.selectComponent, (newValue) => {
       opacity: node.props?.opacity * 100,
       scale: node.props?.scale * 100,
     }
+    classList.value = node.props?.class
   })
 }, {
   deep: true,
@@ -411,6 +422,9 @@ onMounted(() => {
             </AlFormItem>
             <AlFormItem label="缩放">
               <AlSlider v-model="style.scale" />
+            </AlFormItem>
+            <AlFormItem label="类样式">
+              <AlInput v-model="classList" type="textarea" />
             </AlFormItem>
           </AlForm>
         </div>

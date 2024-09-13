@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlRenderer } from '@ai-lowcode/core'
+import { AlRenderer, Schema } from '@ai-lowcode/core'
 import { AlButton, AlIcon, AlPopover } from '@ai-lowcode/element-plus'
 import { Icon } from '@iconify/vue'
 import { ref, watch } from 'vue'
@@ -20,6 +20,35 @@ const data = ref(props.modelValue ?? [])
 
 function deleteData(index: number) {
   data.value.splice(index, 1)
+}
+
+function getBlockSchema(items: Array<Schema> | Schema) {
+  // 如果是数组，遍历每个元素
+  if (Array.isArray(items)) {
+    for (const item of items) {
+      const result = getBlockSchema(item)
+      if (result)
+        return result
+    }
+    return null
+  }
+
+  // 如果是对象，检查是否满足条件
+  if (typeof items === 'object' && items !== null) {
+    if (items.props && items.props.showInBlock) {
+      return items
+    }
+
+    // 递归检查所有属性
+    for (const key in items) {
+      const result = getBlockSchema(items[key])
+      if (result)
+        return result
+    }
+  }
+
+  // 如果既不是数组也不是对象，或者没有找到满足条件的对象，返回 null
+  return null
 }
 
 watch(() => data.value, (newValue) => {
@@ -45,7 +74,7 @@ watch(() => data.value, (newValue) => {
         </template>
         <AlRenderer v-model="data[index]" :schemas="items" v-bind="$attrs" />
       </AlPopover>
-      <AlRenderer v-model="data[index]" :schemas="[items[0]]" v-bind="$attrs" />
+      <AlRenderer v-model="data[index]" :schemas="[getBlockSchema(items)]" v-bind="$attrs" />
       <AlButton type="danger" class="ml-1" circle @click="deleteData(index)">
         <AlIcon size="16">
           <Icon icon="material-symbols:delete-outline" />

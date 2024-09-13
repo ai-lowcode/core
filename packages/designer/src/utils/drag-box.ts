@@ -1,7 +1,7 @@
 import type { Schema } from '@ai-lowcode/core'
 import { uniqueId } from '@ai-lowcode/utils'
 
-import { PAGE_COMP } from '../global'
+import { PAGE_COMP } from '@/global'
 
 /**
  * 删除类型为AlDragBox，AlVueDragAble的盒子，且不改变数据结构

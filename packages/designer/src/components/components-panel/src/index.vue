@@ -43,6 +43,11 @@ const slideMenu = [
     icon: 'gg:list-tree',
   },
   {
+    title: '资源库',
+    slug: ComponentMenu.RESOURCE_LIBRARY,
+    icon: 'gg:list-tree',
+  },
+  {
     title: '源码',
     slug: ComponentMenu.CODE,
     icon: 'nonicons:vscode-16',

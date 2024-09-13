@@ -12,7 +12,7 @@ export interface Schema {
   slotName?: string
   slotHidden?: boolean
   modelField?: string
-  defaultValue?: string
+  defaultValue?: any
   field?: string
   label?: string
   attrs?: any

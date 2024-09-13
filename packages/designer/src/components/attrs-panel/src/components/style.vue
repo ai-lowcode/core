@@ -219,8 +219,8 @@ watch(() => style.value, () => {
   const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.selectComponent?.value.id, (node: Schema) => {
     node.props.style = {
       ...style.value,
-      opacity: style.value.opacity / 100,
-      scale: style.value.scale / 100,
+      opacity: (100 - style.value.opacity) / 100,
+      scale: (100 - style.value.scale) / 100,
     }
   })
   context?.workspaceRef?.value.changeSchema(newNodes)

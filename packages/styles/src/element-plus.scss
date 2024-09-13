@@ -41,6 +41,17 @@
   filter: grayscale(100%);
 }
 
+.workspace {
+  .el-overlay {
+    pointer-events: none;
+    background-color: transparent;
+  }
+
+  .el-dialog {
+    pointer-events: auto;
+  }
+}
+
 .el-form-item__label {
   font-weight: var(--al-basic-title-weight);
 }

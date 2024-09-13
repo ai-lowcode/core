@@ -63,9 +63,10 @@ export const TableSchema = <CompSchema>{
                 events: {
                   onClick: {
                     run() {
+                      console.log(this)
                       // eslint-disable-next-line ts/ban-ts-comment
                       // @ts-expect-error
-                      this.exposeApi.formData.value.value.visibleDataSourceDialog = true
+                      this.formData.value.value.visibleDataSourceDialog = true
                     },
                   },
                 },
@@ -93,14 +94,14 @@ export const TableSchema = <CompSchema>{
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.exposeApi.formData.value.value.visibleDataSourceDialog = false
+                          this.formData.value.value.visibleDataSourceDialog = false
                         },
                       },
                       cancelChange: {
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.exposeApi.formData.value.value.visibleDataSourceDialog = false
+                          this.formData.value.value.visibleDataSourceDialog = false
                         },
                       },
                     },
@@ -125,9 +126,10 @@ export const TableSchema = <CompSchema>{
                 events: {
                   onClick: {
                     run() {
+                      console.log(this)
                       // eslint-disable-next-line ts/ban-ts-comment
                       // @ts-expect-error
-                      this.exposeApi.formData.value.value.visibleTableColumnDialog = true
+                      this.formData.value.value.visibleTableColumnDialog = true
                     },
                   },
                 },
@@ -155,14 +157,14 @@ export const TableSchema = <CompSchema>{
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.exposeApi.formData.value.value.visibleTableColumnDialog = false
+                          this.formData.value.value.visibleTableColumnDialog = false
                         },
                       },
                       cancelChange: {
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.exposeApi.formData.value.value.visibleTableColumnDialog = false
+                          this.formData.value.value.visibleTableColumnDialog = false
                         },
                       },
                     },

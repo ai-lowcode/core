@@ -105,10 +105,27 @@ function selectPage(page: any) {
   context?.workspaceRef?.value?.changeSelectPage(page)
 }
 
+function convertFunctionsToStrings(input: any | Function): any {
+  if (typeof input === 'function') {
+    return input.toString()
+  }
+  else if (Array.isArray(input)) {
+    return input.map(item => convertFunctionsToStrings(item))
+  }
+  else if (typeof input === 'object' && input !== null) {
+    const result: any = {}
+    for (const [key, value] of Object.entries(input)) {
+      result[key] = convertFunctionsToStrings(value)
+    }
+    return result
+  }
+  return input
+}
+
 async function savePage() {
   await AlHttp.put(`/lowcode/pages/${context?.workspaceRef?.value?.currentSelectPage?.id}`, {
     ...context?.workspaceRef?.value?.currentSelectPage,
-    content: JSON.stringify(context?.workspaceRef?.value?.schema),
+    content: JSON.stringify(convertFunctionsToStrings(context?.workspaceRef?.value?.schema)),
   }, {
     isShowSuccessMessage: true,
     successMessageText: '保存成功',

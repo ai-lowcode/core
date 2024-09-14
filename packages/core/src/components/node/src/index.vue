@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { deepCopy } from '@ai-lowcode/utils'
 import {
   inject,
   onBeforeMount,
@@ -59,7 +60,7 @@ const exposeApi = {
 
 // 组装绑定数据
 const bindValue = ref({
-  ...props.componentSchema?.props,
+  ...handleContextProps(),
   ...props.componentSchema?.binds,
   ...injectContextToEvents(),
   id: props.componentSchema?.id,
@@ -94,9 +95,22 @@ function parseModelValue() {
 function injectContextToEvents() {
   const newEvents: Record<string, any> = {}
   for (const eventsKey in props.componentSchema?.events) {
-    newEvents[eventsKey] = props.componentSchema?.events?.[eventsKey]?.run?.bind(exposeApi)
+    newEvents[eventsKey] = props.componentSchema?.events?.[eventsKey]?.run?.bind({
+      ...exposeApi,
+      __event: props.componentSchema?.events?.[eventsKey]?.__event,
+    })
   }
   return newEvents
+}
+
+function handleContextProps() {
+  const newProps: Record<string, any> = deepCopy(props.componentSchema?.props)
+  for (const propsKey in props.componentSchema?.props) {
+    if (typeof props.componentSchema?.props[propsKey]?.run === 'function') {
+      newProps[propsKey].run = props.componentSchema?.props[propsKey]?.run?.bind(exposeApi)
+    }
+  }
+  return newProps
 }
 
 onBeforeMount(() => {
@@ -145,7 +159,7 @@ const newComponentSchema = props.componentSchema?.children?.map((child: any) => 
 </script>
 
 <template>
-  <component :is="componentSchema?.type" v-if="!componentSchema?.slotHidden" ref="componentRef" v-bind="bindValue">
+  <component :is="componentSchema?.type" v-if="!componentSchema?.slotHidden" ref="componentRef" v-bind="bindValue" :expose-api="exposeApi">
     <template v-for="children in newComponentSchema" #[children.slotName]>
       <AlNode v-for="(schema, index) in newComponentSchema.filter((i: Schema) => i?.slotName === children?.slotName)" :key="index" ref="childrenRef" :component-schema="schema" />
     </template>

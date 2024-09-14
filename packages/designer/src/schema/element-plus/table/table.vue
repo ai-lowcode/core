@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { AlButton, AlLoading, AlTable, AlTableColumn } from '@ai-lowcode/element-plus'
+import { AlHttp, RequestOptionsType } from '@ai-lowcode/request'
+import { isJsonStringTryCatch } from '@ai-lowcode/utils'
 import { onMounted, ref } from 'vue'
 
 defineOptions({
@@ -18,14 +20,36 @@ const tableRef = ref()
 
 const columns = ref()
 
+async function dataRequestStrategy(newValue: any, type: string, params?: any, options?: RequestOptionsType, modifyRequestForm?: any) {
+  return ({
+    staticData: () => {
+      return isJsonStringTryCatch(newValue) ? JSON.parse(newValue) : undefined
+    },
+    dataSource: () => {},
+    modifyApi: async () => {
+      if (modifyRequestForm.url) {
+        console.log(params, options)
+        const { data } = await (AlHttp as any)?.[modifyRequestForm.method]?.(modifyRequestForm.url, {
+          ...modifyRequestForm.params,
+          ...params,
+        }, {
+          header: modifyRequestForm.header,
+          ...options,
+        })
+        return data.items
+      }
+    },
+  } as any)[type]?.()
+}
+
 async function handleData(params?: any, options?: any) {
   const loading = AlLoading.service({
     text: 'Loading',
     target: tableRef.value,
     background: 'rgba(0, 0, 0, 0.7)',
   })
-  data.value = await props.dataSource?.(params, options)
-  columns.value = await props.columnList?.()
+  data.value = await dataRequestStrategy(props.dataSource?.dataSource, props.dataSource?.dataType, params, options, props.dataSource?.modifyRequestForm)
+  columns.value = await dataRequestStrategy(props.columnList?.dataSource, props.columnList?.dataType, params, options, props.columnList?.modifyRequestForm)
   loading.close()
 }
 

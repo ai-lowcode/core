@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { AlButton, AlForm, AlFormItem, AlInput, AlRadioButton, AlRadioGroup } from '@ai-lowcode/element-plus'
-import { AlHttp, RequestOptionsType } from '@ai-lowcode/request'
-import { isJsonStringTryCatch } from '@ai-lowcode/utils'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import { AlCodeEditorAtom } from '@/atoms'
 
@@ -13,6 +11,8 @@ defineOptions({
 const props = defineProps<{
   confirmChange: Function
   cancelChange: Function
+  exposeApi: any
+  modelValue: any
 }>()
 
 const emits = defineEmits(['update:modelValue'])
@@ -50,31 +50,11 @@ const modifyRequestForm = ref({
   params: {},
 })
 
-function dataRequestStrategy(newValue: any, type: string, params?: any, options?: RequestOptionsType, target?: any) {
-  return ({
-    staticData: () => {
-      return isJsonStringTryCatch(newValue) ? JSON.parse(newValue) : undefined
-    },
-    dataSource: () => {},
-    modifyApi: async () => {
-      if (modifyRequestForm.value.url) {
-        console.log(params, options)
-        const { data } = await (AlHttp as any)?.[modifyRequestForm.value.method]?.(modifyRequestForm.value.url, {
-          ...modifyRequestForm.value.params,
-          ...params,
-        }, {
-          header: modifyRequestForm.value.header,
-          ...options,
-        })
-        return data
-      }
-    },
-  } as any)[type]?.()
-}
-
-function handleData() {
-  emits('update:modelValue', async (params?: any, options?: RequestOptionsType) => {
-    return await dataRequestStrategy(dataSource.value, dataType.value, params, options)
+function handleSave() {
+  emits('update:modelValue', {
+    dataSource: dataSource.value,
+    dataType: dataType.value,
+    modifyRequestForm: modifyRequestForm.value,
   })
   props?.confirmChange?.()
 }
@@ -82,6 +62,12 @@ function handleData() {
 function cancel() {
   props?.cancelChange?.()
 }
+
+onMounted(() => {
+  dataType.value = props.modelValue?.dataType
+  dataSource.value = props.modelValue?.dataSource
+  modifyRequestForm.value = props.modelValue?.modifyRequestForm
+})
 </script>
 
 <template>
@@ -132,7 +118,7 @@ function cancel() {
       <AlButton @click="cancel">
         取消
       </AlButton>
-      <AlButton type="primary" @click="handleData">
+      <AlButton type="primary" @click="handleSave">
         确定
       </AlButton>
     </div>

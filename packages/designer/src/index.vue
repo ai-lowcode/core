@@ -33,7 +33,7 @@ provide<DesignerContext>(DESIGNER_CTX, {
 <template>
   <div class="h-full flex">
     <AlComponentsPanel />
-    <AlContainer class="flex flex-col">
+    <AlContainer class="flex flex-col flex-1">
       <AlHeader />
       <AlWorkspace ref="workspaceRef" />
       <AlFooter />

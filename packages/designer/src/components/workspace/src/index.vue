@@ -160,11 +160,50 @@ function clearPage() {
   ]
 }
 
+function convertToExecutableFunction(functionString: string): Function {
+  // 正则表达式匹配函数声明和参数
+  const functionRegex = /(?:async\s+)?run\s*\(([\s\S]*?)\)\s*\{([\s\S]*)\}/
+  const match = functionString.match(functionRegex)
+
+  if (!match) {
+    throw new Error('Invalid function string')
+  }
+
+  const [, paramsString, functionBody] = match
+
+  // 提取参数
+  const params = paramsString.split(',').map(param => param.trim())
+
+  // 创建新的函数体，包装异步函数（如果需要）
+  const newFunctionBody = functionString.startsWith('async')
+    ? `return (async function(${paramsString}) {${functionBody}}).apply(this, arguments);`
+    : `return (function(${paramsString}) {${functionBody}}).apply(this, arguments);`
+
+  // 创建新函数
+  return new Function(...params, newFunctionBody)
+}
+
+function convertFunctionsToStrings(input: any | Function): any {
+  if (typeof input === 'string' && input?.includes('run(')) {
+    return convertToExecutableFunction(input)
+  }
+  else if (Array.isArray(input)) {
+    return input.map(item => convertFunctionsToStrings(item))
+  }
+  else if (typeof input === 'object' && input !== null) {
+    const result: any = {}
+    for (const [key, value] of Object.entries(input)) {
+      result[key] = convertFunctionsToStrings(value)
+    }
+    return result
+  }
+  return input
+}
+
 async function initPageSchema() {
   if (currentSelectPage.value?.id) {
     const { data } = await AlHttp.get(`/lowcode/pages/${currentSelectPage.value?.id}`)
-    console.log(JSON.parse(data?.content))
-    schema.value = isJsonStringTryCatch(data?.content) ? JSON.parse(data?.content) : clearPage()
+    schema.value = isJsonStringTryCatch(data?.content) ? convertFunctionsToStrings(JSON.parse(data?.content)) : clearPage()
   }
 }
 

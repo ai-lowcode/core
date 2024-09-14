@@ -5,7 +5,7 @@ AiLowCode代码开发平台（前后端）
 [![Author](https://img.shields.io/badge/Author-Axelu-orange.svg)](https://ailowcode.app)
 [![Blog](https://img.shields.io/badge/Blog-个人博客-yellow.svg)](https://axelu.me)
 [![Version](https://img.shields.io/badge/version-开发中-brightgreen.svg)](https://github.com/ai-lowcode/core/releases/tag/)
-[![License](https://img.shields.io/badge/license-MIT%20License-blue.svg)](https://github.com/ai-lowcode/core/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT%20License-blue.svg)](https://github.com/ai-lowcode/core/blob/master/LICENSE)
 
 [![GitHub watches](https://img.shields.io/github/watchers/ai-lowcode/core.svg?style=social&label=Watch)](https://github.com/ai-lowcode/core)
 [![GitHub stars](https://img.shields.io/github/stars/ai-lowcode/core.svg?style=social&label=Stars)](https://github.com/ai-lowcode/core)

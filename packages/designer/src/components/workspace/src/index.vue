@@ -3,7 +3,12 @@ import { AlRenderer, Schema } from '@ai-lowcode/core'
 import { AlMain } from '@ai-lowcode/element-plus'
 import { webStorage } from '@ai-lowcode/hooks'
 import { AlHttp } from '@ai-lowcode/request'
-import { deepCopy, isJsonStringTryCatch, uniqueId } from '@ai-lowcode/utils'
+import {
+  convertStringsToFunctions,
+  deepCopy,
+  isJsonStringTryCatch,
+  uniqueId,
+} from '@ai-lowcode/utils'
 import { onMounted, ref } from 'vue'
 
 import { DeviceEnum } from '@/enums'
@@ -29,33 +34,14 @@ const currentDevice = ref(DeviceEnum.PC)
 
 const schema = ref<Array<Schema>>([])
 
-const options = ref({
-  submitBtn: false,
-  inline: false,
-  hideRequiredAsterisk: false,
-  labelPosition: 'right',
-  size: 'default',
-  labelWidth: '125px',
-  mounted: (api) => {
-    console.log(api)
-  },
-})
-
 function changeSelectPage(page: any) {
   currentSelectPage.value = page
   webStorage.setStorage('__current_select_page', page)
+  schema.value = isJsonStringTryCatch(page?.content) ? convertStringsToFunctions(JSON.parse(page?.content)) : clearPage()
 }
 
 function changeWorkspaceScale(scale: number) {
   workspaceScale.value = scale
-}
-
-/**
- * 修改 options
- * @param option
- */
-function changeOptions(option) {
-  options.value = option
 }
 
 /**
@@ -160,50 +146,10 @@ function clearPage() {
   ]
 }
 
-function convertToExecutableFunction(functionString: string): Function {
-  // 正则表达式匹配函数声明和参数
-  const functionRegex = /(?:async\s+)?run\s*\(([\s\S]*?)\)\s*\{([\s\S]*)\}/
-  const match = functionString.match(functionRegex)
-
-  if (!match) {
-    throw new Error('Invalid function string')
-  }
-
-  const [, paramsString, functionBody] = match
-
-  // 提取参数
-  const params = paramsString.split(',').map(param => param.trim())
-
-  // 创建新的函数体，包装异步函数（如果需要）
-  const newFunctionBody = functionString.startsWith('async')
-    ? `return (async function(${paramsString}) {${functionBody}}).apply(this, arguments);`
-    : `return (function(${paramsString}) {${functionBody}}).apply(this, arguments);`
-
-  // 创建新函数
-  return new Function(...params, newFunctionBody)
-}
-
-function convertFunctionsToStrings(input: any | Function): any {
-  if (typeof input === 'string' && input?.includes('run(')) {
-    return convertToExecutableFunction(input)
-  }
-  else if (Array.isArray(input)) {
-    return input.map(item => convertFunctionsToStrings(item))
-  }
-  else if (typeof input === 'object' && input !== null) {
-    const result: any = {}
-    for (const [key, value] of Object.entries(input)) {
-      result[key] = convertFunctionsToStrings(value)
-    }
-    return result
-  }
-  return input
-}
-
 async function initPageSchema() {
   if (currentSelectPage.value?.id) {
     const { data } = await AlHttp.get(`/lowcode/pages/${currentSelectPage.value?.id}`)
-    schema.value = isJsonStringTryCatch(data?.content) ? convertFunctionsToStrings(JSON.parse(data?.content)) : clearPage()
+    schema.value = isJsonStringTryCatch(data?.content) ? convertStringsToFunctions(JSON.parse(data?.content)) : clearPage()
   }
 }
 
@@ -218,7 +164,6 @@ defineExpose({
   insertComponent,
   currentDevice,
   changeDevice,
-  changeOptions,
   clearPage,
   changeSchema,
   workspaceScale,
@@ -226,7 +171,6 @@ defineExpose({
   changeSelectPage,
   changeWorkspaceScale,
   schema,
-  options,
 })
 </script>
 
@@ -238,7 +182,7 @@ defineExpose({
       :class="currentDevice"
     >
       <!-- 工作区表单展示区 -->
-      <AlRenderer ref="rendererRef" v-model="formData" :schemas="schema" :options="options" />
+      <AlRenderer ref="rendererRef" v-model="formData" :schemas="schema" />
     </div>
   </AlMain>
 </template>

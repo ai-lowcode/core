@@ -27,6 +27,10 @@ const props = defineProps<{
    * 组件 schema
    */
   componentSchema: Schema
+  /**
+   * 父级 schema
+   */
+  parentSchema?: Schema
 }>()
 
 // 当前组件 ref
@@ -66,6 +70,7 @@ const bindValue = ref({
   id: props.componentSchema?.id,
   ...parseModelValue(),
   __schema: props.componentSchema,
+  __parentSchema: props?.parentSchema,
 })
 
 /**
@@ -74,6 +79,10 @@ const bindValue = ref({
 watch(() => formData?.getValueFromPath(props.componentSchema?.field), (newValue) => {
   modelValue.value = newValue
 }, { deep: true })
+
+watch(() => modelValue.value, (newValue) => {
+  formData?.setValueAtPath(props.componentSchema?.field, newValue)
+})
 
 /**
  * 组装 modelValue
@@ -161,7 +170,7 @@ const newComponentSchema = props.componentSchema?.children?.map((child: any) => 
 <template>
   <component :is="componentSchema?.type" v-if="!componentSchema?.slotHidden" ref="componentRef" v-bind="bindValue" :expose-api="exposeApi">
     <template v-for="children in newComponentSchema" #[children.slotName]>
-      <AlNode v-for="(schema, index) in newComponentSchema.filter((i: Schema) => i?.slotName === children?.slotName)" :key="index" ref="childrenRef" :component-schema="schema" />
+      <AlNode v-for="(schema, index) in newComponentSchema.filter((i: Schema) => i?.slotName === children?.slotName)" :key="index" ref="childrenRef" :component-schema="schema" :parent-schema="componentSchema" />
     </template>
   </component>
   <template v-if="typeof componentSchema?.content === 'string'">

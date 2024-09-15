@@ -23,7 +23,6 @@ export const DialogSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
-      defaultValue: true,
       props: {},
       children: [
         {

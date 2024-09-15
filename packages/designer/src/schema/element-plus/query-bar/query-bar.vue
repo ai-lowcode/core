@@ -1,14 +1,51 @@
 <script lang="ts" setup>
 import { AlButton, AlIcon } from '@ai-lowcode/element-plus'
+import { deepCopy } from '@ai-lowcode/utils'
 import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
+
+import { removeAlDragBoxAndPromoteChildren } from '@/utils'
 
 defineOptions({
   name: 'AlQueryBar',
 })
 
-defineProps<{
-  searchInputList?: Array<any>
+const props = defineProps<{
+  exposeApi: any
+  // eslint-disable-next-line vue/prop-name-casing
+  __schema?: Record<string, any>
+  handleQuery: string
+  handleReset: string
 }>()
+
+const formData = ref<Record<string, any>>({})
+
+function initFormData() {
+  const keys: Array<string> = []
+  const fields = removeAlDragBoxAndPromoteChildren(deepCopy(props.__schema?.children))
+  fields.map((item: any) => {
+    Object.prototype.hasOwnProperty.call(item, 'field') && keys.push(item.field)
+  })
+  keys.map((key) => {
+    formData.value[key] = props?.exposeApi?.formData.value.value[key]
+  })
+}
+
+function handleQuery() {
+  initFormData()
+  new Function(props.handleQuery).bind({
+    exposeApi: props.exposeApi,
+    formData: formData.value,
+  })()
+}
+
+function handleReset() {
+  initFormData()
+  new Function(props.handleReset).bind({
+    exposeApi: props.exposeApi,
+    formData: formData.value,
+  })()
+}
 </script>
 
 <template>
@@ -17,13 +54,13 @@ defineProps<{
       <slot />
     </div>
     <div>
-      <AlButton size="small" type="primary">
+      <AlButton size="small" type="primary" @click="handleQuery">
         <AlIcon size="16">
           <Icon icon="ic:baseline-search" />
         </AlIcon>
         <span>查询</span>
       </AlButton>
-      <AlButton size="small">
+      <AlButton size="small" @click="handleReset">
         <AlIcon size="16">
           <Icon icon="bx:reset" />
         </AlIcon>

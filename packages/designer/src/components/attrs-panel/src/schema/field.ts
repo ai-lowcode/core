@@ -69,6 +69,22 @@ export const FieldAttrsSchema = <Array<Schema>>[
           },
         ],
       },
+      {
+        type: 'al-form-item',
+        id: 'field',
+        props: {
+          label: 'v-model 绑定字段',
+        },
+        children: [
+          {
+            type: 'al-input',
+            id: 'field',
+            field: 'field.field',
+            modelField: 'modelValue',
+            props: {},
+          },
+        ],
+      },
     ],
   },
 ]

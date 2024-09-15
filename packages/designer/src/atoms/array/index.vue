@@ -46,7 +46,6 @@ function getBlockSchema(items: Array<Schema> | Schema) {
         return result
     }
   }
-
   // 如果既不是数组也不是对象，或者没有找到满足条件的对象，返回 null
   return null
 }

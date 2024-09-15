@@ -193,11 +193,15 @@ function confirmEvent() {
         __event: index,
         async run(...arg: any) {
           const elementPlus = await import('@ai-lowcode/element-plus')
+          const { AlHttp } = await import('@ai-lowcode/request')
           this?.__event?.children?.map((event: any) => {
             (new Function('api', event?.code)).bind({
               arg,
               instance: this,
               elementPlus,
+              api: {
+                AlHttp,
+              },
             })(arg)
           })
         },

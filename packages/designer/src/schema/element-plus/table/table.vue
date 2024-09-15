@@ -2,7 +2,7 @@
 import { AlButton, AlLoading, AlTable, AlTableColumn } from '@ai-lowcode/element-plus'
 import { AlHttp, RequestOptionsType } from '@ai-lowcode/request'
 import { isJsonStringTryCatch } from '@ai-lowcode/utils'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, useAttrs } from 'vue'
 
 defineOptions({
   name: 'AlDataTable',
@@ -20,6 +20,8 @@ const tableRef = ref()
 
 const columns = ref()
 
+const attrs = useAttrs()
+
 async function dataRequestStrategy(newValue: any, type: string, params?: any, options?: RequestOptionsType, modifyRequestForm?: any) {
   return ({
     staticData: () => {
@@ -29,14 +31,15 @@ async function dataRequestStrategy(newValue: any, type: string, params?: any, op
     modifyApi: async () => {
       if (modifyRequestForm.url) {
         console.log(params, options)
-        const { data } = await (AlHttp as any)?.[modifyRequestForm.method]?.(modifyRequestForm.url, {
+        const res = await (AlHttp as any)?.[modifyRequestForm.method]?.(modifyRequestForm.url, {
           ...modifyRequestForm.params,
           ...params,
         }, {
           header: modifyRequestForm.header,
           ...options,
         })
-        return data.items
+        const handleData = new Function(modifyRequestForm.handleData).bind(res)
+        return modifyRequestForm.handleData ? handleData() : res.data
       }
     },
   } as any)[type]?.()
@@ -53,6 +56,15 @@ async function handleData(params?: any, options?: any) {
   loading.close()
 }
 
+function operationClick(btn: any, data: any) {
+  new Function(btn.props?.onClick).bind({
+    ...props,
+    attrs,
+    btn,
+    data,
+  })()
+}
+
 onMounted(async () => {
   await handleData()
 })
@@ -67,13 +79,14 @@ defineExpose({
     <AlTable v-bind="$attrs" :data="data">
       <AlTableColumn v-for="(column, index) in columns" :key="index" v-bind="column" />
       <AlTableColumn fixed="right" label="操作" min-width="120">
-        <template #default>
+        <template #default="data">
           <AlButton
             v-for="(btn, index) in operationBtn"
             :key="index"
             type="primary"
             size="small"
             v-bind="btn"
+            @click="operationClick(btn, data)"
           >
             {{ btn?.title }}
           </AlButton>

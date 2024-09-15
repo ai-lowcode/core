@@ -70,7 +70,14 @@ export const ButtonSchema = <CompSchema>{
     ]
   },
   // 事件
-  events: () => {},
+  events: () => {
+    return [
+      {
+        key: 'onClick',
+        label: '用户点击',
+      },
+    ]
+  },
   // 属性
   props: () => {
     return <Schema[]>[
@@ -95,7 +102,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-select',
                 id: 'size',
-                field: 'size',
+                field: 'props.size',
                 modelField: 'modelValue',
                 children: [
                   {
@@ -136,7 +143,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-select',
                 id: 'type',
-                field: 'type',
+                field: 'props.type',
                 modelField: 'modelValue',
                 children: [
                   {
@@ -209,7 +216,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-switch',
                 id: 'plain',
-                field: 'plain',
+                field: 'props.plain',
                 modelField: 'modelValue',
               },
             ],
@@ -224,7 +231,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-switch',
                 id: 'text',
-                field: 'text',
+                field: 'props.text',
                 modelField: 'modelValue',
               },
             ],
@@ -239,7 +246,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-switch',
                 id: 'bg',
-                field: 'bg',
+                field: 'props.bg',
                 modelField: 'modelValue',
               },
             ],
@@ -254,7 +261,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-switch',
                 id: 'link',
-                field: 'link',
+                field: 'props.link',
                 modelField: 'modelValue',
               },
             ],
@@ -269,7 +276,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-switch',
                 id: 'round',
-                field: 'round',
+                field: 'props.round',
                 modelField: 'modelValue',
               },
             ],
@@ -284,7 +291,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-switch',
                 id: 'circle',
-                field: 'circle',
+                field: 'props.circle',
                 modelField: 'modelValue',
               },
             ],
@@ -299,7 +306,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-switch',
                 id: 'loading',
-                field: 'loading',
+                field: 'props.loading',
                 modelField: 'modelValue',
               },
             ],
@@ -314,7 +321,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-switch',
                 id: 'disabled',
-                field: 'disabled',
+                field: 'props.disabled',
                 modelField: 'modelValue',
               },
             ],
@@ -329,7 +336,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-switch',
                 id: 'autofocus',
-                field: 'autofocus',
+                field: 'props.autofocus',
                 modelField: 'modelValue',
               },
             ],
@@ -344,7 +351,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-select',
                 id: 'nativeType',
-                field: 'nativeType',
+                field: 'props.nativeType',
                 modelField: 'modelValue',
                 children: [
                   {
@@ -385,7 +392,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-switch',
                 id: 'autoInsertSpace',
-                field: 'autoInsertSpace',
+                field: 'props.autoInsertSpace',
                 modelField: 'modelValue',
               },
             ],
@@ -400,7 +407,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-input',
                 id: 'color',
-                field: 'color',
+                field: 'props.color',
                 modelField: 'modelValue',
               },
             ],
@@ -415,7 +422,7 @@ export const ButtonSchema = <CompSchema>{
               {
                 type: 'al-input',
                 id: 'color',
-                field: 'color',
+                field: 'props.color',
                 modelField: 'modelValue',
               },
             ],

@@ -84,75 +84,129 @@ export const QueryBarSchema = <CompSchema>{
         children: [
           {
             type: 'al-form-item',
-            id: 'searchInputList',
+            id: 'handleQuery',
             props: {
-              label: '搜索框列表',
+              label: '查询事件',
             },
             children: [
               {
-                type: 'al-array-atom',
-                id: 'searchInputList',
-                field: 'props.searchInputList',
+                type: 'al-button',
+                id: 'data',
+                props: {
+                  type: 'primary',
+                },
+                events: {
+                  onClick: {
+                    run() {
+                      console.log(this)
+                      // eslint-disable-next-line ts/ban-ts-comment
+                      // @ts-expect-error
+                      this.formData.value.value.visibleQueryDialog = true
+                    },
+                  },
+                },
+                children: ['设置查询事件'],
+              },
+              {
+                type: 'al-dialog',
+                id: 'dialog',
+                field: 'visibleQueryDialog',
                 modelField: 'modelValue',
                 props: {
-                  popoverProps: {
-                    title: '设置搜索框',
-                  },
-                  items: [
-                    {
-                      type: 'div',
-                      id: 'div',
-                      props: {
-                        class: 'flex item-center',
-                      },
-                      children: [
-                        {
-                          type: 'div',
-                          id: 'div',
-                          props: {
-                            class: 'w-[40px] text-left',
-                          },
-                          children: ['标题:'],
-                        },
-                        {
-                          type: 'al-input',
-                          id: 'title',
-                          field: 'title',
-                          modelField: 'modelValue',
-                          props: {
-                            class: 'flex-1',
-                          },
-                        },
-                      ],
-                    },
-                    {
-                      type: 'div',
-                      id: 'div',
-                      props: {
-                        class: 'flex item-center mt-2',
-                      },
-                      children: [
-                        {
-                          type: 'div',
-                          id: 'div',
-                          props: {
-                            class: 'w-[40px] text-left',
-                          },
-                          children: ['图标:'],
-                        },
-                        {
-                          type: 'al-input',
-                          id: 'icon',
-                          field: 'icon',
-                          modelField: 'modelValue',
-                          props: {
-                            class: 'flex-1',
-                          },
-                        },
-                      ],
-                    },
-                  ],
+                  title: '设置查询事件',
                 },
+                children: [
+                  {
+                    type: 'al-code-editor-atom',
+                    id: 'handleQuery',
+                    field: 'props.handleQuery',
+                    modelField: 'modelValue',
+                    props: {
+                      class: 'flex item-center mt-2',
+                      style: 'height: 200px',
+                    },
+                    events: {
+                      confirmChange: {
+                        run() {
+                          // eslint-disable-next-line ts/ban-ts-comment
+                          // @ts-expect-error
+                          this.formData.value.value.visibleQueryDialog = false
+                        },
+                      },
+                      cancelChange: {
+                        run() {
+                          // eslint-disable-next-line ts/ban-ts-comment
+                          // @ts-expect-error
+                          this.formData.value.value.visibleQueryDialog = false
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: 'al-form-item',
+            id: 'handleReset',
+            props: {
+              label: '重置事件',
+            },
+            children: [
+              {
+                type: 'al-button',
+                id: 'data',
+                props: {
+                  type: 'primary',
+                },
+                events: {
+                  onClick: {
+                    run() {
+                      console.log(this)
+                      // eslint-disable-next-line ts/ban-ts-comment
+                      // @ts-expect-error
+                      this.formData.value.value.visibleResetDialog = true
+                    },
+                  },
+                },
+                children: ['设置重置事件'],
+              },
+              {
+                type: 'al-dialog',
+                id: 'dialog',
+                field: 'visibleResetDialog',
+                modelField: 'modelValue',
+                props: {
+                  title: '设置重置事件',
+                },
+                children: [
+                  {
+                    type: 'al-code-editor-atom',
+                    id: 'handleReset',
+                    field: 'props.handleReset',
+                    modelField: 'modelValue',
+                    props: {
+                      class: 'flex item-center mt-2',
+                      style: 'height: 200px',
+                    },
+                    events: {
+                      confirmChange: {
+                        run() {
+                          // eslint-disable-next-line ts/ban-ts-comment
+                          // @ts-expect-error
+                          this.formData.value.value.visibleResetDialog = false
+                        },
+                      },
+                      cancelChange: {
+                        run() {
+                          // eslint-disable-next-line ts/ban-ts-comment
+                          // @ts-expect-error
+                          this.formData.value.value.visibleResetDialog = false
+                        },
+                      },
+                    },
+                  },
+                ],
               },
             ],
           },

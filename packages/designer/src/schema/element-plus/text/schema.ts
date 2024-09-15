@@ -19,9 +19,7 @@ export const TextSchema = <CompSchema>{
       icon,
       label,
       name,
-      props: {
-        class: 'm-4',
-      },
+      props: {},
       children: ['文本'],
     }
   },

@@ -3,6 +3,7 @@ import { AlButton, AlForm, AlFormItem, AlInput, AlRadioButton, AlRadioGroup } fr
 import { onMounted, ref } from 'vue'
 
 import { AlCodeEditorAtom } from '@/atoms'
+import AlObjectAtom from '@/atoms/object/index.vue'
 
 defineOptions({
   name: 'AlDataSourceAtom',
@@ -46,8 +47,9 @@ const modifyRequestForm = ref({
   name: '',
   url: '',
   method: 'get',
-  header: {},
-  params: {},
+  header: [],
+  params: [],
+  handleData: '',
 })
 
 function handleSave() {
@@ -64,9 +66,9 @@ function cancel() {
 }
 
 onMounted(() => {
-  dataType.value = props.modelValue?.dataType
-  dataSource.value = props.modelValue?.dataSource
-  modifyRequestForm.value = props.modelValue?.modifyRequestForm
+  props.modelValue?.dataType && (dataType.value = props.modelValue?.dataType)
+  props.modelValue?.dataSource && (dataSource.value = props.modelValue?.dataSource)
+  props.modelValue?.modifyRequestForm && (modifyRequestForm.value = props.modelValue?.modifyRequestForm)
 })
 </script>
 
@@ -107,10 +109,17 @@ onMounted(() => {
           </AlRadioGroup>
         </AlFormItem>
         <AlFormItem label="请求头" prop="header">
-          <AlInput v-model="modifyRequestForm.header" type="text" autocomplete="off" />
+          <AlObjectAtom v-model="modifyRequestForm.header" />
         </AlFormItem>
         <AlFormItem label="请求参数" prop="params">
-          <AlInput v-model="modifyRequestForm.params" type="text" autocomplete="off" />
+          <AlObjectAtom v-model="modifyRequestForm.params" />
+        </AlFormItem>
+        <AlFormItem label="请求结果处理" prop="params">
+          <AlCodeEditorAtom
+            v-model="modifyRequestForm.handleData"
+            style="height: 200px"
+            :option="editorOptions"
+          />
         </AlFormItem>
       </AlForm>
     </div>

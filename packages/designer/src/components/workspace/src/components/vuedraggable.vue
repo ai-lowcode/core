@@ -22,13 +22,22 @@ const list = computed({
 })
 const context = inject<DesignerContext>(DESIGNER_CTX)
 
+function matchTailwindWidth(input) {
+  if (input) {
+    const regex = /\bw-(?:full|screen|min|max|fit|\[[\w.%]+\]|\d+\/\d+|\d+(?:\.5)?)/
+    const match = input.match(regex)
+    return match ? match[0] : null
+  }
+}
+
 const DragBoxRender = defineComponent({
   props: ['schema', 'index'],
   render: (ctx: ComponentPublicInstance<{
     schema: Schema
     index: number
   }>) => {
-    return h(ctx?.schema?.type as string, { class: `al-drag-item`, key: ctx?.index, ...ctx?.schema?.props, id: ctx?.schema?.id }, slots?.[0]?.children?.[ctx?.index])
+    console.log(ctx?.schema?.children?.[0]?.props?.class)
+    return h(ctx?.schema?.type as string, { class: `al-drag-item ${matchTailwindWidth(ctx?.schema?.children?.[0]?.props?.class)}`, key: ctx?.index, ...ctx?.schema?.props, id: ctx?.schema?.id }, slots?.[0]?.children?.[ctx?.index])
   },
 })
 
@@ -55,13 +64,19 @@ function onMove(event: any) {
       put: true,
     }"
     class="w-full"
-    :class="list?.length ? 'h-full' : 'h-full bg-basic-color rounded-md drag-content relative'"
+    :class="{
+      'h-full': list?.length,
+      'h-full bg-basic-color rounded-md drag-content relative': !list?.length,
+      'flex': attrs?.__parentSchema?.props?.class?.includes('flex'),
+      'flex-row': attrs?.__parentSchema?.props?.class?.includes('flex-row'),
+      'flex-nowrap': attrs?.__parentSchema?.props?.class?.includes('flex-nowrap'),
+      'flex-wrap': attrs?.__parentSchema?.props?.class?.includes('flex-wrap'),
+    }"
     ghost-class="ghost"
     animation="300"
     empty-insert-threshold="0"
     direction="vertical"
     item-key="type"
-    :draggable="false"
     v-bind="$attrs"
     :clone="cloneElement"
     :move="onMove"

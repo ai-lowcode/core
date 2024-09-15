@@ -722,6 +722,78 @@ export const TableSchema = <CompSchema>{
                                 },
                               ],
                             },
+                            {
+                              type: 'div',
+                              id: 'div',
+                              props: {
+                                class: 'flex flex-col mt-2',
+                              },
+                              children: [
+                                {
+                                  type: 'div',
+                                  id: 'div',
+                                  props: {
+                                    class: 'w-full text-left',
+                                  },
+                                  children: ['点击事件:'],
+                                },
+                                {
+                                  type: 'al-button',
+                                  id: 'data',
+                                  props: {
+                                    type: 'primary',
+                                  },
+                                  events: {
+                                    onClick: {
+                                      run() {
+                                        console.log(this)
+                                        // eslint-disable-next-line ts/ban-ts-comment
+                                        // @ts-expect-error
+                                        this.formData.value.value.visibleOnClickDialog = true
+                                      },
+                                    },
+                                  },
+                                  children: ['设置点击事件'],
+                                },
+                                {
+                                  type: 'al-dialog',
+                                  id: 'dialog',
+                                  field: 'visibleOnClickDialog',
+                                  modelField: 'modelValue',
+                                  props: {
+                                    title: '设置点击事件',
+                                  },
+                                  children: [
+                                    {
+                                      type: 'al-code-editor-atom',
+                                      id: 'onClick',
+                                      field: 'props.onClick',
+                                      modelField: 'modelValue',
+                                      props: {
+                                        class: 'flex item-center mt-2',
+                                        style: 'height: 200px',
+                                      },
+                                      events: {
+                                        confirmChange: {
+                                          run() {
+                                            // eslint-disable-next-line ts/ban-ts-comment
+                                            // @ts-expect-error
+                                            this.formData.value.value.visibleOnClickDialog = false
+                                          },
+                                        },
+                                        cancelChange: {
+                                          run() {
+                                            // eslint-disable-next-line ts/ban-ts-comment
+                                            // @ts-expect-error
+                                            this.formData.value.value.visibleOnClickDialog = false
+                                          },
+                                        },
+                                      },
+                                    },
+                                  ],
+                                },
+                              ],
+                            },
                           ],
                         },
                       ],

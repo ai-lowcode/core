@@ -45,6 +45,8 @@ watch(() => fieldData.value, (newValue) => {
         node.name = newValue.field.name
       if (newValue?.field?.label)
         node.label = newValue.field.label
+      if (newValue?.field?.field)
+        node.field = newValue.field.field
     })
     context?.workspaceRef?.value.changeSchema(newNodes)
   }
@@ -96,6 +98,7 @@ watch(() => context?.selectComponent, (newValue) => {
         id: node.id,
         name: node.name,
         label: node.label,
+        field: node.field,
       },
     }
     if (!slotsData.value) {

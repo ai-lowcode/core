@@ -34,7 +34,7 @@ const showOptions = ref(false)
 </script>
 
 <template>
-  <div class="box-border relative cursor-move flex mb-1" :class="show ? `outline outline-active-color outline-2` : `outline-dashed outline-active-color outline-1`" v-bind="$attrs" @mouseenter="showOptions = true" @mouseleave="showOptions = false" @click.stop="changeCompId">
+  <div class="box-border relative cursor-move flex mb-1" :class="show ? `outline outline-active-color outline-2 ${currentField?.props?.class}` : `outline-dashed outline-active-color outline-1 ${currentField?.props?.class}`" v-bind="$attrs" @mouseenter="showOptions = true" @mouseleave="showOptions = false" @click.stop="changeCompId">
     <div v-if="currentField?.type !== 'AlVueDragAble' && currentField?.type !== 'AlDragBox'" :class="showOptions ? 'opacity-100' : 'opacity-0'" class="absolute top-0 text-xs bg-active-color duration-300 text-white rounded-br-md left-0 z-10 cursor-move p-[3px]">
       {{ currentField?.label }}
     </div>

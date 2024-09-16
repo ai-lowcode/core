@@ -1,3 +1,3 @@
 <template>
-  <div>qwqww</div>
+  <div>home</div>
 </template>

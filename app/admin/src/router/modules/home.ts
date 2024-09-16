@@ -1,6 +1,9 @@
+import type { RouteRecordRaw } from 'vue-router'
+
 import { RouteNameEnum } from '../types'
 
 import HomeLayout from '@/layout/home/index.vue'
+import NotFoundPage from '@/views/page/system/exception/index.vue'
 import HomePage from '@/views/page/system/home/index.vue'
 import RedirectPage from '@/views/page/system/redirect/index.vue'
 
@@ -13,6 +16,18 @@ export const HOME_ROUTE_INFO = {
   component: HomePage,
   meta: {
     title: '应用首页',
+  },
+}
+
+/**
+ * 异常页路由
+ */
+export const EXCEPTION_ROUTE: RouteRecordRaw = {
+  path: '/exception',
+  name: RouteNameEnum.NOT_FOUND,
+  component: NotFoundPage,
+  meta: {
+    title: '异常页',
   },
 }
 
@@ -36,5 +51,5 @@ export const HOME_ROUTE = {
   path: '/',
   name: RouteNameEnum.LAYOUT,
   component: HomeLayout,
-  children: [HOME_ROUTE_INFO, REDIRECT_ROUTE_INFO],
+  children: [HOME_ROUTE_INFO, REDIRECT_ROUTE_INFO, EXCEPTION_ROUTE],
 }

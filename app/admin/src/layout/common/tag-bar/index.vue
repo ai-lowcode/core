@@ -86,7 +86,7 @@ const router = useRouter()
 const { tagsList, closeTags, closeAllTags, closeOtherTags, closeLeftTags, closeRightTags } = toRefs(tagsStore)
 
 function handlePage(menu: MenuType) {
-  router.push(menu?.path)
+  router.push(`/redirect${menu.path}`)
 }
 
 function closeMenu() {

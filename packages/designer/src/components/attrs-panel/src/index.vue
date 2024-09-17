@@ -28,8 +28,8 @@ const context = inject<DesignerContext>(DESIGNER_CTX)
       <AlTabPane v-show="context?.selectComponent?.value.field !== PAGE_COMP" label="属性" name="props" class="h-full overflow-auto">
         <CompAttrs />
       </AlTabPane>
-      <AlTabPane label="外观" name="style" class="h-full overflow-auto">
-        <CompStyle v-if="activeTab === 'style'" />
+      <AlTabPane v-show="activeTab === 'style'" label="外观" name="style" class="h-full overflow-auto">
+        <CompStyle />
       </AlTabPane>
       <AlTabPane label="事件" name="event" class="h-full overflow-auto">
         <CompEvent />

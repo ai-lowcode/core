@@ -1,4 +1,5 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger'
+import { Type } from 'class-transformer'
 import {
   IsBoolean,
   IsIn,
@@ -83,6 +84,13 @@ export class MenuDto extends OperatorDto {
   @IsString()
   @IsOptional()
   component?: string
+
+  @ApiProperty({ description: '低代码页面 id' })
+  @ValidateIf((o: MenuDto) => o.type !== 2)
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  page?: number
 }
 
 export class MenuUpdateDto extends PartialType(MenuDto) {}

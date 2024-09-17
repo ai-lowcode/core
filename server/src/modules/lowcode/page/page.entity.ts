@@ -1,7 +1,8 @@
-import { ApiProperty } from '@nestjs/swagger'
-import { Column, Entity } from 'typeorm'
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger'
+import { Column, Entity, OneToOne, Relation } from 'typeorm'
 
 import { CompleteEntity } from '~/common/entity/common.entity'
+import { MenuEntity } from '~/modules/system/menu/menu.entity'
 
 @Entity({ name: 'lowcode_page' })
 export class PageEntity extends CompleteEntity {
@@ -20,4 +21,8 @@ export class PageEntity extends CompleteEntity {
   @Column({ type: 'text', nullable: true })
   @ApiProperty({ description: '页面内容' })
   content: string
+
+  @ApiHideProperty()
+  @OneToOne(() => MenuEntity, menu => menu.page)
+  menus: Relation<MenuEntity>
 }

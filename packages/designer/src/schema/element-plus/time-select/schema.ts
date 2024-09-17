@@ -19,6 +19,10 @@ export const TimeSelectSchema = <CompSchema>{
       icon,
       label,
       name,
+      // 值存储字段
+      field: `__${uniqueId()}`,
+      // modelValue 绑定参数
+      modelField: 'modelValue',
     }
   },
   // 插槽

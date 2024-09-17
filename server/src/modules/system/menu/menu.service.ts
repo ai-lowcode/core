@@ -4,12 +4,13 @@ import { InjectRepository } from '@nestjs/typeorm'
 import Redis from 'ioredis'
 import { concat, isEmpty, isNil, uniq } from 'lodash'
 
-import { In, IsNull, Like, Not, Repository } from 'typeorm'
+import { Equal, In, IsNull, Like, Not, Repository } from 'typeorm'
 
 import { BusinessException } from '~/common/exceptions/biz.exception'
 import { RedisKeys } from '~/constants/cache.constant'
 import { ErrorEnum } from '~/constants/error-code.constant'
 import { genAuthPermKey, genAuthTokenKey } from '~/helper/genRedisKey'
+import { PageEntity } from '~/modules/lowcode/page/page.entity'
 import { SseService } from '~/modules/sse/sse.service'
 import { MenuEntity } from '~/modules/system/menu/menu.entity'
 
@@ -39,16 +40,24 @@ export class MenuService {
     component,
     status,
   }: MenuQueryDto): Promise<MenuEntity[]> {
-    const menus = await this.menuRepository.find({
-      where: {
+    const menus = await this.menuRepository
+      .createQueryBuilder('menu')
+      .leftJoinAndSelect('menu.page', 'page')
+      .select([
+        'menu',
+        'page.name',
+        'page.id',
+      ])
+      .where({
         ...(name && { name: Like(`%${name}%`) }),
         ...(path && { path: Like(`%${path}%`) }),
         ...(permission && { permission: Like(`%${permission}%`) }),
         ...(component && { component: Like(`%${component}%`) }),
         ...(!isNil(status) ? { status } : null),
-      },
-      order: { orderNo: 'ASC' },
-    })
+      })
+      .orderBy('menu.order_no', 'ASC')
+      .getMany()
+
     const menuList = generatorMenu(menus)
 
     if (!isEmpty(menuList)) {
@@ -60,12 +69,18 @@ export class MenuService {
   }
 
   async create(menu: MenuDto): Promise<void> {
-    const result = await this.menuRepository.save(menu)
+    const result = await this.menuRepository.save({
+      ...menu,
+      page: await PageEntity.findOneBy({ id: menu.page }),
+    })
     this.sseService.noticeClientToUpdateMenusByMenuIds([result.id])
   }
 
   async update(id: number, menu: MenuUpdateDto): Promise<void> {
-    await this.menuRepository.update(id, menu)
+    await this.menuRepository.update(id, {
+      ...menu,
+      page: await PageEntity.findOneBy({ id: menu.page }),
+    })
     this.sseService.noticeClientToUpdateMenusByMenuIds([id])
   }
 
@@ -80,12 +95,31 @@ export class MenuService {
       return generatorRouters([])
 
     if (this.roleService.hasAdminRole(roleIds)) {
-      menus = await this.menuRepository.find({ order: { orderNo: 'ASC' } })
+      // menus = await this.menuRepository.find({ order: { orderNo: 'ASC' } })
+      menus = await this.menuRepository
+        .createQueryBuilder('menu')
+        .innerJoinAndSelect('menu.roles', 'role')
+        .leftJoinAndSelect('menu.page', 'page')
+        .select([
+          'menu',
+          'role',
+          'page.name',
+          'page.id',
+        ])
+        .orderBy('menu.order_no', 'ASC')
+        .getMany()
     }
     else {
       menus = await this.menuRepository
         .createQueryBuilder('menu')
         .innerJoinAndSelect('menu.roles', 'role')
+        .leftJoinAndSelect('menu.page', 'page')
+        .select([
+          'menu',
+          'role',
+          'page.name',
+          'page.id',
+        ])
         .andWhere('role.id IN (:...roleIds)', { roleIds })
         .orderBy('menu.order_no', 'ASC')
         .getMany()
@@ -151,7 +185,20 @@ export class MenuService {
    * 获取某个菜单以及关联的父菜单的信息
    */
   async getMenuItemAndParentInfo(mid: number) {
-    const menu = await this.menuRepository.findOneBy({ id: mid })
+    const menu = await this.menuRepository
+      .createQueryBuilder('menu')
+      .innerJoinAndSelect('menu.roles', 'role')
+      .leftJoinAndSelect('menu.page', 'page')
+      .select([
+        'menu',
+        'role',
+        'page.name',
+        'page.id',
+      ])
+      .where({
+        ...(mid && { id: Equal(mid) }),
+      })
+      .getOne()
     let parentMenu: MenuEntity | undefined
     if (menu && menu.parentId)
       parentMenu = await this.menuRepository.findOneBy({ id: menu.parentId })

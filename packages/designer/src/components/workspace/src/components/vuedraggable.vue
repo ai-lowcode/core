@@ -2,7 +2,8 @@
 import type { Schema } from '@ai-lowcode/core'
 import { deepCopy } from '@ai-lowcode/utils'
 import { ComponentPublicInstance, computed, defineComponent, getCurrentInstance, h, inject, useAttrs } from 'vue'
-import draggable from 'vuedraggable/src/vuedraggable'
+
+import { VueDraggable } from 'vue-draggable-plus'
 
 import { DESIGNER_CTX } from '@/global'
 import { DesignerContext } from '@/types'
@@ -36,7 +37,6 @@ const DragBoxRender = defineComponent({
     schema: Schema
     index: number
   }>) => {
-    console.log(ctx?.schema?.children?.[0]?.props?.class)
     return h(ctx?.schema?.type as string, { class: `al-drag-item ${matchTailwindWidth(ctx?.schema?.children?.[0]?.props?.class)}`, key: ctx?.index, ...ctx?.schema?.props, id: ctx?.schema?.id }, slots?.[0]?.children?.[ctx?.index])
   },
 })
@@ -56,14 +56,14 @@ function onMove(event: any) {
 </script>
 
 <template>
-  <draggable
-    :list="list"
+  <VueDraggable
+    v-model="list"
     :group="{
       name: 'drag-box',
       pull: true,
       put: true,
     }"
-    class="w-full"
+    class="w-full p-1"
     :class="{
       'h-full': list?.length,
       'h-full bg-basic-color rounded-md drag-content relative': !list?.length,
@@ -73,19 +73,15 @@ function onMove(event: any) {
       'flex-wrap': attrs?.__parentSchema?.props?.class?.includes('flex-wrap'),
     }"
     ghost-class="ghost"
-    animation="300"
-    empty-insert-threshold="0"
-    direction="vertical"
-    item-key="type"
     v-bind="$attrs"
     :clone="cloneElement"
     :move="onMove"
     @end="onEnded"
   >
-    <template #item="{ element, index }">
+    <template v-for="(element, index) in list" :key="index">
       <DragBoxRender :schema="element" :index="index" />
     </template>
-  </draggable>
+  </VueDraggable>
 </template>
 
 <style lang="scss" scoped>

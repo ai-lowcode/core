@@ -13,6 +13,7 @@ import { PaginationSchema } from '@/schema/element-plus/pagination'
 import { QueryBarSchema } from '@/schema/element-plus/query-bar'
 import { RadioSchema } from '@/schema/element-plus/radio'
 import { RateSchema } from '@/schema/element-plus/rate'
+import { SelectSchema } from '@/schema/element-plus/select'
 import { SliderSchema } from '@/schema/element-plus/slider'
 import { SwitchSchema } from '@/schema/element-plus/switch'
 import { TableSchema } from '@/schema/element-plus/table'
@@ -53,6 +54,7 @@ const componentSchemaList: Array<CompSchema> = [
   TimeSelectSchema,
   TransferSchema,
   TreeSelectSchema,
+  SelectSchema,
   UploadSchema,
 ]
 

@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@ai-lowcode/designer": "workspace:^",
+    "@ai-lowcode/core": "workspace:^",
     "@ai-lowcode/element-plus": "workspace:^",
     "@ai-lowcode/hooks": "workspace:^",
     "@ai-lowcode/request": "workspace:^",

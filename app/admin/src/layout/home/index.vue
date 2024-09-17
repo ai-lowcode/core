@@ -27,7 +27,9 @@ const { appSettingConfig } = toRefs(appStore)
     <div class="w-full flex flex-col main-container" :style="appSettingConfig.menuMode === 'top' ? 'margin-left: 0px' : ''">
       <NavBar />
       <TagBar v-if="!appSettingConfig.hideTag" />
-      <router-view />
+      <div class="flex-1 w-full h-full">
+        <router-view />
+      </div>
       <Footer v-if="!appSettingConfig.hideFooter" />
     </div>
   </div>

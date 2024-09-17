@@ -1,6 +1,8 @@
-import { Column, Entity, ManyToMany, Relation } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToMany, OneToOne, Relation } from 'typeorm'
 
 import { CompleteEntity } from '~/common/entity/common.entity'
+
+import { PageEntity } from '~/modules/lowcode/page/page.entity'
 
 import { RoleEntity } from '../role/role.entity'
 
@@ -47,6 +49,10 @@ export class MenuEntity extends CompleteEntity {
 
   @Column({ type: 'tinyint', default: 1 })
   status: number
+
+  @OneToOne(() => PageEntity, page => page.menus)
+  @JoinColumn({ name: 'page_id' })
+  page: Relation<PageEntity>
 
   @ManyToMany(() => RoleEntity, role => role.menus, {
     onDelete: 'CASCADE',

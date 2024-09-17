@@ -51,14 +51,25 @@ export function createDragBoxTemplate(schema?: Schema, props?: Record<string, an
  */
 export function createPageTemplate(schema?: Schema, props?: Record<string, any>) {
   return {
-    type: 'AlVueDragAble',
+    type: 'div',
     id: PAGE_COMP,
+    label: '页面',
     icon: 'iconoir:page',
-    props,
-    children: schema
-      ? [
-          schema,
-        ]
-      : [],
+    props: {
+      class: 'w-full h-full',
+    },
+    children: [
+      {
+        type: 'AlVueDragAble',
+        id: `__${uniqueId()}`,
+        icon: 'iconoir:page',
+        props,
+        children: schema
+          ? [
+              schema,
+            ]
+          : [],
+      },
+    ],
   }
 }

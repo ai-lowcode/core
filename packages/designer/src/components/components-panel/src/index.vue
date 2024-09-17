@@ -13,7 +13,8 @@ import {
 } from '@ai-lowcode/element-plus'
 import { Icon } from '@iconify/vue'
 import { computed, inject, onMounted, ref, watch } from 'vue'
-import AlDraggable from 'vuedraggable/src/vuedraggable'
+
+import { VueDraggable } from 'vue-draggable-plus'
 
 import { AlCodeEditorAtom } from '@/atoms'
 import createMenu from '@/components/components-panel/src/config/menu.ts'
@@ -226,9 +227,9 @@ function insertComponent(compSchema: CompSchema) {
  * @param pullMode
  * @param to
  */
-function onEnd({ item, newIndex, pullMode, to }: any) {
+function onEnd({ data, newIndex, pullMode, to }: any) {
   if (pullMode === 'clone') {
-    const addedComp = context?.workspaceRef?.value.insertComponent?.(item?.__draggable_context?.element.schema(), to.id, newIndex)
+    const addedComp = context?.workspaceRef?.value.insertComponent?.(data.schema(), to.id, newIndex)
     selectComponent(addedComp)
   }
 }
@@ -275,15 +276,17 @@ onMounted(() => {
         <AlInput class="w-full mb-2 px-3" placeholder="输入关键词查询组件" size="small" />
         <AlTabPane v-for="(item, index) in menuList" :key="index" :label="item.title" :name="item.name">
           <div class="mx-2">
-            <AlDraggable
+            <VueDraggable
+              v-model="item.list"
               :group="{ name: 'default', pull: 'clone', put: false }"
               :sort="false"
-              item-key="name"
               class="flex flex-wrap"
-              :list="item.list"
               @end="onEnd"
             >
-              <template #item="{ element }">
+              <template
+                v-for="element in item.list"
+                :key="element.id"
+              >
                 <div
                   class="w-1/2 flex justify-center items-center"
                   @click="insertComponent(element)"
@@ -299,7 +302,7 @@ onMounted(() => {
                   </div>
                 </div>
               </template>
-            </AlDraggable>
+            </VueDraggable>
           </div>
         </AlTabPane>
       </AlTabs>

@@ -1,3 +1,5 @@
+import * as console from 'node:console'
+
 import { ForbiddenException } from '@nestjs/common'
 
 import { envBoolean } from '~/global/env'
@@ -23,6 +25,8 @@ export interface RouteRecordRaw {
     activeMenu: string
     status: number
     keepAlive: number
+    pageId: number
+    pageName: string
   }
   children?: RouteRecordRaw[]
 }
@@ -39,6 +43,8 @@ function createRoute(menu: MenuEntity, _isRoot): RouteRecordRaw {
     activeMenu: menu.activeMenu,
     status: menu.status,
     keepAlive: menu.keepAlive,
+    pageId: menu.page?.id,
+    pageName: menu.page?.name,
   }
 
   if (isExternal(menu.path)) {
@@ -74,6 +80,7 @@ function createRoute(menu: MenuEntity, _isRoot): RouteRecordRaw {
 }
 
 function filterAsyncRoutes(menus: MenuEntity[], parentRoute: MenuEntity): RouteRecordRaw[] {
+  console.log(menus?.filter(m => m.name === '菜单管理'))
   const res: RouteRecordRaw[] = []
 
   menus.forEach((menu) => {

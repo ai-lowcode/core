@@ -15,7 +15,9 @@ import { AlDragBox, AlVueDragAble } from '@/components/workspace/index.ts'
 
 import { AlActionBar } from '@/schema/element-plus/action-bar'
 import { AlQueryBar } from '@/schema/element-plus/query-bar'
+import { AlSelectSchema } from '@/schema/element-plus/select'
 import { AlDataTable } from '@/schema/element-plus/table'
+import { AlTreeSelectSchema } from '@/schema/element-plus/tree-select'
 
 export * from './enums'
 
@@ -36,6 +38,8 @@ export function initComponents(app: App) {
   app.component(AlDataTable.name as string, AlDataTable)
   app.component(AlActionBar.name as string, AlActionBar)
   app.component(AlQueryBar.name as string, AlQueryBar)
+  app.component(AlTreeSelectSchema.name as string, AlTreeSelectSchema)
+  app.component(AlSelectSchema.name as string, AlSelectSchema)
   for (const atomsKey in Atoms) {
     app.component((Atoms as any)[atomsKey].name as string, (Atoms as any)[atomsKey])
   }

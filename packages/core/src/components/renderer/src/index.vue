@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { generateObjectFromPath, getValueFromPath, setValueAtPath } from '@ai-lowcode/utils'
+import { deepCopy, generateObjectFromPath, getValueFromPath, setValueAtPath } from '@ai-lowcode/utils'
 
 import { nextTick, provide, ref, watch } from 'vue'
 
@@ -102,8 +102,10 @@ async function updateRender() {
  * @param form
  */
 function updateComponent(form: Record<string, any>) {
-  formData.value = form
-  updateRender()
+  if (deepCopy(form) !== deepCopy(formData.value)) {
+    formData.value = form
+    updateRender()
+  }
 }
 
 defineExpose(exposeApi)

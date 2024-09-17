@@ -150,6 +150,7 @@ async function initPageSchema() {
   if (currentSelectPage.value?.id) {
     const { data } = await AlHttp.get(`/lowcode/pages/${currentSelectPage.value?.id}`)
     schema.value = isJsonStringTryCatch(data?.content) ? convertStringsToFunctions(JSON.parse(data?.content)) : clearPage()
+    console.log(schema.value, schema.value[0].children[0])
   }
 }
 

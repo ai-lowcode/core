@@ -30,7 +30,6 @@ async function dataRequestStrategy(newValue: any, type: string, params?: any, op
     dataSource: () => {},
     modifyApi: async () => {
       if (modifyRequestForm.url) {
-        console.log(params, options)
         const res = await (AlHttp as any)?.[modifyRequestForm.method]?.(modifyRequestForm.url, {
           ...modifyRequestForm.params,
           ...params,
@@ -56,12 +55,17 @@ async function handleData(params?: any, options?: any) {
   loading.close()
 }
 
-function operationClick(btn: any, data: any) {
-  new Function(btn.props?.onClick).bind({
+async function operationClick(btn: any, data: any) {
+  const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor
+  const { AlHttp } = await import('@ai-lowcode/request')
+  new AsyncFunction(btn.props?.onClick).bind({
     ...props,
     attrs,
     btn,
     data,
+    api: {
+      AlHttp,
+    },
   })()
 }
 

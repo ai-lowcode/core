@@ -63,7 +63,7 @@ function onMove(event: any) {
       pull: true,
       put: true,
     }"
-    class="w-full p-1"
+    class="w-full p-1 h-full"
     :class="{
       'h-full': list?.length,
       'h-full bg-basic-color rounded-md drag-content relative': !list?.length,

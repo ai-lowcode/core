@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { AlRenderer } from '@ai-lowcode/core'
 import { AlDesigner, removeAlDragBoxAndPromoteChildren } from '@ai-lowcode/designer'
 import { AlHttp } from '@ai-lowcode/request'
 import { convertStringsToFunctions, isJsonStringTryCatch } from '@ai-lowcode/utils'
@@ -21,6 +20,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <AlDesigner v-if="route.fullPath === '/about'" class="flex-1 p-2" style="height: calc(100vh - 100px)" />
-  <AlRenderer v-if="schema" :schemas="schema" />
+  <AlDesigner class="flex-1 p-2" style="height: calc(100vh - 100px)" />
+<!--  <AlRenderer v-if="schema" :schemas="schema" /> -->
 </template>

@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '操作栏'
 const name = 'action-bar'
-const icon = 'fluent:button-16-regular'
+const icon = 'material-symbols:action-key'
 
 export const ActionBarSchema = <CompSchema>{
   menu: 'main',
@@ -19,6 +19,9 @@ export const ActionBarSchema = <CompSchema>{
       icon,
       label,
       name,
+      props: {
+        class: 'p-1',
+      },
     }
   },
   // 插槽
@@ -144,6 +147,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'size',
                                   field: 'size',
                                   modelField: 'modelValue',
+                                  props: {
+                                    teleported: false,
+                                  },
                                   children: [
                                     {
                                       type: 'al-option',
@@ -193,6 +199,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'type',
                                   field: 'type',
                                   modelField: 'modelValue',
+                                  props: {
+                                    teleported: false,
+                                  },
                                   children: [
                                     {
                                       type: 'al-option',
@@ -490,6 +499,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'nativeType',
                                   field: 'props.nativeType',
                                   modelField: 'modelValue',
+                                  props: {
+                                    teleported: false,
+                                  },
                                   children: [
                                     {
                                       type: 'al-option',
@@ -585,6 +597,78 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'color',
                                   field: 'props.color',
                                   modelField: 'modelValue',
+                                },
+                              ],
+                            },
+                            {
+                              type: 'div',
+                              id: 'div',
+                              props: {
+                                class: 'flex flex-col mt-2',
+                              },
+                              children: [
+                                {
+                                  type: 'div',
+                                  id: 'div',
+                                  props: {
+                                    class: 'w-full text-left',
+                                  },
+                                  children: ['点击事件:'],
+                                },
+                                {
+                                  type: 'al-button',
+                                  id: 'data',
+                                  props: {
+                                    type: 'primary',
+                                  },
+                                  events: {
+                                    onClick: {
+                                      run() {
+                                        console.log(this)
+                                        // eslint-disable-next-line ts/ban-ts-comment
+                                        // @ts-expect-error
+                                        this.formData.value.value.visibleOnClickDialog = true
+                                      },
+                                    },
+                                  },
+                                  children: ['设置点击事件'],
+                                },
+                                {
+                                  type: 'al-dialog',
+                                  id: 'dialog',
+                                  field: 'visibleOnClickDialog',
+                                  modelField: 'modelValue',
+                                  props: {
+                                    title: '设置点击事件',
+                                  },
+                                  children: [
+                                    {
+                                      type: 'al-code-editor-atom',
+                                      id: 'onClick',
+                                      field: 'props.onClick',
+                                      modelField: 'modelValue',
+                                      props: {
+                                        class: 'flex item-center mt-2',
+                                        style: 'height: 200px',
+                                      },
+                                      events: {
+                                        confirmChange: {
+                                          run() {
+                                            // eslint-disable-next-line ts/ban-ts-comment
+                                            // @ts-expect-error
+                                            this.formData.value.value.visibleOnClickDialog = false
+                                          },
+                                        },
+                                        cancelChange: {
+                                          run() {
+                                            // eslint-disable-next-line ts/ban-ts-comment
+                                            // @ts-expect-error
+                                            this.formData.value.value.visibleOnClickDialog = false
+                                          },
+                                        },
+                                      },
+                                    },
+                                  ],
                                 },
                               ],
                             },
@@ -702,6 +786,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'size',
                                   field: 'size',
                                   modelField: 'modelValue',
+                                  props: {
+                                    teleported: false,
+                                  },
                                   children: [
                                     {
                                       type: 'al-option',
@@ -751,6 +838,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'type',
                                   field: 'type',
                                   modelField: 'modelValue',
+                                  props: {
+                                    teleported: false,
+                                  },
                                   children: [
                                     {
                                       type: 'al-option',
@@ -1048,6 +1138,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'nativeType',
                                   field: 'props.nativeType',
                                   modelField: 'modelValue',
+                                  props: {
+                                    teleported: false,
+                                  },
                                   children: [
                                     {
                                       type: 'al-option',
@@ -1143,6 +1236,78 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'color',
                                   field: 'props.color',
                                   modelField: 'modelValue',
+                                },
+                              ],
+                            },
+                            {
+                              type: 'div',
+                              id: 'div',
+                              props: {
+                                class: 'flex flex-col mt-2',
+                              },
+                              children: [
+                                {
+                                  type: 'div',
+                                  id: 'div',
+                                  props: {
+                                    class: 'w-full text-left',
+                                  },
+                                  children: ['点击事件:'],
+                                },
+                                {
+                                  type: 'al-button',
+                                  id: 'data',
+                                  props: {
+                                    type: 'primary',
+                                  },
+                                  events: {
+                                    onClick: {
+                                      run() {
+                                        console.log(this)
+                                        // eslint-disable-next-line ts/ban-ts-comment
+                                        // @ts-expect-error
+                                        this.formData.value.value.visibleOnClickDialog = true
+                                      },
+                                    },
+                                  },
+                                  children: ['设置点击事件'],
+                                },
+                                {
+                                  type: 'al-dialog',
+                                  id: 'dialog',
+                                  field: 'visibleOnClickDialog',
+                                  modelField: 'modelValue',
+                                  props: {
+                                    title: '设置点击事件',
+                                  },
+                                  children: [
+                                    {
+                                      type: 'al-code-editor-atom',
+                                      id: 'onClick',
+                                      field: 'props.onClick',
+                                      modelField: 'modelValue',
+                                      props: {
+                                        class: 'flex item-center mt-2',
+                                        style: 'height: 200px',
+                                      },
+                                      events: {
+                                        confirmChange: {
+                                          run() {
+                                            // eslint-disable-next-line ts/ban-ts-comment
+                                            // @ts-expect-error
+                                            this.formData.value.value.visibleOnClickDialog = false
+                                          },
+                                        },
+                                        cancelChange: {
+                                          run() {
+                                            // eslint-disable-next-line ts/ban-ts-comment
+                                            // @ts-expect-error
+                                            this.formData.value.value.visibleOnClickDialog = false
+                                          },
+                                        },
+                                      },
+                                    },
+                                  ],
                                 },
                               ],
                             },

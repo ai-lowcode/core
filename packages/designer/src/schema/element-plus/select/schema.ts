@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '选择'
 const name = 'select'
-const icon = 'fluent:button-16-regular'
+const icon = 'fluent:select-all-on-16-regular'
 
 export const SelectSchema = <CompSchema>{
   menu: 'main',
@@ -23,6 +23,9 @@ export const SelectSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
+      props: {
+        class: 'p-1',
+      },
     }
   },
   // 插槽

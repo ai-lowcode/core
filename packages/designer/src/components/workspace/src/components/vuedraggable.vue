@@ -37,7 +37,7 @@ const DragBoxRender = defineComponent({
     schema: Schema
     index: number
   }>) => {
-    return h(ctx?.schema?.type as string, { class: `al-drag-item ${matchTailwindWidth(ctx?.schema?.children?.[0]?.props?.class)}`, key: ctx?.index, ...ctx?.schema?.props, id: ctx?.schema?.id }, slots?.[0]?.children?.[ctx?.index])
+    return h(ctx?.schema?.type as string, { class: `al-drag-item mb-[2px]`, key: ctx?.index, ...ctx?.schema?.props, id: ctx?.schema?.id }, slots?.[0]?.children?.[ctx?.index])
   },
 })
 
@@ -63,7 +63,7 @@ function onMove(event: any) {
       pull: true,
       put: true,
     }"
-    class="w-full p-1 h-full"
+    class="w-full"
     :class="{
       'h-full': list?.length,
       'h-full bg-basic-color rounded-md drag-content relative': !list?.length,

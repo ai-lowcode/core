@@ -24,7 +24,7 @@ export const InputSchema = <CompSchema>{
       // modelValue 绑定参数
       modelField: 'modelValue',
       props: {
-        class: 'w-[100px] flex',
+        class: 'w-[100px] flex p-1',
       },
     }
   },

@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '树形选择'
 const name = 'tree-select'
-const icon = 'fluent:button-16-regular'
+const icon = 'icomoon-free:tree'
 
 export const TreeSelectSchema = <CompSchema>{
   menu: 'main',
@@ -23,6 +23,9 @@ export const TreeSelectSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
+      props: {
+        class: 'p-1',
+      },
     }
   },
   // 插槽
@@ -144,6 +147,7 @@ export const TreeSelectSchema = <CompSchema>{
             },
             children: [
               {
+                type: 'al-object-atom',
                 id: 'props',
                 field: 'props.props',
                 modelField: 'modelValue',

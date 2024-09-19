@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '文本'
 const name = 'text'
-const icon = 'fluent:button-16-regular'
+const icon = 'icon-park-outline:text'
 
 export const TextSchema = <CompSchema>{
   menu: 'main',
@@ -19,7 +19,9 @@ export const TextSchema = <CompSchema>{
       icon,
       label,
       name,
-      props: {},
+      props: {
+        class: 'p-1',
+      },
       children: ['文本'],
     }
   },

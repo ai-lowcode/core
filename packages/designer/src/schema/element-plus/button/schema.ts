@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '按钮'
 const name = 'button'
-const icon = 'fluent:button-16-regular'
+const icon = 'mdi:button-outline'
 
 export const ButtonSchema = <CompSchema>{
   menu: 'main',
@@ -20,7 +20,7 @@ export const ButtonSchema = <CompSchema>{
       label,
       name,
       props: {
-        class: 'm-4',
+        class: 'p-1',
       },
       children: [
         {

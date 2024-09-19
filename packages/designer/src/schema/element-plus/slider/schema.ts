@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '滑块'
 const name = 'slider'
-const icon = 'fluent:button-16-regular'
+const icon = 'solar:slider-vertical-bold'
 
 export const SliderSchema = <CompSchema>{
   menu: 'main',
@@ -23,6 +23,9 @@ export const SliderSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
+      props: {
+        class: 'p-1',
+      },
     }
   },
   // 插槽

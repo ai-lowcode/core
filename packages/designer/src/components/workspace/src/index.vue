@@ -12,6 +12,7 @@ import {
 import { onMounted, ref } from 'vue'
 
 import { DeviceEnum } from '@/enums'
+import { PAGE_COMP } from '@/global'
 import {
   createDragBoxTemplate,
   createPageTemplate,
@@ -33,6 +34,10 @@ const currentSelectPage = ref(webStorage.getStorageFromKey('__current_select_pag
 const currentDevice = ref(DeviceEnum.PC)
 
 const schema = ref<Array<Schema>>([])
+
+const selectComponent = ref<Schema>({
+  field: PAGE_COMP,
+} as Schema)
 
 function changeSelectPage(page: any) {
   currentSelectPage.value = page
@@ -63,34 +68,34 @@ function changeComponentSort(fromId: string, toId: string, oldIndex: number, new
 
 /**
  * 删除组件
- * @param component
+ * @param componentId
  */
-function deleteComponent(component: any) {
+function deleteComponent(componentId: string) {
   // 深拷贝组件 schema
   let newSchema = deepCopy(schema.value)
   // // 生成新 schema
-  newSchema = removeNodeById(newSchema, component?.attrs?.id)
+  newSchema = removeNodeById(newSchema, componentId)
   schema.value = newSchema
 }
 
 /**
  * 复制组件
- * @param component
+ * @param componentId
+ * @param componentSchema
  */
-function copyComponent(component: any) {
-  const compAttrs = deepCopy(component?.attrs)
+function copyComponent(componentId: string, componentSchema: Schema) {
+  let addedComp = null
   // 深拷贝组件 schema
   const newSchema = deepCopy(schema.value)
-  let addedComp = null
   // // 生成新 schema
-  schema.value = findAndModifyParentById(newSchema, compAttrs?.id, (node: Schema[]) => {
+  schema.value = findAndModifyParentById(newSchema, componentId, (node: Schema[]) => {
     // 要添加的组件
-    addedComp = recursiveUpdateIds(compAttrs?.__schema)
+    addedComp = recursiveUpdateIds(componentSchema)
+    const findIndex = node?.findIndex(n => n.children?.[0]?.id === selectComponent.value?.id)
+    // debugger
+    node.splice(findIndex + 1, 0, addedComp)
     // 在这里自定义你的修改逻辑
-    return [
-      ...node,
-      addedComp,
-    ]
+    return node
   })
   return addedComp
 }
@@ -154,6 +159,11 @@ async function initPageSchema() {
   }
 }
 
+function changeComponentSelect(comp: Schema) {
+  if (comp?.id !== selectComponent.value?.id)
+    selectComponent.value = comp
+}
+
 onMounted(() => {
   initPageSchema()
 })
@@ -172,6 +182,8 @@ defineExpose({
   changeSelectPage,
   changeWorkspaceScale,
   schema,
+  selectComponent,
+  changeComponentSelect,
 })
 </script>
 

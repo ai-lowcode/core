@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '数字输入框'
 const name = 'input-number'
-const icon = 'fluent:button-16-regular'
+const icon = 'fluent-emoji-high-contrast:input-numbers'
 
 export const InputNumberSchema = <CompSchema>{
   menu: 'main',
@@ -23,6 +23,9 @@ export const InputNumberSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
+      props: {
+        class: 'p-1',
+      },
     }
   },
   // 插槽

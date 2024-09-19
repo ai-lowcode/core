@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '日期选择器'
 const name = 'date-picker'
-const icon = 'fluent:button-16-regular'
+const icon = 'uiw:date'
 
 export const DatePickerSchema = <CompSchema>{
   menu: 'main',
@@ -23,6 +23,9 @@ export const DatePickerSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
+      props: {
+        class: 'p-1',
+      },
     }
   },
   // 插槽

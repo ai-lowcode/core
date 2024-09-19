@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '开关'
 const name = 'switch'
-const icon = 'fluent:button-16-regular'
+const icon = 'radix-icons:switch'
 
 export const SwitchSchema = <CompSchema>{
   menu: 'main',
@@ -23,6 +23,9 @@ export const SwitchSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
+      props: {
+        class: 'p-1',
+      },
     }
   },
   // 插槽

@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '时间选择器'
 const name = 'time-picker'
-const icon = 'fluent:button-16-regular'
+const icon = 'fluent:time-picker-20-regular'
 
 export const TimePickerSchema = <CompSchema>{
   menu: 'main',
@@ -23,6 +23,9 @@ export const TimePickerSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
+      props: {
+        class: 'p-1',
+      },
     }
   },
   // 插槽

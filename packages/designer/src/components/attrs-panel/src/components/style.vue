@@ -217,7 +217,7 @@ const classList = ref('')
 
 watch(() => classList.value, () => {
   // 调用函数，查找并修改
-  const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.selectComponent?.value.id, (node: Schema) => {
+  const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.workspaceRef?.value?.selectComponent?.id, (node: Schema) => {
     node.props.class = classList.value
   })
   context?.workspaceRef?.value.changeSchema(newNodes)
@@ -226,7 +226,7 @@ watch(() => classList.value, () => {
 // 监听插槽变化
 watch(() => style.value, () => {
   // 调用函数，查找并修改
-  const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.selectComponent?.value.id, (node: Schema) => {
+  const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.workspaceRef?.value?.selectComponent?.id, (node: Schema) => {
     node.props.style = {
       ...style.value,
       opacity: (100 - style.value.opacity) / 100,
@@ -239,8 +239,8 @@ watch(() => style.value, () => {
 })
 
 // 选中组件改变时
-watch(() => context?.selectComponent, (newValue) => {
-  findAndModifyById(context?.workspaceRef?.value.schema, newValue?.value.id, (node: Schema) => {
+watch(() => context?.workspaceRef?.value?.selectComponent, (newValue) => {
+  findAndModifyById(context?.workspaceRef?.value.schema, newValue?.id, (node: Schema) => {
     style.value = {
       ...node.props?.style,
       opacity: node.props?.opacity * 100,

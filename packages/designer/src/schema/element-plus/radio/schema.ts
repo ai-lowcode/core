@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '单选框'
 const name = 'radio'
-const icon = 'fluent:button-16-regular'
+const icon = 'fluent:radio-button-20-filled'
 
 export const RadioSchema = <CompSchema>{
   menu: 'main',
@@ -23,6 +23,9 @@ export const RadioSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
+      props: {
+        class: 'p-1',
+      },
     }
   },
   // 插槽

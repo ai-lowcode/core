@@ -5,6 +5,7 @@ import { CascaderSchema } from '@/schema/element-plus/cascader'
 import { ColorPickerSchema } from '@/schema/element-plus/color-picker'
 import { DatePickerSchema } from '@/schema/element-plus/date-picker'
 import { DialogSchema } from '@/schema/element-plus/dialog'
+import { DivSchema } from '@/schema/element-plus/div'
 import { FormItemSchema, FormSchema } from '@/schema/element-plus/form'
 import { InputSchema } from '@/schema/element-plus/input/index.ts'
 import { InputNumberSchema } from '@/schema/element-plus/input-number'
@@ -56,6 +57,7 @@ const componentSchemaList: Array<CompSchema> = [
   TreeSelectSchema,
   SelectSchema,
   UploadSchema,
+  DivSchema,
 ]
 
 export default componentSchemaList

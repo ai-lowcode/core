@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '提及'
 const name = 'mention'
-const icon = 'fluent:button-16-regular'
+const icon = 'octicon:mention-24'
 
 export const MentionSchema = <CompSchema>{
   menu: 'main',
@@ -23,6 +23,9 @@ export const MentionSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
+      props: {
+        class: 'p-1',
+      },
     }
   },
   // 插槽

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { AlMessage } from '@ai-lowcode/element-plus'
 import Codemirror from 'codemirror-editor-vue3'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
@@ -36,8 +37,9 @@ const cmRef = ref()
 
 const code = computed(() => props.modelValue)
 
-function onInput(val: string) {
-  emits('update:modelValue', val)
+function onInput(val: any) {
+  emits('update:modelValue', val.getValue())
+  AlMessage.success('已保存')
 }
 
 watch(() => props.option, (newValue) => {
@@ -60,7 +62,7 @@ onUnmounted(() => {
     v-model:value="code"
     :options="cmOptions"
     border
-    @input="onInput"
+    @blur="onInput"
   />
 </template>
 

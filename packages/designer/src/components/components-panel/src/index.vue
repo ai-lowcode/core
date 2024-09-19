@@ -12,7 +12,7 @@ import {
   AlTree,
 } from '@ai-lowcode/element-plus'
 import { Icon } from '@iconify/vue'
-import { computed, inject, onMounted, ref, watch } from 'vue'
+import { computed, inject, nextTick, onMounted, ref, watch } from 'vue'
 
 import { VueDraggable } from 'vue-draggable-plus'
 
@@ -22,7 +22,7 @@ import { ComponentMenu } from '@/enums'
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
 import componentSchemaList from '@/schema'
 import { ActiveComponentMenu, CompSchema, DesignerContext, Menu, MenuList } from '@/types'
-import { addEditorThemeListener, removeAlDragBoxAndPromoteChildren } from '@/utils'
+import { addEditorThemeListener, findParentNode, removeAlDragBoxAndPromoteChildren } from '@/utils'
 
 defineEmits<{
   /**
@@ -65,6 +65,8 @@ const code = ref()
 // 编辑器 ref
 const editor = ref()
 
+const outLineRef = ref()
+
 // tab 菜单标签
 const activeMenuTab = ref('main')
 
@@ -75,14 +77,21 @@ const menuList = ref<MenuList>(createMenu())
 const context = inject<DesignerContext>(DESIGNER_CTX)
 
 // 当前选中节点
-const currentSelectNode = computed(() => context?.selectComponent?.value?.id)
+const currentSelectNode = ref(context?.workspaceRef?.value?.selectComponent?.id)
+
+watch(() => context?.workspaceRef?.value?.selectComponent?.id, (newValue) => {
+  currentSelectNode.value = newValue
+  nextTick(() => {
+    outLineRef.value?.setCurrentKey(newValue)
+  })
+}, { deep: true })
 
 // 编辑器选项
 const editorOptions = ref({
   mode: 'javascript',
   theme: 'default', // 主题
   readOnly: false,
-  lineNumbers: true,
+  lineNumbers: false,
   lineWiseCopyCut: true,
   gutters: ['CodeMirror-lint-markers'],
   lint: true,
@@ -171,18 +180,19 @@ function changeComponentSlide(compType: ComponentMenu) {
 /**
  * 大纲树操作命令
  * @param command
- * @param id
+ * @param data
  */
-function handleCommand(command: string | number | object, id: string) {
+function handleCommand(command: string | number | object, data: any) {
+  const parentNode = findParentNode(context?.workspaceRef?.value?.schema[0], data?.id)
   switch (command) {
     case '1':
-      copyComponent(id)
+      copyComponent(parentNode?.id, parentNode)
       break
     case '2':
       // copyComponent(id)
       break
     case '3':
-      deleteComponent(id)
+      deleteComponent(parentNode?.id)
       break
   }
 }
@@ -198,9 +208,10 @@ function deleteComponent(id: string) {
 /**
  * 复制组件
  * @param id
+ * @param schema
  */
-function copyComponent(id: string) {
-  context?.changeComponentSelect?.(context?.workspaceRef?.value?.copyComponent(id))
+function copyComponent(id: string, schema: any) {
+  context?.workspaceRef?.value?.changeComponentSelect?.(context?.workspaceRef?.value?.copyComponent(id, schema))
 }
 
 /**
@@ -208,7 +219,7 @@ function copyComponent(id: string) {
  * @param id
  */
 function selectComponent(id: Schema) {
-  context?.changeComponentSelect?.(id)
+  context?.workspaceRef?.value?.changeComponentSelect?.(id)
 }
 
 /**
@@ -216,7 +227,7 @@ function selectComponent(id: Schema) {
  * @param compSchema
  */
 function insertComponent(compSchema: CompSchema) {
-  const addedComp = context?.workspaceRef?.value.insertComponent?.(compSchema.schema(), context?.selectComponent?.value.id)
+  const addedComp = context?.workspaceRef?.value.insertComponent?.(compSchema.schema(), context?.workspaceRef?.value?.selectComponent?.id)
   selectComponent(addedComp)
 }
 
@@ -309,10 +320,11 @@ onMounted(() => {
     </div>
     <div
       :class="activeComponentMenu.menu === ComponentMenu.OUTLINE && activeComponentMenu.expand ? 'animate-fade-in !block' : 'animate-fade-out !hidden'"
-      class="border border-solid border-basic-color flex-1 component-tree w-[272px]"
+      class="border border-solid border-basic-color overflow-auto flex-1 component-tree w-[272px]"
     >
       <AlInput class="w-full mt-2 px-2" placeholder="输入关键词查询大纲" size="small" />
       <AlTree
+        ref="outLineRef"
         class="m-2"
         :data="outLineTree"
         empty-text="暂无数据"
@@ -320,7 +332,6 @@ onMounted(() => {
         draggable
         highlight-current
         :expand-on-click-node="false"
-        :current-node-key="currentSelectNode"
         node-key="id"
       >
         <template #default="{ data }: any">
@@ -334,7 +345,7 @@ onMounted(() => {
               </div>
             </div>
             <div v-if="!data?.slot && data?.id !== PAGE_COMP" @click.stop>
-              <AlDropdown trigger="click" size="default" :class="currentSelectNode === data?.id ? 'text-active-color' : ''" @command="(command: string | number | object) => handleCommand(command, data?.id)">
+              <AlDropdown trigger="click" size="default" :class="currentSelectNode === data?.id ? 'text-active-color' : ''" @command="(command: string | number | object) => handleCommand(command, data)">
                 <AlIcon>
                   <Icon icon="mingcute:more-2-fill" />
                 </AlIcon>

@@ -26,6 +26,29 @@ export function removeAlDragBoxAndPromoteChildren(nodes: Array<any>): Array<any>
   })
 }
 
+export function findParentNode(tree, targetId, parent = null) {
+  // 如果当前节点的id匹配目标id,则返回父节点
+  if (tree.id === targetId) {
+    return parent
+  }
+
+  // 如果当前节点有children属性且是一个数组
+  if (Array.isArray(tree.children)) {
+    // 遍历children
+    for (const child of tree.children) {
+      // 递归调用findParentNode,将当前节点作为父节点传递
+      const result = findParentNode(child, targetId, tree)
+      // 如果找到了结果,立即返回
+      if (result) {
+        return result
+      }
+    }
+  }
+
+  // 如果没有找到匹配的节点,返回null
+  return null
+}
+
 /**
  * 创建AlDragBox
  * @param schema

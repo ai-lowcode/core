@@ -25,7 +25,7 @@ const context = inject<DesignerContext>(DESIGNER_CTX)
       class="h-full attrs-content border border-solid border-basic-color bg-basic-color"
       stretch
     >
-      <AlTabPane v-show="context?.selectComponent?.value.field !== PAGE_COMP" label="属性" name="props" class="h-full overflow-auto">
+      <AlTabPane v-show="context?.workspaceRef?.value?.selectComponent?.field !== PAGE_COMP" label="属性" name="props" class="h-full overflow-auto">
         <CompAttrs />
       </AlTabPane>
       <AlTabPane v-show="activeTab === 'style'" label="外观" name="style" class="h-full overflow-auto">

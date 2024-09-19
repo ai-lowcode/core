@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '颜色选择器'
 const name = 'color-picker'
-const icon = 'fluent:button-16-regular'
+const icon = 'mingcute:color-picker-fill'
 
 export const ColorPickerSchema = <CompSchema>{
   menu: 'main',
@@ -23,6 +23,9 @@ export const ColorPickerSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
+      props: {
+        class: 'p-1',
+      },
     }
   },
   // 插槽

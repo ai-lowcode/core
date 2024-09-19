@@ -127,7 +127,7 @@ onBeforeMount(() => {
 })
 
 onMounted(() => {
-  globalInstance?.setInstance(props.componentSchema?.name as string, exposeApi)
+  globalInstance?.setInstance(`${props.componentSchema?.name}_${props.componentSchema?.id}`, exposeApi)
   props.componentSchema?.lifeCycle?.onMounted?.run?.()
 })
 

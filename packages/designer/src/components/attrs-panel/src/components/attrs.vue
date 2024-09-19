@@ -32,13 +32,13 @@ const propsData = ref()
 
 const slotsData = ref()
 
-const compSchema = computed(() => componentSchemaList.find(item => item.name === context?.selectComponent?.value.name))
+const compSchema = computed(() => componentSchemaList.find(item => item.name === context?.workspaceRef?.value?.selectComponent?.name))
 
 // 监听字段变化
 watch(() => fieldData.value, (newValue) => {
   if (context?.workspaceRef?.value?.schema) {
     // 调用函数，查找并修改
-    const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.selectComponent?.value.id, (node: Schema) => {
+    const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.workspaceRef?.value?.selectComponent?.id, (node: Schema) => {
       if (newValue?.field?.id)
         node.id = newValue.field.id
       if (newValue?.field?.name)
@@ -57,7 +57,7 @@ watch(() => fieldData.value, (newValue) => {
 // 监听属性变化
 watch(() => propsData.value, (newValue) => {
   // 调用函数，查找并修改
-  const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.selectComponent?.value.id, (node: Schema) => {
+  const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.workspaceRef?.value?.selectComponent?.id, (node: Schema) => {
     node.props = {
       ...node.props,
       ...newValue.props,
@@ -73,7 +73,7 @@ watch(() => propsData.value, (newValue) => {
 // 监听插槽变化
 watch(() => slotsData.value, (newValue) => {
   // 调用函数，查找并修改
-  const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.selectComponent?.value.id, (node: Schema) => {
+  const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.workspaceRef?.value?.selectComponent?.id, (node: Schema) => {
     node.children = (node.children as Schema[])?.map((item) => {
       return {
         ...item,
@@ -88,8 +88,8 @@ watch(() => slotsData.value, (newValue) => {
 })
 
 // 选中组件改变时
-watch(() => context?.selectComponent, (newValue) => {
-  findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), newValue?.value.id, (node: Schema) => {
+watch(() => context?.workspaceRef?.value?.selectComponent, (newValue) => {
+  findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), newValue?.id, (node: Schema) => {
     propsData.value = {
       props: node.props,
     }
@@ -123,17 +123,17 @@ watch(() => context?.selectComponent, (newValue) => {
 
 <template>
   <AlCollapse :model-value="['1', '2', '3']">
-    <AlCollapseItem v-show="context?.selectComponent?.value?.id !== PAGE_COMP" title="基础属性" name="1">
+    <AlCollapseItem v-show="context?.workspaceRef?.value?.selectComponent?.id !== PAGE_COMP" title="基础属性" name="1">
       <div class="p-4">
-        <AlRenderer ref="fieldRef" v-model="fieldData" :schemas="context?.selectComponent?.value?.field === PAGE_COMP ? {} : FieldAttrsSchema" />
+        <AlRenderer ref="fieldRef" v-model="fieldData" :schemas="context?.workspaceRef?.value?.selectComponent?.field === PAGE_COMP ? {} : FieldAttrsSchema" />
       </div>
     </AlCollapseItem>
     <AlCollapseItem title="组件属性" name="2">
       <div class="p-4">
-        <AlRenderer ref="compAttrsRef" v-model="propsData" :schemas="context?.selectComponent?.value?.field === PAGE_COMP ? FormAttrsSchema : compSchema?.props()!" />
+        <AlRenderer ref="compAttrsRef" v-model="propsData" :schemas="context?.workspaceRef?.value?.selectComponent?.field === PAGE_COMP ? FormAttrsSchema : compSchema?.props()!" />
       </div>
     </AlCollapseItem>
-    <AlCollapseItem v-if="context?.selectComponent?.value?.id !== PAGE_COMP && compSchema?.slots?.()!" title="插槽属性" name="3">
+    <AlCollapseItem v-if="context?.workspaceRef?.value?.selectComponent?.id !== PAGE_COMP && compSchema?.slots?.()!" title="插槽属性" name="3">
       <div class="p-4">
         <AlRenderer ref="slotsRef" v-model="slotsData" :schemas="compSchema?.slots?.()!" />
       </div>

@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '数据表格'
 const name = 'data-table'
-const icon = 'fa-solid:table'
+const icon = 'material-symbols-light:data-table'
 
 export const TableSchema = <CompSchema>{
   menu: 'main',
@@ -24,7 +24,7 @@ export const TableSchema = <CompSchema>{
       // modelValue 绑定参数
       modelField: 'modelValue',
       props: {
-        class: 'w-full',
+        class: 'w-full p-1',
         inline: true,
       },
     }
@@ -278,6 +278,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'size',
                                   field: 'size',
                                   modelField: 'modelValue',
+                                  props: {
+                                    teleported: false,
+                                  },
                                   children: [
                                     {
                                       type: 'al-option',
@@ -327,6 +330,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'type',
                                   field: 'type',
                                   modelField: 'modelValue',
+                                  props: {
+                                    teleported: false,
+                                  },
                                   children: [
                                     {
                                       type: 'al-option',
@@ -624,6 +630,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'nativeType',
                                   field: 'props.nativeType',
                                   modelField: 'modelValue',
+                                  props: {
+                                    teleported: false,
+                                  },
                                   children: [
                                     {
                                       type: 'al-option',
@@ -879,6 +888,9 @@ export const TableSchema = <CompSchema>{
                 id: 'size',
                 field: 'props.size',
                 modelField: 'modelValue',
+                props: {
+                  teleported: false,
+                },
                 children: [
                   {
                     type: 'al-option',
@@ -1192,6 +1204,9 @@ export const TableSchema = <CompSchema>{
                 id: 'tooltipEffect',
                 field: 'props.tooltipEffect',
                 modelField: 'modelValue',
+                props: {
+                  teleported: false,
+                },
                 children: [
                   {
                     type: 'al-option',
@@ -1353,6 +1368,9 @@ export const TableSchema = <CompSchema>{
                 id: 'tableLayout',
                 field: 'props.tableLayout',
                 modelField: 'modelValue',
+                props: {
+                  teleported: false,
+                },
                 children: [
                   {
                     type: 'al-option',

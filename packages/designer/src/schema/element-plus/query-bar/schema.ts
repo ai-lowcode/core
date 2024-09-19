@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '查询栏'
 const name = 'query-bar'
-const icon = 'fluent:button-16-regular'
+const icon = 'icon-park-outline:history-query'
 
 export const QueryBarSchema = <CompSchema>{
   menu: 'main',
@@ -19,6 +19,9 @@ export const QueryBarSchema = <CompSchema>{
       icon,
       label,
       name,
+      props: {
+        class: 'p-1',
+      },
       children: [
         {
           type: 'AlVueDragAble',

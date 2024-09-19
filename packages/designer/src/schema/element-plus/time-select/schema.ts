@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '时间选择'
 const name = 'time-select'
-const icon = 'fluent:button-16-regular'
+const icon = 'fad:timeselect'
 
 export const TimeSelectSchema = <CompSchema>{
   menu: 'main',
@@ -23,6 +23,9 @@ export const TimeSelectSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
+      props: {
+        class: 'p-1',
+      },
     }
   },
   // 插槽

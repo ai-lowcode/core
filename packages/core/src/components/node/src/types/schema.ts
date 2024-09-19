@@ -16,25 +16,13 @@ export interface Schema {
   field?: string
   label?: string
   attrs?: any
+  modelType?: string
   /**
    * 基础配置
    */
   type?: string
-  icon?: string
-  title?: string | Schema
   name?: string
-  value?: any
-  info?: string | Schema
-  native?: boolean
   hidden?: boolean
-  display?: boolean
-  prefix?: string | Schema
-  suffix?: string | Schema
-  /**
-   * 通用配置
-   */
-  class?: object | string | Array<any>
-  style?: object | string
   // 设置父级组件的插槽,默认为default.可配合 slot 配置项使用
   children?: Array<Schema | string | any> | Function
 }

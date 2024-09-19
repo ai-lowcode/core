@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '穿梭框'
 const name = 'transfer'
-const icon = 'fluent:button-16-regular'
+const icon = 'tabler:transfer'
 
 export const TransferSchema = <CompSchema>{
   menu: 'main',
@@ -23,6 +23,9 @@ export const TransferSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
+      props: {
+        class: 'p-1',
+      },
     }
   },
   // 插槽

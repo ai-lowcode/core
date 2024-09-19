@@ -5,7 +5,7 @@ import { CompSchema } from '@/types'
 
 const label = '分页'
 const name = 'pagination'
-const icon = 'fluent:dual-screen-pagination-24-regular'
+const icon = 'fluent:dual-screen-pagination-20-filled'
 
 export const PaginationSchema = <CompSchema>{
   menu: 'main',

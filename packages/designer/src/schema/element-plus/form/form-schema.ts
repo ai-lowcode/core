@@ -24,7 +24,7 @@ export const FormSchema = <CompSchema>{
       // modelValue 绑定参数
       modelField: 'modelValue',
       props: {
-        class: 'w-full',
+        class: 'w-full p-1',
       },
       children: [
         {

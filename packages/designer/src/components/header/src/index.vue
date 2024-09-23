@@ -31,7 +31,9 @@ const context = inject<DesignerContext>(DESIGNER_CTX)
 // 工作区options
 const options = computed(() => context?.workspaceRef?.value.options)
 
-// 清除页面内容
+/**
+ * 清除页面内容
+ */
 function clearPage() {
   context?.workspaceRef?.value.clearPage()
 }

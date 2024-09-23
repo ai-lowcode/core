@@ -2,6 +2,7 @@ import * as elementPlus from '@ai-lowcode/element-plus'
 
 import '@ai-lowcode/element-plus/css'
 
+import { Icon } from '@iconify/vue'
 import { App, Component } from 'vue'
 
 import Designer from './index.vue'
@@ -26,7 +27,6 @@ export * from './types'
 export * from './components'
 
 export * from './utils'
-
 export const AlDesigner = Designer
 
 export function initComponents(app: App) {
@@ -40,6 +40,7 @@ export function initComponents(app: App) {
   app.component(AlQueryBar.name as string, AlQueryBar)
   app.component(AlTreeSelectSchema.name as string, AlTreeSelectSchema)
   app.component(AlSelectSchema.name as string, AlSelectSchema)
+  app.component('icon', Icon)
   for (const atomsKey in Atoms) {
     app.component((Atoms as any)[atomsKey].name as string, (Atoms as any)[atomsKey])
   }

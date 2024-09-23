@@ -238,6 +238,17 @@ watch(() => style.value, () => {
   deep: true,
 })
 
+// 监听插槽变化
+watch(() => css.value, () => {
+  // 调用函数，查找并修改
+  const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.workspaceRef?.value?.selectComponent?.id, (node: Schema) => {
+    node.cssString = css.value
+  })
+  context?.workspaceRef?.value.changeSchema(newNodes)
+}, {
+  deep: true,
+})
+
 // 选中组件改变时
 watch(() => context?.workspaceRef?.value?.selectComponent, (newValue) => {
   findAndModifyById(context?.workspaceRef?.value.schema, newValue?.id, (node: Schema) => {
@@ -247,6 +258,7 @@ watch(() => context?.workspaceRef?.value?.selectComponent, (newValue) => {
       scale: node.props?.scale * 100,
     }
     classList.value = node.props?.class
+    css.value = node.cssString
   })
 }, {
   deep: true,

@@ -16,7 +16,7 @@ const props = defineProps<{
   modelValue: any
 }>()
 
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue', 'change'])
 
 const requestRef = ref()
 
@@ -59,6 +59,7 @@ function handleSave() {
     modifyRequestForm: modifyRequestForm.value,
   })
   props?.confirmChange?.()
+  emits('change')
 }
 
 function cancel() {

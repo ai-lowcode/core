@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@ai-lowcode/utils": "workspace:^",
+    "@ai-lowcode/styles": "workspace:^",
     "vue": "^3.5.3"
   },
   "devDependencies": {

@@ -29,7 +29,7 @@ export const ActionBarSchema = <CompSchema>{
   // 事件
   events: () => {},
   // 属性
-  props: () => {
+  props: (changePropsData: Function) => {
     return <Schema[]>[
       {
         type: 'al-form',
@@ -98,6 +98,9 @@ export const ActionBarSchema = <CompSchema>{
                                   props: {
                                     class: 'flex-1',
                                   },
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -124,6 +127,9 @@ export const ActionBarSchema = <CompSchema>{
                                   props: {
                                     class: 'flex-1',
                                   },
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -149,6 +155,9 @@ export const ActionBarSchema = <CompSchema>{
                                   modelField: 'modelValue',
                                   props: {
                                     teleported: false,
+                                  },
+                                  events: {
+                                    onChange: changePropsData,
                                   },
                                   children: [
                                     {
@@ -201,6 +210,9 @@ export const ActionBarSchema = <CompSchema>{
                                   modelField: 'modelValue',
                                   props: {
                                     teleported: false,
+                                  },
+                                  events: {
+                                    onChange: changePropsData,
                                   },
                                   children: [
                                     {
@@ -283,6 +295,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'plain',
                                   field: 'props.plain',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -306,6 +321,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'text',
                                   field: 'props.text',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -329,6 +347,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'bg',
                                   field: 'props.bg',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -352,6 +373,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'link',
                                   field: 'props.link',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -375,6 +399,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'round',
                                   field: 'props.round',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -398,6 +425,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'circle',
                                   field: 'props.circle',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -430,6 +460,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'loading',
                                   field: 'props.loading',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -453,6 +486,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'disabled',
                                   field: 'props.disabled',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -476,6 +512,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'autofocus',
                                   field: 'props.autofocus',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -501,6 +540,9 @@ export const ActionBarSchema = <CompSchema>{
                                   modelField: 'modelValue',
                                   props: {
                                     teleported: false,
+                                  },
+                                  events: {
+                                    onChange: changePropsData,
                                   },
                                   children: [
                                     {
@@ -551,6 +593,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'autoInsertSpace',
                                   field: 'props.autoInsertSpace',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -574,6 +619,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'color',
                                   field: 'props.color',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -597,6 +645,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'color',
                                   field: 'props.color',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -627,7 +678,7 @@ export const ActionBarSchema = <CompSchema>{
                                         console.log(this)
                                         // eslint-disable-next-line ts/ban-ts-comment
                                         // @ts-expect-error
-                                        this.formData.value.value.visibleOnClickDialog = true
+                                        this.formData.value.visibleOnClickDialog = true
                                       },
                                     },
                                   },
@@ -652,18 +703,19 @@ export const ActionBarSchema = <CompSchema>{
                                         style: 'height: 200px',
                                       },
                                       events: {
+                                        onChange: changePropsData,
                                         confirmChange: {
                                           run() {
                                             // eslint-disable-next-line ts/ban-ts-comment
                                             // @ts-expect-error
-                                            this.formData.value.value.visibleOnClickDialog = false
+                                            this.formData.value.visibleOnClickDialog = false
                                           },
                                         },
                                         cancelChange: {
                                           run() {
                                             // eslint-disable-next-line ts/ban-ts-comment
                                             // @ts-expect-error
-                                            this.formData.value.value.visibleOnClickDialog = false
+                                            this.formData.value.visibleOnClickDialog = false
                                           },
                                         },
                                       },
@@ -737,6 +789,9 @@ export const ActionBarSchema = <CompSchema>{
                                   props: {
                                     class: 'flex-1',
                                   },
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -763,6 +818,9 @@ export const ActionBarSchema = <CompSchema>{
                                   props: {
                                     class: 'flex-1',
                                   },
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -788,6 +846,9 @@ export const ActionBarSchema = <CompSchema>{
                                   modelField: 'modelValue',
                                   props: {
                                     teleported: false,
+                                  },
+                                  events: {
+                                    onChange: changePropsData,
                                   },
                                   children: [
                                     {
@@ -840,6 +901,9 @@ export const ActionBarSchema = <CompSchema>{
                                   modelField: 'modelValue',
                                   props: {
                                     teleported: false,
+                                  },
+                                  events: {
+                                    onChange: changePropsData,
                                   },
                                   children: [
                                     {
@@ -922,6 +986,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'plain',
                                   field: 'props.plain',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -945,6 +1012,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'text',
                                   field: 'props.text',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -968,6 +1038,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'bg',
                                   field: 'props.bg',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -991,6 +1064,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'link',
                                   field: 'props.link',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -1014,6 +1090,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'round',
                                   field: 'props.round',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -1037,6 +1116,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'circle',
                                   field: 'props.circle',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -1069,6 +1151,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'loading',
                                   field: 'props.loading',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -1092,6 +1177,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'disabled',
                                   field: 'props.disabled',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -1115,6 +1203,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'autofocus',
                                   field: 'props.autofocus',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -1140,6 +1231,9 @@ export const ActionBarSchema = <CompSchema>{
                                   modelField: 'modelValue',
                                   props: {
                                     teleported: false,
+                                  },
+                                  events: {
+                                    onChange: changePropsData,
                                   },
                                   children: [
                                     {
@@ -1190,6 +1284,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'autoInsertSpace',
                                   field: 'props.autoInsertSpace',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -1213,6 +1310,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'color',
                                   field: 'props.color',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -1236,6 +1336,9 @@ export const ActionBarSchema = <CompSchema>{
                                   id: 'color',
                                   field: 'props.color',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -1266,7 +1369,7 @@ export const ActionBarSchema = <CompSchema>{
                                         console.log(this)
                                         // eslint-disable-next-line ts/ban-ts-comment
                                         // @ts-expect-error
-                                        this.formData.value.value.visibleOnClickDialog = true
+                                        this.formData.value.visibleOnClickDialog = true
                                       },
                                     },
                                   },
@@ -1291,18 +1394,19 @@ export const ActionBarSchema = <CompSchema>{
                                         style: 'height: 200px',
                                       },
                                       events: {
+                                        onChange: changePropsData,
                                         confirmChange: {
                                           run() {
                                             // eslint-disable-next-line ts/ban-ts-comment
                                             // @ts-expect-error
-                                            this.formData.value.value.visibleOnClickDialog = false
+                                            this.formData.value.visibleOnClickDialog = false
                                           },
                                         },
                                         cancelChange: {
                                           run() {
                                             // eslint-disable-next-line ts/ban-ts-comment
                                             // @ts-expect-error
-                                            this.formData.value.value.visibleOnClickDialog = false
+                                            this.formData.value.visibleOnClickDialog = false
                                           },
                                         },
                                       },

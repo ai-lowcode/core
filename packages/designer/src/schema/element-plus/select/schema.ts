@@ -64,7 +64,7 @@ export const SelectSchema = <CompSchema>{
                     run() {
                       // eslint-disable-next-line ts/ban-ts-comment
                       // @ts-expect-error
-                      this.formData.value.value.visibleSelectDataDialog = true
+                      this.formData.value.visibleSelectDataDialog = true
                     },
                   },
                 },
@@ -92,14 +92,14 @@ export const SelectSchema = <CompSchema>{
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.formData.value.value.visibleSelectDataDialog = false
+                          this.formData.value.visibleSelectDataDialog = false
                         },
                       },
                       cancelChange: {
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.formData.value.value.visibleSelectDataDialog = false
+                          this.formData.value.visibleSelectDataDialog = false
                         },
                       },
                     },

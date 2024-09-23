@@ -195,14 +195,14 @@ function confirmEvent() {
           const elementPlus = await import('@ai-lowcode/element-plus')
           const { AlHttp } = await import('@ai-lowcode/request')
           this?.__event?.children?.map((event: any) => {
-            (new Function('api', event?.code)).bind({
+            (new Function(event?.code)).bind({
               arg,
-              instance: this,
+              ...this,
               elementPlus,
               api: {
                 AlHttp,
               },
-            })(arg)
+            })()
           })
         },
       },

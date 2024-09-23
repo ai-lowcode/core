@@ -10,17 +10,19 @@ const route = useRoute()
 
 const schema = ref()
 
-async function handleData() {
-  const { data } = await AlHttp.get(`/lowcode/pages/${route.meta?.pageId}`, {}, {})
-  schema.value = isJsonStringTryCatch(data?.content) ? removeAlDragBoxAndPromoteChildren(convertStringsToFunctions(JSON.parse(data?.content))) : []
+async function handleData(pageId: string) {
+  if (pageId) {
+    const { data } = await AlHttp.get(`/lowcode/pages/${pageId}`, {}, {})
+    schema.value = isJsonStringTryCatch(data?.content) ? removeAlDragBoxAndPromoteChildren(convertStringsToFunctions(JSON.parse(data?.content))) : []
+  }
 }
 
 watch(() => route.meta?.pageId, (newValue) => {
-  handleData()
+  handleData(newValue as string)
 }, { deep: true })
 
 onMounted(() => {
-  handleData()
+  handleData(route.meta?.pageId as string)
 })
 </script>
 

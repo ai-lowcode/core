@@ -6,7 +6,6 @@ const defaultOptions: CreateAxiosOptionsType = {
   timeout: 100000,
   requestOptions: {
     withToken: true,
-    isShowErrorMessage: true,
   },
 }
 

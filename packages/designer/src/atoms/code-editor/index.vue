@@ -13,7 +13,7 @@ const props = defineProps({
   option: Object,
 })
 
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue', 'change'])
 
 const cmOptions = ref(props.option ?? {
   mode: 'application/javascript',
@@ -39,6 +39,7 @@ const code = computed(() => props.modelValue)
 
 function onInput(val: any) {
   emits('update:modelValue', val.getValue())
+  emits('change')
   AlMessage.success('已保存')
 }
 

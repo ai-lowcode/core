@@ -4,6 +4,8 @@ import { AlHttp, RequestOptionsType } from '@ai-lowcode/request'
 import { isJsonStringTryCatch } from '@ai-lowcode/utils'
 import { onMounted, ref, useAttrs } from 'vue'
 
+import { getExposeApi } from '@/utils'
+
 defineOptions({
   name: 'AlDataTable',
 })
@@ -29,6 +31,7 @@ async function dataRequestStrategy(newValue: any, type: string, params?: any, op
     },
     dataSource: () => {},
     modifyApi: async () => {
+      const api = await getExposeApi()
       if (modifyRequestForm.url) {
         const res = await (AlHttp as any)?.[modifyRequestForm.method]?.(modifyRequestForm.url, {
           ...modifyRequestForm.params,
@@ -37,7 +40,12 @@ async function dataRequestStrategy(newValue: any, type: string, params?: any, op
           header: modifyRequestForm.header,
           ...options,
         })
-        const handleData = new Function(modifyRequestForm.handleData).bind(res)
+        const handleData = new Function(modifyRequestForm.handleData).bind({
+          data: res,
+          ...props,
+          attrs,
+          ...api,
+        })
         return modifyRequestForm.handleData ? handleData() : res.data
       }
     },
@@ -57,15 +65,13 @@ async function handleData(params?: any, options?: any) {
 
 async function operationClick(btn: any, data: any) {
   const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor
-  const { AlHttp } = await import('@ai-lowcode/request')
+  const api = await getExposeApi()
   new AsyncFunction(btn.props?.onClick).bind({
     ...props,
     attrs,
     btn,
     data,
-    api: {
-      AlHttp,
-    },
+    ...api,
   })()
 }
 
@@ -75,11 +81,12 @@ onMounted(async () => {
 
 defineExpose({
   handleData,
+  el: tableRef,
 })
 </script>
 
 <template>
-  <div ref="tableRef">
+  <div ref="tableRef" class="contents">
     <AlTable v-bind="$attrs" :data="data">
       <AlTableColumn v-for="(column, index) in columns" :key="index" v-bind="column" />
       <AlTableColumn fixed="right" label="操作" min-width="120">

@@ -47,7 +47,7 @@ async function handleLogin() {
     ...loginForm.value,
     captchaId: verificationCode.value.id,
   })
-  if (code === ResponseCodeEnum.FAIL)
+  if (code !== ResponseCodeEnum.SUCCESS)
     await handleVerificationCode()
   loginLoading.value = false
 }

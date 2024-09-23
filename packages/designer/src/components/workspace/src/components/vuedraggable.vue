@@ -1,7 +1,12 @@
 <script lang="ts" setup>
 import type { Schema } from '@ai-lowcode/core'
 import { deepCopy } from '@ai-lowcode/utils'
-import { ComponentPublicInstance, computed, defineComponent, getCurrentInstance, h, inject, useAttrs } from 'vue'
+import {
+  inject,
+  ref,
+  useAttrs,
+  watch,
+} from 'vue'
 
 import { VueDraggable } from 'vue-draggable-plus'
 
@@ -12,33 +17,18 @@ defineOptions({
   name: 'AlVueDragAble',
 })
 
+const props = defineProps<{
+  schema: Schema
+}>()
+
 const attrs = useAttrs()
-const instance = getCurrentInstance()
-const slots = instance?.slots?.default?.()
-const list = computed({
-  get() {
-    return deepCopy((attrs?.__schema as Schema).children)
-  },
-  set() {},
-})
+const list = ref(deepCopy((props?.schema as Schema).children))
 const context = inject<DesignerContext>(DESIGNER_CTX)
 
-function matchTailwindWidth(input) {
-  if (input) {
-    const regex = /\bw-(?:full|screen|min|max|fit|\[[\w.%]+\]|\d+\/\d+|\d+(?:\.5)?)/
-    const match = input.match(regex)
-    return match ? match[0] : null
-  }
-}
-
-const DragBoxRender = defineComponent({
-  props: ['schema', 'index'],
-  render: (ctx: ComponentPublicInstance<{
-    schema: Schema
-    index: number
-  }>) => {
-    return h(ctx?.schema?.type as string, { class: `al-drag-item mb-[2px]`, key: ctx?.index, ...ctx?.schema?.props, id: ctx?.schema?.id }, slots?.[0]?.children?.[ctx?.index])
-  },
+watch(() => props?.schema, (newValue) => {
+  list.value = deepCopy((newValue as Schema).children)
+}, {
+  deep: true,
 })
 
 function onEnded({ to, from, oldIndex, newIndex }: any) {
@@ -78,9 +68,7 @@ function onMove(event: any) {
     :move="onMove"
     @end="onEnded"
   >
-    <template v-for="(element, index) in list" :key="index">
-      <DragBoxRender :schema="element" :index="index" />
-    </template>
+    <slot />
   </VueDraggable>
 </template>
 

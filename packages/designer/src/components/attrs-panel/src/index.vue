@@ -12,10 +12,10 @@ import CompStyle from './components/style.vue'
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
 import { DesignerContext } from '@/types'
 
-const activeTab = ref('props')
-
 // 全局上下文
 const context = inject<DesignerContext>(DESIGNER_CTX)
+
+const activeTab = ref('props')
 </script>
 
 <template>

@@ -14,7 +14,7 @@ export const ButtonSchema = <CompSchema>{
   name,
   schema: () => {
     return <Schema>{
-      type: 'al-button',
+      type: 'al-button-schema',
       id: `__${uniqueId()}`,
       icon,
       label,
@@ -37,38 +37,7 @@ export const ButtonSchema = <CompSchema>{
     }
   },
   // 插槽
-  slots: () => {
-    return <Schema[]>[
-      {
-        type: 'al-form',
-        id: 'al-form',
-        field: 'slots',
-        modelField: 'modelValue',
-        props: {
-          labelWidth: 100,
-          labelPosition: 'top',
-          size: 'small',
-        },
-        children: [
-          {
-            type: 'al-form-item',
-            id: 'default',
-            props: {
-              label: '隐藏默认插槽',
-            },
-            children: [
-              {
-                type: 'al-switch',
-                id: 'default',
-                field: 'slots.default',
-                modelField: 'modelValue',
-              },
-            ],
-          },
-        ],
-      },
-    ]
-  },
+  slots: () => {},
   // 事件
   events: () => {
     return [
@@ -92,6 +61,21 @@ export const ButtonSchema = <CompSchema>{
           size: 'small',
         },
         children: [
+          {
+            type: 'al-form-item',
+            id: 'plain',
+            props: {
+              label: '按钮内容',
+            },
+            children: [
+              {
+                type: 'al-input',
+                id: 'content',
+                field: 'props.content',
+                modelField: 'modelValue',
+              },
+            ],
+          },
           {
             type: 'al-form-item',
             id: 'size',

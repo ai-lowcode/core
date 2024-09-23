@@ -65,7 +65,7 @@ export const TreeSelectSchema = <CompSchema>{
                     run() {
                       // eslint-disable-next-line ts/ban-ts-comment
                       // @ts-expect-error
-                      this.formData.value.value.visibleDataDialog = true
+                      this.formData.value.visibleDataDialog = true
                     },
                   },
                 },
@@ -93,14 +93,14 @@ export const TreeSelectSchema = <CompSchema>{
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.formData.value.value.visibleDataDialog = false
+                          this.formData.value.visibleDataDialog = false
                         },
                       },
                       cancelChange: {
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.formData.value.value.visibleDataDialog = false
+                          this.formData.value.visibleDataDialog = false
                         },
                       },
                     },

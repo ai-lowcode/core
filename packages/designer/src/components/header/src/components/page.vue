@@ -8,6 +8,8 @@ import {
   AlIcon,
   AlInput,
   AlLoading,
+  AlMessage,
+  AlMessageBox,
   AlPopover,
   AlTabPane,
   AlTabs,
@@ -33,6 +35,8 @@ const pageRef = ref()
 
 // 页面创建 ref
 const pageCreateRef = ref()
+
+const isEdit = ref(false)
 
 // 页面列表
 const pageList = ref<Array<PageType>>([])
@@ -63,6 +67,7 @@ const pageCreateData = ref<PageType>({
  */
 function pageCreateDialog() {
   visiblePageCreate.value = true
+  isEdit.value = false
 }
 
 /**
@@ -71,6 +76,7 @@ function pageCreateDialog() {
  */
 function selectPage(page: PageType) {
   context?.workspaceRef?.value?.changeSelectPage(page)
+  context?.workspaceRef?.value?.updateRenderer()
 }
 
 /**
@@ -80,6 +86,41 @@ function selectPage(page: PageType) {
 function editPage(page: PageType) {
   pageCreateData.value = page
   visiblePageCreate.value = true
+  isEdit.value = true
+}
+
+async function deletePage(page: PageType) {
+  await AlMessageBox.confirm(
+    '删除当前页面?',
+    '警告',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+      beforeClose: async (action, instance, done) => {
+        if (action === 'confirm') {
+          instance.confirmButtonLoading = true
+          instance.confirmButtonText = '删除中..'
+          try {
+            await AlHttp.remove(`/lowcode/pages/${page?.id}`, {}, {
+              isShowSuccessMessage: true,
+              isShowErrorMessage: true,
+              errorMessageText: '删除失败',
+              successMessageText: '删除成功',
+            })
+          }
+          catch (e: any) {
+            AlMessage.error(e)
+          }
+          instance.confirmButtonLoading = false
+          done()
+        }
+        else {
+          done()
+        }
+      },
+    },
+  )
 }
 
 /**
@@ -156,11 +197,13 @@ function createPage() {
       </AlInput>
       <div ref="pageRef" class="mt-3 min-h-[200px]">
         <template v-if="pageList?.length">
-          <div v-for="(page, index) in pageList" :key="index" class="flex my-1 justify-between items-center px-2 py-1 cursor-pointer hover:bg-[#f5f5f5]" @click="selectPage(page)">
+          <div v-for="(page, index) in pageList" :key="index" class="flex my-1 justify-between items-center px-2 py-1 cursor-pointer hover:bg-[#f5f5f5]">
             <div
-              class="flex items-center" :class="{
+              class="flex items-center"
+              :class="{
                 'text-blue-600': context?.workspaceRef?.value?.currentSelectPage?.slug === page?.slug,
               }"
+              @click="selectPage(page)"
             >
               <AlIcon class="mr-1">
                 <Icon icon="material-symbols-light:home" />
@@ -169,10 +212,10 @@ function createPage() {
             </div>
             <div class="flex items-center">
               <AlIcon class="mr-2" @click="editPage(page)">
-                <Icon icon="uil:setting" />
+                <Icon icon="bxs:edit" />
               </AlIcon>
-              <AlIcon>
-                <Icon icon="ri:more-fill" />
+              <AlIcon @click="deletePage(page)">
+                <Icon icon="material-symbols:delete-outline" />
               </AlIcon>
             </div>
           </div>
@@ -181,7 +224,7 @@ function createPage() {
       </div>
     </div>
   </AlPopover>
-  <AlDialog v-model="visiblePageCreate" title="页面创建" width="800" class="page-create">
+  <AlDialog v-model="visiblePageCreate" :title="isEdit ? '页面编辑' : '页面新建'" width="800" class="page-create">
     <AlTabs size="small" type="card">
       <AlTabPane class="flex bg-[#f5f5f5]" label="全部">
         <div class="flex-1">
@@ -224,7 +267,7 @@ function createPage() {
             </AlFormItem>
             <div class="w-full flex justify-end">
               <AlButton type="primary" @click="createPage">
-                新建
+                {{ isEdit ? '更新' : '新建' }}
               </AlButton>
             </div>
           </AlForm>

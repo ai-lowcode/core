@@ -22,13 +22,15 @@ export enum RouteNameEnum {
    * 404
    */
   NOT_FOUND = 'notfound',
+  /**
+   * pathMatch
+   */
+  PATH_MATCH = 'pathMatch',
 }
 
 /**
  * 路由白名单
  */
 export const ROUTER_WHITE_LIST = [
-  RouteNameEnum.NOT_FOUND,
-  RouteNameEnum.REDIRECT,
   RouteNameEnum.LOGIN,
 ]

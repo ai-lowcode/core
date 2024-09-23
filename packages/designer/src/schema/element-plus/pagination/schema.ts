@@ -55,7 +55,7 @@ export const PaginationSchema = <CompSchema>{
     ]
   },
   // 属性
-  props: () => {
+  props: (changePropsData: Function) => {
     return <Schema[]>[
       {
         type: 'al-form',
@@ -183,6 +183,74 @@ export const PaginationSchema = <CompSchema>{
                 id: 'total',
                 field: 'props.total',
                 modelField: 'modelValue',
+              },
+              {
+                type: 'al-tooltip',
+                id: 'tooltip',
+                props: {
+                  content: '绑定变量',
+                  placement: 'top-start',
+                },
+                children: [
+                  {
+                    type: 'al-button',
+                    id: 'total',
+                    props: {
+                      class: 'ml-2',
+                    },
+                    children: [
+                      {
+                        type: 'icon',
+                        id: 'total',
+                        props: {
+                          icon: 'mingcute:code-fill',
+                        },
+                      },
+                    ],
+                    events: {
+                      onClick() {
+                        this.formData.value.visibleVariableBindDialog = true
+                      },
+                    },
+                  },
+                ],
+              },
+              {
+                type: 'al-dialog',
+                id: 'dialog',
+                field: 'visibleVariableBindDialog',
+                modelField: 'modelValue',
+                props: {
+                  title: '变量绑定',
+                },
+                children: [
+                  {
+                    type: 'al-variable-bind-atom',
+                    id: 'array',
+                    field: 'props.columnList',
+                    modelField: 'modelValue',
+                    props: {
+                      class: 'flex item-center mt-2',
+                    },
+                    events: {
+                      onChange: changePropsData,
+                      confirmChange: {
+                        run() {
+                          // eslint-disable-next-line ts/ban-ts-comment
+                          // @ts-expect-error
+                          this.formData.value.visibleVariableBindDialog = false
+                        },
+                      },
+                      cancelChange: {
+                        run() {
+                          // eslint-disable-next-line ts/ban-ts-comment
+                          // @ts-expect-error
+                          this.formData.value.visibleVariableBindDialog = false
+                        },
+                      },
+                    },
+                  },
+                ],
               },
             ],
           },

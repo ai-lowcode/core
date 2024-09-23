@@ -104,7 +104,7 @@ export const QueryBarSchema = <CompSchema>{
                       console.log(this)
                       // eslint-disable-next-line ts/ban-ts-comment
                       // @ts-expect-error
-                      this.formData.value.value.visibleQueryDialog = true
+                      this.formData.value.visibleQueryDialog = true
                     },
                   },
                 },
@@ -133,14 +133,14 @@ export const QueryBarSchema = <CompSchema>{
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.formData.value.value.visibleQueryDialog = false
+                          this.formData.value.visibleQueryDialog = false
                         },
                       },
                       cancelChange: {
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.formData.value.value.visibleQueryDialog = false
+                          this.formData.value.visibleQueryDialog = false
                         },
                       },
                     },
@@ -168,7 +168,7 @@ export const QueryBarSchema = <CompSchema>{
                       console.log(this)
                       // eslint-disable-next-line ts/ban-ts-comment
                       // @ts-expect-error
-                      this.formData.value.value.visibleResetDialog = true
+                      this.formData.value.visibleResetDialog = true
                     },
                   },
                 },
@@ -197,14 +197,14 @@ export const QueryBarSchema = <CompSchema>{
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.formData.value.value.visibleResetDialog = false
+                          this.formData.value.visibleResetDialog = false
                         },
                       },
                       cancelChange: {
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.formData.value.value.visibleResetDialog = false
+                          this.formData.value.visibleResetDialog = false
                         },
                       },
                     },

@@ -12,11 +12,13 @@ export interface Schema {
   slotName?: string
   slotHidden?: boolean
   modelField?: string
+  modelMethod?: string
   defaultValue?: any
   field?: string
   label?: string
   attrs?: any
   modelType?: string
+  cssString?: string
   /**
    * 基础配置
    */

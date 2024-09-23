@@ -14,15 +14,3 @@ export const LOGIN_ROUTE: RouteRecordRaw = {
     title: '登录',
   },
 }
-
-/**
- * 404路由
- */
-export const NOT_FOUND_ROUTE: RouteRecordRaw = {
-  path: '/:pathMatch(.*)*',
-  name: 'pathMatch',
-  redirect: '/exception',
-  meta: {
-    title: '404',
-  },
-}

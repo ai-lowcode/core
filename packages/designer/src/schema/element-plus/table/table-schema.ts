@@ -34,7 +34,7 @@ export const TableSchema = <CompSchema>{
   // 事件
   events: () => {},
   // 属性
-  props: () => {
+  props: (changePropsData: Function) => {
     return <Schema[]>[
       {
         type: 'al-form',
@@ -63,10 +63,9 @@ export const TableSchema = <CompSchema>{
                 events: {
                   onClick: {
                     run() {
-                      console.log(this)
                       // eslint-disable-next-line ts/ban-ts-comment
                       // @ts-expect-error
-                      this.formData.value.value.visibleDataSourceDialog = true
+                      this.formData.value.visibleDataSourceDialog = true
                     },
                   },
                 },
@@ -90,18 +89,19 @@ export const TableSchema = <CompSchema>{
                       class: 'flex item-center mt-2',
                     },
                     events: {
+                      onChange: changePropsData,
                       confirmChange: {
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.formData.value.value.visibleDataSourceDialog = false
+                          this.formData.value.visibleDataSourceDialog = false
                         },
                       },
                       cancelChange: {
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.formData.value.value.visibleDataSourceDialog = false
+                          this.formData.value.visibleDataSourceDialog = false
                         },
                       },
                     },
@@ -129,7 +129,7 @@ export const TableSchema = <CompSchema>{
                       console.log(this)
                       // eslint-disable-next-line ts/ban-ts-comment
                       // @ts-expect-error
-                      this.formData.value.value.visibleTableColumnDialog = true
+                      this.formData.value.visibleTableColumnDialog = true
                     },
                   },
                 },
@@ -153,18 +153,19 @@ export const TableSchema = <CompSchema>{
                       class: 'flex item-center mt-2',
                     },
                     events: {
+                      onChange: changePropsData,
                       confirmChange: {
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.formData.value.value.visibleTableColumnDialog = false
+                          this.formData.value.visibleTableColumnDialog = false
                         },
                       },
                       cancelChange: {
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
                           // @ts-expect-error
-                          this.formData.value.value.visibleTableColumnDialog = false
+                          this.formData.value.visibleTableColumnDialog = false
                         },
                       },
                     },
@@ -229,6 +230,9 @@ export const TableSchema = <CompSchema>{
                                   props: {
                                     class: 'flex-1',
                                   },
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -255,6 +259,9 @@ export const TableSchema = <CompSchema>{
                                   props: {
                                     class: 'flex-1',
                                   },
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -280,6 +287,9 @@ export const TableSchema = <CompSchema>{
                                   modelField: 'modelValue',
                                   props: {
                                     teleported: false,
+                                  },
+                                  events: {
+                                    onChange: changePropsData,
                                   },
                                   children: [
                                     {
@@ -332,6 +342,9 @@ export const TableSchema = <CompSchema>{
                                   modelField: 'modelValue',
                                   props: {
                                     teleported: false,
+                                  },
+                                  events: {
+                                    onChange: changePropsData,
                                   },
                                   children: [
                                     {
@@ -414,6 +427,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'plain',
                                   field: 'props.plain',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -437,6 +453,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'text',
                                   field: 'props.text',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -460,6 +479,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'bg',
                                   field: 'props.bg',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -483,6 +505,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'link',
                                   field: 'props.link',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -506,6 +531,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'round',
                                   field: 'props.round',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -529,6 +557,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'circle',
                                   field: 'props.circle',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -561,6 +592,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'loading',
                                   field: 'props.loading',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -584,6 +618,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'disabled',
                                   field: 'props.disabled',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -607,6 +644,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'autofocus',
                                   field: 'props.autofocus',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -632,6 +672,9 @@ export const TableSchema = <CompSchema>{
                                   modelField: 'modelValue',
                                   props: {
                                     teleported: false,
+                                  },
+                                  events: {
+                                    onChange: changePropsData,
                                   },
                                   children: [
                                     {
@@ -682,6 +725,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'autoInsertSpace',
                                   field: 'props.autoInsertSpace',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -705,6 +751,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'color',
                                   field: 'props.color',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -728,6 +777,9 @@ export const TableSchema = <CompSchema>{
                                   id: 'color',
                                   field: 'props.color',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -758,7 +810,7 @@ export const TableSchema = <CompSchema>{
                                         console.log(this)
                                         // eslint-disable-next-line ts/ban-ts-comment
                                         // @ts-expect-error
-                                        this.formData.value.value.visibleOnClickDialog = true
+                                        this.formData.value.visibleOnClickDialog = true
                                       },
                                     },
                                   },
@@ -783,18 +835,19 @@ export const TableSchema = <CompSchema>{
                                         style: 'height: 200px',
                                       },
                                       events: {
+                                        onChange: changePropsData,
                                         confirmChange: {
                                           run() {
                                             // eslint-disable-next-line ts/ban-ts-comment
                                             // @ts-expect-error
-                                            this.formData.value.value.visibleOnClickDialog = false
+                                            this.formData.value.visibleOnClickDialog = false
                                           },
                                         },
                                         cancelChange: {
                                           run() {
                                             // eslint-disable-next-line ts/ban-ts-comment
                                             // @ts-expect-error
-                                            this.formData.value.value.visibleOnClickDialog = false
+                                            this.formData.value.visibleOnClickDialog = false
                                           },
                                         },
                                       },

@@ -36,7 +36,8 @@ const currentDevice = ref(DeviceEnum.PC)
 const schema = ref<Array<Schema>>([])
 
 const selectComponent = ref<Schema>({
-  field: PAGE_COMP,
+  id: PAGE_COMP,
+  name: PAGE_COMP,
 } as Schema)
 
 function changeSelectPage(page: any) {
@@ -132,9 +133,16 @@ function insertComponent(addedComp: Schema, componentId?: string, index?: number
 /**
  * 修改 schema
  * @param newSchema
+ * @param update
  */
-function changeSchema(newSchema: Array<Schema>) {
+function changeSchema(newSchema: Array<Schema>, update?: boolean) {
   schema.value = newSchema
+  if (update)
+    updateRenderer()
+}
+
+function updateRenderer() {
+  rendererRef.value.updateRender()
 }
 
 /**
@@ -183,7 +191,9 @@ defineExpose({
   changeWorkspaceScale,
   schema,
   selectComponent,
+  rendererRef,
   changeComponentSelect,
+  updateRenderer,
 })
 </script>
 

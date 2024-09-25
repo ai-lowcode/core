@@ -72,7 +72,7 @@ export const QueryBarSchema = <CompSchema>{
   // 事件
   events: () => {},
   // 属性
-  props: () => {
+  props: (changePropsData: Function) => {
     return <Schema[]>[
       {
         type: 'al-form',
@@ -129,6 +129,7 @@ export const QueryBarSchema = <CompSchema>{
                       style: 'height: 200px',
                     },
                     events: {
+                      onChange: changePropsData,
                       confirmChange: {
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment
@@ -193,6 +194,7 @@ export const QueryBarSchema = <CompSchema>{
                       style: 'height: 200px',
                     },
                     events: {
+                      onChange: changePropsData,
                       confirmChange: {
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment

@@ -143,8 +143,14 @@ function handleEvent(option?: string, eventGroupIndex?: number, eventIndex?: num
     code.value = ''
   }
   if (option === 'delete') {
-    editOption.value = null
+    editOption.value = {
+      option,
+      eventGroupIndex,
+      eventIndex,
+      eventItemIdx,
+    }
     events.value[eventGroupIndex!].children[eventIndex!].children?.splice(eventItemIdx!, 1)
+    confirmEvent()
     return
   }
   visibleEvent.value = true
@@ -163,7 +169,7 @@ function confirmEvent() {
     return
   }
   // 当前操作事件
-  const currentEvent = events.value[editOption.value?.eventGroupIndex].children[editOption.value?.eventIndex]
+  const currentEvent = events.value[editOption.value?.eventGroupIndex]?.children[editOption.value?.eventIndex]
   // 添加事件
   if (editOption.value?.option === 'add') {
     if (currentEvent.children?.length) {
@@ -183,13 +189,17 @@ function confirmEvent() {
       code: code.value,
     })
   }
+  // 删除事件
+  if (editOption.value?.option === 'delete') {
+    currentEvent.children?.splice(editOption.value?.idx, 1)
+  }
   // 调用函数，查找并修改
   const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.workspaceRef?.value?.selectComponent?.id, (node: Schema) => {
-    const index = deepCopy(events.value[editOption.value?.eventGroupIndex].children[editOption.value?.eventIndex])
+    const index = deepCopy(events.value[editOption.value?.eventGroupIndex]?.children[editOption.value?.eventIndex])
     // 修改事件
-    node[events.value[editOption.value?.eventGroupIndex].key as keyof Schema] = {
-      ...node[events.value[editOption.value?.eventGroupIndex].key as keyof Schema],
-      [index.key]: {
+    node[events.value[editOption.value?.eventGroupIndex]?.key as keyof Schema] = {
+      ...node[events.value[editOption.value?.eventGroupIndex]?.key as keyof Schema],
+      [index?.key]: {
         __event: index,
         async run(...arg: any) {
           const elementPlus = await import('@ai-lowcode/element-plus')

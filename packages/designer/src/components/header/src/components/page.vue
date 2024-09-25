@@ -89,6 +89,44 @@ function editPage(page: PageType) {
   isEdit.value = true
 }
 
+async function copyPage(page: PageType) {
+  await AlMessageBox.confirm(
+    '复制当前页面?',
+    '警告',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+      beforeClose: async (action, instance, done) => {
+        if (action === 'confirm') {
+          instance.confirmButtonLoading = true
+          instance.confirmButtonText = '复制中..'
+          try {
+            await AlHttp.post(`/lowcode/pages`, {
+              content: page.content,
+              name: `${page.name}-${new Date().getTime()}`,
+              slug: `${page.slug}-${new Date().getTime()}`,
+            }, {
+              isShowSuccessMessage: true,
+              isShowErrorMessage: true,
+              errorMessageText: '复制失败',
+              successMessageText: '复制成功',
+            })
+          }
+          catch (e: any) {
+            AlMessage.error(e)
+          }
+          instance.confirmButtonLoading = false
+          done()
+        }
+        else {
+          done()
+        }
+      },
+    },
+  )
+}
+
 async function deletePage(page: PageType) {
   await AlMessageBox.confirm(
     '删除当前页面?',
@@ -211,6 +249,9 @@ function createPage() {
               <div>{{ page?.name }}</div>
             </div>
             <div class="flex items-center">
+              <AlIcon class="mr-2" @click="copyPage(page)">
+                <Icon icon="ph:copy-fill" />
+              </AlIcon>
               <AlIcon class="mr-2" @click="editPage(page)">
                 <Icon icon="bxs:edit" />
               </AlIcon>

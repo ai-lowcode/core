@@ -15,7 +15,7 @@ const tagsStore = useTagsStore()
 const router = useRouter()
 
 function handlePage(menu: MenuType) {
-  router.push(menu?.path)
+  router.push(`/redirect${menu?.path}`)
   tagsStore.addTags(menu)
 }
 </script>

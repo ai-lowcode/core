@@ -4,7 +4,7 @@
   --el-menu-horizontal-height: 50px;
 
   // 基础边框颜色
-  --al-basic-border-color: hsl(0deg 0% 99% / 12%);
+  --al-basic-border-color: #ebeef5;
 
   // 基础背景色
   --al-basic-background-color: #fff;
@@ -31,6 +31,15 @@
   // 基础标题字体 weight
   --al-bold-title-weight: 700;
   --el-dialog-padding-primary: 15px;
+  --el-border-color-lighter: var(--al-basic-border-color) !important;
+}
+
+.el-table {
+  --el-table-header-bg-color: #f5f7fa !important;
+}
+
+.el-table th.el-table__cell {
+  color: #303133!important;
 }
 
 .html-weakness {

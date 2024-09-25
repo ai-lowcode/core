@@ -21,7 +21,7 @@ export class PageDto extends OperatorDto {
   @IsUnique({ entity: PageEntity })
   @ApiProperty({ description: '页面标识' })
   @IsString()
-  @Matches(/^[a-z0-9]+$/i, { message: '页面值只能包含字母和数字' })
+  @Matches(/^[a-z0-9\-]+$/i, { message: '页面值只能包含字母和数字' })
   @MinLength(2, { message: '页面值长度不能小于2' })
   slug: string
 

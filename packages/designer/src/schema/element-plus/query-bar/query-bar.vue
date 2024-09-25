@@ -4,7 +4,7 @@ import { deepCopy } from '@ai-lowcode/utils'
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
 
-import { removeAlDragBoxAndPromoteChildren } from '@/utils'
+import { getExposeApi, removeAlDragBoxAndPromoteChildren } from '@/utils'
 
 defineOptions({
   name: 'AlQueryBar',
@@ -27,23 +27,27 @@ function initFormData() {
     Object.prototype.hasOwnProperty.call(item, 'field') && keys.push(item.field)
   })
   keys.map((key) => {
-    formData.value[key] = props?.exposeApi?.formData.value.value[key]
+    formData.value[key] = props?.exposeApi?.formData.value[key]
   })
 }
 
-function handleQuery() {
+async function handleQuery() {
   initFormData()
+  const api = await getExposeApi()
   new Function(props.handleQuery).bind({
     exposeApi: props.exposeApi,
     formData: formData.value,
+    ...api,
   })()
 }
 
-function handleReset() {
+async function handleReset() {
   initFormData()
+  const api = await getExposeApi()
   new Function(props.handleReset).bind({
     exposeApi: props.exposeApi,
     formData: formData.value,
+    ...api,
   })()
 }
 </script>

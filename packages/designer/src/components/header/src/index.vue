@@ -46,6 +46,9 @@ function previewPage() {
   visiblePreview.value = true
 }
 
+/**
+ * 保存页面
+ */
 async function savePage() {
   await AlHttp.put(`/lowcode/pages/${context?.workspaceRef?.value?.currentSelectPage?.id}`, {
     ...context?.workspaceRef?.value?.currentSelectPage,

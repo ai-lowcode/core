@@ -83,7 +83,7 @@ onMounted(() => {
     <AlCodeEditorAtom
       v-if="dataType === 'staticData'"
       v-model="dataSource"
-      style="height: calc(100vh - 290px)"
+      style="height: 500px"
       :option="editorOptions"
     />
     <div v-if="dataType === 'modifyApi'">

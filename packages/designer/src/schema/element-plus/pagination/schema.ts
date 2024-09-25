@@ -227,7 +227,7 @@ export const PaginationSchema = <CompSchema>{
                   {
                     type: 'al-variable-bind-atom',
                     id: 'array',
-                    field: 'props.columnList',
+                    field: 'props.total',
                     modelField: 'modelValue',
                     props: {
                       class: 'flex item-center mt-2',

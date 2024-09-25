@@ -126,7 +126,6 @@ export const TableSchema = <CompSchema>{
                 events: {
                   onClick: {
                     run() {
-                      console.log(this)
                       // eslint-disable-next-line ts/ban-ts-comment
                       // @ts-expect-error
                       this.formData.value.visibleTableColumnDialog = true
@@ -425,7 +424,7 @@ export const TableSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'plain',
-                                  field: 'props.plain',
+                                  field: 'plain',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -451,7 +450,7 @@ export const TableSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'text',
-                                  field: 'props.text',
+                                  field: 'text',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -477,7 +476,7 @@ export const TableSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'bg',
-                                  field: 'props.bg',
+                                  field: 'bg',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -503,7 +502,7 @@ export const TableSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'link',
-                                  field: 'props.link',
+                                  field: 'link',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -529,7 +528,7 @@ export const TableSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'round',
-                                  field: 'props.round',
+                                  field: 'round',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -555,7 +554,7 @@ export const TableSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'circle',
-                                  field: 'props.circle',
+                                  field: 'circle',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -590,7 +589,7 @@ export const TableSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'loading',
-                                  field: 'props.loading',
+                                  field: 'loading',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -616,7 +615,7 @@ export const TableSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'disabled',
-                                  field: 'props.disabled',
+                                  field: 'disabled',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -642,7 +641,7 @@ export const TableSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'autofocus',
-                                  field: 'props.autofocus',
+                                  field: 'autofocus',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -668,7 +667,7 @@ export const TableSchema = <CompSchema>{
                                 {
                                   type: 'al-select',
                                   id: 'nativeType',
-                                  field: 'props.nativeType',
+                                  field: 'nativeType',
                                   modelField: 'modelValue',
                                   props: {
                                     teleported: false,
@@ -723,7 +722,7 @@ export const TableSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'autoInsertSpace',
-                                  field: 'props.autoInsertSpace',
+                                  field: 'autoInsertSpace',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -749,7 +748,7 @@ export const TableSchema = <CompSchema>{
                                 {
                                   type: 'al-input',
                                   id: 'color',
-                                  field: 'props.color',
+                                  field: 'color',
                                   modelField: 'modelValue',
                                   events: {
                                     onBlur: changePropsData,
@@ -775,7 +774,7 @@ export const TableSchema = <CompSchema>{
                                 {
                                   type: 'al-input',
                                   id: 'color',
-                                  field: 'props.color',
+                                  field: 'color',
                                   modelField: 'modelValue',
                                   events: {
                                     onBlur: changePropsData,

@@ -5,12 +5,9 @@ import {
 
 import SubMenu from './sub-menu.vue'
 
-import { useAppStore } from '@/store/modules/app'
 import { useUserStore } from '@/store/modules/user'
 
 const userStore = useUserStore()
-
-const appStore = useAppStore()
 
 function handleOpen(key: string, keyPath: string[]) {
   console.log(key, keyPath)

@@ -27,6 +27,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <AlDesigner v-if="route.path === '/about'" class="flex-1 p-2" style="height: calc(100vh - 100px)" />
+  <AlDesigner v-if="route.path === '/designer'" class="flex-1 p-2" style="height: calc(100vh - 100px)" />
   <AlRenderer v-if="route.meta?.pageId && schema" :schemas="schema" />
 </template>

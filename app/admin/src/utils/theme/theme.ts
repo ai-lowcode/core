@@ -53,7 +53,7 @@ export function globalStyleStrategy(color: string, type: string) {
       // 背景色
       setStyleProperty(['--el-bg-color-overlay', '--el-bg-color', '--el-fill-color-blank', '--el-dialog-bg-color', '--al-basic-background-color'], '#ffffff')
       // 边框
-      setStyleProperty(['--el-border-color', '--el-border-color-light', '--el-border-color-lighter', '--al-border-basic-color', '--al-hover-bg-color', '--al-basic-border-color'], '#dddee0')
+      setStyleProperty(['--el-border-color', '--el-border-color-light', '--el-border-color-lighter', '--al-border-basic-color', '--al-hover-bg-color', '--al-basic-border-color'], '#ebeef5')
       // 文字
       setStyleProperty(['--el-text-color-primary'], '#000000')
       // header

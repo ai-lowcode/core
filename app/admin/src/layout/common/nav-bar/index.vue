@@ -98,7 +98,7 @@ async function handleLogout() {
 
 <template>
   <div
-    class="h-[50px] overflow-hidden w-full border-b-[0.5px] border-b-basic-color border-basic-color flex justify-between items-center" :class="{
+    class="h-[50px] flex-shrink-0 overflow-hidden w-full border-b-[0.5px] border-b-basic-color border-basic-color flex justify-between items-center" :class="{
       'bg-basic-color': appSettingConfig.menuMode === 'left',
       'bg-menu-color': appSettingConfig.menuMode === 'top',
     }"

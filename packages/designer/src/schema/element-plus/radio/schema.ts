@@ -14,7 +14,7 @@ export const RadioSchema = <CompSchema>{
   name,
   schema: () => {
     return <Schema>{
-      type: 'al-radio',
+      type: 'al-radio-schema',
       id: `__${uniqueId()}`,
       icon,
       label,
@@ -33,7 +33,7 @@ export const RadioSchema = <CompSchema>{
   // 事件
   events: () => {},
   // 属性
-  props: () => {
+  props: (changePropsData: Function) => {
     return <Schema[]>[
       {
         type: 'al-form',
@@ -97,10 +97,39 @@ export const RadioSchema = <CompSchema>{
                                 {
                                   type: 'al-input',
                                   id: 'value',
-                                  field: 'props.value',
+                                  field: 'value',
                                   modelField: 'modelValue',
                                   props: {
                                     class: 'flex-1',
+                                  },
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
+                                },
+                              ],
+                            },
+                            {
+                              type: 'div',
+                              id: 'div',
+                              props: {
+                                class: 'flex flex-col mt-2',
+                              },
+                              children: [
+                                {
+                                  type: 'div',
+                                  id: 'div',
+                                  props: {
+                                    class: 'w-full text-left',
+                                  },
+                                  children: ['值是否为数字:'],
+                                },
+                                {
+                                  type: 'al-switch',
+                                  id: 'isNumber',
+                                  field: 'isNumber',
+                                  modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
                                   },
                                 },
                               ],
@@ -123,11 +152,61 @@ export const RadioSchema = <CompSchema>{
                                 {
                                   type: 'al-input',
                                   id: 'label',
-                                  field: 'props.label',
+                                  field: 'label',
                                   modelField: 'modelValue',
                                   props: {
                                     class: 'flex-1',
                                   },
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
+                                },
+                              ],
+                            },
+                            {
+                              type: 'div',
+                              id: 'div',
+                              props: {
+                                class: 'flex flex-col mt-2',
+                              },
+                              children: [
+                                {
+                                  type: 'div',
+                                  id: 'div',
+                                  props: {
+                                    class: 'w-full text-left',
+                                  },
+                                  children: ['按钮类型:'],
+                                },
+                                {
+                                  type: 'al-select',
+                                  id: 'btnType',
+                                  field: 'btnType',
+                                  modelField: 'modelValue',
+                                  props: {
+                                    teleported: false,
+                                  },
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
+                                  children: [
+                                    {
+                                      type: 'al-option',
+                                      id: 'button',
+                                      props: {
+                                        label: '按钮',
+                                        value: 'button',
+                                      },
+                                    },
+                                    {
+                                      type: 'al-option',
+                                      id: 'radio',
+                                      props: {
+                                        label: 'radio',
+                                        value: 'radio',
+                                      },
+                                    },
+                                  ],
                                 },
                               ],
                             },
@@ -149,8 +228,11 @@ export const RadioSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'disabled',
-                                  field: 'props.disabled',
+                                  field: 'disabled',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -172,8 +254,11 @@ export const RadioSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'border',
-                                  field: 'props.border',
+                                  field: 'border',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -195,8 +280,14 @@ export const RadioSchema = <CompSchema>{
                                 {
                                   type: 'al-select',
                                   id: 'size',
-                                  field: 'props.size',
+                                  field: 'size',
                                   modelField: 'modelValue',
+                                  props: {
+                                    teleported: false,
+                                  },
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                   children: [
                                     {
                                       type: 'al-option',
@@ -244,8 +335,11 @@ export const RadioSchema = <CompSchema>{
                                 {
                                   type: 'al-input',
                                   id: 'name',
-                                  field: 'props.name',
+                                  field: 'name',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -276,8 +370,11 @@ export const RadioSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'loading',
-                                  field: 'props.loading',
+                                  field: 'loading',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -299,8 +396,11 @@ export const RadioSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'disabled',
-                                  field: 'props.disabled',
+                                  field: 'disabled',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -322,8 +422,11 @@ export const RadioSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'autofocus',
-                                  field: 'props.autofocus',
+                                  field: 'autofocus',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -345,8 +448,14 @@ export const RadioSchema = <CompSchema>{
                                 {
                                   type: 'al-select',
                                   id: 'nativeType',
-                                  field: 'props.nativeType',
+                                  field: 'nativeType',
                                   modelField: 'modelValue',
+                                  props: {
+                                    teleported: false,
+                                  },
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                   children: [
                                     {
                                       type: 'al-option',
@@ -394,8 +503,11 @@ export const RadioSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'autoInsertSpace',
-                                  field: 'props.autoInsertSpace',
+                                  field: 'autoInsertSpace',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onChange: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -417,8 +529,11 @@ export const RadioSchema = <CompSchema>{
                                 {
                                   type: 'al-input',
                                   id: 'color',
-                                  field: 'props.color',
+                                  field: 'color',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
                                 },
                               ],
                             },
@@ -440,8 +555,11 @@ export const RadioSchema = <CompSchema>{
                                 {
                                   type: 'al-input',
                                   id: 'color',
-                                  field: 'props.color',
+                                  field: 'color',
                                   modelField: 'modelValue',
+                                  events: {
+                                    onBlur: changePropsData,
+                                  },
                                 },
                               ],
                             },

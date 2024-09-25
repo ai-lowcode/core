@@ -2,7 +2,7 @@
 import { AlButton, AlLoading, AlTable, AlTableColumn } from '@ai-lowcode/element-plus'
 import { AlHttp, RequestOptionsType } from '@ai-lowcode/request'
 import { isJsonStringTryCatch } from '@ai-lowcode/utils'
-import { onMounted, ref, useAttrs } from 'vue'
+import { computed, onMounted, ref, useAttrs } from 'vue'
 
 import { getExposeApi } from '@/utils'
 
@@ -13,6 +13,7 @@ defineOptions({
 const props = defineProps<{
   dataSource: Promise<any> | any
   columnList: Promise<any> | any
+  columnRule: Array<any>
   operationBtn: any
 }>()
 
@@ -23,6 +24,8 @@ const tableRef = ref()
 const columns = ref()
 
 const attrs = useAttrs()
+
+const operationColumn = computed(() => columns.value?.find((item: any) => item.prop === '__operation'))
 
 async function dataRequestStrategy(newValue: any, type: string, params?: any, options?: RequestOptionsType, modifyRequestForm?: any) {
   return ({
@@ -54,9 +57,8 @@ async function dataRequestStrategy(newValue: any, type: string, params?: any, op
 
 async function handleData(params?: any, options?: any) {
   const loading = AlLoading.service({
-    text: 'Loading',
-    target: tableRef.value,
-    background: 'rgba(0, 0, 0, 0.7)',
+    text: '加载中',
+    target: tableRef.value?.$el,
   })
   data.value = await dataRequestStrategy(props.dataSource?.dataSource, props.dataSource?.dataType, params, options, props.dataSource?.modifyRequestForm)
   columns.value = await dataRequestStrategy(props.columnList?.dataSource, props.columnList?.dataType, params, options, props.columnList?.modifyRequestForm)
@@ -86,23 +88,21 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="tableRef" class="contents">
-    <AlTable v-bind="$attrs" :data="data">
-      <AlTableColumn v-for="(column, index) in columns" :key="index" v-bind="column" />
-      <AlTableColumn fixed="right" label="操作" min-width="120">
-        <template #default="data">
-          <AlButton
-            v-for="(btn, index) in operationBtn"
-            :key="index"
-            type="primary"
-            size="small"
-            v-bind="btn"
-            @click="operationClick(btn, data)"
-          >
-            {{ btn?.title }}
-          </AlButton>
-        </template>
-      </AlTableColumn>
-    </AlTable>
-  </div>
+  <AlTable ref="tableRef" v-bind="$attrs" :data="data">
+    <AlTableColumn v-for="(column, index) in columns?.filter((item: any) => item.prop !== '__operation')" :key="index" v-bind="column" />
+    <AlTableColumn v-if="operationColumn" fixed="right" label="操作" min-width="120" v-bind="operationColumn">
+      <template #default="data">
+        <AlButton
+          v-for="(btn, index) in operationBtn"
+          :key="index"
+          type="primary"
+          size="small"
+          v-bind="btn"
+          @click="operationClick(btn, data)"
+        >
+          {{ btn?.title }}
+        </AlButton>
+      </template>
+    </AlTableColumn>
+  </AlTable>
 </template>

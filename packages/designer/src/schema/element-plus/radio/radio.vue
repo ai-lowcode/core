@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { AlRadio, AlRadioGroup } from '@ai-lowcode/element-plus'
+import { AlRadio, AlRadioButton, AlRadioGroup } from '@ai-lowcode/element-plus'
 import { computed } from 'vue'
 
 defineOptions({
-  name: 'AlRadioSelect',
+  name: 'AlRadioSchema',
 })
 
 const props = defineProps<{
@@ -25,8 +25,11 @@ const value = computed({
 
 <template>
   <AlRadioGroup v-model="value" v-bind="$attrs">
-    <AlRadio v-for="(radio, index) in radioList" :key="index" v-bind="radio">
-      {{ radio?.title }}
-    </AlRadio>
+    <template v-for="(radio, index) in radioList" :key="index">
+      <AlRadio v-if="radio.btnType === 'radio'" v-bind="radio" :value="radio?.isNumber ? Number(radio?.value) : String(radio?.value)">
+        {{ radio?.title }}
+      </AlRadio>
+      <AlRadioButton v-else v-bind="radio" :value="radio?.isNumber ? Number(radio?.value) : String(radio?.value)" />
+    </template>
   </AlRadioGroup>
 </template>

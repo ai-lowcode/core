@@ -14,7 +14,7 @@ export const CascaderSchema = <CompSchema>{
   name,
   schema: () => {
     return <Schema>{
-      type: 'al-cascader',
+      type: 'al-cascader-schema',
       id: `__${uniqueId()}`,
       icon,
       label,
@@ -23,9 +23,6 @@ export const CascaderSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
-      props: {
-        class: 'p-1',
-      },
     }
   },
   // 插槽
@@ -33,7 +30,7 @@ export const CascaderSchema = <CompSchema>{
   // 事件
   events: () => {},
   // 属性
-  props: () => {
+  props: (changePropsData: Function) => {
     return <Schema[]>[
       {
         type: 'al-form',
@@ -48,15 +45,64 @@ export const CascaderSchema = <CompSchema>{
         children: [
           {
             type: 'al-form-item',
-            id: 'options',
+            id: 'data',
             props: {
-              label: '选项的数据源， `value` 和 `label` 可以通过 `CascaderProps` 自定义.',
+              label: '展示数据',
             },
             children: [
               {
-                id: 'options',
-                field: 'props.options',
+                type: 'al-button',
+                id: 'data',
+                props: {
+                  type: 'primary',
+                },
+                events: {
+                  onClick: {
+                    run() {
+                      // eslint-disable-next-line ts/ban-ts-comment
+                      // @ts-expect-error
+                      this.formData.value.visibleDataDialog = true
+                    },
+                  },
+                },
+                children: ['设置展示数据'],
+              },
+              {
+                type: 'al-dialog',
+                id: 'dialog',
+                field: 'visibleDataDialog',
                 modelField: 'modelValue',
+                props: {
+                  title: '设置展示数据',
+                },
+                children: [
+                  {
+                    type: 'al-data-source-atom',
+                    id: 'cascaderData',
+                    field: 'props.cascaderData',
+                    modelField: 'modelValue',
+                    props: {
+                      class: 'flex item-center mt-2',
+                    },
+                    events: {
+                      onChange: changePropsData,
+                      confirmChange: {
+                        run() {
+                          // eslint-disable-next-line ts/ban-ts-comment
+                          // @ts-expect-error
+                          this.formData.value.visibleDataDialog = false
+                        },
+                      },
+                      cancelChange: {
+                        run() {
+                          // eslint-disable-next-line ts/ban-ts-comment
+                          // @ts-expect-error
+                          this.formData.value.visibleDataDialog = false
+                        },
+                      },
+                    },
+                  },
+                ],
               },
             ],
           },
@@ -68,9 +114,13 @@ export const CascaderSchema = <CompSchema>{
             },
             children: [
               {
+                type: 'al-object-atom',
                 id: 'props',
                 field: 'props.props',
                 modelField: 'modelValue',
+                events: {
+                  onChange: changePropsData,
+                },
               },
             ],
           },

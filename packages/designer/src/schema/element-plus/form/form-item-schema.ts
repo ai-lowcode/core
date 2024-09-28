@@ -183,7 +183,7 @@ export const FormItemSchema = <CompSchema>{
             },
             children: [
               {
-                type: 'al-input',
+                type: 'al-switch',
                 id: 'required',
                 field: 'props.required',
                 modelField: 'modelValue',

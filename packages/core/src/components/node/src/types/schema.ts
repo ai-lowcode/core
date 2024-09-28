@@ -23,6 +23,7 @@ export interface Schema {
    * 基础配置
    */
   type?: string
+  visible?: boolean
   name?: string
   hidden?: boolean
   // 设置父级组件的插槽,默认为default.可配合 slot 配置项使用

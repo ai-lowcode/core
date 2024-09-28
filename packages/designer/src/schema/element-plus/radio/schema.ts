@@ -23,15 +23,19 @@ export const RadioSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
-      props: {
-        class: 'p-1',
-      },
     }
   },
   // 插槽
   slots: () => {},
   // 事件
-  events: () => {},
+  events: () => {
+    return [
+      {
+        key: 'onChange',
+        label: '改变时触发',
+      },
+    ]
+  },
   // 属性
   props: (changePropsData: Function) => {
     return <Schema[]>[

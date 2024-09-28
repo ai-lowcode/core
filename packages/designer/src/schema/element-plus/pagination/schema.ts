@@ -185,11 +185,10 @@ export const PaginationSchema = <CompSchema>{
                 modelField: 'modelValue',
               },
               {
-                type: 'al-tooltip',
-                id: 'tooltip',
+                type: 'div',
+                id: 'div',
                 props: {
-                  content: '绑定变量',
-                  placement: 'top-start',
+                  class: 'flex justify-end flex-1',
                 },
                 children: [
                   {
@@ -197,6 +196,7 @@ export const PaginationSchema = <CompSchema>{
                     id: 'total',
                     props: {
                       class: 'ml-2',
+                      circle: true,
                     },
                     children: [
                       {

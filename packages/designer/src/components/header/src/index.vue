@@ -79,7 +79,7 @@ async function savePage() {
     </div>
     <div class="flex items-center">
       <AlButton
-        bg text size="small"
+        circle size="small"
         @click="savePage"
       >
         <AlIcon class="text-green-600">
@@ -87,7 +87,7 @@ async function savePage() {
         </AlIcon>
       </AlButton>
       <AlButton
-        bg text size="small"
+        circle size="small"
         @click="previewPage"
       >
         <AlIcon class="text-blue-600">
@@ -102,7 +102,7 @@ async function savePage() {
         @confirm="clearPage"
       >
         <template #reference>
-          <AlButton bg text size="small">
+          <AlButton circle size="small">
             <AlIcon class="text-red-600">
               <Icon icon="ant-design:delete-filled" />
             </AlIcon>

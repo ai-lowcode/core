@@ -13,7 +13,7 @@ const props = defineProps<{
   popoverProps?: Record<string, any>
 }>()
 
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue', 'change'])
 
 function handleData() {
   const value = []
@@ -102,6 +102,7 @@ watch(() => data.value, (newValue: any) => {
     value[item.key] = item.value
   })
   emits('update:modelValue', value)
+  emits('change')
 }, {
   deep: true,
 })

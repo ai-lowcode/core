@@ -19,9 +19,6 @@ export const ButtonSchema = <CompSchema>{
       icon,
       label,
       name,
-      props: {
-        class: 'p-1',
-      },
       children: [
         {
           type: 'AlVueDragAble',
@@ -48,7 +45,7 @@ export const ButtonSchema = <CompSchema>{
     ]
   },
   // 属性
-  props: () => {
+  props: (changePropsData: Function) => {
     return <Schema[]>[
       {
         type: 'al-form',
@@ -73,6 +70,24 @@ export const ButtonSchema = <CompSchema>{
                 id: 'content',
                 field: 'props.content',
                 modelField: 'modelValue',
+              },
+            ],
+          },
+          {
+            type: 'al-form-item',
+            id: 'icon',
+            props: {
+              label: '按钮图标',
+            },
+            children: [
+              {
+                type: 'al-icon-select',
+                id: 'icon',
+                field: 'props.icon',
+                modelField: 'modelValue',
+                events: {
+                  onBlur: changePropsData,
+                },
               },
             ],
           },

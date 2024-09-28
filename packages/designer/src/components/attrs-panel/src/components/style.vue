@@ -218,7 +218,8 @@ const classList = ref('')
 watch(() => classList.value, () => {
   // 调用函数，查找并修改
   const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.workspaceRef?.value?.selectComponent?.id, (node: Schema) => {
-    node.props.class = classList.value
+    if (node?.props?.class)
+      node.props.class = classList.value
   })
   context?.workspaceRef?.value.changeSchema(newNodes)
 })
@@ -227,10 +228,12 @@ watch(() => classList.value, () => {
 watch(() => style.value, () => {
   // 调用函数，查找并修改
   const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.workspaceRef?.value?.selectComponent?.id, (node: Schema) => {
-    node.props.style = {
-      ...style.value,
-      opacity: (100 - style.value.opacity) / 100,
-      scale: (100 - style.value.scale) / 100,
+    if (node?.props?.style) {
+      node.props.style = {
+        ...style.value,
+        opacity: (100 - style.value.opacity) / 100,
+        scale: (100 - style.value.scale) / 100,
+      }
     }
   })
   context?.workspaceRef?.value.changeSchema(newNodes)

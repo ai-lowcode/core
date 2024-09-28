@@ -32,6 +32,56 @@
   --al-bold-title-weight: 700;
   --el-dialog-padding-primary: 15px;
   --el-border-color-lighter: var(--al-basic-border-color) !important;
+  --al-basic-title-weight: 700;
+  --el-border-radius-base: 6px;
+}
+
+// 按钮美化
+.el-button {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 400;
+  border-radius: 6px;
+}
+
+// 弹窗美化
+.el-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  margin-right: 0;
+  text-align: left;
+  background-color: var(--el-color-info-light-9);
+}
+
+.el-dialog {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.el-dialog__body {
+  max-height: calc(100vh - 160px);
+  padding: 10px 24px;
+  overflow-y: auto;
+  color: var(--el-text-color-primary);
+}
+
+.el-icon.el-dialog__close:hover, .el-icon.el-drawer__close:hover, .el-icon.el-message-box__close:hover, .el-icon.el-notification__closeBtn:hover, .el-icon.el-tour__close:hover, .el-upload-list__item.is-ready .el-icon.el-icon--close:hover {
+  color: #000000e0 !important;
+  text-decoration: none;
+  background-color: #0000000f;
+  transition: .3s;
+}
+
+.el-dialog__headerbtn:hover {
+  color: unset;
+}
+
+.el-dialog__headerbtn .el-dialog__close {
+  font-size: inherit;
+  color: var(--el-color-info);
+  transition: .3s;
 }
 
 .el-table {

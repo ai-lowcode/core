@@ -84,7 +84,7 @@ function changeFieldData() {
   })
   context?.workspaceRef?.value.changeSchema(newNodes)
   nextTick(() => {
-    context?.workspaceRef?.value.rendererRef.instanceBus?.[getSchemaInstanceName(context?.workspaceRef?.value?.selectComponent)].updateRender()
+    context?.workspaceRef?.value.rendererRef.instanceBus?.[getSchemaInstanceName(context?.workspaceRef?.value?.selectComponent)]?.updateRender()
   })
 }
 
@@ -100,7 +100,7 @@ function changePropsData() {
   })
   context?.workspaceRef?.value.changeSchema(newNodes)
   nextTick(() => {
-    context?.workspaceRef?.value.rendererRef.instanceBus?.[getSchemaInstanceName(context?.workspaceRef?.value?.selectComponent)].updateRender()
+    context?.workspaceRef?.value.rendererRef.instanceBus?.[getSchemaInstanceName(context?.workspaceRef?.value?.selectComponent)]?.updateRender()
   })
 }
 
@@ -118,7 +118,7 @@ watch(() => slotsData.value, (newValue) => {
   })
   context?.workspaceRef?.value.changeSchema(newNodes)
   nextTick(() => {
-    context?.workspaceRef?.value.rendererRef.instanceBus?.[getSchemaInstanceName(context?.workspaceRef?.value?.selectComponent)].updateRender()
+    context?.workspaceRef?.value.rendererRef.instanceBus?.[getSchemaInstanceName(context?.workspaceRef?.value?.selectComponent)]?.updateRender()
   })
 }, {
   deep: true,

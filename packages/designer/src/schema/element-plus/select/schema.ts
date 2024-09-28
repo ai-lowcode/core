@@ -23,9 +23,6 @@ export const SelectSchema = <CompSchema>{
       field: `__${uniqueId()}`,
       // modelValue 绑定参数
       modelField: 'modelValue',
-      props: {
-        class: 'p-1',
-      },
     }
   },
   // 插槽
@@ -33,7 +30,7 @@ export const SelectSchema = <CompSchema>{
   // 事件
   events: () => {},
   // 属性
-  props: () => {
+  props: (changePropsData: Function) => {
     return <Schema[]>[
       {
         type: 'al-form',
@@ -88,6 +85,7 @@ export const SelectSchema = <CompSchema>{
                       class: 'flex item-center mt-2',
                     },
                     events: {
+                      onChange: changePropsData,
                       confirmChange: {
                         run() {
                           // eslint-disable-next-line ts/ban-ts-comment

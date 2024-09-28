@@ -251,12 +251,13 @@ export const TableSchema = <CompSchema>{
                                   children: ['图标:'],
                                 },
                                 {
-                                  type: 'al-input',
+                                  type: 'al-icon-select',
                                   id: 'icon',
                                   field: 'icon',
                                   modelField: 'modelValue',
                                   props: {
                                     class: 'flex-1',
+                                    size: 'small',
                                   },
                                   events: {
                                     onChange: changePropsData,

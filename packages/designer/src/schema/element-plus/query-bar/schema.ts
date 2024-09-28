@@ -19,9 +19,6 @@ export const QueryBarSchema = <CompSchema>{
       icon,
       label,
       name,
-      props: {
-        class: 'p-1',
-      },
       children: [
         {
           type: 'AlVueDragAble',

@@ -110,24 +110,25 @@ function copyComponent(componentId: string, componentSchema: Schema) {
 function insertComponent(addedComp: Schema, componentId?: string, index?: number): Schema {
   // 深拷贝组件 schema
   const newSchema = deepCopy(schema.value)
+  const newAddedComp = {
+    ...addedComp,
+    id: `__${uniqueId()}`,
+  }
+  console.log('newAddedComp::::::::::::::::::::;', newAddedComp)
   // 生成新 schema
   if (addedComp?.id) {
-    addedComp.id = `__${uniqueId()}`
     schema.value = findAndModifyById(newSchema, componentId, (node: Schema) => {
       if (node?.children?.length) {
-        if (index) {
-          (node.children as Schema[])[index!] = createDragBoxTemplate(addedComp)
-        }
-        else {
-          (node.children as Schema[])[node?.children?.length] = createDragBoxTemplate(addedComp)
+        if (index !== undefined) {
+          (node.children as Schema[]).splice(index, 0, createDragBoxTemplate(newAddedComp))
         }
       }
       else {
-        node.children = [createDragBoxTemplate(addedComp)]
+        node.children = [createDragBoxTemplate(newAddedComp)]
       }
     })
   }
-  return addedComp
+  return newAddedComp
 }
 
 /**
@@ -168,6 +169,7 @@ async function initPageSchema() {
 }
 
 function changeComponentSelect(comp: Schema) {
+  console.log(comp)
   if (comp?.id !== selectComponent.value?.id)
     selectComponent.value = comp
 }

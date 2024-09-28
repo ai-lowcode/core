@@ -19,9 +19,6 @@ export const ActionBarSchema = <CompSchema>{
       icon,
       label,
       name,
-      props: {
-        class: 'p-1',
-      },
     }
   },
   // 插槽
@@ -120,7 +117,7 @@ export const ActionBarSchema = <CompSchema>{
                                   children: ['图标:'],
                                 },
                                 {
-                                  type: 'al-input',
+                                  type: 'al-icon-select',
                                   id: 'icon',
                                   field: 'icon',
                                   modelField: 'modelValue',
@@ -293,7 +290,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'plain',
-                                  field: 'props.plain',
+                                  field: 'plain',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -319,7 +316,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'text',
-                                  field: 'props.text',
+                                  field: 'text',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -345,7 +342,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'bg',
-                                  field: 'props.bg',
+                                  field: 'bg',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -371,7 +368,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'link',
-                                  field: 'props.link',
+                                  field: 'link',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -397,7 +394,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'round',
-                                  field: 'props.round',
+                                  field: 'round',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -423,7 +420,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'circle',
-                                  field: 'props.circle',
+                                  field: 'circle',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -458,7 +455,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'loading',
-                                  field: 'props.loading',
+                                  field: 'loading',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -484,7 +481,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'disabled',
-                                  field: 'props.disabled',
+                                  field: 'disabled',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -510,7 +507,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'autofocus',
-                                  field: 'props.autofocus',
+                                  field: 'autofocus',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -536,7 +533,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-select',
                                   id: 'nativeType',
-                                  field: 'props.nativeType',
+                                  field: 'nativeType',
                                   modelField: 'modelValue',
                                   props: {
                                     teleported: false,
@@ -591,7 +588,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'autoInsertSpace',
-                                  field: 'props.autoInsertSpace',
+                                  field: 'autoInsertSpace',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -617,7 +614,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-input',
                                   id: 'color',
-                                  field: 'props.color',
+                                  field: 'color',
                                   modelField: 'modelValue',
                                   events: {
                                     onBlur: changePropsData,
@@ -643,7 +640,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-input',
                                   id: 'color',
-                                  field: 'props.color',
+                                  field: 'color',
                                   modelField: 'modelValue',
                                   events: {
                                     onBlur: changePropsData,
@@ -811,7 +808,7 @@ export const ActionBarSchema = <CompSchema>{
                                   children: ['图标:'],
                                 },
                                 {
-                                  type: 'al-input',
+                                  type: 'al-icon-select',
                                   id: 'icon',
                                   field: 'icon',
                                   modelField: 'modelValue',
@@ -984,7 +981,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'plain',
-                                  field: 'props.plain',
+                                  field: 'plain',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -1010,7 +1007,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'text',
-                                  field: 'props.text',
+                                  field: 'text',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -1036,7 +1033,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'bg',
-                                  field: 'props.bg',
+                                  field: 'bg',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -1062,7 +1059,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'link',
-                                  field: 'props.link',
+                                  field: 'link',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -1088,7 +1085,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'round',
-                                  field: 'props.round',
+                                  field: 'round',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -1114,7 +1111,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'circle',
-                                  field: 'props.circle',
+                                  field: 'circle',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -1149,7 +1146,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'loading',
-                                  field: 'props.loading',
+                                  field: 'loading',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -1175,7 +1172,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'disabled',
-                                  field: 'props.disabled',
+                                  field: 'disabled',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -1201,7 +1198,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'autofocus',
-                                  field: 'props.autofocus',
+                                  field: 'autofocus',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -1227,7 +1224,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-select',
                                   id: 'nativeType',
-                                  field: 'props.nativeType',
+                                  field: 'nativeType',
                                   modelField: 'modelValue',
                                   props: {
                                     teleported: false,
@@ -1282,7 +1279,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-switch',
                                   id: 'autoInsertSpace',
-                                  field: 'props.autoInsertSpace',
+                                  field: 'autoInsertSpace',
                                   modelField: 'modelValue',
                                   events: {
                                     onChange: changePropsData,
@@ -1308,7 +1305,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-input',
                                   id: 'color',
-                                  field: 'props.color',
+                                  field: 'color',
                                   modelField: 'modelValue',
                                   events: {
                                     onBlur: changePropsData,
@@ -1334,7 +1331,7 @@ export const ActionBarSchema = <CompSchema>{
                                 {
                                   type: 'al-input',
                                   id: 'color',
-                                  field: 'props.color',
+                                  field: 'color',
                                   modelField: 'modelValue',
                                   events: {
                                     onBlur: changePropsData,

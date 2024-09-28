@@ -231,12 +231,14 @@ defineExpose(exposeApi)
 </script>
 
 <template>
-  <component :is="schema?.type" v-if="!schema?.slotHidden && show" ref="componentRef" v-bind="bindValue" :schema="schema" :expose-api="exposeApi">
-    <template v-for="children in newComponentSchema" #[children.slotName]>
-      <AlNode v-for="(schemaItem, index) in newComponentSchema.filter((i: Schema) => i?.slotName === children?.slotName)" :key="index" ref="childrenRef" :component-schema="schemaItem" :parent-schema="schema" />
+  <template v-if="schema?.hidden !== true">
+    <component :is="schema?.type" v-if="!schema?.slotHidden && show" ref="componentRef" v-bind="bindValue" :schema="schema" :expose-api="exposeApi">
+      <template v-for="children in newComponentSchema" #[children.slotName]>
+        <AlNode v-for="(schemaItem, index) in newComponentSchema.filter((i: Schema) => i?.slotName === children?.slotName)" :key="index" ref="childrenRef" :component-schema="schemaItem" :parent-schema="schema" />
+      </template>
+    </component>
+    <template v-if="schema?.content && show">
+      {{ schema?.content }}
     </template>
-  </component>
-  <template v-if="schema?.content && show">
-    {{ schema?.content }}
   </template>
 </template>

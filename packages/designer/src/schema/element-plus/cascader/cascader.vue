@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import { AlTreeSelect } from '@ai-lowcode/element-plus'
+import { AlCascader } from '@ai-lowcode/element-plus'
 import { onMounted, ref, useAttrs } from 'vue'
 
 import { dataRequestStrategy } from '../common/data-request-strategy.ts'
 
 defineOptions({
-  name: 'AlTreeSelectSchema',
+  name: 'AlCascaderSchema',
 })
 
 const props = defineProps<{
-  treeSelectData: Promise<any> | any
+  cascaderData: Promise<any> | any
 }>()
 
 const dataList = ref()
@@ -20,7 +20,7 @@ async function handleData(params?: any, options?: any) {
   dataList.value = await dataRequestStrategy({
     ...props,
     attrs,
-  }, props.treeSelectData?.dataSource, props.treeSelectData?.dataType, params, options, props.treeSelectData?.modifyRequestForm)
+  }, props.cascaderData?.dataSource, props.cascaderData?.dataType, params, options, props.cascaderData?.modifyRequestForm)
 }
 
 onMounted(async () => {
@@ -29,5 +29,5 @@ onMounted(async () => {
 </script>
 
 <template>
-  <AlTreeSelect v-bind="$attrs" :data="dataList" />
+  <AlCascader v-bind="$attrs" :options="dataList" />
 </template>

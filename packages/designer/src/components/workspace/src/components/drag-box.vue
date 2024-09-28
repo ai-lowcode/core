@@ -14,12 +14,17 @@ const context = inject<DesignerContext>(DESIGNER_CTX)
 
 const instance = getCurrentInstance()
 
-const currentField = instance?.slots?.default?.()?.[0]?.children?.[0]?.props?.['component-schema']
+const currentField = computed({
+  get() {
+    return instance?.slots?.default?.()?.[0]?.children?.[0]?.props?.['component-schema']
+  },
+  set() {},
+})
 
-const show = computed(() => context?.workspaceRef?.value?.selectComponent?.id === currentField?.id && currentField?.id)
+const show = computed(() => context?.workspaceRef?.value?.selectComponent?.id === currentField.value?.id && currentField.value?.id)
 
 function changeCompId() {
-  context?.workspaceRef?.value?.changeComponentSelect?.(currentField)
+  context?.workspaceRef?.value?.changeComponentSelect?.(currentField.value)
 }
 
 function deleteComponent() {
@@ -34,8 +39,8 @@ const showOptions = ref(false)
 </script>
 
 <template>
-  <div class="box-border relative cursor-move flex mb-1" :class="show ? `outline outline-active-color outline-2` : `outline-dashed outline-active-color duration-300 outline-1`" v-bind="$attrs" @mouseenter="showOptions = true" @mouseleave="showOptions = false" @click.stop="changeCompId">
-    <div v-if="show && context?.workspaceRef?.value?.selectComponent?.id !== PAGE_COMP" :class="showOptions ? 'opacity-100' : 'opacity-40'" class="absolute z-10 duration-300 -left-[2px] -top-[26px] bg-active-color flex flex-row items-center">
+  <div class="box-border relative cursor-move flex mb-1" :class="show ? `outline outline-active-color outline-2 ${currentField?.props?.class}` : `outline-dashed outline-active-color duration-300 outline-1 ${currentField?.props?.class}`" v-bind="$attrs" @mouseenter="showOptions = true" @mouseleave="showOptions = false" @click.stop="changeCompId">
+    <div v-if="show && context?.workspaceRef?.value?.selectComponent?.id !== PAGE_COMP" :class="showOptions ? 'opacity-100' : 'opacity-40'" class="absolute h-[22px] z-10 duration-300 -left-[2px] -top-[24px] bg-active-color flex flex-row items-center">
       <div v-if="currentField?.type !== 'AlVueDragAble' && currentField?.type !== 'AlDragBox'" class="text-xs px-2 h-[20px] bg-active-color duration-300 text-white z-10 cursor-move p-[3px]">
         {{ currentField?.label }}
       </div>

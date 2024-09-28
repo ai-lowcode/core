@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { AlButton, AlLoading, AlTable, AlTableColumn } from '@ai-lowcode/element-plus'
-import { AlHttp, RequestOptionsType } from '@ai-lowcode/request'
-import { isJsonStringTryCatch } from '@ai-lowcode/utils'
 import { computed, onMounted, ref, useAttrs } from 'vue'
+
+import { dataRequestStrategy } from '../common/data-request-strategy.ts'
 
 import { getExposeApi } from '@/utils'
 
@@ -27,41 +27,19 @@ const attrs = useAttrs()
 
 const operationColumn = computed(() => columns.value?.find((item: any) => item.prop === '__operation'))
 
-async function dataRequestStrategy(newValue: any, type: string, params?: any, options?: RequestOptionsType, modifyRequestForm?: any) {
-  return ({
-    staticData: () => {
-      return isJsonStringTryCatch(newValue) ? JSON.parse(newValue) : undefined
-    },
-    dataSource: () => {},
-    modifyApi: async () => {
-      const api = await getExposeApi()
-      if (modifyRequestForm.url) {
-        const res = await (AlHttp as any)?.[modifyRequestForm.method]?.(modifyRequestForm.url, {
-          ...modifyRequestForm.params,
-          ...params,
-        }, {
-          header: modifyRequestForm.header,
-          ...options,
-        })
-        const handleData = new Function(modifyRequestForm.handleData).bind({
-          data: res,
-          ...props,
-          attrs,
-          ...api,
-        })
-        return modifyRequestForm.handleData ? handleData() : res.data
-      }
-    },
-  } as any)[type]?.()
-}
-
 async function handleData(params?: any, options?: any) {
   const loading = AlLoading.service({
     text: '加载中',
     target: tableRef.value?.$el,
   })
-  data.value = await dataRequestStrategy(props.dataSource?.dataSource, props.dataSource?.dataType, params, options, props.dataSource?.modifyRequestForm)
-  columns.value = await dataRequestStrategy(props.columnList?.dataSource, props.columnList?.dataType, params, options, props.columnList?.modifyRequestForm)
+  data.value = await dataRequestStrategy({
+    ...props,
+    attrs,
+  }, props.dataSource?.dataSource, props.dataSource?.dataType, params, options, props.dataSource?.modifyRequestForm)
+  columns.value = await dataRequestStrategy({
+    ...props,
+    attrs,
+  }, props.columnList?.dataSource, props.columnList?.dataType, params, options, props.columnList?.modifyRequestForm)
   loading.close()
 }
 

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlButton, AlInput } from '@ai-lowcode/element-plus'
+import { AlButton } from '@ai-lowcode/element-plus'
 import { ref } from 'vue'
 
 defineOptions({
@@ -30,14 +30,18 @@ function cancel() {
 
 <template>
   <div>
-    <AlInput v-model="variableBind" size="small" />
-    <div class="flex justify-end mt-4">
-      <AlButton @click="cancel">
-        取消
+    <div class="flex justify-between items-center w-full">
+      <AlButton type="danger" @click="handleSave">
+        移除绑定
       </AlButton>
-      <AlButton type="primary" @click="handleSave">
-        确定
-      </AlButton>
+      <div class="flex justify-end items-center">
+        <AlButton @click="cancel">
+          取消
+        </AlButton>
+        <AlButton type="primary" @click="handleSave">
+          确定
+        </AlButton>
+      </div>
     </div>
   </div>
 </template>

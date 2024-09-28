@@ -13,13 +13,13 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/ai-lowcode-element-plus.js",
-      "require": "./dist/ai-lowcode-element-plus.cjs"
+      "require": "./dist/ai-lowcode-element-plus.js"
     },
     "./css": {
       "import": "./dist/style.css"
     }
   },
-  "main": "./dist/ai-lowcode-element-plus.cjs",
+  "main": "./dist/ai-lowcode-element-plus.js",
   "module": "./dist/ai-lowcode-element-plus.js",
   "types": "./dist/index.d.ts",
   "files": [
@@ -35,12 +35,15 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
-    "element-plus": "^2.8.0"
+    "element-plus": "^2.8.0",
+    "vue": "^3.5.3"
   },
   "devDependencies": {
     "@al-config/scripts": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",
+    "@iconify/json": "^2.2.233",
+    "@iconify/vue": "^4.1.2",
     "vite": "^5.4.3",
     "vitest": "^2.0.4"
   },

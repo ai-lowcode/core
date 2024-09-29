@@ -42,6 +42,7 @@
     "@al-config/scripts": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",
+    "@ai-lowcode/types": "workspace:^",
     "@iconify/json": "^2.2.233",
     "@iconify/vue": "^4.1.2",
     "vite": "^5.4.3",

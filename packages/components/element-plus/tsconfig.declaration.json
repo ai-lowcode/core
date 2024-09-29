@@ -11,6 +11,7 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "temp",
-    "stripInternal": true
+    "stripInternal": true,
+    "types": ["@ai-lowcode/types/shims/vue.d.ts"]
   }
 }

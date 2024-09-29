@@ -49,10 +49,10 @@
     "vue-draggable-plus": "^0.5.3"
   },
   "devDependencies": {
+    "@ai-lowcode/types": "workspace:^",
     "@al-config/lint": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",
-    "@ai-lowcode/types": "workspace:^",
     "@antfu/eslint-config": "^2.24.0",
     "@iconify/json": "^2.2.233",
     "@iconify/vue": "^4.1.2",

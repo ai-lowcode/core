@@ -8,5 +8,5 @@ export async function getExposeApi() {
     api: {
       AlHttp,
     },
-  }
+  } as any
 }

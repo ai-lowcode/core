@@ -26,7 +26,7 @@ export function removeAlDragBoxAndPromoteChildren(nodes: Array<any>): Array<any>
   })
 }
 
-export function findParentNode(tree, targetId, parent = null) {
+export function findParentNode(tree: any, targetId: any, parent = null) {
   // 如果当前节点的id匹配目标id,则返回父节点
   if (tree.id === targetId) {
     return parent
@@ -37,7 +37,7 @@ export function findParentNode(tree, targetId, parent = null) {
     // 遍历children
     for (const child of tree.children) {
       // 递归调用findParentNode,将当前节点作为父节点传递
-      const result = findParentNode(child, targetId, tree)
+      const result: any = findParentNode(child, targetId, tree)
       // 如果找到了结果,立即返回
       if (result) {
         return result

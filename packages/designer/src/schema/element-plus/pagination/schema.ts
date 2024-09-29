@@ -209,6 +209,8 @@ export const PaginationSchema = <CompSchema>{
                     ],
                     events: {
                       onClick() {
+                        // eslint-disable-next-line ts/ban-ts-comment
+                        // @ts-expect-error
                         this.formData.value.visibleVariableBindDialog = true
                       },
                     },

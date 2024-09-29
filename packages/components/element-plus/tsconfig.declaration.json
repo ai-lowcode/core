@@ -8,10 +8,10 @@
         "src/*"
       ]
     },
+    "types": ["@ai-lowcode/types/shims/vue.d.ts"],
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "temp",
-    "stripInternal": true,
-    "types": ["@ai-lowcode/types/shims/vue.d.ts"]
+    "stripInternal": true
   }
 }

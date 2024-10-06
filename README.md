@@ -1,4 +1,4 @@
-AiLowCode代码开发平台（前后端）
+AiLowCode代码开发平台（前端）-> [后端地址](https://github.com/ai-lowcode/server)
 ======================================
 当前最新版本：(开发中)
 
@@ -30,6 +30,25 @@ AiLowCode代码前端采用 Vue3.4、Vite5.0、 Element-Plus、TypeScript 等新
 * [Vitejs](https://vitejs.dev/)
 * [Pinia(vuex替代方案)](https://pinia.esm.dev/introduction.html)
 * [Vue-RFCS](https://github.com/vuejs/rfcs)
+
+## 界面预览
+
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031408.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031335.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031638.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031611.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031551.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031538.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031530.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031514.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031452.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031443.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031430.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031023.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031840.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031800.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031858.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031847.png)
 
 ## 平台交流
 

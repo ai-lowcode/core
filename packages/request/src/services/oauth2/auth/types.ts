@@ -78,4 +78,8 @@ export interface MenuMeta {
   remark: string
   routePath: string
   systemModule: string
+  /**
+   * 子菜单
+   */
+  children?: Array<MenuMeta>
 }

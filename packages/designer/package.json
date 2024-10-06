@@ -36,12 +36,12 @@
     "vue": "^3.5.3"
   },
   "dependencies": {
+    "@ai-lowcode/atoms": "workspace:^",
     "@ai-lowcode/core": "workspace:^",
     "@ai-lowcode/element-plus": "workspace:^",
-    "@ai-lowcode/schemas-element-plus": "workspace:^",
-    "@ai-lowcode/atoms": "workspace:^",
     "@ai-lowcode/hooks": "workspace:^",
     "@ai-lowcode/request": "workspace:^",
+    "@ai-lowcode/schemas-element-plus": "workspace:^",
     "@ai-lowcode/styles": "workspace:^",
     "@ai-lowcode/utils": "workspace:^",
     "vue": "^3.5.3",

@@ -14,7 +14,7 @@ hero:
   actions:
     - theme: brand
       text: 预览管理端
-      link: https://ailowcode.app/admin/
+      link: https://api.ailowcode.app/
 
 features:
   - title: vue3+vite4+ts

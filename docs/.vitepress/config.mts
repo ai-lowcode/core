@@ -14,14 +14,14 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '首页', link: '/' },
-      { text: '预览设计器', link: 'https://ailowcode.app/admin/' },
+      { text: '预览设计器', link: 'https://api.ailowcode.app/' },
     ],
 
     sidebar: [
       {
         text: '预览',
         items: [
-          { text: '预览管理端', link: 'https://ailowcode.app/admin/' },
+          { text: '预览管理端', link: 'https://api.ailowcode.app/' },
         ],
       },
     ],

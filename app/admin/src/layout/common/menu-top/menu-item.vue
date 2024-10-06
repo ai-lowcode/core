@@ -15,7 +15,7 @@ const tagsStore = useTagsStore()
 const router = useRouter()
 
 function handlePage(menu: MenuMeta) {
-  router.push(menu?.path)
+  router.push(`/redirect${menu?.routePath}`)
   tagsStore.addTags(menu)
 }
 </script>
@@ -24,9 +24,9 @@ function handlePage(menu: MenuMeta) {
   <AlMenuItem :index="String(menu?.id)" @click="handlePage(menu)">
     <template #title>
       <AlIcon>
-        <Icon :icon="menu?.meta?.icon" />
+        <Icon :icon="menu?.menuIcon" />
       </AlIcon>
-      {{ menu?.name }}
+      {{ menu?.menuName }}
     </template>
   </AlMenuItem>
 </template>

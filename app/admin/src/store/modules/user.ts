@@ -60,9 +60,9 @@ export const useUserStore = defineStore('user', () => {
   const logout = async () => {
     try {
       // 退出登录
-      const { code, message } = await oauth2Api.logout()
+      const { code, msg } = await oauth2Api.logout()
       if (code !== ResponseCodeEnum.SUCCESS)
-        throw new Error(message)
+        throw new Error(msg)
       AlMessage.success('退出登录成功')
     }
     catch (e) {
@@ -111,7 +111,7 @@ export const useUserStore = defineStore('user', () => {
   const login = async (params: LoginParamType, loginSuccessMessage?: string, loginErrorMessage?: string) => {
     try {
       // 登录
-      const { data, code, message } = await oauth2Api.login(params)
+      const { data, code, msg } = await oauth2Api.login(params)
       if (code === ResponseCodeEnum.SUCCESS) {
         // 设置授权信息
         handleAuthStorage({ token: data?.access_token })
@@ -120,7 +120,7 @@ export const useUserStore = defineStore('user', () => {
         AlMessage.success(loginSuccessMessage || '登录成功')
       }
       else {
-        AlMessage.error(message || loginErrorMessage || '登录失败')
+        AlMessage.error(msg || loginErrorMessage || '登录失败')
       }
       return code
     }

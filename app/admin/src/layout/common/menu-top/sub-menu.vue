@@ -20,9 +20,9 @@ defineProps<{
       <template #title>
         <div class="mr-0">
           <AlIcon>
-            <Icon :icon="menu?.meta?.icon" />
+            <Icon :icon="menu?.menuIcon" />
           </AlIcon>
-          <span>{{ menu?.name }}</span>
+          <span>{{ menu?.menuName }}</span>
         </div>
       </template>
       <SubMenu v-if="menu.children && menu.children.length" :menu-list="menu.children" />

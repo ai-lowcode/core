@@ -61,7 +61,7 @@ async function handleLogin() {
   loginLoading.value = true
   const code = await userStore.login({
     ...loginForm.value,
-    captchaKey: verificationCode.value.captchaKey,
+    captchaKey: verificationCode.value.captchaKey as string,
   })
   if (code !== ResponseCodeEnum.SUCCESS)
     await handleVerificationCode()

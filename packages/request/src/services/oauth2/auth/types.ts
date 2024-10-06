@@ -1,8 +1,14 @@
 export interface LoginParamType {
   username: string
   password: string
-  captchaId: string
-  verifyCode: string
+  rememberMe: boolean
+  captchaValue: string
+  captchaKey: string
+  client_id: string
+  client_secret: string
+  grant_type: string
+  redirect_uri: string
+  mode: string
 }
 
 /**
@@ -12,7 +18,7 @@ export interface AuthType {
   /**
    * 访问token
    */
-  token: string
+  access_token: string
 }
 
 /**
@@ -26,7 +32,7 @@ export interface MenuType {
   /**
    * 菜单组件
    */
-  component: string
+  component: string | any
   /**
    * 菜单信息
    */
@@ -34,7 +40,7 @@ export interface MenuType {
   /**
    * 菜单名称
    */
-  name: string
+  name: string | number
   /**
    * 菜单路径
    */

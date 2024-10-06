@@ -59,12 +59,12 @@ export function generatorRouter(menuTree: Array<MenuMeta>) {
           localFile: item.localFile,
           externalUrl: item.externalUrl,
           lowcodePage: item.lowcodePage,
-        },
-      })
+        } as MenuMeta,
+      } as MenuType)
     }
   })
   const layout = routes.find(item => item.name === RouteNameEnum.LAYOUT)
-  layout.children = [...menuList, ...layout.children]
+  layout.children = [...menuList, ...layout.children] as any
   resetRouter()
   router.addRoute(layout)
 }

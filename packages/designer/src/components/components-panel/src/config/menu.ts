@@ -3,23 +3,23 @@ import { MenuList } from '@/types'
 export default function createMenu(): MenuList {
   return [
     {
-      name: 'main',
+      name: 'basic',
       title: '基础',
       list: [],
     },
     {
-      name: 'subform',
+      name: 'display',
+      title: '展示组件',
+      list: [],
+    },
+    {
+      name: 'form',
       title: '表单',
       list: [],
     },
     {
-      name: 'aide',
-      title: '辅助',
-      list: [],
-    },
-    {
-      name: 'layout',
-      title: '布局',
+      name: 'business',
+      title: '业务组件',
       list: [],
     },
   ]

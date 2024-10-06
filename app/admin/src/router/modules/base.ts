@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 
 import { RouteNameEnum } from '@/router/types'
-import LoginPage from '@/views/page/system/login/index.vue'
+import LoginPage from '@/views/system/login/index.vue'
 
 /**
  * 登录路由

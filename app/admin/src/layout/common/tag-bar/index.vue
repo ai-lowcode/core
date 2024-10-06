@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { AlIcon } from '@ai-lowcode/element-plus'
-import { MenuType } from '@ai-lowcode/request'
+import { MenuMeta } from '@ai-lowcode/request'
 import { Icon } from '@iconify/vue'
 import { onClickOutside } from '@vueuse/core'
 import { nextTick, ref, toRefs } from 'vue'
@@ -71,7 +71,7 @@ onClickOutside(contextmenuRef, closeMenu, {
   detectIframe: true,
 })
 
-const currentSelectTag = ref<MenuType>()
+const currentSelectTag = ref<MenuMeta>()
 
 const tagsStore = useTagsStore()
 
@@ -85,15 +85,15 @@ const router = useRouter()
 
 const { tagsList, closeTags, closeAllTags, closeOtherTags, closeLeftTags, closeRightTags } = toRefs(tagsStore)
 
-function handlePage(menu: MenuType) {
-  router.push(`/redirect${menu.path}`)
+function handlePage(menu: MenuMeta) {
+  router.push(`/redirect${menu.routePath}`)
 }
 
 function closeMenu() {
   visibleMenu.value = false
 }
 
-function openMenu(tag: MenuType, { clientX, clientY }) {
+function openMenu(tag: MenuMeta, { clientX, clientY }) {
   closeMenu()
   currentSelectTag.value = tag
   contextMenu.value.x = clientX
@@ -136,15 +136,15 @@ function selectMenu(operation: MenuOperation) {
       :class="{
         'hover:border-b-active-color': appSettingConfig.tagStyle === 'dynamic',
         'hover:border-b-transparent border-transparent': appSettingConfig.tagStyle === 'card',
-        'border-active-color': route.path === tag.path && appSettingConfig.tagStyle === 'dynamic',
-        'text-active-color': route.path === tag.path,
-        'border-b-transparent': route.path !== tag.path,
+        'border-active-color': route.path === tag.routePath && appSettingConfig.tagStyle === 'dynamic',
+        'text-active-color': route.path === tag.routePath,
+        'border-b-transparent': route.path !== tag.routePath,
       }"
       @click="handlePage(tag)"
       @contextmenu.prevent="openMenu(tag, $event)"
     >
       <div class="mr-2 text-nowrap">
-        {{ tag.name }}
+        {{ tag.menuName }}
       </div>
       <AlIcon class="rounded-full" @click.stop="closeTags(tag)">
         <Icon icon="material-symbols:close" />
@@ -153,16 +153,17 @@ function selectMenu(operation: MenuOperation) {
     <transition name="el-zoom-in-top">
       <div
         v-show="visibleMenu"
-        ref="contextmenuRef" class="bg-white dark:bg-basic-color fixed z-10 p-1.5 rounded-md shadow-md" :style="{
+        ref="contextmenuRef" class="bg-white dark:bg-basic-color fixed z-10 p-1.5 rounded-[4px]" :style="{
           top: `${contextMenu?.y}px`,
           left: `${contextMenu?.x}px`,
+          boxShadow: '0 2px 8px #00000026',
         }"
       >
-        <div v-for="(operation, index) in menuOperation" :key="index" class="flex items-center py-1.5 px-2 cursor-pointer text-black-color select-none hover:bg-gray-100 dark:hover:bg-active-color rounded-md duration-300" @click="selectMenu(operation)">
+        <div v-for="(operation, index) in menuOperation" :key="index" class="flex items-center py-1.5 px-2 cursor-pointer select-none hover:text-active-color dark:hover:bg-active-color rounded-md duration-300" @click="selectMenu(operation)">
           <AlIcon class="mr-1">
             <Icon :icon="operation?.icon" />
           </AlIcon>
-          <div class="text-sm">
+          <div class="text-[13px] font-normal">
             {{ operation?.title }}
           </div>
         </div>

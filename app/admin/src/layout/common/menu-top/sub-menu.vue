@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { AlIcon, AlSubMenu } from '@ai-lowcode/element-plus'
-import { MenuType } from '@ai-lowcode/request'
+import { MenuMeta } from '@ai-lowcode/request'
 import { Icon } from '@iconify/vue'
 
 import MenuItem from './menu-item.vue'
@@ -10,7 +10,7 @@ defineOptions({
 })
 
 defineProps<{
-  menuList: Array<MenuType>
+  menuList: Array<MenuMeta>
 }>()
 </script>
 

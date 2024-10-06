@@ -1,20 +1,20 @@
 <script lang="ts" setup>
 import { AlIcon, AlMenuItem } from '@ai-lowcode/element-plus'
-import { MenuType } from '@ai-lowcode/request'
+import { MenuMeta } from '@ai-lowcode/request'
 import { Icon } from '@iconify/vue'
 import { useRouter } from 'vue-router'
 
 import { useTagsStore } from '@/store/modules/tags'
 
 defineProps<{
-  menu: MenuType
+  menu: MenuMeta
 }>()
 
 const tagsStore = useTagsStore()
 
 const router = useRouter()
 
-function handlePage(menu: MenuType) {
+function handlePage(menu: MenuMeta) {
   router.push(menu?.path)
   tagsStore.addTags(menu)
 }

@@ -58,6 +58,12 @@ jobs:
         run: pnpm build --pkg @ai-lowcode/request
       - name: Build with @ai-lowcode/core
         run: pnpm build --pkg @ai-lowcode/core
+      - name: Build with @ai-lowcode/atoms
+        run: pnpm build --pkg @ai-lowcode/atoms
+      - name: Build with @ai-lowcode/graphic
+        run: pnpm build --pkg @ai-lowcode/graphic
+      - name: Build with @ai-lowcode/schemas-element-plus
+        run: pnpm build --pkg @ai-lowcode/schemas-element-plus
       - name: Build with @ai-lowcode/designer
         run: pnpm build --pkg @ai-lowcode/designer
       - name: Build with admin

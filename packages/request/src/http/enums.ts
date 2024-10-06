@@ -57,5 +57,5 @@ export enum ResponseCodeEnum {
   /**
    * 权限过期
    */
-  EXPIRED = 1101,
+  EXPIRED = 401,
 }

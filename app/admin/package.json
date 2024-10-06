@@ -21,6 +21,7 @@
     "@ai-lowcode/hooks": "workspace:^",
     "@ai-lowcode/request": "workspace:^",
     "@ai-lowcode/styles": "workspace:^",
+    "@ai-lowcode/graphic": "workspace:^",
     "@vueuse/core": "^11.0.3",
     "codemirror": "^5",
     "jsonlint-mod": "^1.7.6",

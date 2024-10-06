@@ -1,63 +1,63 @@
 import { webStorage } from '@ai-lowcode/hooks'
-import { MenuType } from '@ai-lowcode/request'
+import { MenuMeta } from '@ai-lowcode/request'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 export const useTagsStore = defineStore('tags', () => {
-  const tagsList = ref<Array<MenuType>>(webStorage.getStorageFromKey('tags') ?? [])
+  const tagsList = ref<Array<MenuMeta>>(webStorage.getStorageFromKey('tags') ?? [])
   const currentRoute = useRoute()
   const router = useRouter()
 
-  const addTags = (route: MenuType) => {
-    if (!tagsList.value?.find(r => r.path === route.path))
+  const addTags = (route: MenuMeta) => {
+    if (!tagsList.value?.find(r => r.routePath === route.routePath))
       tagsList.value?.push(route)
     // webStorage.setStorage('tags', tagsList.value?.filter(r => r.meta.keepAlive))
     webStorage.setStorage('tags', tagsList.value)
   }
 
-  const closeTags = (route: MenuType) => {
+  const closeTags = (route: MenuMeta) => {
     if (tagsList.value?.length === 1) {
       tagsList.value = [{
-        name: '首页',
-        path: '/',
-      } as MenuType]
+        menuName: '首页',
+        routePath: '/',
+      } as MenuMeta]
       router.push('/')
     }
     else {
-      const routeIndex = tagsList.value.findIndex(r => r.path === route.path)
+      const routeIndex = tagsList.value.findIndex(r => r.routePath === route.routePath)
       tagsList.value?.splice(routeIndex, 1)
-      if (currentRoute.path === route.path)
-        router.push(tagsList.value[tagsList.value?.length - 1].path)
+      if (currentRoute.path === route.routePath)
+        router.push(tagsList.value[tagsList.value?.length - 1].routePath)
     }
     webStorage.setStorage('tags', tagsList.value)
   }
 
-  const closeLeftTags = (route: MenuType) => {
-    const routeIndex = tagsList.value.findIndex(r => r.path === route.path)
+  const closeLeftTags = (route: MenuMeta) => {
+    const routeIndex = tagsList.value.findIndex(r => r.routePath === route.routePath)
     tagsList.value = tagsList.value?.slice(routeIndex, tagsList.value.length)
-    router.push(route.path)
+    router.push(route.routePath)
     webStorage.setStorage('tags', tagsList.value)
   }
 
-  const closeRightTags = (route: MenuType) => {
-    const routeIndex = tagsList.value.findIndex(r => r.path === route.path)
+  const closeRightTags = (route: MenuMeta) => {
+    const routeIndex = tagsList.value.findIndex(r => r.routePath === route.routePath)
     tagsList.value = tagsList.value?.slice(0, routeIndex + 1)
-    router.push(route.path)
+    router.push(route.routePath)
     webStorage.setStorage('tags', tagsList.value)
   }
 
-  const closeOtherTags = (route: MenuType) => {
+  const closeOtherTags = (route: MenuMeta) => {
     tagsList.value = [route]
-    router.push(route?.path)
+    router.push(route?.routePath)
     webStorage.setStorage('tags', tagsList.value)
   }
 
   const closeAllTags = () => {
     tagsList.value = [{
-      name: '首页',
-      path: '/',
-    } as MenuType]
+      menuName: '首页',
+      routePath: '/',
+    } as MenuMeta]
     router.push('/')
     webStorage.setStorage('tags', tagsList.value)
   }

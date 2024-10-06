@@ -18,7 +18,11 @@
     "./css": {
       "import": "./dist/style.css"
     },
-    "./tailwindcss": {
+    "./tailwindCss": {
+      "import": "./src/tailwind.css",
+      "require": "./src/tailwind.css"
+    },
+    "./tailwindConfig": {
       "import": "./src/tailwind.config.ts",
       "require": "./src/tailwind.config.ts"
     }

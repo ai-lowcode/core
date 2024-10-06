@@ -6,3 +6,4 @@ packages:
   - config/* # 基础配置
   - packages/* # 基础包
   - packages/components/* # 业务组建包
+  - packages/schemas/* # schema包

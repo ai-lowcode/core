@@ -22,7 +22,7 @@ const props = defineProps<{
 }>()
 
 const attrs = useAttrs()
-const list = ref(deepCopy((props?.schema as Schema).children))
+const list = ref(deepCopy((props?.schema as Schema)?.children))
 const context = inject<DesignerContext>(DESIGNER_CTX)
 
 watch(() => props?.schema, (newValue) => {
@@ -59,6 +59,7 @@ function onMove(event: any) {
       'h-full bg-basic-color rounded-md drag-content relative': !list?.length,
       'flex': attrs?.__parentSchema?.props?.class?.includes('flex'),
       'flex-row': attrs?.__parentSchema?.props?.class?.includes('flex-row'),
+      'flex-col': attrs?.__parentSchema?.props?.class?.includes('flex-col'),
       'flex-nowrap': attrs?.__parentSchema?.props?.class?.includes('flex-nowrap'),
       'flex-wrap': attrs?.__parentSchema?.props?.class?.includes('flex-wrap'),
     }"

@@ -14,7 +14,7 @@ import {
   AlTabPane,
   AlTabs,
 } from '@ai-lowcode/element-plus'
-import { AlHttp, ResponseCodeEnum } from '@ai-lowcode/request'
+import { ResponseCodeEnum, lowCodePageApi } from '@ai-lowcode/request'
 import { Icon } from '@iconify/vue'
 import { inject, ref } from 'vue'
 
@@ -24,10 +24,10 @@ import { createDragBoxTemplate, createPageTemplate } from '@/utils'
 
 export interface PageType {
   id?: string
-  name: string
-  slug: string
-  desc: string
-  content: string
+  pageName: string
+  pageSlug: string
+  pageDescribe: string
+  pageContent: string
 }
 
 // 页面 ref
@@ -49,10 +49,10 @@ const context = inject<DesignerContext>(DESIGNER_CTX)
 
 // 页面创建数据
 const pageCreateData = ref<PageType>({
-  name: '',
-  slug: '',
-  desc: '',
-  content: JSON.stringify([
+  pageName: '',
+  pageSlug: '',
+  pageDescribe: '',
+  pageContent: JSON.stringify([
     createDragBoxTemplate(
       createPageTemplate(),
       {
@@ -102,15 +102,10 @@ async function copyPage(page: PageType) {
           instance.confirmButtonLoading = true
           instance.confirmButtonText = '复制中..'
           try {
-            await AlHttp.post(`/lowcode/pages`, {
-              content: page.content,
-              name: `${page.name}-${new Date().getTime()}`,
-              slug: `${page.slug}-${new Date().getTime()}`,
-            }, {
-              isShowSuccessMessage: true,
-              isShowErrorMessage: true,
-              errorMessageText: '复制失败',
-              successMessageText: '复制成功',
+            await lowCodePageApi.add({
+              pageContent: page.pageContent,
+              pageName: `${page.pageName}-${new Date().getTime()}`,
+              pageSlug: `${page.pageSlug}-${new Date().getTime()}`,
             })
           }
           catch (e: any) {
@@ -140,12 +135,7 @@ async function deletePage(page: PageType) {
           instance.confirmButtonLoading = true
           instance.confirmButtonText = '删除中..'
           try {
-            await AlHttp.remove(`/lowcode/pages/${page?.id}`, {}, {
-              isShowSuccessMessage: true,
-              isShowErrorMessage: true,
-              errorMessageText: '删除失败',
-              successMessageText: '删除成功',
-            })
+            await lowCodePageApi.delete(page.id!)
           }
           catch (e: any) {
             AlMessage.error(e)
@@ -169,8 +159,8 @@ async function handlePage() {
     text: 'Loading',
     target: pageRef.value,
   })
-  const { data } = await AlHttp.get('/lowcode/pages', {})
-  pageList.value = data?.items
+  const { data } = await lowCodePageApi.list()
+  pageList.value = data?.list
   loading.close()
 }
 
@@ -181,14 +171,8 @@ function createPage() {
   pageCreateRef.value.validate(async (valid: boolean) => {
     if (valid) {
       const { code } = pageCreateData.value?.id
-        ? await AlHttp.put(`/lowcode/pages/${pageCreateData.value?.id}`, pageCreateData.value, {
-          isShowSuccessMessage: true,
-          successMessageText: '修改成功',
-        })
-        : await AlHttp.post('/lowcode/pages', pageCreateData.value, {
-          isShowSuccessMessage: true,
-          successMessageText: '新增成功',
-        })
+        ? await lowCodePageApi.update(pageCreateData.value)
+        : await lowCodePageApi.add(pageCreateData.value)
       if (code === ResponseCodeEnum.SUCCESS) {
         visiblePageCreate.value = false
       }
@@ -213,7 +197,7 @@ function createPage() {
         <AlIcon size="14" class="mr-1">
           <Icon icon="iconoir:page" />
         </AlIcon>
-        {{ context?.workspaceRef?.value?.currentSelectPage?.name }}
+        {{ context?.workspaceRef?.value?.currentSelectPage?.pageName }}
       </AlButton>
     </template>
     <div class="p-2">
@@ -239,14 +223,14 @@ function createPage() {
             <div
               class="flex items-center"
               :class="{
-                'text-blue-600': context?.workspaceRef?.value?.currentSelectPage?.slug === page?.slug,
+                'text-blue-600': context?.workspaceRef?.value?.currentSelectPage?.pageSlug === page?.pageSlug,
               }"
               @click="selectPage(page)"
             >
               <AlIcon class="mr-1">
                 <Icon icon="material-symbols-light:home" />
               </AlIcon>
-              <div>{{ page?.name }}</div>
+              <div>{{ page?.pageName }}</div>
             </div>
             <div class="flex items-center">
               <AlIcon class="mr-2" @click="copyPage(page)">
@@ -287,24 +271,24 @@ function createPage() {
             label-width="auto"
           >
             <AlFormItem
-              prop="name"
+              prop="pageName"
               label="名称"
               required
             >
-              <AlInput v-model="pageCreateData.name" />
+              <AlInput v-model="pageCreateData.pageName" />
             </AlFormItem>
             <AlFormItem
-              prop="slug"
+              prop="pageSlug"
               label="标识"
               required
             >
-              <AlInput v-model="pageCreateData.slug" />
+              <AlInput v-model="pageCreateData.pageSlug" />
             </AlFormItem>
             <AlFormItem
-              prop="desc"
+              prop="pageDescribe"
               label="描述"
             >
-              <AlInput v-model="pageCreateData.desc" type="textarea" />
+              <AlInput v-model="pageCreateData.pageDescribe" type="textarea" />
             </AlFormItem>
             <div class="w-full flex justify-end">
               <AlButton type="primary" @click="createPage">

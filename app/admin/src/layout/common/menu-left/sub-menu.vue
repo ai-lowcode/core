@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { AlIcon, AlSubMenu } from '@ai-lowcode/element-plus'
-import { MenuType } from '@ai-lowcode/request'
+import { MenuMeta } from '@ai-lowcode/request'
 import { Icon } from '@iconify/vue'
 
 import { toRefs } from 'vue'
@@ -14,7 +14,7 @@ defineOptions({
 })
 
 defineProps<{
-  menuList: Array<MenuType>
+  menuList: Array<MenuMeta>
   firstLevel?: boolean
 }>()
 
@@ -29,9 +29,9 @@ const { appSettingConfig } = toRefs(appStore)
       <template #title>
         <div class="mr-8">
           <AlIcon>
-            <Icon :icon="menu?.meta?.icon" />
+            <Icon :icon="menu?.menuIcon" />
           </AlIcon>
-          <span v-if="!firstLevel || !appSettingConfig.isCollapse">{{ menu?.name }}</span>
+          <span v-if="!firstLevel || !appSettingConfig.isCollapse">{{ menu?.menuName }}</span>
         </div>
       </template>
       <SubMenu v-if="menu.children && menu.children.length" :menu-list="menu.children" />

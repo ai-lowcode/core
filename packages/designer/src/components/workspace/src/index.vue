@@ -2,7 +2,7 @@
 import { AlRenderer, Schema } from '@ai-lowcode/core'
 import { AlMain } from '@ai-lowcode/element-plus'
 import { webStorage } from '@ai-lowcode/hooks'
-import { AlHttp } from '@ai-lowcode/request'
+import { lowCodePageApi } from '@ai-lowcode/request'
 import {
   convertStringsToFunctions,
   deepCopy,
@@ -43,7 +43,7 @@ const selectComponent = ref<Schema>({
 function changeSelectPage(page: any) {
   currentSelectPage.value = page
   webStorage.setStorage('__current_select_page', page)
-  schema.value = isJsonStringTryCatch(page?.content) ? convertStringsToFunctions(JSON.parse(page?.content)) : clearPage()
+  schema.value = isJsonStringTryCatch(page?.pageContent) ? convertStringsToFunctions(JSON.parse(page?.pageContent)) : clearPage()
 }
 
 function changeWorkspaceScale(scale: number) {
@@ -65,6 +65,7 @@ function changeComponentSort(fromId: string, toId: string, oldIndex: number, new
   // 深拷贝组件 schema
   const newSchema = deepCopy(schema.value)
   schema.value = swapChildrenPositions(newSchema, fromId, toId, oldIndex, newIndex)
+  updateRenderer()
 }
 
 /**
@@ -114,7 +115,6 @@ function insertComponent(addedComp: Schema, componentId?: string, index?: number
     ...addedComp,
     id: `__${uniqueId()}`,
   }
-  console.log('newAddedComp::::::::::::::::::::;', newAddedComp)
   // 生成新 schema
   if (addedComp?.id) {
     schema.value = findAndModifyById(newSchema, componentId, (node: Schema) => {
@@ -162,14 +162,12 @@ function clearPage() {
 
 async function initPageSchema() {
   if (currentSelectPage.value?.id) {
-    const { data } = await AlHttp.get(`/lowcode/pages/${currentSelectPage.value?.id}`)
-    schema.value = isJsonStringTryCatch(data?.content) ? convertStringsToFunctions(JSON.parse(data?.content)) : clearPage()
-    console.log(schema.value, schema.value[0].children[0])
+    const { data } = await lowCodePageApi.edit(currentSelectPage.value?.id)
+    schema.value = isJsonStringTryCatch(data?.pageContent) ? convertStringsToFunctions(JSON.parse(data?.pageContent)) : clearPage()
   }
 }
 
 function changeComponentSelect(comp: Schema) {
-  console.log(comp)
   if (comp?.id !== selectComponent.value?.id)
     selectComponent.value = comp
 }

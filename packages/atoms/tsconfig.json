@@ -1,0 +1,14 @@
+{
+  "extends": "@al-config/tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "types": ["@ai-lowcode/types/shims/vue.d.ts"],
+    "outDir": "dist"
+  },
+  "include": ["src"]
+}

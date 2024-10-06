@@ -104,6 +104,11 @@ export class AlAxios {
         // 关闭loading
         this.loading?.close()
 
+        if (response.data?.code === ResponseCodeEnum.EXPIRED) {
+          // 处理请求成功的消息提醒
+          AlMessage.error(response.data?.msg)
+        }
+
         if (response.data?.code === ResponseCodeEnum.SUCCESS) {
           // 处理请求成功的消息提醒
           isShowSuccessMessage
@@ -113,7 +118,7 @@ export class AlAxios {
         if (response.data?.code !== ResponseCodeEnum.SUCCESS) {
           // 处理请求失败的消息提醒
           isShowErrorMessage
-          && (errorMessageText ? AlMessage.error(errorMessageText) : AlMessage.error(response.data?.message))
+          && (errorMessageText ? AlMessage.error(errorMessageText) : AlMessage.error(response.data?.msg))
         }
 
         return response

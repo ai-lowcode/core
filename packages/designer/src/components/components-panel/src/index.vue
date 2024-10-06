@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { AlCodeEditorAtom } from '@ai-lowcode/atoms'
 import { Schema } from '@ai-lowcode/core'
 import {
   AlDropdown,
@@ -11,17 +12,16 @@ import {
   AlTooltip,
   AlTree,
 } from '@ai-lowcode/element-plus'
+import componentSchemaList, { CompSchema } from '@ai-lowcode/schemas-element-plus'
 import { Icon } from '@iconify/vue'
 import { computed, inject, nextTick, onMounted, ref, watch } from 'vue'
 
 import { VueDraggable } from 'vue-draggable-plus'
 
-import { AlCodeEditorAtom } from '@/atoms'
 import createMenu from '@/components/components-panel/src/config/menu.ts'
 import { ComponentMenu } from '@/enums'
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
-import componentSchemaList from '@/schema'
-import { ActiveComponentMenu, CompSchema, DesignerContext, Menu, MenuList } from '@/types'
+import { ActiveComponentMenu, DesignerContext, Menu, MenuList } from '@/types'
 import { addEditorThemeListener, findParentNode, removeAlDragBoxAndPromoteChildren } from '@/utils'
 
 defineEmits<{
@@ -36,22 +36,27 @@ const slideMenu = [
   {
     title: '组件',
     slug: ComponentMenu.COMPONENT,
-    icon: 'tdesign:component-layout',
+    icon: 'proicons:component',
   },
   {
     title: '大纲树',
     slug: ComponentMenu.OUTLINE,
-    icon: 'gg:list-tree',
+    icon: 'tdesign:tree-list',
   },
   {
-    title: '资源库',
-    slug: ComponentMenu.RESOURCE_LIBRARY,
-    icon: 'gg:list-tree',
+    title: '接口',
+    slug: ComponentMenu.API,
+    icon: 'hugeicons:api',
+  },
+  {
+    title: '变量',
+    slug: ComponentMenu.VARIABLE,
+    icon: 'material-symbols:function',
   },
   {
     title: '源码',
     slug: ComponentMenu.CODE,
-    icon: 'nonicons:vscode-16',
+    icon: 'mingcute:code-fill',
   },
   {
     title: 'Ai助手',
@@ -68,7 +73,7 @@ const editor = ref()
 const outLineRef = ref()
 
 // tab 菜单标签
-const activeMenuTab = ref('main')
+const activeMenuTab = ref('basic')
 
 // 菜单列表
 const menuList = ref<MenuList>(createMenu())

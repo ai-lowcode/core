@@ -1,6 +1,7 @@
 import { AlMessage } from '@ai-lowcode/element-plus'
 import { webStorage } from '@ai-lowcode/hooks'
-import { LoginParamType, ResponseCodeEnum, authApi } from '@ai-lowcode/request'
+import { LoginParamType, ResponseCodeEnum, oauth2Api, sysConfigApi } from '@ai-lowcode/request'
+import { isJsonStringTryCatch } from '@ai-lowcode/utils'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -9,6 +10,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { resetRouter } from '@/router'
 import { generatorRouter } from '@/router/generator-router'
 import { RouteNameEnum } from '@/router/types'
+import { useAppStore } from '@/store/modules/app'
 
 export const useUserStore = defineStore('user', () => {
   const router = useRouter()
@@ -58,7 +60,7 @@ export const useUserStore = defineStore('user', () => {
   const logout = async () => {
     try {
       // 退出登录
-      const { code, message } = await authApi.logout()
+      const { code, message } = await oauth2Api.logout()
       if (code !== ResponseCodeEnum.SUCCESS)
         throw new Error(message)
       AlMessage.success('退出登录成功')
@@ -75,9 +77,18 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  const initUserInfo = async () => {
+    if (!webStorage.getStorageFromKey('user')) {
+      const { data, code } = await oauth2Api.userInfo()
+      if (code === ResponseCodeEnum.SUCCESS)
+        webStorage.setStorage('user', data)
+    }
+  }
+
   const initRouter = async () => {
+    await initUserInfo()
     // 获取接口菜单，用于权限判断
-    const { data: menu, code } = await authApi.findMenu()
+    const { data: menu, code } = await oauth2Api.findMenu()
     if (code === ResponseCodeEnum.EXPIRED) {
       // token 过期
       await logout()
@@ -89,22 +100,33 @@ export const useUserStore = defineStore('user', () => {
       })
       generatorRouter(menu)
     }
+    sysConfigApi.list().then((res) => {
+      if (isJsonStringTryCatch(res.data?.[0]?.config)) {
+        const appStore = useAppStore()
+        appStore.appSettingConfig = JSON.parse(res.data?.[0]?.config)
+      }
+    })
   }
 
   const login = async (params: LoginParamType, loginSuccessMessage?: string, loginErrorMessage?: string) => {
-    // 登录
-    const { data, code, message } = await authApi.login(params)
-    if (code === ResponseCodeEnum.SUCCESS) {
-      // 设置授权信息
-      handleAuthStorage({ token: data?.token })
-      await initRouter()
-      await router.push('/')
-      AlMessage.success(loginSuccessMessage || '登录成功')
+    try {
+      // 登录
+      const { data, code, message } = await oauth2Api.login(params)
+      if (code === ResponseCodeEnum.SUCCESS) {
+        // 设置授权信息
+        handleAuthStorage({ token: data?.access_token })
+        await initRouter()
+        await router.push('/')
+        AlMessage.success(loginSuccessMessage || '登录成功')
+      }
+      else {
+        AlMessage.error(message || loginErrorMessage || '登录失败')
+      }
+      return code
     }
-    else {
-      AlMessage.error(message || loginErrorMessage || '登录失败')
+    catch (e) {
+      AlMessage.error(e?.response?.data?.msg || loginErrorMessage || '登录失败')
     }
-    return code
   }
 
   return {

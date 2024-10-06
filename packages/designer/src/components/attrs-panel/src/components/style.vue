@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { AlCodeEditorAtom } from '@ai-lowcode/atoms'
 import { Schema } from '@ai-lowcode/core'
 import {
   AlCollapse,
@@ -16,12 +17,11 @@ import {
 
 import { deepCopy } from '@ai-lowcode/utils'
 import { Icon } from '@iconify/vue'
-import { inject, onMounted, ref, watch } from 'vue'
+import { inject, nextTick, onMounted, ref, watch } from 'vue'
 
-import { AlCodeEditorAtom } from '@/atoms'
 import { DESIGNER_CTX } from '@/global'
 import { DesignerContext } from '@/types'
-import { addEditorThemeListener, findAndModifyById } from '@/utils'
+import { addEditorThemeListener, findAndModifyById, getSchemaInstanceName } from '@/utils'
 
 const css = ref()
 
@@ -218,25 +218,34 @@ const classList = ref('')
 watch(() => classList.value, () => {
   // 调用函数，查找并修改
   const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.workspaceRef?.value?.selectComponent?.id, (node: Schema) => {
-    if (node?.props?.class)
-      node.props.class = classList.value
+    if (!node?.props)
+      node.props = {}
+    node.props.class = classList.value
   })
   context?.workspaceRef?.value.changeSchema(newNodes)
+  nextTick(() => {
+    context?.workspaceRef?.value.rendererRef.instanceBus?.[getSchemaInstanceName(context?.workspaceRef?.value?.selectComponent)]?.updateRender()
+  })
+}, {
+  deep: true,
 })
 
 // 监听插槽变化
 watch(() => style.value, () => {
   // 调用函数，查找并修改
   const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.workspaceRef?.value?.selectComponent?.id, (node: Schema) => {
-    if (node?.props?.style) {
-      node.props.style = {
-        ...style.value,
-        opacity: (100 - style.value.opacity) / 100,
-        scale: (100 - style.value.scale) / 100,
-      }
+    if (!node?.props)
+      node.props = {}
+    node.props.style = {
+      ...style.value,
+      opacity: (100 - style.value.opacity) / 100,
+      scale: (100 - style.value.scale) / 100,
     }
   })
   context?.workspaceRef?.value.changeSchema(newNodes)
+  nextTick(() => {
+    context?.workspaceRef?.value.rendererRef.instanceBus?.[getSchemaInstanceName(context?.workspaceRef?.value?.selectComponent)]?.updateRender()
+  })
 }, {
   deep: true,
 })
@@ -248,21 +257,26 @@ watch(() => css.value, () => {
     node.cssString = css.value
   })
   context?.workspaceRef?.value.changeSchema(newNodes)
+  nextTick(() => {
+    context?.workspaceRef?.value.rendererRef.instanceBus?.[getSchemaInstanceName(context?.workspaceRef?.value?.selectComponent)]?.updateRender()
+  })
 }, {
   deep: true,
 })
 
 // 选中组件改变时
 watch(() => context?.workspaceRef?.value?.selectComponent, (newValue) => {
-  findAndModifyById(context?.workspaceRef?.value.schema, newValue?.id, (node: Schema) => {
-    style.value = {
-      ...node.props?.style,
-      opacity: node.props?.opacity * 100,
-      scale: node.props?.scale * 100,
-    }
-    classList.value = node.props?.class
-    css.value = node.cssString
-  })
+  setTimeout(() => {
+    findAndModifyById(context?.workspaceRef?.value.schema, newValue?.id, (node: Schema) => {
+      style.value = {
+        ...node.props?.style,
+        opacity: node.props?.opacity * 100,
+        scale: node.props?.scale * 100,
+      }
+      classList.value = node.props?.class
+      css.value = node.cssString
+    })
+  }, 300)
 }, {
   deep: true,
 })

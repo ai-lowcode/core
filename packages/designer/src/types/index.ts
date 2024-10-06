@@ -2,8 +2,6 @@
 import { ComponentMenu } from '@/enums'
 
 export * from './basic.ts'
-// 表单生成器 schema 类型
-export * from './schema.ts'
 // 表单生成器接口类型
 export * from './api.ts'
 // 设计器类型

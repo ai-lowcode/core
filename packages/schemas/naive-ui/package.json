@@ -1,0 +1,58 @@
+{
+  "name": "@ai-lowcode/schemas-naive-ui",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "element-plus for ai-lowcode",
+  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "repository": {
+    "type": "http",
+    "url": "https://github.com/ai-lowcode/core"
+  },
+  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/ai-lowcode-schemas-naive-ui.js",
+      "require": "./dist/ai-lowcode-schemas-naive-ui.js"
+    },
+    "./css": {
+      "import": "./dist/style.css"
+    }
+  },
+  "main": "./dist/ai-lowcode-schemas-naive-ui.js",
+  "module": "./dist/ai-lowcode-schemas-naive-ui.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "serve": "vite build --watch",
+    "build": "vite build",
+    "build:all": "vite build && pnpm build:dts",
+    "build:dts": "rimraf temp && tsc -p tsconfig.declaration.json && rollup-dts",
+    "clean": "rimraf node_modules",
+    "clean:dist": "rimraf dist"
+  },
+  "dependencies": {
+    "vue": "^3.5.3"
+  },
+  "devDependencies": {
+    "@ai-lowcode/types": "workspace:^",
+    "@al-config/lint": "workspace:^",
+    "@al-config/tsconfig": "workspace:^",
+    "@al-config/vite": "workspace:^",
+    "@antfu/eslint-config": "^2.24.0",
+    "@iconify/json": "^2.2.233",
+    "@iconify/vue": "^4.1.2",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.8.0",
+    "postcss": "^8.4.45",
+    "tailwindcss": "^3.4.10",
+    "vite": "^5.4.3",
+    "vitest": "^2.0.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

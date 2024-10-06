@@ -1,16 +1,16 @@
 <script lang="ts" setup>
+import { AlCodeEditorAtom } from '@ai-lowcode/atoms'
 import { Schema } from '@ai-lowcode/core'
 import { AlButton, AlCollapse, AlCollapseItem, AlDialog, AlIcon, AlMessage } from '@ai-lowcode/element-plus'
 
+import componentSchemaList from '@ai-lowcode/schemas-element-plus'
 import { deepCopy } from '@ai-lowcode/utils'
 import { Icon } from '@iconify/vue'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 
 import { EventGroup } from '../types'
 
-import { AlCodeEditorAtom } from '@/atoms'
 import { DESIGNER_CTX } from '@/global'
-import componentSchemaList from '@/schema'
 import { DesignerContext } from '@/types'
 import { addEditorThemeListener, findAndModifyById } from '@/utils'
 

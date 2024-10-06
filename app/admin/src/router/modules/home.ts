@@ -3,9 +3,9 @@ import type { RouteRecordRaw } from 'vue-router'
 import { RouteNameEnum } from '../types'
 
 import HomeLayout from '@/layout/home/index.vue'
-import NotFoundPage from '@/views/page/system/exception/index.vue'
-import HomePage from '@/views/page/system/home/index.vue'
-import RedirectPage from '@/views/page/system/redirect/index.vue'
+import NotFoundPage from '@/views/system/exception/index.vue'
+import HomePage from '@/views/system/home/index.vue'
+import RedirectPage from '@/views/system/redirect/index.vue'
 
 /**
  * 首页路由信息

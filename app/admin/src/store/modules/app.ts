@@ -1,11 +1,11 @@
-import { webStorage } from '@ai-lowcode/hooks'
+import { sysConfigApi } from '@ai-lowcode/request'
 import { defineStore } from 'pinia'
 import { onMounted, ref, watch } from 'vue'
 
 import { displayStrategy, globalStyleStrategy, themeColorStrategy } from '@/utils/theme/theme'
 
 export const useAppStore = defineStore('app', () => {
-  const appSettingConfig = ref(webStorage.getStorageFromKey('settingConfig') ?? {
+  const appSettingConfig = ref({
     isCollapse: true,
     globalStyle: 'sun',
     themeColor: 'bg-white',
@@ -14,7 +14,7 @@ export const useAppStore = defineStore('app', () => {
     grayMode: false,
     weaknessMode: false,
     hideTag: false,
-    hideFooter: false,
+    hideFooter: true,
     logo: true,
     keepAlive: false,
   })
@@ -119,7 +119,13 @@ export const useAppStore = defineStore('app', () => {
     globalStyleStrategy(appSettingConfig.value.themeColor, appSettingConfig.value.globalStyle)
     // 全局界面显示
     displayStrategy(appSettingConfig.value)
-    webStorage.setStorage('settingConfig', newValue)
+    sysConfigApi.add({
+      config: JSON.stringify(newValue),
+      type: 0,
+    }, {
+      isShowSuccessMessage: false,
+      isShowLoading: false,
+    })
   }, { deep: true })
 
   onMounted(() => {

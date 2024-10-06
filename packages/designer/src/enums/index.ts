@@ -12,4 +12,6 @@ export enum ComponentMenu {
   CODE = 'code',
   AICHAT = 'aiChat',
   RESOURCE_LIBRARY = 'resourceLibrary',
+  API = 'api',
+  VARIABLE = 'variable',
 }

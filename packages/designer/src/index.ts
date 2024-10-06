@@ -1,6 +1,14 @@
+import * as Atoms from '@ai-lowcode/atoms'
+
 import * as elementPlus from '@ai-lowcode/element-plus'
 
 import '@ai-lowcode/element-plus/css'
+
+import { schemaComponent } from '@ai-lowcode/schemas-element-plus'
+
+import '@ai-lowcode/schemas-element-plus/css'
+
+import '@ai-lowcode/styles/tailwindCss'
 
 import { Icon } from '@iconify/vue'
 
@@ -10,13 +18,7 @@ import Designer from './index.vue'
 
 import './style/index.css'
 
-import './style/tailwind.css'
-
-import * as Atoms from '@/atoms'
-
 import { AlDragBox, AlVueDragAble } from '@/components/workspace/index.ts'
-
-import { schemaComponent } from '@/schema'
 
 export * from './enums'
 

@@ -2,6 +2,7 @@
 import { AlRenderer, Schema } from '@ai-lowcode/core'
 import { AlCollapse, AlCollapseItem } from '@ai-lowcode/element-plus'
 
+import componentSchemaList from '@ai-lowcode/schemas-element-plus'
 import { deepCopy } from '@ai-lowcode/utils'
 import { computed, inject, nextTick, ref, watch } from 'vue'
 
@@ -9,7 +10,6 @@ import { FieldAttrsSchema } from '../schema/field.ts'
 import { FormAttrsSchema } from '../schema/form.ts'
 
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
-import componentSchemaList from '@/schema'
 import { DesignerContext } from '@/types'
 import { findAndModifyById, getSchemaInstanceName } from '@/utils'
 
@@ -126,33 +126,35 @@ watch(() => slotsData.value, (newValue) => {
 
 // 选中组件改变时
 watch(() => context?.workspaceRef?.value?.selectComponent, (newValue) => {
-  findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), newValue?.id, (node: Schema) => {
-    propsData.value = {
-      props: node.props,
-    }
-    fieldData.value = {
-      field: {
-        id: node.id,
-        name: node.name,
-        label: node.label,
-        field: node.field,
-      },
-    }
-    if (!slotsData.value) {
-      slotsData.value = {
-        slots: {},
+  setTimeout(() => {
+    findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), newValue?.id, (node: Schema) => {
+      propsData.value = {
+        props: node.props,
       }
-    }
-    if (node?.type === 'al-text') {
-      propsData.value.props['al-text'] = String(node.children?.[0])
-    }
-    (node?.children as Schema[])?.map((slot: Schema) => {
-      slotsData.value.slots[slot.slotName ?? 'default'] = slot.slotHidden ? slot.slotHidden : false
+      fieldData.value = {
+        field: {
+          id: node.id,
+          name: node.name,
+          label: node.label,
+          field: node.field,
+        },
+      }
+      if (!slotsData.value) {
+        slotsData.value = {
+          slots: {},
+        }
+      }
+      if (node?.type === 'al-text') {
+        propsData.value.props['al-text'] = String(node.children?.[0])
+      }
+      (node?.children as Schema[])?.map((slot: Schema) => {
+        slotsData.value.slots[slot.slotName ?? 'default'] = slot.slotHidden ? slot.slotHidden : false
+      })
+      compAttrsRef.value?.updateComponent(propsData.value)
+      fieldRef.value?.updateComponent(fieldData.value)
+      slotsRef.value?.updateComponent(slotsData.value)
     })
-    compAttrsRef.value?.updateComponent(propsData.value)
-    fieldRef.value?.updateComponent(fieldData.value)
-    slotsRef.value?.updateComponent(slotsData.value)
-  })
+  }, 300)
 }, {
   deep: true,
 })

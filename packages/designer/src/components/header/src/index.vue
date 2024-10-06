@@ -7,7 +7,7 @@ import {
   AlIcon,
   AlPopconfirm,
 } from '@ai-lowcode/element-plus'
-import { AlHttp } from '@ai-lowcode/request'
+import { lowCodePageApi } from '@ai-lowcode/request'
 import { convertFunctionsToStrings, deepCopy } from '@ai-lowcode/utils'
 import { Icon } from '@iconify/vue'
 
@@ -50,12 +50,9 @@ function previewPage() {
  * 保存页面
  */
 async function savePage() {
-  await AlHttp.put(`/lowcode/pages/${context?.workspaceRef?.value?.currentSelectPage?.id}`, {
+  await lowCodePageApi.update({
     ...context?.workspaceRef?.value?.currentSelectPage,
-    content: JSON.stringify(convertFunctionsToStrings(context?.workspaceRef?.value?.schema)),
-  }, {
-    isShowSuccessMessage: true,
-    successMessageText: '保存成功',
+    pageContent: JSON.stringify(convertFunctionsToStrings(context?.workspaceRef?.value?.schema)),
   })
 }
 </script>

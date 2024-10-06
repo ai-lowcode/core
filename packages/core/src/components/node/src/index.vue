@@ -163,9 +163,11 @@ function injectContextToEvents() {
  * 处理 props
  */
 function handleContextProps() {
-  const compSchema = deepCopy(schema.value?.props)
+  let compSchema = deepCopy(schema.value?.props)
   const newProps: Record<string, any> = {}
   const regex = /\{\{([\w.]+)\}\}/
+  if (typeof schema.value?.props === 'function')
+    compSchema = schema.value?.props?.apply(exposeApi)
   for (const propsKey in compSchema) {
     const propsValue = compSchema[propsKey]?.match?.(regex)
     if (typeof compSchema[propsKey]?.run === 'function') {

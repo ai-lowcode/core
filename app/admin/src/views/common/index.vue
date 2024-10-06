@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { AlRenderer } from '@ai-lowcode/core'
-import { AlDesigner, removeAlDragBoxAndPromoteChildren } from '@ai-lowcode/designer'
-import { AlHttp } from '@ai-lowcode/request'
+import { removeAlDragBoxAndPromoteChildren } from '@ai-lowcode/designer'
+import { lowCodePageApi } from '@ai-lowcode/request'
 import { convertStringsToFunctions, isJsonStringTryCatch } from '@ai-lowcode/utils'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
@@ -12,21 +12,20 @@ const schema = ref()
 
 async function handleData(pageId: string) {
   if (pageId) {
-    const { data } = await AlHttp.get(`/lowcode/pages/${pageId}`, {}, {})
-    schema.value = isJsonStringTryCatch(data?.content) ? removeAlDragBoxAndPromoteChildren(convertStringsToFunctions(JSON.parse(data?.content))) : []
+    const { data } = await lowCodePageApi.edit(pageId)
+    schema.value = isJsonStringTryCatch(data?.pageContent) ? removeAlDragBoxAndPromoteChildren(convertStringsToFunctions(JSON.parse(data?.pageContent))) : []
   }
 }
 
-watch(() => route.meta?.pageId, (newValue) => {
+watch(() => route?.meta?.lowcodePage, (newValue) => {
   handleData(newValue as string)
 }, { deep: true })
 
 onMounted(() => {
-  handleData(route.meta?.pageId as string)
+  handleData(route?.meta?.lowcodePage as string)
 })
 </script>
 
 <template>
-  <AlDesigner v-if="route.path === '/designer'" class="flex-1 p-2" style="height: calc(100vh - 100px)" />
-  <AlRenderer v-if="route.meta?.pageId && schema" :schemas="schema" />
+  <AlRenderer v-if="route.meta?.lowcodePage && schema" :schemas="schema" />
 </template>

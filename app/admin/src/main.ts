@@ -1,6 +1,8 @@
 import { initComponents } from '@ai-lowcode/designer'
 import '@ai-lowcode/designer/css'
+import '@ai-lowcode/graphic/css'
 import '@ai-lowcode/styles/css'
+import '@ai-lowcode/styles/tailwindCss'
 // language
 import 'codemirror/addon/edit/closebrackets.js'
 import 'codemirror/addon/edit/matchbrackets.js'
@@ -25,8 +27,6 @@ import jsonlint from 'jsonlint-mod'
 import { createApp } from 'vue'
 
 import App from './App.vue'
-
-import '@/assets/css/tailwind.css'
 
 import { setupRouter } from '@/router'
 import { setupStorage } from '@/setup/setupStorage'

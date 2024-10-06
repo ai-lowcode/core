@@ -63,7 +63,7 @@ export interface RequestOptionsType {
  */
 export interface CommonResultType<T> {
   code: ResponseCodeEnum
-  message: string
+  msg: string
   data: T
 }
 

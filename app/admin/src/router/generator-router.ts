@@ -1,4 +1,4 @@
-import { MenuType } from '@ai-lowcode/request'
+import { MenuMeta, MenuType } from '@ai-lowcode/request'
 import { treeToArray } from '@ai-lowcode/utils'
 
 import { routes } from './routes'
@@ -16,26 +16,50 @@ const modulesFiles = import.meta.glob<Record<string, any>>('@/views/**/*.vue')
  * 组件渲染策略
  * @param menu
  */
-export function componentStrategyRender(menu: MenuType) {
-  return modulesFiles['/src/views/common/index.vue']
+export function componentStrategyRender(menu: MenuMeta) {
+  switch (menu?.compType) {
+    case 0:
+      return modulesFiles['/src/views/common/index.vue']
+    case 1:
+      return modulesFiles['/src/views/common/index.vue']
+    case 2:
+      return modulesFiles['/src/views/common/index.vue']
+    case 3:
+      return modulesFiles[`/src/views/system/${menu?.systemModule}/index.vue`]
+    default:
+      return modulesFiles['/src/views/common/index.vue']
+  }
 }
 
 /**
  * 生成&挂载路由
  * @param menuTree
  */
-export function generatorRouter(menuTree: Array<MenuType>) {
-  const menus = menuTree ? treeToArray<MenuType>(menuTree).filter(menu => menu.meta.show) : []
-  const menuList: Array<any> = []
-  menus.forEach((item: MenuType) => {
+export function generatorRouter(menuTree: Array<MenuMeta>) {
+  const menus = menuTree ? treeToArray<MenuMeta>(menuTree).filter(menu => menu.isVisible && menu.menuType === 1) : []
+  const menuList: Array<MenuType> = []
+  menus.forEach((item: MenuMeta) => {
     // 深拷贝组件, 实现keep-alive功能
     const component = componentStrategyRender(item)
     if (component) {
       menuList.push({
         component,
-        path: item.path,
+        path: item.routePath,
         name: item.id,
-        meta: item.meta,
+        menuName: item.menuName,
+        menuCode: item.menuCode,
+        meta: {
+          isExternal: item.isExternal,
+          isKeepalive: item.isKeepalive,
+          menuName: item.menuName,
+          menuIcon: item.menuIcon,
+          menuSort: item.menuSort,
+          menuCode: item.menuCode,
+          compType: item.compType,
+          localFile: item.localFile,
+          externalUrl: item.externalUrl,
+          lowcodePage: item.lowcodePage,
+        },
       })
     }
   })

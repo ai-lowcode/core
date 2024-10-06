@@ -1,29 +1,3 @@
 body {
     margin: 0;
 }
-
-@keyframes fade-in {
-    from {
-        width: 0px;
-    }
-    to {
-        width: 320px;
-    }
-}
-
-@keyframes fade-out {
-    from {
-        width: 320px;
-    }
-    to {
-        width: 0px;
-    }
-}
-
-.animate-fade-in {
-    animation: fade-in 1s ease-in-out;
-}
-
-.animate-fade-out {
-    animation: fade-out 1s ease-in-out;
-}

@@ -18,6 +18,7 @@ import {
 import { Schema } from './types'
 
 import { FormDataType, GlobalInstanceType } from '@/components'
+import { getExposeApi } from '@/components/utils'
 
 defineOptions({
   name: 'AlNode',
@@ -43,6 +44,9 @@ const childrenRef = ref()
 
 // 插槽 ref
 const slotRef = ref()
+
+// 全局暴露api
+const exposeGlobalApi = ref()
 
 // 用于组件刷新
 const show = ref(true)
@@ -149,11 +153,15 @@ function injectContextToEvents() {
     if (schema.value?.events?.[eventsKey]?.run) {
       newEvents[eventsKey] = schema.value?.events?.[eventsKey]?.run?.bind({
         ...exposeApi,
+        exposeGlobalApi,
         __event: schema.value?.events?.[eventsKey]?.__event,
       })
     }
     else {
-      newEvents[eventsKey] = schema.value?.events?.[eventsKey].bind(exposeApi)
+      newEvents[eventsKey] = schema.value?.events?.[eventsKey].bind({
+        ...exposeApi,
+        exposeGlobalApi,
+      })
     }
   }
   return newEvents
@@ -166,12 +174,19 @@ function handleContextProps() {
   let compSchema = deepCopy(schema.value?.props)
   const newProps: Record<string, any> = {}
   const regex = /\{\{([\w.]+)\}\}/
-  if (typeof schema.value?.props === 'function')
-    compSchema = schema.value?.props?.apply(exposeApi)
+  if (typeof schema.value?.props === 'function') {
+    compSchema = schema.value?.props?.apply({
+      ...exposeApi,
+      exposeGlobalApi,
+    })
+  }
   for (const propsKey in compSchema) {
     const propsValue = compSchema[propsKey]?.match?.(regex)
     if (typeof compSchema[propsKey]?.run === 'function') {
-      newProps[propsKey].run = compSchema[propsKey]?.run?.bind(exposeApi)
+      newProps[propsKey].run = compSchema[propsKey]?.run?.bind({
+        ...exposeApi,
+        exposeGlobalApi,
+      })
     }
     else if (propsValue?.[1]) {
       formData?.generateObjectFromPath(propsValue[1])
@@ -179,7 +194,8 @@ function handleContextProps() {
         get() {
           return formData?.getValueFromPath(propsValue[1])
         },
-        set() {},
+        set() {
+        },
       })
     }
     else if (compSchema[propsKey] !== undefined && compSchema[propsKey] !== '') {
@@ -199,7 +215,8 @@ async function updateRender() {
   show.value = true
 }
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
+  exposeGlobalApi.value = await getExposeApi()
   schema.value?.lifeCycle?.onBeforeMount?.run?.()
 })
 

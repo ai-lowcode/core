@@ -36,10 +36,10 @@
     "vue": "^3.5.3"
   },
   "dependencies": {
+    "@ai-lowcode/element-plus": "workspace:^",
+    "@ai-lowcode/request": "workspace:^",
     "@ai-lowcode/styles": "workspace:^",
     "@ai-lowcode/utils": "workspace:^",
-    "@ai-lowcode/request": "workspace:^",
-    "@ai-lowcode/element-plus": "workspace:^",
     "vue": "^3.5.3"
   },
   "devDependencies": {

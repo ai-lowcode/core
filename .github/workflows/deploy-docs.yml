@@ -45,7 +45,7 @@ jobs:
       - name: Build with VitePress
         run: pnpm docs:build # 或 pnpm docs:build / yarn docs:build / bun run docs:build
       - name: remove docs
-        run: cp -r docs/.vitepress/dist/* dist
+        run: mkdir dist -p && cp -r docs/.vitepress/dist/* dist
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

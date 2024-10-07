@@ -31,6 +31,10 @@ AiLowCode代码前端采用 Vue3.4、Vite5.0、 Element-Plus、TypeScript 等新
 * [Pinia(vuex替代方案)](https://pinia.esm.dev/introduction.html)
 * [Vue-RFCS](https://github.com/vuejs/rfcs)
 
+## 界面参考
+
+* [vue-pure-admin](https://github.com/pure-admin/vue-pure-admin)
+
 ## 界面预览
 
 ![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031408.png)

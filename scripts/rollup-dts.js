@@ -38,7 +38,6 @@ async function run() {
 
   if (extractorResult.succeeded) {
     console.log('🚀类型声明文件生成成功！！！')
-
     await rimraf(join(libPath, 'temp'))
   }
   else {

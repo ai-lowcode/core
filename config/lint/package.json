@@ -4,6 +4,7 @@
   "description": "element-plus for ai-lowcode",
   "files": [
     "commitlint.js",
+    "eslint.config.mjs",
     "lintstaged.js",
     "stylelint.mjs"
   ],
@@ -11,7 +12,9 @@
     "clean": "rimraf node_modules"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^2.24.0",
     "@commitlint/config-conventional": "^19.2.2",
+    "eslint-plugin-tsdoc": "^0.3.0",
     "stylelint-config-recess-order": "^5.0.1",
     "stylelint-config-recommended-vue": "^1.5.0",
     "stylelint-config-standard-scss": "^13.1.0",

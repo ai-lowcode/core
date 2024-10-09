@@ -35,6 +35,7 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@al-config/lint": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",
     "@types/nprogress": "^0.2.3",

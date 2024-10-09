@@ -22,30 +22,31 @@ const scriptsPkg = await findWorkspacePackages(join(cwd(), SCRIPTS_DIR_NAME))
 const configPkg = await findWorkspacePackages(join(cwd(), CONFIG_DIR_NAME))
 const pkgList = [...packagesPkg, ...scriptsPkg, ...configPkg]
 
-function compilePkg(pkgs) {
-  pkgs.map(async (pkg) => {
-    const manifest = pkgList.filter(item => item.manifest.name === pkg)[0].manifest
+async function compilePkg(pkgs) {
+  await Promise.all(pkgs.map((pkg) => {
+    return (async function () {
+      const manifest = pkgList.filter(item => item.manifest.name === pkg)[0].manifest
+      if (manifest?.scripts?.build) {
+        await execa('pnpm', ['--filter', manifest.name, 'build'], {
+          stdio: 'inherit',
+          env: {
+            PROD: prod,
+            FORMATS: formatArgs || (!prod ? 'es' : undefined),
+            VERSION: manifest.version,
+          },
+        })
+      }
 
-    if (manifest?.scripts?.build) {
-      await execa('pnpm', ['--filter', manifest.name, 'build'], {
-        stdio: 'inherit',
-        env: {
-          PROD: prod,
-          FORMATS: formatArgs || (!prod ? 'es' : undefined),
-          VERSION: manifest.version,
-        },
-      })
-    }
-
-    if (manifest?.scripts?.['build:dts']) {
-      await execa('pnpm', ['--filter', manifest.name, 'build:dts'], {
-        stdio: 'inherit',
-        env: {
-          PROD: prod,
-        },
-      })
-    }
-  })
+      if (manifest?.scripts?.['build:dts']) {
+        await execa('pnpm', ['--filter', manifest.name, 'build:dts'], {
+          stdio: 'inherit',
+          env: {
+            PROD: prod,
+          },
+        })
+      }
+    })()
+  }))
 }
 
 async function run() {

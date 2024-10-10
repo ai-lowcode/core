@@ -2,7 +2,7 @@
   "name": "@ai-lowcode/styles",
   "type": "module",
   "version": "1.0.0",
-  "description": "element-plus for ai-lowcode",
+  "description": "@ai-lowcode/styles for ai-lowcode",
   "homepage": "https://github.com/ai-lowcode/core/#readme",
   "repository": {
     "type": "http",
@@ -35,6 +35,7 @@
   ],
   "scripts": {
     "build": "vite build",
+    "build:all": "vite build",
     "clean": "rimraf node_modules",
     "clean:dist": "rimraf dist"
   },

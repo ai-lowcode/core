@@ -15,7 +15,7 @@
     "dev:server": "pnpm --filter \"ai-lowcode-server\" \"dev\"",
     "build": "node ./scripts/build.js",
     "build:server": "pnpm --filter \"ai-lowcode-server\" \"build\"",
-    "changeset": "changeset",
+    "change": "changeset",
     "version-packages": "changeset version",
     "release": "pnpm build && pnpm release:only",
     "release:only": "changeset publish --registry=https://registry.npmjs.com/",

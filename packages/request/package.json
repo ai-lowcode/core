@@ -2,7 +2,7 @@
   "name": "@ai-lowcode/request",
   "type": "module",
   "version": "1.0.0",
-  "description": "element-plus for ai-lowcode",
+  "description": "@ai-lowcode/request for ai-lowcode",
   "homepage": "https://github.com/ai-lowcode/core/#readme",
   "repository": {
     "type": "http",

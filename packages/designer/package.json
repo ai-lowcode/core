@@ -2,7 +2,7 @@
   "name": "@ai-lowcode/designer",
   "type": "module",
   "version": "1.0.0",
-  "description": "element-plus for ai-lowcode",
+  "description": "@ai-lowcode/designer for ai-lowcode",
   "homepage": "https://github.com/ai-lowcode/core/#readme",
   "repository": {
     "type": "http",
@@ -44,7 +44,6 @@
     "@ai-lowcode/schemas-element-plus": "workspace:^",
     "@ai-lowcode/styles": "workspace:^",
     "@ai-lowcode/utils": "workspace:^",
-    "vue": "^3.5.3",
     "vue-draggable-plus": "^0.5.3"
   },
   "devDependencies": {
@@ -59,7 +58,8 @@
     "postcss": "^8.4.45",
     "tailwindcss": "^3.4.10",
     "vite": "^5.4.3",
-    "vitest": "^2.0.4"
+    "vitest": "^2.0.4",
+    "vue": "^3.5.3"
   },
   "publishConfig": {
     "access": "public",

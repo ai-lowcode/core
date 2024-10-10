@@ -1,7 +1,7 @@
 {
   "name": "@ai-lowcode/types",
   "version": "1.0.0",
-  "description": "element-plus for ai-lowcode",
+  "description": "@ai-lowcode/types for ai-lowcode",
   "homepage": "https://github.com/ai-lowcode/core/#readme",
   "repository": {
     "type": "http",

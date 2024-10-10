@@ -2,7 +2,8 @@
   "name": "@ai-lowcode/atoms",
   "type": "module",
   "version": "1.0.0",
-  "description": "element-plus for ai-lowcode",
+  "license": "MIT",
+  "description": "@ai-lowcode/atoms for ai-lowcode",
   "homepage": "https://github.com/ai-lowcode/core/#readme",
   "repository": {
     "type": "http",
@@ -33,13 +34,15 @@
     "clean": "rimraf node_modules",
     "clean:dist": "rimraf dist"
   },
+  "peerDependencies": {
+    "vue": "^3.5.3"
+  },
   "dependencies": {
     "@ai-lowcode/core": "workspace:^",
     "@ai-lowcode/element-plus": "workspace:^",
     "codemirror": "^5",
     "codemirror-editor-vue3": "^2.7.1",
-    "jsonlint-mod": "^1.7.6",
-    "vue": "^3.5.3"
+    "jsonlint-mod": "^1.7.6"
   },
   "devDependencies": {
     "@ai-lowcode/types": "workspace:^",
@@ -53,7 +56,8 @@
     "postcss": "^8.4.45",
     "tailwindcss": "^3.4.10",
     "vite": "^5.4.3",
-    "vitest": "^2.0.4"
+    "vitest": "^2.0.4",
+    "vue": "^3.5.3"
   },
   "publishConfig": {
     "access": "public",

@@ -1,3 +1,7 @@
+/**
+ * 将字符串中包含run(的异步函数进行转换
+ * @param functionString
+ */
 export function convertToExecutableFunction(functionString: string): Function {
   // 正则表达式匹配函数声明和参数
   const functionRegex = /(?:async\s+)?run\s*\(([\s\S]*?)\)\s*\{([\s\S]*)\}/
@@ -24,6 +28,10 @@ export function convertToExecutableFunction(functionString: string): Function {
   return createRunFunction()
 }
 
+/**
+ * 将对象中包含run(的字符串转换成函数
+ * @param input
+ */
 export function convertStringsToFunctions(input: any | Function): any {
   if (typeof input === 'string' && input?.includes('run(')) {
     return convertToExecutableFunction(input)
@@ -41,6 +49,10 @@ export function convertStringsToFunctions(input: any | Function): any {
   return input
 }
 
+/**
+ * 将对象中的函数转换成字符串
+ * @param input
+ */
 export function convertFunctionsToStrings(input: any | Function): any {
   if (typeof input === 'function') {
     return input.toString()

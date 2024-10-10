@@ -4,6 +4,7 @@ import { join } from 'node:path'
 import { argv, env, exit } from 'node:process'
 
 import { Extractor, ExtractorConfig } from '@microsoft/api-extractor'
+import { execa } from 'execa'
 import { rimraf } from 'rimraf'
 
 const libPath = env.PWD
@@ -38,6 +39,9 @@ async function run() {
 
   if (extractorResult.succeeded) {
     console.log('🚀类型声明文件生成成功！！！')
+    await execa('npx', ['api-documenter', 'markdown', '-i', 'temp'], {
+      stdio: 'inherit',
+    })
     await rimraf(join(libPath, 'temp'))
   }
   else {

@@ -16,4 +16,7 @@ if (NProgress && NProgress?.configure) {
   })
 }
 
+/**
+ * 暴露progress进度条
+ */
 export const nProgress = NProgress

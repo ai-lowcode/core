@@ -21,6 +21,11 @@ export function setNestedObjectValue(obj: any, keys: string[]) {
   })
 }
 
+/**
+ * 根据path路径生成对象
+ * @param formData
+ * @param path
+ */
 export function generateObjectFromPath(formData: any, path: string) {
   const pathParts = path.split('.')
   let currentObj = formData
@@ -65,6 +70,11 @@ export function generateObjectFromPath(formData: any, path: string) {
   }
 }
 
+/**
+ * 根据path路径获取变量值
+ * @param obj
+ * @param path
+ */
 export function getValueFromPath(obj: any, path: string) {
   const pathParts = path.split('.')
 
@@ -89,6 +99,12 @@ export function getValueFromPath(obj: any, path: string) {
   }, obj)
 }
 
+/**
+ * 根据path路径设置值
+ * @param obj
+ * @param path
+ * @param value
+ */
 export function setValueAtPath(obj: any, path: string, value: any = undefined) {
   const pathParts = path.split('.')
   const lastPart = pathParts.pop() // 获取最后一个部分

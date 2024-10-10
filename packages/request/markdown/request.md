@@ -4,6 +4,8 @@
 
 ## request package
 
+request请求基础包
+
 ## Classes
 
 <table><thead><tr><th>
@@ -18,6 +20,17 @@ Description
 
 </th></tr></thead>
 <tbody><tr><td>
+
+[AlAxios](./request.alaxios.md)
+
+
+</td><td>
+
+请求类
+
+
+</td></tr>
+<tr><td>
 
 [BaseApi](./request.baseapi.md)
 

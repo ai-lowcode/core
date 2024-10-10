@@ -49,7 +49,7 @@ _(Optional)_ 请求配置
 </tbody></table>
 **Returns:**
 
-AlAxios
+[AlAxios](./request.alaxios.md)
 
 请求实例
 

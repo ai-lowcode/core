@@ -34,9 +34,9 @@ import {
   version,
   watch,
   watchEffect
-} from "./chunk-T4VKWHV5.js";
+} from "./chunk-PKJ4PO5W.js";
 
-// node_modules/.pnpm/vitepress@1.3.4_@algolia+client-search@4.24.0_@types+node@22.5.4_async-validator@4.2.5_axios@_oj2m52hznbg4vcq5bnt5zpbtn4/node_modules/vitepress/lib/vue-demi.mjs
+// node_modules/.pnpm/vitepress@1.4.0_@algolia+client-search@4.24.0_@types+node@22.7.5_async-validator@4.2.5_axios@_e5d65xyggl52dx5yelpsmj7vtq/node_modules/vitepress/lib/vue-demi.mjs
 var isVue2 = false;
 var isVue3 = true;
 function set(target, key, val) {
@@ -56,7 +56,7 @@ function del(target, key) {
   delete target[key];
 }
 
-// node_modules/.pnpm/@vueuse+shared@11.0.3_vue@3.5.3_typescript@5.5.4_/node_modules/@vueuse/shared/index.mjs
+// node_modules/.pnpm/@vueuse+shared@11.1.0_vue@3.5.11_typescript@5.6.3_/node_modules/@vueuse/shared/index.mjs
 function computedEager(fn, options) {
   var _a;
   const result = shallowRef();
@@ -143,6 +143,16 @@ function createGlobalState(stateFactory) {
   };
 }
 var localProvidedStateMap = /* @__PURE__ */ new WeakMap();
+var injectLocal = (...args) => {
+  var _a;
+  const key = args[0];
+  const instance = (_a = getCurrentInstance()) == null ? void 0 : _a.proxy;
+  if (instance == null)
+    throw new Error("injectLocal must be called in setup");
+  if (localProvidedStateMap.has(instance) && key in localProvidedStateMap.get(instance))
+    return localProvidedStateMap.get(instance)[key];
+  return inject(...args);
+};
 var provideLocal = (key, value) => {
   var _a;
   const instance = (_a = getCurrentInstance()) == null ? void 0 : _a.proxy;
@@ -153,16 +163,6 @@ var provideLocal = (key, value) => {
   const localProvidedState = localProvidedStateMap.get(instance);
   localProvidedState[key] = value;
   provide(key, value);
-};
-var injectLocal = (...args) => {
-  var _a;
-  const key = args[0];
-  const instance = (_a = getCurrentInstance()) == null ? void 0 : _a.proxy;
-  if (instance == null)
-    throw new Error("injectLocal must be called in setup");
-  if (localProvidedStateMap.has(instance) && key in localProvidedStateMap.get(instance))
-    return localProvidedStateMap.get(instance)[key];
-  return inject(...args);
 };
 function createInjectionState(composable, options) {
   const key = (options == null ? void 0 : options.injectionKey) || Symbol(composable.name || "InjectionState");
@@ -322,6 +322,11 @@ function reactiveOmit(obj, ...keys2) {
   const predicate = flatKeys[0];
   return reactiveComputed(() => typeof predicate === "function" ? Object.fromEntries(Object.entries(toRefs(obj)).filter(([k, v]) => !predicate(toValue(v), k))) : Object.fromEntries(Object.entries(toRefs(obj)).filter((e) => !flatKeys.includes(e[0]))));
 }
+var directiveHooks = {
+  mounted: isVue3 ? "mounted" : "inserted",
+  updated: isVue3 ? "updated" : "componentUpdated",
+  unmounted: isVue3 ? "unmounted" : "unbind"
+};
 var isClient = typeof window !== "undefined" && typeof document !== "undefined";
 var isWorker = typeof WorkerGlobalScope !== "undefined" && globalThis instanceof WorkerGlobalScope;
 var isDef = (val) => typeof val !== "undefined";
@@ -468,11 +473,6 @@ function pausableFilter(extendFilter = bypassFilter) {
   };
   return { isActive: readonly(isActive), pause, resume, eventFilter };
 }
-var directiveHooks = {
-  mounted: isVue3 ? "mounted" : "inserted",
-  updated: isVue3 ? "updated" : "componentUpdated",
-  unmounted: isVue3 ? "unmounted" : "unbind"
-};
 function cacheStringFunction(fn) {
   const cache = /* @__PURE__ */ Object.create(null);
   return (str) => {
@@ -1559,7 +1559,7 @@ function whenever(source, cb, options) {
   return stop;
 }
 
-// node_modules/.pnpm/@vueuse+core@11.0.3_vue@3.5.3_typescript@5.5.4_/node_modules/@vueuse/core/index.mjs
+// node_modules/.pnpm/@vueuse+core@11.1.0_vue@3.5.11_typescript@5.6.3_/node_modules/@vueuse/core/index.mjs
 function computedAsync(evaluationCallback, initialState, optionsOrRef) {
   let options;
   if (isRef(optionsOrRef)) {
@@ -1729,15 +1729,15 @@ function createUnrefFn(fn) {
     return fn.apply(this, args.map((i) => toValue(i)));
   };
 }
+var defaultWindow = isClient ? window : void 0;
+var defaultDocument = isClient ? window.document : void 0;
+var defaultNavigator = isClient ? window.navigator : void 0;
+var defaultLocation = isClient ? window.location : void 0;
 function unrefElement(elRef) {
   var _a;
   const plain = toValue(elRef);
   return (_a = plain == null ? void 0 : plain.$el) != null ? _a : plain;
 }
-var defaultWindow = isClient ? window : void 0;
-var defaultDocument = isClient ? window.document : void 0;
-var defaultNavigator = isClient ? window.navigator : void 0;
-var defaultLocation = isClient ? window.location : void 0;
 function useEventListener(...args) {
   let target;
   let events2;
@@ -1798,7 +1798,7 @@ function onClickOutside(target, handler, options = {}) {
   }
   let shouldListen = true;
   const shouldIgnore = (event) => {
-    return ignore.some((target2) => {
+    return toValue(ignore).some((target2) => {
       if (typeof target2 === "string") {
         return Array.from(window2.document.querySelectorAll(target2)).some((el) => el === event.target || event.composedPath().includes(el));
       } else {
@@ -1819,8 +1819,17 @@ function onClickOutside(target, handler, options = {}) {
     }
     handler(event);
   };
+  let isProcessingClick = false;
   const cleanup = [
-    useEventListener(window2, "click", listener, { passive: true, capture }),
+    useEventListener(window2, "click", (event) => {
+      if (!isProcessingClick) {
+        isProcessingClick = true;
+        setTimeout(() => {
+          isProcessingClick = false;
+        }, 0);
+        listener(event);
+      }
+    }, { passive: true, capture }),
     useEventListener(window2, "pointerdown", (e) => {
       const el = unrefElement(target);
       shouldListen = !shouldIgnore(e) && !!(el && !e.composedPath().includes(el));
@@ -3163,6 +3172,9 @@ function getSSRHandler(key, fallback) {
 function setSSRHandler(key, fn) {
   handlers[key] = fn;
 }
+function usePreferredDark(options) {
+  return useMediaQuery("(prefers-color-scheme: dark)", options);
+}
 function guessSerializerType(rawInit) {
   return rawInit == null ? "any" : rawInit instanceof Set ? "set" : rawInit instanceof Map ? "map" : rawInit instanceof Date ? "date" : typeof rawInit === "boolean" ? "boolean" : typeof rawInit === "string" ? "string" : typeof rawInit === "object" ? "object" : !Number.isNaN(rawInit) ? "number" : "any";
 }
@@ -3325,9 +3337,6 @@ function useStorage(key, defaults2, storage, options = {}) {
     update(event.detail);
   }
   return data;
-}
-function usePreferredDark(options) {
-  return useMediaQuery("(prefers-color-scheme: dark)", options);
 }
 var CSS_DISABLE_TRANS = "*,*::before,*::after{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}";
 function useColorMode(options = {}) {
@@ -4041,59 +4050,81 @@ function useDraggable(target, options = {}) {
   };
 }
 function useDropZone(target, options = {}) {
+  var _a, _b;
   const isOverDropZone = ref(false);
   const files = shallowRef(null);
   let counter = 0;
-  let isDataTypeIncluded = true;
+  let isValid = true;
   if (isClient) {
     const _options = typeof options === "function" ? { onDrop: options } : options;
+    const multiple = (_a = _options.multiple) != null ? _a : true;
+    const preventDefaultForUnhandled = (_b = _options.preventDefaultForUnhandled) != null ? _b : false;
     const getFiles = (event) => {
-      var _a, _b;
-      const list = Array.from((_b = (_a = event.dataTransfer) == null ? void 0 : _a.files) != null ? _b : []);
-      return files.value = list.length === 0 ? null : list;
+      var _a2, _b2;
+      const list = Array.from((_b2 = (_a2 = event.dataTransfer) == null ? void 0 : _a2.files) != null ? _b2 : []);
+      return list.length === 0 ? null : multiple ? list : [list[0]];
     };
-    useEventListener(target, "dragenter", (event) => {
-      var _a, _b;
-      const types = Array.from(((_a = event == null ? void 0 : event.dataTransfer) == null ? void 0 : _a.items) || []).map((i) => i.kind === "file" ? i.type : null).filter(notNullish);
-      if (_options.dataTypes && event.dataTransfer) {
+    const checkDataTypes = (types) => {
+      if (_options.dataTypes) {
         const dataTypes = unref(_options.dataTypes);
-        isDataTypeIncluded = typeof dataTypes === "function" ? dataTypes(types) : dataTypes ? dataTypes.some((item) => types.includes(item)) : true;
-        if (!isDataTypeIncluded)
-          return;
+        return typeof dataTypes === "function" ? dataTypes(types) : dataTypes ? dataTypes.some((item) => types.includes(item)) : true;
+      }
+      return true;
+    };
+    const checkValidity = (event) => {
+      var _a2, _b2;
+      const items = Array.from((_b2 = (_a2 = event.dataTransfer) == null ? void 0 : _a2.items) != null ? _b2 : []);
+      const types = items.filter((item) => item.kind === "file").map((item) => item.type);
+      const dataTypesValid = checkDataTypes(types);
+      const multipleFilesValid = multiple || items.filter((item) => item.kind === "file").length <= 1;
+      return dataTypesValid && multipleFilesValid;
+    };
+    const handleDragEvent = (event, eventType) => {
+      var _a2, _b2, _c, _d;
+      isValid = checkValidity(event);
+      if (!isValid) {
+        if (preventDefaultForUnhandled) {
+          event.preventDefault();
+        }
+        if (event.dataTransfer) {
+          event.dataTransfer.dropEffect = "none";
+        }
+        return;
       }
       event.preventDefault();
-      counter += 1;
-      isOverDropZone.value = true;
-      const files2 = getFiles(event);
-      (_b = _options.onEnter) == null ? void 0 : _b.call(_options, files2, event);
-    });
-    useEventListener(target, "dragover", (event) => {
-      var _a;
-      if (!isDataTypeIncluded)
-        return;
-      event.preventDefault();
-      const files2 = getFiles(event);
-      (_a = _options.onOver) == null ? void 0 : _a.call(_options, files2, event);
-    });
-    useEventListener(target, "dragleave", (event) => {
-      var _a;
-      if (!isDataTypeIncluded)
-        return;
-      event.preventDefault();
-      counter -= 1;
-      if (counter === 0)
-        isOverDropZone.value = false;
-      const files2 = getFiles(event);
-      (_a = _options.onLeave) == null ? void 0 : _a.call(_options, files2, event);
-    });
-    useEventListener(target, "drop", (event) => {
-      var _a;
-      event.preventDefault();
-      counter = 0;
-      isOverDropZone.value = false;
-      const files2 = getFiles(event);
-      (_a = _options.onDrop) == null ? void 0 : _a.call(_options, files2, event);
-    });
+      if (event.dataTransfer) {
+        event.dataTransfer.dropEffect = "copy";
+      }
+      const currentFiles = getFiles(event);
+      switch (eventType) {
+        case "enter":
+          counter += 1;
+          isOverDropZone.value = true;
+          (_a2 = _options.onEnter) == null ? void 0 : _a2.call(_options, null, event);
+          break;
+        case "over":
+          (_b2 = _options.onOver) == null ? void 0 : _b2.call(_options, null, event);
+          break;
+        case "leave":
+          counter -= 1;
+          if (counter === 0)
+            isOverDropZone.value = false;
+          (_c = _options.onLeave) == null ? void 0 : _c.call(_options, null, event);
+          break;
+        case "drop":
+          counter = 0;
+          isOverDropZone.value = false;
+          if (isValid) {
+            files.value = currentFiles;
+            (_d = _options.onDrop) == null ? void 0 : _d.call(_options, currentFiles, event);
+          }
+          break;
+      }
+    };
+    useEventListener(target, "dragenter", (event) => handleDragEvent(event, "enter"));
+    useEventListener(target, "dragover", (event) => handleDragEvent(event, "over"));
+    useEventListener(target, "dragleave", (event) => handleDragEvent(event, "leave"));
+    useEventListener(target, "drop", (event) => handleDragEvent(event, "drop"));
   }
   return {
     files,
@@ -4911,7 +4942,8 @@ function useFileDialog(options = {}) {
     document: document2 = defaultDocument
   } = options;
   const files = ref(null);
-  const { on: onChange, trigger } = createEventHook();
+  const { on: onChange, trigger: changeTrigger } = createEventHook();
+  const { on: onCancel, trigger: cancelTrigger } = createEventHook();
   let input;
   if (document2) {
     input = document2.createElement("input");
@@ -4919,14 +4951,17 @@ function useFileDialog(options = {}) {
     input.onchange = (event) => {
       const result = event.target;
       files.value = result.files;
-      trigger(files.value);
+      changeTrigger(files.value);
+    };
+    input.oncancel = () => {
+      cancelTrigger();
     };
   }
   const reset = () => {
     files.value = null;
     if (input && input.value) {
       input.value = "";
-      trigger(null);
+      changeTrigger(null);
     }
   };
   const open = (localOptions) => {
@@ -4950,6 +4985,7 @@ function useFileDialog(options = {}) {
     files: readonly(files),
     open,
     reset,
+    onCancel,
     onChange
   };
 }
@@ -5076,10 +5112,19 @@ function useFocus(target, options = {}) {
   );
   return { focused };
 }
+var EVENT_FOCUS_IN = "focusin";
+var EVENT_FOCUS_OUT = "focusout";
 function useFocusWithin(target, options = {}) {
-  const activeElement = useActiveElement(options);
+  const { window: window2 = defaultWindow } = options;
   const targetElement = computed(() => unrefElement(target));
-  const focused = computed(() => targetElement.value && activeElement.value ? targetElement.value.contains(activeElement.value) : false);
+  const _focused = ref(false);
+  const focused = computed(() => _focused.value);
+  const activeElement = useActiveElement(options);
+  if (!window2 || !activeElement.value) {
+    return { focused };
+  }
+  useEventListener(targetElement, EVENT_FOCUS_IN, () => _focused.value = true);
+  useEventListener(targetElement, EVENT_FOCUS_OUT, () => _focused.value = false);
   return { focused };
 }
 function useFps(options) {
@@ -5465,6 +5510,13 @@ function useImage(options, asyncStateOptions = {}) {
   );
   return state;
 }
+function resolveElement(el) {
+  if (typeof Window !== "undefined" && el instanceof Window)
+    return el.document.documentElement;
+  if (typeof Document !== "undefined" && el instanceof Document)
+    return el.documentElement;
+  return el;
+}
 var ARRIVED_STATE_THRESHOLD_PIXELS = 1;
 function useScroll(element, options = {}) {
   const {
@@ -5628,13 +5680,6 @@ function useScroll(element, options = {}) {
     }
   };
 }
-function resolveElement(el) {
-  if (typeof Window !== "undefined" && el instanceof Window)
-    return el.document.documentElement;
-  if (typeof Document !== "undefined" && el instanceof Document)
-    return el.documentElement;
-  return el;
-}
 function useInfiniteScroll(element, onLoadMore, options = {}) {
   var _a;
   const {
@@ -5676,11 +5721,12 @@ function useInfiniteScroll(element, onLoadMore, options = {}) {
       }
     }
   }
-  watch(
+  const stop = watch(
     () => [state.arrivedState[direction], isElementVisible.value],
     checkAndLoad,
     { immediate: true }
   );
+  tryOnUnmounted(stop);
   return {
     isLoading,
     reset() {
@@ -6193,7 +6239,7 @@ function useMouseInElement(target, options = {}) {
       [targetRef, x, y],
       () => {
         const el = unrefElement(targetRef);
-        if (!el || !(el instanceof HTMLElement))
+        if (!el || !(el instanceof Element))
           return;
         const {
           left,
@@ -6333,16 +6379,16 @@ function useNetwork(options = {}) {
     useEventListener(connection, "change", updateNetworkInformation, false);
   updateNetworkInformation();
   return {
-    isSupported,
-    isOnline,
-    saveData,
-    offlineAt,
-    onlineAt,
-    downlink,
-    downlinkMax,
-    effectiveType,
-    rtt,
-    type
+    isSupported: readonly(isSupported),
+    isOnline: readonly(isOnline),
+    saveData: readonly(saveData),
+    offlineAt: readonly(offlineAt),
+    onlineAt: readonly(onlineAt),
+    downlink: readonly(downlink),
+    downlinkMax: readonly(downlinkMax),
+    effectiveType: readonly(effectiveType),
+    rtt: readonly(rtt),
+    type: readonly(type)
   };
 }
 function useNow(options = {}) {
@@ -8774,16 +8820,6 @@ function useWebWorker(arg0, workerOptions, options) {
     worker
   };
 }
-function jobRunner(userFunc) {
-  return (e) => {
-    const userFuncArgs = e.data[0];
-    return Promise.resolve(userFunc.apply(void 0, userFuncArgs)).then((result) => {
-      postMessage(["SUCCESS", result]);
-    }).catch((error) => {
-      postMessage(["ERROR", error]);
-    });
-  };
-}
 function depsParser(deps, localDeps) {
   if (deps.length === 0 && localDeps.length === 0)
     return "";
@@ -8799,6 +8835,16 @@ function depsParser(deps, localDeps) {
   }).join(";");
   const importString = `importScripts(${depsString});`;
   return `${depsString.trim() === "" ? "" : importString} ${depsFunctionString}`;
+}
+function jobRunner(userFunc) {
+  return (e) => {
+    const userFuncArgs = e.data[0];
+    return Promise.resolve(userFunc.apply(void 0, userFuncArgs)).then((result) => {
+      postMessage(["SUCCESS", result]);
+    }).catch((error) => {
+      postMessage(["ERROR", error]);
+    });
+  };
 }
 function createWorkerBlobUrl(fn, deps, localDeps) {
   const blobCode = `${depsParser(deps, localDeps)}; onmessage=(${jobRunner})(${fn})`;

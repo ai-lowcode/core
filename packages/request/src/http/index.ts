@@ -23,3 +23,4 @@ const AlHttp = createAxios()
 export { AlHttp, createAxios }
 export * from './types.ts'
 export * from './enums.ts'
+export * from './axios.ts'

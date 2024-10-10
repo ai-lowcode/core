@@ -8,13 +8,20 @@ import { CommonResultType, CreateAxiosOptionsType, RequestConfigType, RequestOpt
 
 /**
  * 请求类
+ * @example
+ * ```typescript
+ * import { AlAxios } from '@ai-lowcode/request';
+ *
+ * // 使用示例
+ * const alAxios = new AlAxios()
+ * ```
  */
 export class AlAxios {
   // Axios实例
-  private axiosInstance: AxiosInstance
+  private readonly axiosInstance: AxiosInstance
 
   // 自定义配置
-  private options: CreateAxiosOptionsType
+  private readonly options: CreateAxiosOptionsType
 
   // 当前请求选项
   private currentOptions: RequestOptionsType = {}

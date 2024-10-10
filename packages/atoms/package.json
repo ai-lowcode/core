@@ -2,8 +2,8 @@
   "name": "@ai-lowcode/atoms",
   "type": "module",
   "version": "1.0.0",
-  "license": "MIT",
   "description": "@ai-lowcode/atoms for ai-lowcode",
+  "license": "MIT",
   "homepage": "https://github.com/ai-lowcode/core/#readme",
   "repository": {
     "type": "http",

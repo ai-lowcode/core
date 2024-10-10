@@ -5,7 +5,7 @@ export default defineConfig({
   title: 'AI 低代码平台(开发中)',
   description: 'a ai-lowcode project | ai低代码 | ai 无代码平台 ｜ ai 低代码设计器',
   markdown: {
-    attrs: { disable: true }
+    attrs: { disable: true },
   },
   srcDir: '../',
   rewrites: {
@@ -27,48 +27,48 @@ export default defineConfig({
     ],
 
     sidebar: {
-      'packages': [
+      packages: [
         {
           text: 'utils',
-          link: '/packages/utils/markdown/index.md'
+          link: '/packages/utils/markdown/index.md',
         },
         {
           text: 'hooks',
-          link: '/packages/hooks/markdown/index.md'
+          link: '/packages/hooks/markdown/index.md',
         },
         {
           text: 'request',
-          link: '/packages/request/markdown/index.md'
+          link: '/packages/request/markdown/index.md',
         },
         {
           text: 'element-plus',
-          link: '/packages/components/element-plus/markdown/index.md'
+          link: '/packages/components/element-plus/markdown/index.md',
         },
         {
           text: 'graphic',
-          link: '/packages/graphic/markdown/index.md'
+          link: '/packages/graphic/markdown/index.md',
         },
         {
           text: 'atoms',
-          link: '/packages/atoms/markdown/index.md'
+          link: '/packages/atoms/markdown/index.md',
         },
         {
           text: 'core',
-          link: '/packages/core/markdown/index.md'
+          link: '/packages/core/markdown/index.md',
         },
         {
           text: 'designer',
-          link: '/packages/designer/markdown/index.md'
+          link: '/packages/designer/markdown/index.md',
         },
         {
           text: 'schemas-element-plus',
-          link: '/packages/schemas/element-plus/markdown/index.md'
+          link: '/packages/schemas/element-plus/markdown/index.md',
         },
         {
           text: 'schemas-naive-ui',
-          link: '/packages/schemas/naive-ui/markdown/index.md'
+          link: '/packages/schemas/naive-ui/markdown/index.md',
         },
-      ]
+      ],
     },
 
     socialLinks: [

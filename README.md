@@ -35,7 +35,7 @@ AiLowCode代码前端采用 Vue3.4、Vite5.0、 Element-Plus、TypeScript 等新
 
 * [vue-pure-admin](https://github.com/pure-admin/vue-pure-admin)
 
-## 界面预览
+## 界面预览 1
 
 ![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031408.png)
 ![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031335.png)

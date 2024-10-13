@@ -9,7 +9,7 @@ hero:
   text: 开发中，尽请期待～
   tagline: ai 低代码设计器
   image:
-    src: /docs/public/logo.png
+    src: /docs/static/logo.png
     alt: Vite
   actions:
     - theme: brand

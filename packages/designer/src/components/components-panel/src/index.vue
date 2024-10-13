@@ -15,7 +15,6 @@ import {
 import componentSchemaList, { CompSchema } from '@ai-lowcode/schemas-element-plus'
 import { Icon } from '@iconify/vue'
 import { computed, inject, nextTick, onMounted, ref, watch } from 'vue'
-
 import { VueDraggable } from 'vue-draggable-plus'
 
 import createMenu from '@/components/components-panel/src/config/menu.ts'

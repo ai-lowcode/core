@@ -20,20 +20,28 @@ defineOptions({
 // 全局上下文
 const context = inject<DesignerContext>(DESIGNER_CTX)
 
+// 字段ref
 const fieldRef = ref()
 
+// 插槽ref
 const slotsRef = ref()
 
+// 组件属性ref
 const compAttrsRef = ref()
 
+// 字段数据
 const fieldData = ref()
 
+// 组件属性数据
 const propsData = ref()
 
+// 插槽数据
 const slotsData = ref()
 
+// 当前选择组件schema
 const compSchema = computed(() => componentSchemaList.find(item => item.name === context?.workspaceRef?.value?.selectComponent?.name))
 
+// 当前选择组件格式化schema
 const propsSchema = computed({
   get() {
     const schema = compSchema.value?.props(changePropsData)
@@ -70,6 +78,9 @@ const propsSchema = computed({
   set() {},
 })
 
+/**
+ * 修改字段数据
+ */
 function changeFieldData() {
   // 调用函数，查找并修改
   const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.workspaceRef?.value?.selectComponent?.id, (node: Schema) => {
@@ -88,6 +99,9 @@ function changeFieldData() {
   })
 }
 
+/**
+ * 修改属性数据
+ */
 function changePropsData() {
   // 调用函数，查找并修改
   const newNodes = findAndModifyById(deepCopy(context?.workspaceRef?.value.schema), context?.workspaceRef?.value?.selectComponent?.id, (node: Schema) => {

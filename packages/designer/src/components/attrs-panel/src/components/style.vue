@@ -23,8 +23,10 @@ import { DESIGNER_CTX } from '@/global'
 import { DesignerContext } from '@/types'
 import { addEditorThemeListener, findAndModifyById, getSchemaInstanceName } from '@/utils'
 
+// css
 const css = ref()
 
+// 编辑器
 const editor = ref()
 
 // 全局上下文

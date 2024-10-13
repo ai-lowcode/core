@@ -23,10 +23,13 @@ const code = ref()
 // 编辑器 ref
 const editor = ref()
 
+// 编辑选项
 const editOption = ref()
 
+// 显示事件
 const visibleEvent = ref(false)
 
+// 全局上下文
 const context = inject<DesignerContext>(DESIGNER_CTX)
 
 const compSchema = computed(() => componentSchemaList.find(item => item.name === context?.workspaceRef?.value?.selectComponent?.name))

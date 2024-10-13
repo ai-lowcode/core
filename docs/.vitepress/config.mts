@@ -8,9 +8,10 @@ export default defineConfig({
     attrs: { disable: true },
   },
   srcDir: '../',
+  assetsDir: 'public',
   rewrites: {
     // 指南映射
-    'docs/index.md': 'index.md',
+    'docs/index.md': 'index.md'
   },
   vite: {
     build: {

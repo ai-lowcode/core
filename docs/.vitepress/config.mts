@@ -11,7 +11,7 @@ export default defineConfig({
   assetsDir: 'public',
   rewrites: {
     // 指南映射
-    'docs/index.md': 'index.md'
+    'docs/index.md': 'index.md',
   },
   vite: {
     build: {

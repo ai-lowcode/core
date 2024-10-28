@@ -89,7 +89,7 @@ export function useWorkspace() {
     schema.value = findAndModifyParentById(newSchema, componentId, (node: Schema[]) => {
       // 要添加的组件
       addedComp = recursiveUpdateIds(componentSchema)
-      const findIndex = node?.findIndex(n => n.children?.[0]?.id === selectComponent.value?.id)
+      const findIndex = node?.findIndex(n => (n.children as Schema[])?.[0]?.id === selectComponent.value?.id)
       // debugger
       node.splice(findIndex + 1, 0, addedComp)
       // 在这里自定义你的修改逻辑

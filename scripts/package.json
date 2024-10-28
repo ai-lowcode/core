@@ -4,7 +4,8 @@
   "private": true,
   "bin": {
     "rollup-dts": "rollup-dts.js",
-    "build-pkg": "build.js"
+    "build-pkg": "build.js",
+    "packages-init": "package-init.js"
   },
   "scripts": {
     "clean": "rimraf node_modules"

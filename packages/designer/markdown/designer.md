@@ -209,43 +209,7 @@ Description
 </td></tr>
 <tr><td>
 
-[Api](./designer.api.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
-[ColProps](./designer.colprops.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
 [DesignerContext](./designer.designercontext.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
-[FetchEffectOption](./designer.fetcheffectoption.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
-[InjectArg](./designer.injectarg.md)
 
 
 </td><td>
@@ -264,24 +228,6 @@ Description
 <tr><td>
 
 [MenuItem](./designer.menuitem.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
-[VNodeData](./designer.vnodedata.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
-[VNodeRule](./designer.vnoderule.md)
 
 
 </td><td>
@@ -392,34 +338,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[ComponentSize](./designer.componentsize.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
-[Control](./designer.control.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
 [MenuList](./designer.menulist.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
-[Update](./designer.update.md)
 
 
 </td><td>

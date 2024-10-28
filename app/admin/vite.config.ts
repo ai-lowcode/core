@@ -30,7 +30,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
     server: {
       proxy: {
         '/api': {
-          target: 'http://localhost:8888',
+          target: 'http://167.235.17.157:11116',
           changeOrigin: true,
           rewrite: path => path.replace(/^\/api/, ''),
         },

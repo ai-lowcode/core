@@ -31,6 +31,7 @@ const devices = [
 // 全局上下文
 const context = inject<DesignerContext>(DESIGNER_CTX)
 
+// 工作区缩放
 const workspaceScale = computed({
   get() {
     return context?.workspaceRef?.value?.workspaceScale

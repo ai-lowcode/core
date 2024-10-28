@@ -31,14 +31,28 @@ watch(() => props?.schema, (newValue) => {
   deep: true,
 })
 
+/**
+ * 拖拽结束
+ * @param to
+ * @param from
+ * @param oldIndex
+ * @param newIndex
+ */
 function onEnded({ to, from, oldIndex, newIndex }: any) {
   context?.workspaceRef?.value?.changeComponentSort(from?.id, to?.id, oldIndex, newIndex)
 }
 
+/**
+ * 克隆元素
+ */
 function cloneElement() {
   return null
 }
 
+/**
+ * 拖拽移动
+ * @param event
+ */
 function onMove(event: any) {
   // 根据自定义逻辑控制是否允许移动
   return event.relatedContext.index !== -1 // 阻止移动到新位置

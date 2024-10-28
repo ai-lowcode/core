@@ -1,9 +1,6 @@
 // 基础类型
 import { ComponentMenu } from '@/enums'
 
-export * from './basic.ts'
-// 表单生成器接口类型
-export * from './api.ts'
 // 设计器类型
 export * from './designer.ts'
 
@@ -17,6 +14,7 @@ export interface MenuItem {
   icon: string
   only: any
 }
+
 // 菜单
 export interface Menu {
   // 菜单名

@@ -24,7 +24,7 @@ const oauth2Config = {
   client_id: 'system',
   client_secret: 'system',
   response_type: 'code',
-  redirect_uri: 'http://localhost:5281/oauth2',
+  redirect_uri: 'http://localhost:5173/oauth2',
   state: 1,
 }
 

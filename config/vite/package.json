@@ -23,6 +23,7 @@
   ],
   "scripts": {
     "build": "pnpm unbuild --stub",
+    "build:all": "pnpm unbuild --stub",
     "clean": "rimraf node_modules",
     "clean:dist": "rimraf dist"
   },

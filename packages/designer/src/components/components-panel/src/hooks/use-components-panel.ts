@@ -30,9 +30,6 @@ export function useComponentsPanel() {
 
   watch(() => context?.workspaceRef?.value?.selectComponent?.id, (newValue) => {
     currentSelectNode.value = newValue
-    nextTick(() => {
-      outLineRef.value?.setCurrentKey(newValue)
-    })
   }, { deep: true })
 
   // 编辑器选项
@@ -53,11 +50,12 @@ export function useComponentsPanel() {
   })
 
   // 大纲树
-  const outLineTree = computed({
-    get() {
-      return removeAlDragBoxAndPromoteChildren(schemaToOutLine(context?.workspaceRef?.value?.schema))
-    },
-    set() {},
+  const outLineTree = computed(() => removeAlDragBoxAndPromoteChildren(schemaToOutLine(context?.workspaceRef?.value?.schema)))
+
+  watch(() => outLineTree.value, () => {
+    nextTick(() => {
+      outLineRef.value?.setCurrentKey(currentSelectNode.value)
+    })
   })
 
   watch(() => context?.workspaceRef?.value?.schema, (newValue) => {

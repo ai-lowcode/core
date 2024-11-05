@@ -29,7 +29,14 @@ export function useWorkspace() {
 
   const currentDevice = ref(DeviceEnum.PC)
 
-  const schema = ref<Array<Schema>>([])
+  const schema = ref<Array<Schema>>([
+    createDragBoxTemplate(
+      createPageTemplate(),
+      {
+        class: 'p-2 h-full',
+      },
+    ),
+  ])
 
   const selectComponent = ref<Schema>({
     id: PAGE_COMP,

@@ -1,45 +1,35 @@
 import { execa } from 'execa'
 
-await execa('pnpm', ['--filter', '@al-config/vite', 'build'], {
-  stdio: 'inherit',
-})
+const buildPkg = [
+  '@al-config/vite',
+  '@ai-lowcode/styles',
+  '@ai-lowcode/utils',
+  '@ai-lowcode/element-plus',
+  '@ai-lowcode/hooks',
+  '@ai-lowcode/request',
+  '@ai-lowcode/atoms',
+  '@ai-lowcode/core',
+  '@ai-lowcode/schemas-element-plus',
+  '@ai-lowcode/graphic',
+  '@ai-lowcode/designer',
+]
 
-await execa('pnpm', ['--filter', '@ai-lowcode/styles', 'build:all'], {
-  stdio: 'inherit',
-})
+// 使用 async/await 和 for...of
+async function buildSequentially() {
+  for (const pkg of buildPkg) {
+    try {
+      await execa('pnpm', ['--filter', pkg, 'build:all'], {
+        stdio: 'inherit',
+      })
+      console.log(`编译成功: ${pkg}`)
+    }
+    catch (error) {
+      console.error(`编译包 ${pkg}失败:`, error)
+      throw error // 如果需要在任何包构建失败时停止整个过程
+    }
+  }
+}
 
-await execa('pnpm', ['--filter', '@ai-lowcode/utils', 'build:all'], {
-  stdio: 'inherit',
-})
-
-await execa('pnpm', ['--filter', '@ai-lowcode/element-plus', 'build:all'], {
-  stdio: 'inherit',
-})
-
-await execa('pnpm', ['--filter', '@ai-lowcode/hooks', 'build:all'], {
-  stdio: 'inherit',
-})
-
-await execa('pnpm', ['--filter', '@ai-lowcode/request', 'build:all'], {
-  stdio: 'inherit',
-})
-
-await execa('pnpm', ['--filter', '@ai-lowcode/atoms', 'build:all'], {
-  stdio: 'inherit',
-})
-
-await execa('pnpm', ['--filter', '@ai-lowcode/core', 'build:all'], {
-  stdio: 'inherit',
-})
-
-await execa('pnpm', ['--filter', '@ai-lowcode/schemas-element-plus', 'build:all'], {
-  stdio: 'inherit',
-})
-
-await execa('pnpm', ['--filter', '@ai-lowcode/graphic', 'build:all'], {
-  stdio: 'inherit',
-})
-
-await execa('pnpm', ['--filter', '@ai-lowcode/designer', 'build:all'], {
-  stdio: 'inherit',
-})
+buildSequentially()
+  .then(() => console.log('编译所有包成功！'))
+  .catch(error => console.error('编译失败:', error))

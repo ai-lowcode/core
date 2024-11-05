@@ -4,6 +4,8 @@
 
 ## hasProperty() function
 
+判断对象是否包含指定的自有属性
+
 **Signature:**
 
 ```typescript
@@ -40,6 +42,8 @@ any
 
 </td><td>
 
+要检查的对象
+
 
 </td></tr>
 <tr><td>
@@ -54,10 +58,28 @@ string
 
 </td><td>
 
+属性名
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 boolean
+
+如果对象包含该属性则返回true,否则返回false
+
+## Remarks
+
+使用 Object.prototype.hasOwnProperty 检查自有属性, 不会检查原型链上的属性
+
+## Example
+
+
+```ts
+const obj = { a: 1 }
+hasProperty(obj, 'a')          // true
+hasProperty(obj, 'toString')   // false
+hasProperty(obj, 'b')          // false
+```
 

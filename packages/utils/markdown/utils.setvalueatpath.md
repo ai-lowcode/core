@@ -4,7 +4,7 @@
 
 ## setValueAtPath() function
 
-根据path路径设置值
+根据路径设置对象中的值
 
 **Signature:**
 
@@ -42,6 +42,8 @@ any
 
 </td><td>
 
+要设置值的目标对象
+
 
 </td></tr>
 <tr><td>
@@ -55,6 +57,8 @@ string
 
 
 </td><td>
+
+点分隔的路径字符串，支持数组索引，如 'user.addresses\[0\].street'
 
 
 </td></tr>
@@ -70,7 +74,7 @@ any
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 要设置的值，默认为 undefined
 
 
 </td></tr>
@@ -78,4 +82,47 @@ _(Optional)_
 **Returns:**
 
 void
+
+## Remarks
+
+- 支持设置深层对象属性 - 支持数组索引设置 - 自动创建不存在的路径 - 保护已有值不被 undefined 覆盖 - 支持任意类型的值设置
+
+## Example
+
+
+```typescript
+// 示例1: 基础属性设置
+const user = {};
+setValueAtPath(user, 'profile.name', 'John Doe');
+// 结果: { profile: { name: 'John Doe' } }
+
+// 示例2: 数组操作
+const org = {};
+setValueAtPath(org, 'departments[0].name', 'IT');
+setValueAtPath(org, 'departments[0].employees[0]', { id: 1, name: 'Alice' });
+// 结果: {
+//   departments: [{
+//     name: 'IT',
+//     employees: [{ id: 1, name: 'Alice' }]
+//   }]
+// }
+
+// 示例3: 保护已有值
+const data = { user: { name: 'John' } };
+setValueAtPath(data, 'user.name', undefined);
+// 结果: { user: { name: 'John' } } // 已有值不会被 undefined 覆盖
+
+// 示例4: 复杂嵌套设置
+const config = {};
+setValueAtPath(config, 'database.connections[0].settings.timeout', 1000);
+// 结果: {
+//   database: {
+//     connections: [{
+//       settings: {
+//         timeout: 1000
+//       }
+//     }]
+//   }
+// }
+```
 

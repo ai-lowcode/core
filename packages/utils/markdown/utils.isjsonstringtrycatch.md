@@ -4,7 +4,7 @@
 
 ## isJsonStringTryCatch() function
 
-判断目标字符串是否是JSON字符串形式
+判断字符串是否为有效的JSON格式
 
 **Signature:**
 
@@ -42,10 +42,32 @@ string
 
 </td><td>
 
+要检查的字符串
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 boolean
+
+如果是有效的JSON字符串则返回true,否则返回false
+
+## Exceptions
+
+不会抛出异常,所有解析错误都会被捕获并返回false
+
+## Remarks
+
+通过尝试解析字符串来判断其是否为合法的JSON格式 只有解析结果为对象类型时才返回true
+
+## Example
+
+
+```ts
+isJsonStringTryCatch('{"a":1}')        // true
+isJsonStringTryCatch('[1,2,3]')        // true
+isJsonStringTryCatch('invalid json')   // false
+isJsonStringTryCatch('"string"')       // false
+```
 

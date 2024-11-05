@@ -4,7 +4,7 @@
 
 ## generateObjectFromPath() function
 
-根据path路径生成对象
+根据点分隔的路径字符串生成嵌套对象
 
 **Signature:**
 
@@ -42,6 +42,8 @@ any
 
 </td><td>
 
+要操作的目标对象
+
 
 </td></tr>
 <tr><td>
@@ -56,10 +58,55 @@ string
 
 </td><td>
 
+点分隔的路径字符串，可以包含数组索引，如 'user.addresses\[0\].street'
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 void
+
+## Remarks
+
+- 支持普通对象路径: 'user.profile.name' - 支持数组索引路径: 'users\[0\].name' - 自动创建数组和对象结构 - 路径不存在时会自动创建 - 保护已有的数据结构
+
+## Example
+
+
+```typescript
+// 示例1: 基础对象路径
+const data = {};
+generateObjectFromPath(data, 'user.profile.name');
+// 结果: { user: { profile: { name: undefined } } }
+
+// 示例2: 包含数组的路径
+const formData = {};
+generateObjectFromPath(formData, 'users[0].addresses[1].street');
+// 结果: {
+//   users: [{
+//     addresses: [
+//       undefined,
+//       { street: undefined }
+//     ]
+//   }]
+// }
+
+// 示例3: 混合路径
+const config = {};
+generateObjectFromPath(config, 'app.settings[0].database.connections[2].timeout');
+// 结果: {
+//   app: {
+//     settings: [{
+//       database: {
+//         connections: [
+//           undefined,
+//           undefined,
+//           { timeout: undefined }
+//         ]
+//       }
+//     }]
+//   }
+// }
+```
 

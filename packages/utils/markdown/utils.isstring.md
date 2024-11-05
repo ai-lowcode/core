@@ -4,6 +4,8 @@
 
 ## isString() function
 
+判断值是否为字符串类型
+
 **Signature:**
 
 ```typescript
@@ -40,10 +42,24 @@ unknown
 
 </td><td>
 
+要检查的值
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 val is string
+
+类型谓词,用于在 TypeScript 中进行类型收窄
+
+## Example
+
+
+```ts
+isString('abc')      // true
+isString(123)        // false
+isString('')         // true
+isString(String(1))  // true
+```
 

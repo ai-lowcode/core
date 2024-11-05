@@ -1,76 +1,86 @@
-AiLowCode代码开发平台（前端）-> [后端地址](https://github.com/ai-lowcode/server)
-======================================
-当前最新版本：(开发中)
+# AiLowCode
+> 新一代 AI 驱动的低代码开发平台
 
 [![Author](https://img.shields.io/badge/Author-Axelu-orange.svg)](https://ailowcode.app)
-[![Blog](https://img.shields.io/badge/Blog-个人博客-yellow.svg)](https://axelu.me)
 [![Version](https://img.shields.io/badge/version-开发中-brightgreen.svg)](https://github.com/ai-lowcode/core/releases/tag/)
-[![License](https://img.shields.io/badge/license-MIT%20License-blue.svg)](https://github.com/ai-lowcode/core/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ai-lowcode/core/blob/master/LICENSE)
+[![Blog](https://img.shields.io/badge/Blog-axelu.me-yellow.svg)](https://axelu.me)
 
-[![GitHub watches](https://img.shields.io/github/watchers/ai-lowcode/core.svg?style=social&label=Watch)](https://github.com/ai-lowcode/core)
-[![GitHub stars](https://img.shields.io/github/stars/ai-lowcode/core.svg?style=social&label=Stars)](https://github.com/ai-lowcode/core)
-[![GitHub forks](https://img.shields.io/github/forks/ai-lowcode/core.svg?style=social&label=Fork)](https://github.com/ai-lowcode/core)
+[English](./README.en.md) | 简体中文
 
-## 项目介绍
+## 📚 项目简介
 
-AiLowCode代码前端采用 Vue3.4、Vite5.0、 Element-Plus、TypeScript 等新技术方案。使用当前最先进的 monorepo pnpm turbo包管理方式，changeset 包发布方式。
-基于当前最火热的 ai 模型，从底层重新设计 lowcode/core 低代码渲染器，重写适配于现代化的 ai 低代码设计器。
-且采用更合理的方式重新设计 hooks，request，styles，types，utils 等包...
+AiLowCode 是一个基于人工智能的现代化低代码开发平台，旨在通过 AI 能力提升开发效率。本仓库为项目的前端部分，后端代码请访问 [ai-lowcode/server](https://github.com/ai-lowcode/server)。
 
-## 入门必备
+### ✨ 特性
 
-本项目需要一定前端基础知识，请确保掌握 Vue 的基础知识，以便能处理一些常见的问题。
-建议在开发前先学一下以下内容，提前了解和学习这些知识，会对项目理解非常有帮助:
+- 🛠️ **现代化技术栈**：基于 Vue 3.4、Vite 5.0、Element-Plus、TypeScript
+- 📦 **先进的工程化**：采用 monorepo + pnpm + turbo 实现高效的包管理
+- 🤖 **AI 驱动**：深度集成 AI 模型，从底层重新设计低代码渲染器
+- 🎨 **优雅的架构**：经过精心设计的 hooks、request、styles、types、utils 等模块
 
-* [Vue3 文档](https://v3.vuejs.org/)
-* [TypeScript](https://www.typescriptlang.org/)
-* [Vue-router](https://next.router.vuejs.org/)
-* [Element-Plus](https://www.antdv.com/components/overview-cn)
-* [Es6](https://es6.ruanyifeng.com/)
-* [Vitejs](https://vitejs.dev/)
-* [Pinia(vuex替代方案)](https://pinia.esm.dev/introduction.html)
-* [Vue-RFCS](https://github.com/vuejs/rfcs)
+## 🚀 快速开始
 
-## 界面参考
+### 环境要求
 
-* [vue-pure-admin](https://github.com/pure-admin/vue-pure-admin)
+- Node.js >= 16
+- pnpm >= 8
 
-## 界面预览 1
+### 安装依赖
 
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031408.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031335.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031638.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031611.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031551.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031538.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031530.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031514.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031452.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031443.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031430.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031023.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031840.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031800.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031858.png)
-![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031847.png)
+```bash
+pnpm install
+```
 
-## 平台交流
+### 初始化 pkg
 
-### 微信:
+```bash
+pnpm package-init
+```
 
-![](https://i.imgur.com/tD8L1B2.png)
+### 启动开发服务器
 
-### QQ群:
+```bash
+pnpm --filter "ai-lowcode-admin" "dev"
+```
 
-[![加入QQ群](https://img.shields.io/badge/718136001-blue.svg)](https://qm.qq.com/q/YPjQJoIxqI)
-点击链接加入群聊【Ai-LowCode 交流群】
+## 🔧 技术栈
 
-## 浏览器支持
+本项目采用以下技术栈：
 
-**本地开发**推荐使用`Chrome 最新版`浏览器，**不支持**`Chrome 80`以下版本。
+- [Vue 3](https://v3.vuejs.org/) - 渐进式 JavaScript 框架
+- [TypeScript](https://www.typescriptlang.org/) - JavaScript 的超集
+- [Vite](https://vitejs.dev/) - 下一代前端构建工具
+- [Element-Plus](https://element-plus.org/) - Vue 3 组件库
+- [Pinia](https://pinia.vuejs.org/) - Vue 状态管理方案
+- [Vue Router](https://router.vuejs.org/) - Vue.js 官方路由
 
-**生产环境**支持现代浏览器，不支持 IE。
+## 📸 界面预览
 
-| [![IE](https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png)](http://godban.github.io/browsers-support-badges/)IE | [![ Edge](https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png)](http://godban.github.io/browsers-support-badges/)Edge | [![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png)](http://godban.github.io/browsers-support-badges/)Firefox | [![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png)](http://godban.github.io/browsers-support-badges/)Chrome | [![Safari](https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png)](http://godban.github.io/browsers-support-badges/)Safari |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| not support                                                                                                                                                                                   | last 2 versions                                                                                                                                        | last 2 versions                                                                                                                                                   | last 2 versions                                                                                                                                               | last 2 versions                                                                                                                                               |
+<details>
+<summary>点击查看界面预览</summary>
+
+![界面预览](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031408.png)
+![设计器](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031335.png)
+![组件配置](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031638.png)
+</details>
+
+## 🌍 浏览器支持
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Safari |
+| :---: | :---: | :---: | :---: |
+| 最新版本 ✅ | 最新版本 ✅ | 最新版本 ✅ | 最新版本 ✅ |
+
+## 🤝 社区与支持
+
+### 加入交流群
+
+- 微信群：扫描下方二维码
+
+  ![微信群](https://i.imgur.com/tD8L1B2.png)
+
+- QQ群：[718136001](https://qm.qq.com/q/YPjQJoIxqI)
+
+## 📄 开源协议
+
+[MIT](https://github.com/ai-lowcode/core/blob/main/LICENSE) License © 2024 [Axelu](https://github.com/ai-lowcode)

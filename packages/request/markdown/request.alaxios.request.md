@@ -4,7 +4,7 @@
 
 ## AlAxios.request() method
 
-通用请求接口
+发送 HTTP 请求
 
 **Signature:**
 
@@ -42,8 +42,6 @@ config
 
 </td><td>
 
-请求配置
-
 
 </td></tr>
 <tr><td>
@@ -58,7 +56,7 @@ options
 
 </td><td>
 
-_(Optional)_ 请求选项
+_(Optional)_
 
 
 </td></tr>
@@ -66,6 +64,4 @@ _(Optional)_ 请求选项
 **Returns:**
 
 Promise&lt;[CommonResultType](./request.commonresulttype.md)<!-- -->&lt;T&gt;&gt;
-
-请求结果
 

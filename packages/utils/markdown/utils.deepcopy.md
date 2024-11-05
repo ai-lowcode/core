@@ -4,7 +4,7 @@
 
 ## deepCopy() function
 
-深拷贝
+创建值的深拷贝
 
 **Signature:**
 
@@ -42,10 +42,50 @@ any
 
 </td><td>
 
+要深拷贝的值
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 any
+
+输入值的深拷贝
+
+## Remarks
+
+- 支持所有 JavaScript 数据类型 - 创建完全独立的副本 - 保持原对象的结构和嵌套关系 - 处理循环引用
+
+## Example
+
+
+```typescript
+// 示例1: 基础类型拷贝
+const num = deepCopy(42);
+const str = deepCopy("hello");
+// 结果: 42, "hello"
+
+// 示例2: 对象深拷贝
+const original = {
+  name: 'John',
+  profile: {
+    age: 30,
+    scores: [85, 92, 78]
+  }
+};
+const copy = deepCopy(original);
+// copy !== original
+// copy.profile !== original.profile
+// copy.profile.scores !== original.profile.scores
+
+// 示例3: 特殊对象拷贝
+const date = new Date();
+const copyDate = deepCopy(date);
+
+// 示例4: 数组深拷贝
+const arr = [1, { x: 1 }, [2, 3]];
+const copyArr = deepCopy(arr);
+// 结果: 完全独立的数组副本
+```
 

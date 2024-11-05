@@ -4,6 +4,8 @@
 
 ## isFunction() function
 
+判断值是否为函数类型
+
 **Signature:**
 
 ```typescript
@@ -40,10 +42,24 @@ unknown
 
 </td><td>
 
+要检查的值
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 boolean
+
+如果值为函数类型则返回true,否则返回false
+
+## Example
+
+
+```ts
+isFunction(function(){})     // true
+isFunction(() => {})         // true
+isFunction(class{})          // true
+isFunction(123)              // false
+```
 

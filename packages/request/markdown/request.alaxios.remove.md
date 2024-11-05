@@ -4,7 +4,7 @@
 
 ## AlAxios.remove() method
 
-DELETE请求
+发送 DELETE 请求
 
 **Signature:**
 
@@ -42,8 +42,6 @@ string
 
 </td><td>
 
-请求路径
-
 
 </td></tr>
 <tr><td>
@@ -57,8 +55,6 @@ any
 
 
 </td><td>
-
-请求参数
 
 
 </td></tr>
@@ -74,7 +70,7 @@ options
 
 </td><td>
 
-_(Optional)_ 请求选项
+_(Optional)_
 
 
 </td></tr>
@@ -82,6 +78,4 @@ _(Optional)_ 请求选项
 **Returns:**
 
 Promise&lt;[CommonResultType](./request.commonresulttype.md)<!-- -->&lt;T&gt;&gt;
-
-请求结果
 

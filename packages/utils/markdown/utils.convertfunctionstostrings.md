@@ -4,7 +4,7 @@
 
 ## convertFunctionsToStrings() function
 
-将对象中的函数转换成字符串
+递归将对象中的函数转换为字符串
 
 **Signature:**
 
@@ -42,10 +42,62 @@ any \| Function
 
 </td><td>
 
+输入值，可以是函数、对象、数组或其他任何类型
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 any
+
+转换后的结果，所有函数都被转换为字符串
+
+## Remarks
+
+- 保持函数的完整定义，包括参数和函数体 - 支持普通函数、异步函数和箭头函数的转换 - 保持非函数类型的值不变 - 适用于需要序列化包含函数的对象场景，如： - 存储到数据库 - 通过网络传输 - LocalStorage 存储 - 配置文件保存
+
+## Example
+
+
+```typescript
+// 示例1: 基础函数转换
+const input = {
+  add: function(a, b) { return a + b; },
+  multiply: (x, y) => x * y,
+  constant: 42
+};
+const result = convertFunctionsToStrings(input);
+console.log(result);
+// 输出:
+// {
+//   add: "function(a, b) { return a + b; }",
+//   multiply: "(x, y) => x * y",
+//   constant: 42
+// }
+
+// 示例2: 异步函数和嵌套对象转换
+const complexInput = {
+  async: async function(x) {
+    return await Promise.resolve(x);
+  },
+  nested: {
+    helper: (x) => x * 2,
+    data: [
+      function(y) { return y + 1; }
+    ]
+  }
+};
+const complexResult = convertFunctionsToStrings(complexInput);
+
+// 示例3: 类方法转换
+class Calculator {
+  add(a, b) { return a + b; }
+  multiply(x, y) { return x * y; }
+}
+const calc = new Calculator();
+const methodsResult = convertFunctionsToStrings({
+  calculator: calc
+});
+```
 

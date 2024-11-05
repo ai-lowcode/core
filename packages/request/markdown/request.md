@@ -26,7 +26,7 @@ Description
 
 </td><td>
 
-请求类
+Axios 请求封装类
 
 
 </td></tr>

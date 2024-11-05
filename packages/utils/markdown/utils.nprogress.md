@@ -4,7 +4,7 @@
 
 ## nProgress variable
 
-暴露progress进度条
+导出配置好的进度条实例 提供以下主要方法: - start(): 开始进度 - done(): 结束进度 - set(n): 设置指定进度,n介于0-1 - inc(): 稍微增加一点进度 - remove(): 移除进度条
 
 **Signature:**
 

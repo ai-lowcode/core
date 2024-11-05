@@ -4,7 +4,7 @@
 
 ## convertStringsToFunctions() function
 
-将对象中包含run(的字符串转换成函数
+递归将对象中的函数字符串转换为可执行函数
 
 **Signature:**
 
@@ -42,10 +42,61 @@ any \| Function
 
 </td><td>
 
+输入值，可以是函数字符串、对象、数组或其他任何类型
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 any
+
+转换后的结果，保持原始数据结构不变
+
+## Remarks
+
+- 支持深层嵌套的对象和数组结构 - 只转换包含 'run(' 的字符串 - 保持其他类型的值不变 - 支持异步函数的转换
+
+## Example
+
+
+```typescript
+// 示例1: 基础对象转换
+const input = {
+  add: 'run(a, b) { return a + b; }',
+  multiply: 'run(x, y) { return x * y; }',
+  constant: 42
+};
+const result = convertStringsToFunctions(input);
+console.log(result.add(2, 3));      // 输出: 5
+console.log(result.multiply(4, 5));  // 输出: 20
+console.log(result.constant);        // 输出: 42
+
+// 示例2: 嵌套对象转换
+const nestedInput = {
+  math: {
+    add: 'run(a, b) { return a + b; }',
+    utils: {
+      square: 'run(x) { return x * x; }'
+    }
+  },
+  data: [
+    'run(x) { return x + 1; }',
+    'run(x) { return x * 2; }'
+  ]
+};
+const nestedResult = convertStringsToFunctions(nestedInput);
+console.log(nestedResult.math.add(2, 3));        // 输出: 5
+console.log(nestedResult.math.utils.square(4));  // 输出: 16
+console.log(nestedResult.data[0](5));           // 输出: 6
+
+// 示例3: 异步函数对象转换
+const asyncInput = {
+  fetch: 'async run(url) { return await fetch(url); }',
+  process: 'async run(data) { return await Promise.resolve(data * 2); }'
+};
+const asyncResult = convertStringsToFunctions(asyncInput);
+// 使用转换后的异步函数
+const data = await asyncResult.process(10); // 输出: 20
+```
 

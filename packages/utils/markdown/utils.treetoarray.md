@@ -4,7 +4,7 @@
 
 ## treeToArray() function
 
-树转数组  {<!-- -->children: array 子数组<!-- -->}
+将树形结构数据转换为扁平数组
 
 **Signature:**
 
@@ -42,10 +42,77 @@ Array&lt;any&gt;
 
 </td><td>
 
+树形结构数据,每个节点可以包含 children 属性
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 Array&lt;T&gt;
+
+扁平化后的节点数组,不包含 children 字段
+
+## Exceptions
+
+如果输入的树结构包含循环引用,可能会导致栈溢出
+
+## Remarks
+
+- 会移除原始数据中的 children 字段 - 保留节点的所有其他属性 - 深度优先遍历,子节点在父节点之前
+
+## Example
+
+
+```ts
+// 基础示例
+const tree = [
+  {
+    id: 1,
+    name: '父节点1',
+    children: [
+      { id: 2, name: '子节点1' },
+      { id: 3, name: '子节点2' }
+    ]
+  },
+  {
+    id: 4,
+    name: '父节点2',
+    children: [
+      { id: 5, name: '子节点3' }
+    ]
+  }
+]
+
+const array = treeToArray(tree)
+// 输出结果:
+// [
+//   { id: 2, name: '子节点1' },
+//   { id: 3, name: '子节点2' },
+//   { id: 1, name: '父节点1' },
+//   { id: 5, name: '子节点3' },
+//   { id: 4, name: '父节点2' }
+// ]
+
+// 复杂属性示例
+const complexTree = [
+  {
+    id: 1,
+    data: { value: 100 },
+    children: [
+      {
+        id: 2,
+        data: { value: 200 }
+      }
+    ]
+  }
+]
+
+const result = treeToArray(complexTree)
+// 输出结果保留了复杂属性:
+// [
+//   { id: 2, data: { value: 200 } },
+//   { id: 1, data: { value: 100 } }
+// ]
+```
 

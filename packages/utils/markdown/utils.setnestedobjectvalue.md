@@ -4,12 +4,12 @@
 
 ## setNestedObjectValue() function
 
-定义函数将字符串路径转换为嵌套对象
+根据字符串路径设置嵌套对象的值
 
 **Signature:**
 
 ```typescript
-export declare function setNestedObjectValue(obj: any, keys: string[]): void;
+export declare function setNestedObjectValue(formData: any, keys: string[]): void;
 ```
 
 ## Parameters
@@ -32,7 +32,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-obj
+formData
 
 
 </td><td>
@@ -41,6 +41,8 @@ any
 
 
 </td><td>
+
+要操作的目标对象，通常是一个表单数据对象
 
 
 </td></tr>
@@ -56,10 +58,49 @@ string\[\]
 
 </td><td>
 
+表示路径的字符串数组，每个元素代表一层属性名
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 void
+
+## Remarks
+
+- 按数组顺序逐层创建对象属性 - 如果路径中的属性不存在，会自动创建空对象 - 最后一级属性会被设置为 undefined - 不会覆盖已存在的值
+
+## Example
+
+
+```typescript
+// 示例1: 基础用法
+const formData = {};
+setNestedObjectValue(formData, ['user', 'address', 'city']);
+// 结果: { user: { address: { city: undefined } } }
+
+// 示例2: 处理已存在的属性
+const data = { user: { name: 'John' } };
+setNestedObjectValue(data, ['user', 'address', 'street']);
+// 结果: {
+//   user: {
+//     name: 'John',
+//     address: { street: undefined }
+//   }
+// }
+
+// 示例3: 多层嵌套
+const config = {};
+setNestedObjectValue(config, ['database', 'connection', 'settings', 'timeout']);
+// 结果: {
+//   database: {
+//     connection: {
+//       settings: {
+//         timeout: undefined
+//       }
+//     }
+//   }
+// }
+```
 

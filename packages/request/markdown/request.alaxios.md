@@ -4,7 +4,7 @@
 
 ## AlAxios class
 
-请求类
+Axios 请求封装类
 
 **Signature:**
 
@@ -12,14 +12,70 @@
 export declare class AlAxios 
 ```
 
-## Example
+## Remarks
 
+基于 Axios 的 HTTP 请求封装，提供以下功能： - 统一的请求拦截器和响应拦截器 - 自动处理 token 认证 - 支持请求加载动画 - 统一的错误处理和提示 - 支持自定义配置项
+
+## Example 1
+
+基础用法：
 
 ```typescript
-import { AlAxios } from '@ai-lowcode/request';
+import { AlAxios } from '@ai-lowcode/request'
 
-// 使用示例
-const alAxios = new AlAxios()
+const request = new AlAxios({
+  requestOptions: {
+    // 是否携带 token
+    withToken: true,
+    // 是否显示加载动画
+    isShowLoading: true,
+    // 是否显示成功提示
+    isShowSuccessMessage: true
+  }
+})
+
+// GET 请求
+const data = await request.get('/api/users', { id: 1 })
+
+// POST 请求带配置
+const result = await request.post('/api/user',
+  { name: 'John' },
+  {
+    isShowLoading: true,
+    loadingMessageText: '保存中...',
+    successMessageText: '保存成功！'
+  }
+)
+```
+
+## Example 2
+
+完整配置示例：
+
+```typescript
+const axios = new AlAxios({
+  baseURL: 'https://api.example.com',
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  requestOptions: {
+    // 请求配置
+    withToken: true,
+    isShowLoading: true,
+    loadingMessageText: '加载中...',
+    isShowSuccessMessage: true,
+    successMessageText: '操作成功',
+    isShowErrorMessage: true,
+    errorMessageText: '操作失败',
+    // 是否将参数拼接到url
+    joinParamsToUrl: false,
+    // 自定义headers
+    headers: {
+      'X-Custom-Header': 'custom'
+    }
+  }
+})
 ```
 
 ## Constructors
@@ -94,6 +150,8 @@ ReturnType&lt;typeof AlLoadingService&gt; \| null
 
 </td><td>
 
+加载动画实例
+
 
 </td></tr>
 </tbody></table>
@@ -126,7 +184,7 @@ Description
 
 </td><td>
 
-GET请求
+发送 GET 请求
 
 
 </td></tr>
@@ -154,7 +212,7 @@ GET请求
 
 </td><td>
 
-POST请求
+发送 POST 请求
 
 
 </td></tr>
@@ -168,7 +226,7 @@ POST请求
 
 </td><td>
 
-PUT请求
+发送 PUT 请求
 
 
 </td></tr>
@@ -182,7 +240,7 @@ PUT请求
 
 </td><td>
 
-DELETE请求
+发送 DELETE 请求
 
 
 </td></tr>
@@ -196,7 +254,7 @@ DELETE请求
 
 </td><td>
 
-通用请求接口
+发送 HTTP 请求
 
 
 </td></tr>

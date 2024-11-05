@@ -10,8 +10,11 @@ export default defineConfig({
     linkify: false,
     attrs: { disable: true },
   },
+  base: '/',
   srcDir: '../',
-  assetsDir: 'public',
+  head: [
+    ['link', { rel: 'icon', type: 'image/png', href: './docs/logo.png' }],
+  ],
   rewrites: {
     // 指南映射
     'docs/index.md': 'index.md',

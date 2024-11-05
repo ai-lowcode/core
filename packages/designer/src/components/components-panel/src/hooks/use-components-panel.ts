@@ -1,5 +1,7 @@
 import { Schema } from '@ai-lowcode/core'
+import { AlMessage } from '@ai-lowcode/element-plus'
 import componentSchemaList, { CompSchema } from '@ai-lowcode/schemas-element-plus'
+import { deepCopy } from '@ai-lowcode/utils'
 import { computed, inject, nextTick, onMounted, ref, watch } from 'vue'
 
 import { createMenu } from '@/components/components-panel/src/config/menu.ts'
@@ -22,12 +24,15 @@ export function useComponentsPanel() {
   // 菜单列表
   const menuList = ref<MenuList>(createMenu())
 
+  const cloneMenuList = ref < MenuList | any > (null)
   // 全局上下文
   const context = inject<DesignerContext>(DESIGNER_CTX)
 
   // 当前选中节点
   const currentSelectNode = ref(context?.workspaceRef?.value?.selectComponent?.id)
 
+  // 搜索组件
+  const searchCom = ref('')
   watch(() => context?.workspaceRef?.value?.selectComponent?.id, (newValue) => {
     currentSelectNode.value = newValue
   }, { deep: true })
@@ -84,14 +89,14 @@ export function useComponentsPanel() {
   }
 
   /**
-   * 添加菜单项
+   * 添加菜单项物料组件
    * @param name
    * @param item
    */
   function appendMenuItem(name: 'main' | 'aide' | 'layout' | string, item: any) {
     menuList.value.forEach((v: Menu) => {
       if (v.name === name) {
-        v.list.push(...(Array.isArray(item) ? item : [item]))
+        v.list.push(item)
       }
     })
   }
@@ -109,6 +114,7 @@ export function useComponentsPanel() {
     else {
       component.menu && appendMenuItem(component.menu, component)
     }
+    cloneMenuList.value = deepCopy(menuList.value)
   }
 
   /**
@@ -192,6 +198,34 @@ export function useComponentsPanel() {
     }
   }
 
+  /**
+   * 重置 menuList 到初始状态
+   */
+  function resetMenuList() {
+    menuList.value = deepCopy(cloneMenuList.value)
+  }
+
+  /**
+   * 搜索组件
+   * @param componentLabel 组件名称
+   */
+  function handleSearchCom(componentLabel: string) {
+    const comList = componentSchemaList.filter(item => item.label.includes(componentLabel))
+    if (!comList.length) {
+      AlMessage.error('暂无该组件')
+      resetMenuList()
+      return
+    }
+    if (!componentLabel.length) {
+      resetMenuList()
+      return
+    }
+    const targetMenu = menuList.value.find(v => v.name === activeMenuTab.value)
+    if (targetMenu) {
+      targetMenu.list = comList
+    }
+  }
+
   onMounted(() => {
     addComponent(componentSchemaList)
     addEditorThemeListener((hasDark: boolean) => {
@@ -207,6 +241,7 @@ export function useComponentsPanel() {
     editor,
     editorOptions,
     code,
+    searchCom,
     activeComponentMenu,
     activeMenuTab,
     currentSelectNode,
@@ -216,6 +251,7 @@ export function useComponentsPanel() {
     insertComponent,
     selectComponent,
     handleCommand,
+    handleSearchCom,
     onEnd,
   }
 }

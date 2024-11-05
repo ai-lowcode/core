@@ -4,14 +4,29 @@
   "private": true,
   "packageManager": "pnpm@9.4.0",
   "description": "a ai lowcode project",
-  "author": "A.L",
+  "author": {
+    "name": "A.L",
+    "email": "https://x.com/axelulue",
+    "url": "https://axelu.me"
+  },
   "license": "MIT",
-  "keywords": [],
+  "contributors": [
+    {
+      "name": "mufeiyu-ayu",
+      "email": "19986442013@163.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ai-lowcode/core"
+},
+"keywords": ["ai-lowcode","ai","lowcode"],
   "engines": {
     "node": ">=18.20.0",
     "npm": ">=9.4.0"
   },
   "scripts": {
+    "dev": "pnpm --filter ai-lowcode-admin dev",
     "dev:server": "pnpm --filter \"ai-lowcode-server\" \"dev\"",
     "package-init": "node ./scripts/package-init.js",
     "build": "node ./scripts/build.js",

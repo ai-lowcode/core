@@ -83,4 +83,4 @@ This project utilizes the following technologies:
 
 ## 📄 License
 
-[MIT](./LICENSE) License © 2024 [Axelu](https://github.com/ai-lowcode)
+[MIT](https://github.com/ai-lowcode/core/blob/main/LICENSE) License © 2024 [Axelu](https://github.com/ai-lowcode)

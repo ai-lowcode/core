@@ -205,33 +205,6 @@ export class AlAxios {
 
   /**
    * 发送 HTTP 请求
-   *
-   * @public
-   * @typeParam T - 响应数据的类型
-   * @param config - 请求配置
-   * @param options - 请求选项
-   * @returns Promise<CommonResultType<T>> 请求响应结果
-   *
-   * @example
-   * ```typescript
-   * interface UserData {
-   *   id: number;
-   *   name: string;
-   * }
-   *
-   * const response = await request.request<UserData>({
-   *   url: '/api/user',
-   *   method: 'GET',
-   *   params: { id: 1 }
-   * }, {
-   *   isShowLoading: true,
-   *   loadingMessageText: '加载用户信息...'
-   * })
-   *
-   * if (response.code === ResponseCodeEnum.SUCCESS) {
-   *   console.log(response.data.name)
-   * }
-   * ```
    */
   request<T = any>(config: RequestConfigType, options?: RequestOptionsType): Promise<CommonResultType<T>> {
     try {
@@ -261,39 +234,6 @@ export class AlAxios {
 
   /**
    * 发送 GET 请求
-   *
-   * @public
-   * @typeParam T - 响应数据的类型
-   * @param url - 请求地址
-   * @param params - 请求参数（Query参数）
-   * @param options - 请求配置选项
-   * @returns Promise<CommonResultType<T>> 请求响应结果
-   *
-   * @example
-   * ```typescript
-   * interface UserList {
-   *   total: number;
-   *   list: Array<{
-   *     id: number;
-   *     name: string;
-   *   }>;
-   * }
-   *
-   * // 基础查询
-   * const response = await request.get<UserList>('/api/users', {
-   *   page: 1,
-   *   size: 10
-   * })
-   *
-   * // 带配置的查询
-   * const response = await request.get('/api/users',
-   *   { id: 1 },
-   *   {
-   *     isShowLoading: true,
-   *     loadingMessageText: '加载用户列表...'
-   *   }
-   * )
-   * ```
    */
   get<T = any>(url: string, params?: any, options?: RequestOptionsType): Promise<CommonResultType<T>> {
     return this.request<T>(
@@ -308,34 +248,6 @@ export class AlAxios {
 
   /**
    * 发送 POST 请求
-   *
-   * @public
-   * @typeParam T - 响应数据的类型
-   * @param url - 请求地址
-   * @param data - 请求体数据
-   * @param options - 请求配置选项
-   * @returns Promise<CommonResultType<T>> 请求响应结果
-   *
-   * @example
-   * ```typescript
-   * interface CreateUserResponse {
-   *   id: number;
-   *   name: string;
-   * }
-   *
-   * // 创建用户
-   * const response = await request.post<CreateUserResponse>(
-   *   '/api/users',
-   *   {
-   *     name: 'John',
-   *     email: 'john@example.com'
-   *   },
-   *   {
-   *     isShowSuccessMessage: true,
-   *     successMessageText: '创建用户成功！'
-   *   }
-   * )
-   * ```
    */
   post<T = any>(url: string, data: any, options?: RequestOptionsType): Promise<CommonResultType<T>> {
     return this.request<T>(
@@ -350,31 +262,6 @@ export class AlAxios {
 
   /**
    * 发送 PUT 请求
-   *
-   * @public
-   * @typeParam T - 响应数据的类型
-   * @param url - 请求地址
-   * @param data - 请求体数据
-   * @param options - 请求配置选项
-   * @returns Promise<CommonResultType<T>> 请求响应结果
-   *
-   * @example
-   * ```typescript
-   * // 更新用户信息
-   * const response = await request.put(
-   *   '/api/users/1',
-   *   {
-   *     name: 'John Updated',
-   *     email: 'john.updated@example.com'
-   *   },
-   *   {
-   *     isShowLoading: true,
-   *     loadingMessageText: '更新中...',
-   *     isShowSuccessMessage: true,
-   *     successMessageText: '更新成功！'
-   *   }
-   * )
-   * ```
    */
   put<T = any>(url: string, data: any, options?: RequestOptionsType): Promise<CommonResultType<T>> {
     return this.request<T>(
@@ -389,28 +276,6 @@ export class AlAxios {
 
   /**
    * 发送 DELETE 请求
-   *
-   * @public
-   * @typeParam T - 响应数据的类型
-   * @param url - 请求地址
-   * @param data - 请求体数据
-   * @param options - 请求配置选项
-   * @returns Promise<CommonResultType<T>> 请求响应结果
-   *
-   * @example
-   * ```typescript
-   * // 删除用户
-   * const response = await request.remove(
-   *   '/api/users/1',
-   *   { id: 1 },
-   *   {
-   *     isShowLoading: true,
-   *     loadingMessageText: '删除中...',
-   *     isShowSuccessMessage: true,
-   *     successMessageText: '删除成功！'
-   *   }
-   * )
-   * ```
    */
   remove<T = any>(url: string, data: any, options?: RequestOptionsType): Promise<CommonResultType<T>> {
     return this.request<T>(

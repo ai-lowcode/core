@@ -42,8 +42,6 @@ string
 
 </td><td>
 
-请求地址
-
 
 </td></tr>
 <tr><td>
@@ -57,8 +55,6 @@ any
 
 
 </td><td>
-
-请求体数据
 
 
 </td></tr>
@@ -74,7 +70,7 @@ options
 
 </td><td>
 
-_(Optional)_ 请求配置选项
+_(Optional)_
 
 
 </td></tr>
@@ -82,23 +78,4 @@ _(Optional)_ 请求配置选项
 **Returns:**
 
 Promise&lt;[CommonResultType](./request.commonresulttype.md)<!-- -->&lt;T&gt;&gt;
-
-Promise<!-- -->&lt;<!-- -->CommonResultType<T>&gt; 请求响应结果
-
-## Example
-
-
-```typescript
-// 删除用户
-const response = await request.remove(
-  '/api/users/1',
-  { id: 1 },
-  {
-    isShowLoading: true,
-    loadingMessageText: '删除中...',
-    isShowSuccessMessage: true,
-    successMessageText: '删除成功！'
-  }
-)
-```
 

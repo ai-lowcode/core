@@ -38,7 +38,7 @@ pnpm install
 pnpm package-init
 ```
 
-### 运行项目
+### 启动开发服务器
 
 ```bash
 pnpm --filter "ai-lowcode-admin" "dev"
@@ -83,4 +83,4 @@ pnpm --filter "ai-lowcode-admin" "dev"
 
 ## 📄 开源协议
 
-[MIT](./LICENSE) License © 2024 [Axelu](https://github.com/ai-lowcode)
+[MIT](https://github.com/ai-lowcode/core/blob/main/LICENSE) License © 2024 [Axelu](https://github.com/ai-lowcode)

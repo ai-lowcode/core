@@ -42,8 +42,6 @@ config
 
 </td><td>
 
-请求配置
-
 
 </td></tr>
 <tr><td>
@@ -58,7 +56,7 @@ options
 
 </td><td>
 
-_(Optional)_ 请求选项
+_(Optional)_
 
 
 </td></tr>
@@ -66,29 +64,4 @@ _(Optional)_ 请求选项
 **Returns:**
 
 Promise&lt;[CommonResultType](./request.commonresulttype.md)<!-- -->&lt;T&gt;&gt;
-
-Promise<!-- -->&lt;<!-- -->CommonResultType<T>&gt; 请求响应结果
-
-## Example
-
-
-```typescript
-interface UserData {
-  id: number;
-  name: string;
-}
-
-const response = await request.request<UserData>({
-  url: '/api/user',
-  method: 'GET',
-  params: { id: 1 }
-}, {
-  isShowLoading: true,
-  loadingMessageText: '加载用户信息...'
-})
-
-if (response.code === ResponseCodeEnum.SUCCESS) {
-  console.log(response.data.name)
-}
-```
 

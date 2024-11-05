@@ -42,8 +42,6 @@ string
 
 </td><td>
 
-请求地址
-
 
 </td></tr>
 <tr><td>
@@ -58,7 +56,7 @@ any
 
 </td><td>
 
-_(Optional)_ 请求参数（Query参数）
+_(Optional)_
 
 
 </td></tr>
@@ -74,7 +72,7 @@ options
 
 </td><td>
 
-_(Optional)_ 请求配置选项
+_(Optional)_
 
 
 </td></tr>
@@ -82,34 +80,4 @@ _(Optional)_ 请求配置选项
 **Returns:**
 
 Promise&lt;[CommonResultType](./request.commonresulttype.md)<!-- -->&lt;T&gt;&gt;
-
-Promise<!-- -->&lt;<!-- -->CommonResultType<T>&gt; 请求响应结果
-
-## Example
-
-
-```typescript
-interface UserList {
-  total: number;
-  list: Array<{
-    id: number;
-    name: string;
-  }>;
-}
-
-// 基础查询
-const response = await request.get<UserList>('/api/users', {
-  page: 1,
-  size: 10
-})
-
-// 带配置的查询
-const response = await request.get('/api/users',
-  { id: 1 },
-  {
-    isShowLoading: true,
-    loadingMessageText: '加载用户列表...'
-  }
-)
-```
 

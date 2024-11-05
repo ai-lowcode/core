@@ -3,11 +3,9 @@ import { deepCopy, generateObjectFromPath, getValueFromPath, setValueAtPath } fr
 
 import { nextTick, onMounted, provide, ref, watch } from 'vue'
 
-import { AlNode } from '../../node'
-
 import { FormDataType, GlobalInstanceType } from './types'
 
-import { Schema } from '@/components'
+import { AlNode, Schema } from '@/node'
 
 // 渲染器 props
 const props = defineProps<{
@@ -23,6 +21,7 @@ const emits = defineEmits(['update:modelValue'])
 // 节点 ref
 const nodeRef = ref()
 
+// schema 列表
 const schemaList = ref(props.schemas)
 
 // 是否显示渲染器

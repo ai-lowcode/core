@@ -17,8 +17,9 @@ import {
 
 import { Schema } from './types'
 
-import { FormDataType, GlobalInstanceType } from '@/components'
-import { getExposeApi } from '@/components/utils'
+import { FormDataType, GlobalInstanceType } from '@/renderer'
+
+import { getExposeApi } from '@/utils'
 
 defineOptions({
   name: 'AlNode',

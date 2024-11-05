@@ -4,6 +4,8 @@
 
 ## Schema.hidden property
 
+是否隐藏组件
+
 **Signature:**
 
 ```typescript

@@ -4,6 +4,8 @@
 
 ## Schema.cssString property
 
+组件 css 字符串
+
 **Signature:**
 
 ```typescript

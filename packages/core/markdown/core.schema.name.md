@@ -4,6 +4,8 @@
 
 ## Schema.name property
 
+组件名称标识
+
 **Signature:**
 
 ```typescript

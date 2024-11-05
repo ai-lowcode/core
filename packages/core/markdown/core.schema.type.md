@@ -4,7 +4,7 @@
 
 ## Schema.type property
 
-基础配置
+组件渲染类型
 
 **Signature:**
 

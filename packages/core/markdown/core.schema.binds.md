@@ -4,6 +4,8 @@
 
 ## Schema.binds property
 
+组件绑定参数
+
 **Signature:**
 
 ```typescript

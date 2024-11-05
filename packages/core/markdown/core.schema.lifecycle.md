@@ -4,6 +4,8 @@
 
 ## Schema.lifeCycle property
 
+组件生命周期
+
 **Signature:**
 
 ```typescript

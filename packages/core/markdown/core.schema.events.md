@@ -4,6 +4,8 @@
 
 ## Schema.events property
 
+组件事件
+
 **Signature:**
 
 ```typescript

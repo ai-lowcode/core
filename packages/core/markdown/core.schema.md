@@ -37,25 +37,6 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[attrs?](./core.schema.attrs.md)
-
-
-</td><td>
-
-
-</td><td>
-
-any
-
-
-</td><td>
-
-_(Optional)_
-
-
-</td></tr>
-<tr><td>
-
 [binds?](./core.schema.binds.md)
 
 
@@ -69,7 +50,7 @@ Record&lt;string, any&gt;
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件绑定参数
 
 
 </td></tr>
@@ -83,12 +64,12 @@ _(Optional)_
 
 </td><td>
 
-Array&lt;[Schema](./core.schema.md) \| string \| any&gt; \| Function
+Array&lt;[Schema](./core.schema.md) \| string \| any&gt;
 
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 子组件
 
 
 </td></tr>
@@ -107,7 +88,7 @@ string
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件文本内容
 
 
 </td></tr>
@@ -126,7 +107,7 @@ string
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件 css 字符串
 
 
 </td></tr>
@@ -145,7 +126,7 @@ any
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 输入默认值
 
 
 </td></tr>
@@ -164,7 +145,7 @@ Record&lt;string, any&gt;
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件事件
 
 
 </td></tr>
@@ -183,7 +164,7 @@ string
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 字段绑定的值
 
 
 </td></tr>
@@ -202,7 +183,7 @@ boolean
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 是否隐藏组件
 
 
 </td></tr>
@@ -221,7 +202,7 @@ string
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件 id
 
 
 </td></tr>
@@ -240,7 +221,7 @@ string
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件展示名称
 
 
 </td></tr>
@@ -259,7 +240,7 @@ Record&lt;string, any&gt;
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件生命周期
 
 
 </td></tr>
@@ -278,45 +259,7 @@ string
 
 </td><td>
 
-_(Optional)_
-
-
-</td></tr>
-<tr><td>
-
-[modelMethod?](./core.schema.modelmethod.md)
-
-
-</td><td>
-
-
-</td><td>
-
-string
-
-
-</td><td>
-
-_(Optional)_
-
-
-</td></tr>
-<tr><td>
-
-[modelType?](./core.schema.modeltype.md)
-
-
-</td><td>
-
-
-</td><td>
-
-string
-
-
-</td><td>
-
-_(Optional)_
+_(Optional)_ v-model 绑定的字段
 
 
 </td></tr>
@@ -335,7 +278,7 @@ string
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件名称标识
 
 
 </td></tr>
@@ -354,7 +297,7 @@ Record&lt;string, any&gt;
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件 props
 
 
 </td></tr>
@@ -373,7 +316,7 @@ boolean
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 隐藏插槽
 
 
 </td></tr>
@@ -392,7 +335,7 @@ string
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件所属插槽名称
 
 
 </td></tr>
@@ -411,26 +354,7 @@ string
 
 </td><td>
 
-_(Optional)_ 基础配置
-
-
-</td></tr>
-<tr><td>
-
-[visible?](./core.schema.visible.md)
-
-
-</td><td>
-
-
-</td><td>
-
-boolean
-
-
-</td><td>
-
-_(Optional)_
+_(Optional)_ 组件渲染类型
 
 
 </td></tr>

@@ -4,6 +4,8 @@
 
 ## Schema.label property
 
+组件展示名称
+
 **Signature:**
 
 ```typescript

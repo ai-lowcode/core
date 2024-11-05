@@ -9,18 +9,18 @@
     "email": "https://x.com/axelulue",
     "url": "https://axelu.me"
   },
-  "license": "MIT",
   "contributors": [
     {
       "name": "mufeiyu-ayu",
       "email": "19986442013@163.com"
     }
   ],
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/ai-lowcode/core"
-},
-"keywords": ["ai-lowcode","ai","lowcode"],
+  },
+  "keywords": ["ai-lowcode", "ai", "lowcode"],
   "engines": {
     "node": ">=18.20.0",
     "npm": ">=9.4.0"

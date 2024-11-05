@@ -4,6 +4,8 @@
 
 ## Schema.field property
 
+字段绑定的值
+
 **Signature:**
 
 ```typescript

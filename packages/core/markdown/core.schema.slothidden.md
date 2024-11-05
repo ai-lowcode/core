@@ -4,6 +4,8 @@
 
 ## Schema.slotHidden property
 
+隐藏插槽
+
 **Signature:**
 
 ```typescript

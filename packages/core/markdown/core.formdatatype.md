@@ -4,6 +4,8 @@
 
 ## FormDataType interface
 
+全局formData 类型
+
 **Signature:**
 
 ```typescript

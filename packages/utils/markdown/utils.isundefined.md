@@ -4,6 +4,8 @@
 
 ## isUndefined() function
 
+判断值是否为undefined或null
+
 **Signature:**
 
 ```typescript
@@ -40,10 +42,28 @@ unknown
 
 </td><td>
 
+要检查的值
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 boolean
+
+如果值为undefined或null则返回true,否则返回false
+
+## Remarks
+
+此函数同时检查 undefined 和 null,因为在很多场景下它们的语义是相似的
+
+## Example
+
+
+```ts
+isUndefined(undefined)    // true
+isUndefined(null)         // true
+isUndefined('')           // false
+isUndefined(0)           // false
+```
 

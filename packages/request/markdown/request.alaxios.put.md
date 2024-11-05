@@ -4,7 +4,7 @@
 
 ## AlAxios.put() method
 
-PUT请求
+发送 PUT 请求
 
 **Signature:**
 
@@ -42,7 +42,7 @@ string
 
 </td><td>
 
-请求路径
+请求地址
 
 
 </td></tr>
@@ -58,7 +58,7 @@ any
 
 </td><td>
 
-请求参数
+请求体数据
 
 
 </td></tr>
@@ -74,7 +74,7 @@ options
 
 </td><td>
 
-_(Optional)_ 请求选项
+_(Optional)_ 请求配置选项
 
 
 </td></tr>
@@ -83,5 +83,25 @@ _(Optional)_ 请求选项
 
 Promise&lt;[CommonResultType](./request.commonresulttype.md)<!-- -->&lt;T&gt;&gt;
 
-请求结果
+Promise<!-- -->&lt;<!-- -->CommonResultType<T>&gt; 请求响应结果
+
+## Example
+
+
+```typescript
+// 更新用户信息
+const response = await request.put(
+  '/api/users/1',
+  {
+    name: 'John Updated',
+    email: 'john.updated@example.com'
+  },
+  {
+    isShowLoading: true,
+    loadingMessageText: '更新中...',
+    isShowSuccessMessage: true,
+    successMessageText: '更新成功！'
+  }
+)
+```
 

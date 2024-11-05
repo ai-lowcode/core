@@ -4,7 +4,7 @@
 
 ## AlAxios.post() method
 
-POST请求
+发送 POST 请求
 
 **Signature:**
 
@@ -42,7 +42,7 @@ string
 
 </td><td>
 
-请求路径
+请求地址
 
 
 </td></tr>
@@ -58,7 +58,7 @@ any
 
 </td><td>
 
-请求参数
+请求体数据
 
 
 </td></tr>
@@ -74,7 +74,7 @@ options
 
 </td><td>
 
-_(Optional)_ 请求选项
+_(Optional)_ 请求配置选项
 
 
 </td></tr>
@@ -83,5 +83,28 @@ _(Optional)_ 请求选项
 
 Promise&lt;[CommonResultType](./request.commonresulttype.md)<!-- -->&lt;T&gt;&gt;
 
-请求结果
+Promise<!-- -->&lt;<!-- -->CommonResultType<T>&gt; 请求响应结果
+
+## Example
+
+
+```typescript
+interface CreateUserResponse {
+  id: number;
+  name: string;
+}
+
+// 创建用户
+const response = await request.post<CreateUserResponse>(
+  '/api/users',
+  {
+    name: 'John',
+    email: 'john@example.com'
+  },
+  {
+    isShowSuccessMessage: true,
+    successMessageText: '创建用户成功！'
+  }
+)
+```
 

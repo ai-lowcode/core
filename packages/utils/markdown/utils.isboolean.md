@@ -4,6 +4,8 @@
 
 ## isBoolean() function
 
+判断值是否为布尔类型
+
 **Signature:**
 
 ```typescript
@@ -40,10 +42,24 @@ unknown
 
 </td><td>
 
+要检查的值
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 val is boolean
+
+类型谓词,用于在 TypeScript 中进行类型收窄
+
+## Example
+
+
+```ts
+isBoolean(true)       // true
+isBoolean(false)      // true
+isBoolean(0)          // false
+isBoolean('')         // false
+```
 

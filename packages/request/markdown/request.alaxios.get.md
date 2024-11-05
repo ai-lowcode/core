@@ -4,7 +4,7 @@
 
 ## AlAxios.get() method
 
-GET请求
+发送 GET 请求
 
 **Signature:**
 
@@ -42,7 +42,7 @@ string
 
 </td><td>
 
-请求路径
+请求地址
 
 
 </td></tr>
@@ -58,7 +58,7 @@ any
 
 </td><td>
 
-_(Optional)_ 请求参数
+_(Optional)_ 请求参数（Query参数）
 
 
 </td></tr>
@@ -74,7 +74,7 @@ options
 
 </td><td>
 
-_(Optional)_ 请求选项
+_(Optional)_ 请求配置选项
 
 
 </td></tr>
@@ -83,5 +83,33 @@ _(Optional)_ 请求选项
 
 Promise&lt;[CommonResultType](./request.commonresulttype.md)<!-- -->&lt;T&gt;&gt;
 
-请求结果
+Promise<!-- -->&lt;<!-- -->CommonResultType<T>&gt; 请求响应结果
+
+## Example
+
+
+```typescript
+interface UserList {
+  total: number;
+  list: Array<{
+    id: number;
+    name: string;
+  }>;
+}
+
+// 基础查询
+const response = await request.get<UserList>('/api/users', {
+  page: 1,
+  size: 10
+})
+
+// 带配置的查询
+const response = await request.get('/api/users',
+  { id: 1 },
+  {
+    isShowLoading: true,
+    loadingMessageText: '加载用户列表...'
+  }
+)
+```
 

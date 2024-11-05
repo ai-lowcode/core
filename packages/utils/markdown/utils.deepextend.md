@@ -4,6 +4,8 @@
 
 ## deepExtend() function
 
+深度扩展一个对象
+
 **Signature:**
 
 ```typescript
@@ -40,6 +42,8 @@ any
 
 </td><td>
 
+要扩展的目标对象
+
 
 </td></tr>
 <tr><td>
@@ -54,7 +58,7 @@ any
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 作为源的对象，其属性将被复制
 
 
 </td></tr>
@@ -70,7 +74,7 @@ any
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 可选的模式参数，影响 \_clone 属性的处理方式
 
 
 </td></tr>
@@ -78,4 +82,49 @@ _(Optional)_
 **Returns:**
 
 any
+
+修改后的目标对象
+
+## Remarks
+
+- 支持深层嵌套的对象合并 - 自动处理数组类型 - 处理带有 \_clone 属性的特殊对象 - 保留特殊的 \_\_json 和 \_\_origin 属性 - 可以通过 mode 参数控制 \_clone 的行为
+
+## Example
+
+
+```typescript
+// 示例1: 基础对象合并
+const orig = { a: 1, b: { x: 1 } };
+const target = { b: { y: 2 }, c: 3 };
+deepExtend(orig, target);
+// 结果: { a: 1, b: { x: 1, y: 2 }, c: 3 }
+
+// 示例2: 数组处理
+const orig2 = { items: [1, 2] };
+const target2 = { items: [3, 4] };
+deepExtend(orig2, target2);
+// 结果: { items: [3, 4] }
+
+// 示例3: 特殊对象处理
+const orig3 = {};
+const target3 = {
+  special: {
+    _clone: () => ({ value: 'cloned' }),
+    data: 'original'
+  }
+};
+deepExtend(orig3, target3);
+// 结果: { special: { value: 'cloned' } }
+
+// 示例4: 处理特殊属性
+const orig4 = {};
+const target4 = {
+  data: {
+    __json: '{"type":"special"}',
+    __origin: 'external'
+  }
+};
+deepExtend(orig4, target4);
+// 保留特殊属性
+```
 

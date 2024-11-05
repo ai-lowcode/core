@@ -4,12 +4,12 @@
 
 ## deepExtendArgs() function
 
-深拷贝
+使用多个源对象深度扩展一个对象
 
 **Signature:**
 
 ```typescript
-export declare function deepExtendArgs(origin: any, ...lst: any): any;
+export declare function deepExtendArgs(origin: any, ...lst: any[]): any;
 ```
 
 ## Parameters
@@ -42,6 +42,8 @@ any
 
 </td><td>
 
+要扩展的目标对象
+
 
 </td></tr>
 <tr><td>
@@ -51,10 +53,12 @@ lst
 
 </td><td>
 
-any
+any\[\]
 
 
 </td><td>
+
+包含要合并的源对象的剩余参数
 
 
 </td></tr>
@@ -62,4 +66,52 @@ any
 **Returns:**
 
 any
+
+修改后的目标对象
+
+## Remarks
+
+- 支持任意数量的源对象 - 按照参数顺序依次合并 - 后面的对象会覆盖前面对象的同名属性 - 执行深度合并而不是浅合并
+
+## Example
+
+
+```typescript
+// 示例1: 基础多对象合并
+const obj1 = { a: 1, shared: { x: 1 } };
+const obj2 = { b: 2, shared: { y: 2 } };
+const obj3 = { c: 3, shared: { z: 3 } };
+const result = deepExtendArgs(obj1, obj2, obj3);
+// 结果: {
+//   a: 1,
+//   b: 2,
+//   c: 3,
+//   shared: { x: 1, y: 2, z: 3 }
+// }
+
+// 示例2: 数组处理
+const config1 = { ports: [8080] };
+const config2 = { ports: [9090] };
+const config3 = { hosts: ['localhost'] };
+const merged = deepExtendArgs(config1, config2, config3);
+// 结果: { ports: [9090], hosts: ['localhost'] }
+
+// 示例3: 复杂对象合并
+const defaults = {
+  db: { host: 'localhost', port: 5432 },
+  cache: { enabled: false }
+};
+const userConfig = {
+  db: { port: 6379 },
+  cache: { enabled: true, ttl: 3600 }
+};
+const envConfig = {
+  db: { host: 'prod-host' }
+};
+const finalConfig = deepExtendArgs(defaults, userConfig, envConfig);
+// 结果: {
+//   db: { host: 'prod-host', port: 6379 },
+//   cache: { enabled: true, ttl: 3600 }
+// }
+```
 

@@ -4,6 +4,8 @@
 
 ## is() function
 
+判断值是否为指定的类型
+
 **Signature:**
 
 ```typescript
@@ -40,6 +42,8 @@ unknown
 
 </td><td>
 
+要检查的值
+
 
 </td></tr>
 <tr><td>
@@ -54,10 +58,23 @@ string
 
 </td><td>
 
+期望的类型字符串
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 boolean
+
+如果值为指定类型则返回true,否则返回false
+
+## Example
+
+
+```ts
+is([], 'Array')  // true
+is({}, 'Object') // true
+is(123, 'Number') // true
+```
 

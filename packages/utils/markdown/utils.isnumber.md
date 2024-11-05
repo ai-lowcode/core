@@ -4,6 +4,8 @@
 
 ## isNumber() function
 
+判断值是否为数字类型
+
 **Signature:**
 
 ```typescript
@@ -40,10 +42,28 @@ unknown
 
 </td><td>
 
+要检查的值
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 val is string
+
+类型谓词,用于在 TypeScript 中进行类型收窄
+
+## Remarks
+
+使用类型谓词(type predicate)可以让 TypeScript 在运行时收窄变量类型
+
+## Example
+
+
+```ts
+isNumber(123)        // true
+isNumber('123')      // false
+isNumber(NaN)        // true
+isNumber(Infinity)   // true
+```
 

@@ -4,6 +4,8 @@
 
 ## isExternal() function
 
+判断字符串是否为外部链接(http:,https:,mailto:,tel:开头)
+
 **Signature:**
 
 ```typescript
@@ -40,10 +42,28 @@ any
 
 </td><td>
 
+要检查的字符串
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 boolean
+
+如果是外部链接则返回true,否则返回false
+
+## Remarks
+
+支持的协议: - http: - https: - mailto: - tel:
+
+## Example
+
+
+```ts
+isExternal('https://example.com')     // true
+isExternal('mailto:test@test.com')    // true
+isExternal('tel:123456789')           // true
+isExternal('/path/to/file')           // false
+```
 

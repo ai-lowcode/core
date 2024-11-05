@@ -4,7 +4,7 @@
 
 ## AlAxios.remove() method
 
-DELETE请求
+发送 DELETE 请求
 
 **Signature:**
 
@@ -42,7 +42,7 @@ string
 
 </td><td>
 
-请求路径
+请求地址
 
 
 </td></tr>
@@ -58,7 +58,7 @@ any
 
 </td><td>
 
-请求参数
+请求体数据
 
 
 </td></tr>
@@ -74,7 +74,7 @@ options
 
 </td><td>
 
-_(Optional)_ 请求选项
+_(Optional)_ 请求配置选项
 
 
 </td></tr>
@@ -83,5 +83,22 @@ _(Optional)_ 请求选项
 
 Promise&lt;[CommonResultType](./request.commonresulttype.md)<!-- -->&lt;T&gt;&gt;
 
-请求结果
+Promise<!-- -->&lt;<!-- -->CommonResultType<T>&gt; 请求响应结果
+
+## Example
+
+
+```typescript
+// 删除用户
+const response = await request.remove(
+  '/api/users/1',
+  { id: 1 },
+  {
+    isShowLoading: true,
+    loadingMessageText: '删除中...',
+    isShowSuccessMessage: true,
+    successMessageText: '删除成功！'
+  }
+)
+```
 

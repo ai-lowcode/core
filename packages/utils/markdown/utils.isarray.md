@@ -4,6 +4,8 @@
 
 ## isArray() function
 
+判断值是否为数组类型
+
 **Signature:**
 
 ```typescript
@@ -40,10 +42,28 @@ unknown
 
 </td><td>
 
+要检查的值
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 val is boolean
+
+类型谓词,用于在 TypeScript 中进行类型收窄
+
+## Remarks
+
+使用 Array.isArray 进行检查,这是判断数组最可靠的方法
+
+## Example
+
+
+```ts
+isArray([])           // true
+isArray([1,2,3])      // true
+isArray({})           // false
+isArray(arguments)    // false
+```
 

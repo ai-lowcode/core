@@ -4,7 +4,7 @@
 
 ## getValueFromPath() function
 
-根据path路径获取变量值
+根据路径获取对象中的值
 
 **Signature:**
 
@@ -42,6 +42,8 @@ any
 
 </td><td>
 
+要获取值的源对象
+
 
 </td></tr>
 <tr><td>
@@ -56,10 +58,58 @@ string
 
 </td><td>
 
+点分隔的路径字符串，支持数组索引，如 'user.addresses\[0\].street'
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 any
+
+路径对应的值，如果路径不存在则返回 undefined
+
+## Remarks
+
+- 支持深层对象访问 - 支持数组索引访问 - 路径不存在时返回 undefined - 自动处理空值情况
+
+## Example
+
+
+```typescript
+// 示例1: 基础对象访问
+const data = {
+  user: {
+    profile: {
+      name: 'John Doe'
+    }
+  }
+};
+const name = getValueFromPath(data, 'user.profile.name');
+// 返回: 'John Doe'
+
+// 示例2: 数组访问
+const users = {
+  groups: [{
+    members: ['Alice', 'Bob', 'Charlie']
+  }]
+};
+const member = getValueFromPath(users, 'groups[0].members[1]');
+// 返回: 'Bob'
+
+// 示例3: 处理不存在的路径
+const result = getValueFromPath(data, 'user.nonexistent.field');
+// 返回: undefined
+
+// 示例4: 复杂嵌套结构
+const complex = {
+  organization: {
+    departments: [
+      { name: 'IT', employees: [{ id: 1, name: 'John' }] }
+    ]
+  }
+};
+const employee = getValueFromPath(complex, 'organization.departments[0].employees[0].name');
+// 返回: 'John'
+```
 

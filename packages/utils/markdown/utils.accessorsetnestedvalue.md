@@ -4,7 +4,7 @@
 
 ## accessOrSetNestedValue() function
 
-定义一个函数，如果路径存在，直接返回该值；如果不存在，则创建路径并返回新创建的值
+访问或设置嵌套对象的值
 
 **Signature:**
 
@@ -45,6 +45,8 @@ any
 
 </td><td>
 
+要操作的源对象
+
 
 </td></tr>
 <tr><td>
@@ -58,6 +60,8 @@ string
 
 
 </td><td>
+
+点分隔的路径字符串，支持数组索引，如 'user.addresses\[0\].street'
 
 
 </td></tr>
@@ -73,7 +77,7 @@ undefined
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 要设置的值，默认为 undefined
 
 
 </td></tr>
@@ -81,4 +85,67 @@ _(Optional)_
 **Returns:**
 
 { formData: any; value: any; }
+
+{<!-- -->{ formData: object, value: any }<!-- -->} 包含更新后的表单数据和设置的值的对象
+
+## Remarks
+
+- 创建源对象的深拷贝进行操作 - 支持深层路径访问和设置 - 支持数组索引操作 - 自动创建不存在的路径 - 返回更新后的对象和设置的值
+
+## Example
+
+
+```typescript
+// 示例1: 基础对象操作
+const user = { profile: { name: 'John' } };
+const result1 = accessOrSetNestedValue(user, 'profile.age', 25);
+// 返回: {
+//   formData: { profile: { name: 'John', age: 25 } },
+//   value: 25
+// }
+
+// 示例2: 数组操作
+const org = { departments: [] };
+const result2 = accessOrSetNestedValue(org, 'departments[0].name', 'IT');
+// 返回: {
+//   formData: { departments: [{ name: 'IT' }] },
+//   value: 'IT'
+// }
+
+// 示例3: 复杂嵌套结构
+const data = {
+  users: [{
+    profile: { address: {} }
+  }]
+};
+const result3 = accessOrSetNestedValue(
+  data,
+  'users[0].profile.address.street',
+  '123 Main St'
+);
+// 返回: {
+//   formData: {
+//     users: [{
+//       profile: {
+//         address: {
+//           street: '123 Main St'
+//         }
+//       }
+//     }]
+//   },
+//   value: '123 Main St'
+// }
+
+// 示例4: 访问现有值
+const config = {
+  settings: {
+    theme: 'dark'
+  }
+};
+const result4 = accessOrSetNestedValue(config, 'settings.theme');
+// 返回: {
+//   formData: { settings: { theme: 'dark' } },
+//   value: 'dark'
+// }
+```
 

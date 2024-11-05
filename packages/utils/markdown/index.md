@@ -24,7 +24,7 @@ Description
 
 </td><td>
 
-utils基础包
+@<!-- -->ai-lowcode/utils - 前端通用工具函数库
 
 
 </td></tr>

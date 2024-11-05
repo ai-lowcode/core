@@ -4,6 +4,8 @@
 
 ## AlAxios.loading property
 
+加载动画实例
+
 **Signature:**
 
 ```typescript

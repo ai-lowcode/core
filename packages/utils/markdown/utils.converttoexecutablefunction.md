@@ -4,7 +4,7 @@
 
 ## convertToExecutableFunction() function
 
-将字符串中包含run(的异步函数进行转换
+将字符串转换为可执行函数
 
 **Signature:**
 
@@ -42,10 +42,58 @@ string
 
 </td><td>
 
+包含函数定义的字符串，必须包含 'run(' 并且符合标准的函数语法
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 Function
+
+返回一个可执行的函数实例
+
+## Exceptions
+
+{<!-- -->Error<!-- -->} 当函数字符串格式不正确时，抛出 'Invalid function string' 错误
+
+## Remarks
+
+- 支持普通函数和异步函数的转换 - 自动识别函数是否为异步函数（通过检查字符串是否以 'async' 开头） - 转换后的函数保持原有的参数和函数体不变 - 使用 new Function 实现，注意相关的安全风险
+
+## Example
+
+
+```typescript
+// 示例1: 基础函数转换
+const fnStr = 'run(a, b) { return a + b; }';
+const fn = convertToExecutableFunction(fnStr);
+console.log(fn(1, 2)); // 输出: 3
+
+// 示例2: 异步函数转换
+const asyncFnStr = 'async run(x) { return await Promise.resolve(x * 2); }';
+const asyncFn = convertToExecutableFunction(asyncFnStr);
+const result = await asyncFn(5); // 输出: 10
+
+// 示例3: 复杂函数转换
+const complexFnStr = `
+  run(arr, multiplier) {
+    return arr
+      .filter(x => x > 0)
+      .map(x => x * multiplier);
+  }
+`;
+const complexFn = convertToExecutableFunction(complexFnStr);
+console.log(complexFn([1, -2, 3], 2)); // 输出: [2, 6]
+
+// 示例4: 带闭包的函数转换
+const closureFnStr = `
+  run(x) {
+    const helper = (y) => y * 2;
+    return helper(x);
+  }
+`;
+const closureFn = convertToExecutableFunction(closureFnStr);
+console.log(closureFn(5)); // 输出: 10
+```
 

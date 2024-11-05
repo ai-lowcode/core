@@ -4,6 +4,8 @@
 
 ## isObject() function
 
+判断值是否为普通对象(非null的object类型)
+
 **Signature:**
 
 ```typescript
@@ -40,10 +42,28 @@ unknown
 
 </td><td>
 
+要检查的值
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 boolean
+
+如果值为普通对象则返回true,否则返回false
+
+## Remarks
+
+此函数会排除 null 值,因为 typeof null 也会返回 'object'
+
+## Example
+
+
+```ts
+isObject({})           // true
+isObject([])           // false
+isObject(null)         // false
+isObject(undefined)    // false
+```
 

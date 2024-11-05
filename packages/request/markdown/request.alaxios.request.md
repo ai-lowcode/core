@@ -4,7 +4,7 @@
 
 ## AlAxios.request() method
 
-通用请求接口
+发送 HTTP 请求
 
 **Signature:**
 
@@ -67,5 +67,28 @@ _(Optional)_ 请求选项
 
 Promise&lt;[CommonResultType](./request.commonresulttype.md)<!-- -->&lt;T&gt;&gt;
 
-请求结果
+Promise<!-- -->&lt;<!-- -->CommonResultType<T>&gt; 请求响应结果
+
+## Example
+
+
+```typescript
+interface UserData {
+  id: number;
+  name: string;
+}
+
+const response = await request.request<UserData>({
+  url: '/api/user',
+  method: 'GET',
+  params: { id: 1 }
+}, {
+  isShowLoading: true,
+  loadingMessageText: '加载用户信息...'
+})
+
+if (response.code === ResponseCodeEnum.SUCCESS) {
+  console.log(response.data.name)
+}
+```
 

@@ -4,6 +4,8 @@
 
 ## isEmpty() function
 
+判断值是否为空
+
 **Signature:**
 
 ```typescript
@@ -40,10 +42,48 @@ any
 
 </td><td>
 
+要检查的值
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 boolean
+
+如果值为空则返回true,否则返回false
+
+## Exceptions
+
+不会抛出异常,对无效输入返回false
+
+## Remarks
+
+支持检查以下类型: - null/undefined - 空字符串(包括只有空格的字符串) - 空数组 - 空对象(没有自有可枚举属性) - 空Map - 空Set
+
+## Example
+
+
+```ts
+// null/undefined
+isEmpty(null)         // true
+isEmpty(undefined)    // true
+
+// 字符串
+isEmpty('')          // true
+isEmpty('  ')        // true
+isEmpty('abc')       // false
+
+// 数组
+isEmpty([])          // true
+isEmpty([1,2])       // false
+
+// 对象
+isEmpty({})          // true
+isEmpty({a:1})       // false
+
+// Map/Set
+isEmpty(new Map())   // true
+isEmpty(new Set())   // true
+```
 

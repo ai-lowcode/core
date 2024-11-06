@@ -4,6 +4,8 @@
 
 ## CompSchema.icon property
 
+组件图标
+
 **Signature:**
 
 ```typescript

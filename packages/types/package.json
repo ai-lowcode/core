@@ -8,9 +8,30 @@
     "url": "https://github.com/ai-lowcode/core"
   },
   "bugs": "https://github.com/ai-lowcode/core/issues",
-  "main": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/ai-lowcode-types.js",
+      "require": "./dist/ai-lowcode-types.cjs"
+    },
+    "./shims/vue.d.ts": {
+      "types": "./shims/vue.d.ts"
+    }
+  },
+  "main": "./dist/ai-lowcode-types.cjs",
+  "module": "./dist/ai-lowcode-types.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "shims"
+  ],
   "scripts": {
-    "clean": "rimraf node_modules"
+    "build": "vite build",
+    "build:all": "vite build && pnpm build:dts",
+    "build:dts": "rimraf temp && tsc -p tsconfig.declaration.json && rollup-dts",
+    "test": "vitest",
+    "clean": "rimraf node_modules",
+    "clean:dist": "rimraf dist"
   },
   "publishConfig": {
     "access": "public",
@@ -18,5 +39,12 @@
   },
   "dependencies": {
     "vue": "^3.5.3"
+  },
+  "devDependencies": {
+    "@al-config/lint": "workspace:^",
+    "@al-config/tsconfig": "workspace:^",
+    "@al-config/vite": "workspace:^",
+    "vite": "^5.4.3",
+    "vitest": "^2.0.4"
   }
 }

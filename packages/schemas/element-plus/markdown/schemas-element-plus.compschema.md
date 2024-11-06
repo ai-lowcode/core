@@ -50,7 +50,7 @@ string
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 是否配有子组件，例如 row，col
 
 
 </td></tr>
@@ -69,7 +69,7 @@ _(Optional)_
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件绑定事件
 
 
 </td></tr>
@@ -88,7 +88,7 @@ string
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件图标
 
 
 </td></tr>
@@ -107,7 +107,7 @@ string
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件名称
 
 
 </td></tr>
@@ -121,12 +121,12 @@ _(Optional)_
 
 </td><td>
 
-string
+MaterType
 
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件分类
 
 
 </td></tr>
@@ -145,6 +145,8 @@ string
 
 </td><td>
 
+组件 id 不能重复
+
 
 </td></tr>
 <tr><td>
@@ -161,6 +163,8 @@ string
 
 
 </td><td>
+
+组件属性配置规则
 
 
 </td></tr>
@@ -179,6 +183,8 @@ string
 
 </td><td>
 
+组件生产规则
+
 
 </td></tr>
 <tr><td>
@@ -196,7 +202,7 @@ string
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ 组件插槽
 
 
 </td></tr>

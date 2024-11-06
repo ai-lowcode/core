@@ -60,7 +60,7 @@ Description
 
 </td><td>
 
-string
+MaterType
 
 
 </td><td>

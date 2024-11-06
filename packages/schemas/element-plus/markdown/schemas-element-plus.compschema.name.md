@@ -4,6 +4,8 @@
 
 ## CompSchema.name property
 
+组件 id 不能重复
+
 **Signature:**
 
 ```typescript

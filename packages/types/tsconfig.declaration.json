@@ -1,0 +1,16 @@
+{
+  "extends": "@al-config/tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "temp",
+    "stripInternal": true
+  }
+}

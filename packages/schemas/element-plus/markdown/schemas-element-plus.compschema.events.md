@@ -4,6 +4,8 @@
 
 ## CompSchema.events property
 
+组件绑定事件
+
 **Signature:**
 
 ```typescript

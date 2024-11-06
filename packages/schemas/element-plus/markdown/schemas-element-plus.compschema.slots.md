@@ -4,6 +4,8 @@
 
 ## CompSchema.slots property
 
+组件插槽
+
 **Signature:**
 
 ```typescript

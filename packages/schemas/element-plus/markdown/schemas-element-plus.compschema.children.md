@@ -4,6 +4,8 @@
 
 ## CompSchema.children property
 
+是否配有子组件，例如 row，col
+
 **Signature:**
 
 ```typescript

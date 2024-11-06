@@ -4,6 +4,8 @@
 
 ## CompSchema.label property
 
+组件名称
+
 **Signature:**
 
 ```typescript

@@ -4,8 +4,10 @@
 
 ## CompSchema.menu property
 
+组件分类
+
 **Signature:**
 
 ```typescript
-menu?: string;
+menu?: MaterType;
 ```

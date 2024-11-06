@@ -4,6 +4,8 @@
 
 ## CompSchema.schema property
 
+组件生产规则
+
 **Signature:**
 
 ```typescript

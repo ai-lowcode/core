@@ -4,6 +4,8 @@
 
 ## CompSchema.props property
 
+组件属性配置规则
+
 **Signature:**
 
 ```typescript

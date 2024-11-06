@@ -3,6 +3,7 @@ import { execa } from 'execa'
 const buildPkg = [
   '@al-config/vite',
   '@ai-lowcode/styles',
+  '@ai-lowcode/types',
   '@ai-lowcode/utils',
   '@ai-lowcode/element-plus',
   '@ai-lowcode/hooks',

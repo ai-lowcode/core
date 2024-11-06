@@ -106,8 +106,10 @@ codealike.json
 .must.config.js
 
 # vitepress
+.vitepress/cache/**
 .vitepress/cache
-.vitepress/cache/deps
+docs/.vitepress/cache
+.vitepress/dist
 
 # turbo
 .turbo

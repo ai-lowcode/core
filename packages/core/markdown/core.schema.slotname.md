@@ -4,6 +4,8 @@
 
 ## Schema.slotName property
 
+组件所属插槽名称
+
 **Signature:**
 
 ```typescript

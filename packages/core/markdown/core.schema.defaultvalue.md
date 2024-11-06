@@ -4,6 +4,8 @@
 
 ## Schema.defaultValue property
 
+输入默认值
+
 **Signature:**
 
 ```typescript

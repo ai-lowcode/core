@@ -4,8 +4,10 @@
 
 ## Schema.children property
 
+子组件
+
 **Signature:**
 
 ```typescript
-children?: Array<Schema | string | any> | Function;
+children?: Array<Schema | string | any>;
 ```

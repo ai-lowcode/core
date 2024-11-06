@@ -4,6 +4,8 @@
 
 ## GlobalInstanceType interface
 
+全局实例类型
+
 **Signature:**
 
 ```typescript

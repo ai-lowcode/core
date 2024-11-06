@@ -4,6 +4,8 @@
 
 ## Schema.modelField property
 
+v-model 绑定的字段
+
 **Signature:**
 
 ```typescript

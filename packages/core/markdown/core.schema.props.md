@@ -4,6 +4,8 @@
 
 ## Schema.props property
 
+组件 props
+
 **Signature:**
 
 ```typescript

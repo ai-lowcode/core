@@ -21,12 +21,14 @@ provide<DesignerContext>(DESIGNER_CTX, {
 
 <template>
   <div class="h-full flex">
+    <!--    左侧面板 -->
     <AlComponentsPanel />
     <AlContainer class="flex flex-col flex-1">
       <AlHeader />
       <AlWorkspace ref="workspaceRef" />
       <AlFooter />
     </AlContainer>
+    <!--    属性面板 -->
     <AlAttrsPanel />
   </div>
 </template>

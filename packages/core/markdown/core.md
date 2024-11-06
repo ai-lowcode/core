@@ -24,6 +24,8 @@ Description
 
 </td><td>
 
+全局formData 类型
+
 
 </td></tr>
 <tr><td>
@@ -32,6 +34,8 @@ Description
 
 
 </td><td>
+
+全局实例类型
 
 
 </td></tr>

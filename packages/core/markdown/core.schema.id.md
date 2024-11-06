@@ -4,6 +4,8 @@
 
 ## Schema.id property
 
+组件 id
+
 **Signature:**
 
 ```typescript

@@ -39,6 +39,8 @@ const {
   currentSelectNode,
   outLineTree,
   menuList,
+  searchCom,
+  handleSearchCom,
   changeComponentSlide,
   insertComponent,
   handleCommand,
@@ -48,7 +50,7 @@ const {
 </script>
 
 <template>
-  <div class="mr-[10px] max-w-[360px] flex flex-row">
+  <div class="mr-[10px] max-w-[360px] flex flex-row bg-red">
     <div class="w-[45px] flex flex-col border border-solid border-basic-color bg-basic-color" :class="!activeComponentMenu.expand ? 'border-r' : 'border-r-0'">
       <AlTooltip
         v-for="(item, index) in slideMenu"
@@ -75,7 +77,8 @@ const {
         class="h-full overflow-auto flex-1 w-[272px] border border-solid border-basic-color bg-basic-color tabs-component"
         stretch
       >
-        <AlInput class="w-full mb-2 px-3" placeholder="输入关键词查询组件" size="small" />
+        <AlInput v-model="searchCom" class="w-full mb-2 px-3" placeholder="输入关键词查询组件" size="small" @change="handleSearchCom" />
+        <!--        todo物料 -->
         <AlTabPane v-for="(item, index) in menuList" :key="index" :label="item.title" :name="item.name">
           <div class="mx-2">
             <VueDraggable

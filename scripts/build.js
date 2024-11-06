@@ -89,10 +89,10 @@ async function run() {
       break
   }
 
-  compilePkg(compilePkgList)
+  await compilePkg(compilePkgList)
 }
 
 if (pkg !== true && pkg)
-  compilePkg([pkg])
+  await compilePkg([pkg])
 else
-  run()
+  await run()

@@ -4,6 +4,8 @@
 
 ## Schema.content property
 
+组件文本内容
+
 **Signature:**
 
 ```typescript

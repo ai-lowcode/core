@@ -23,6 +23,7 @@ export function createMenu(): MenuList {
       title: '业务组件',
       list: [],
     },
+
   ]
 }
 

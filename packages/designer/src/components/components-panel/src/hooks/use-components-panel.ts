@@ -180,6 +180,8 @@ export function useComponentsPanel() {
    * @param compSchema
    */
   function insertComponent(compSchema: CompSchema) {
+    console.log(compSchema, 'compSchema')
+    console.log(compSchema.schema(), 'schema')
     const addedComp = context?.workspaceRef?.value.insertComponent?.(compSchema.schema(), context?.workspaceRef?.value?.selectComponent?.id)
     selectComponent(addedComp)
   }

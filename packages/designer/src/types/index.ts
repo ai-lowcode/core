@@ -1,6 +1,7 @@
 // 基础类型
-import { ComponentMenu } from '@/enums'
+import { MaterType } from '@ai-lowcode/types'
 
+import { ComponentMenu } from '@/enums'
 // 设计器类型
 export * from './designer.ts'
 
@@ -20,7 +21,7 @@ export interface Menu {
   // 菜单名
   title: string
   // 菜单id
-  name: string
+  name: MaterType
   // 拖拽组件列表
   list: MenuItem[]
 }

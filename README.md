@@ -80,6 +80,26 @@ pnpm --filter "ai-lowcode-admin" "dev"
   ![微信群](https://i.imgur.com/tD8L1B2.png)
 
 - QQ群：[718136001](https://qm.qq.com/q/YPjQJoIxqI)
+## 参与贡献
+
+我们欢迎您为项目做出贡献！在提交 Pull Request 之前，请：
+
+1. 阅读我们的 [Pull Request 提交规范](./PR_GUIDELINES_ZH.md)
+2. 检查现有的 issue 或创建新的 issue
+3. 重大更改请先与维护者讨论
+4. Fork 仓库并从 `master` 分支创建您的分支
+5. 遵循我们的代码规范和测试要求
+
+关于创建 Pull Request 的详细信息，请参考我们的 [PR 模板和规范指南](./PR_GUIDELINES_ZH.md)。
+
+### PR 快速检查清单
+
+- [ ] 遵循 PR 标题格式：`type(scope): description`
+- [ ] 完整填写 PR 模板
+- [ ] 添加适当的标签
+- [ ] 包含新功能的测试
+- [ ] 更新相关文档
+- [ ] 请求相关团队成员审查
 
 ## 📄 开源协议
 

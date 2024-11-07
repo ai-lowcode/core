@@ -15,6 +15,7 @@ import { DesignerContext } from '@/types'
 // 全局上下文
 const context = inject<DesignerContext>(DESIGNER_CTX)
 
+// 活动 tab 栏
 const activeTab = ref('props')
 </script>
 

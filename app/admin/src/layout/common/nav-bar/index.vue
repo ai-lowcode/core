@@ -28,6 +28,8 @@ const appStore = useAppStore()
 
 const { appSettingConfig, changeAppSettingConfig } = toRefs(appStore)
 
+const { userInfo } = toRefs(userStore)
+
 const settingRef = ref()
 
 const fullScreen = useFullscreen()
@@ -130,7 +132,7 @@ async function handleLogout() {
           <div class="flex justify-center items-center">
             <img src="https://avatars.githubusercontent.com/u/44761321" class="w-[25px] h-[25px] rounded-full" alt="头像">
             <div class="ml-2">
-              Axelu
+              {{ userInfo?.nickname }}
             </div>
           </div>
           <template #dropdown>

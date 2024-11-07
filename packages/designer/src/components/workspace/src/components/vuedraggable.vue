@@ -43,13 +43,6 @@ function onEnded({ to, from, oldIndex, newIndex }: any) {
 }
 
 /**
- * 克隆元素
- */
-function cloneElement() {
-  return null
-}
-
-/**
  * 拖拽移动
  * @param event
  */
@@ -78,8 +71,7 @@ function onMove(event: any) {
       'flex-wrap': attrs?.__parentSchema?.props?.class?.includes('flex-wrap'),
     }"
     ghost-class="ghost"
-    v-bind="$attrs"
-    :clone="cloneElement"
+    v-bind="attrs"
     :move="onMove"
     @end="onEnded"
   >

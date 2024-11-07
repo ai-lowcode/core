@@ -152,7 +152,7 @@ export function swapChildrenPositions(
 
   // Remove the old node's children array if it's empty
   if (fromResult.node.children!.length === 0) {
-    delete fromResult.node.children
+    fromResult.node.children = []
   }
 
   // Insert the node at the new location

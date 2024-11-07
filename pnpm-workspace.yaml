@@ -1,9 +1,8 @@
 packages:
   - app/* # 应用
-  - server # 后端
   - cli # 命令行工具
   - scripts # 脚本工具
   - config/* # 基础配置
   - packages/* # 基础包
-  - packages/components/* # 业务组建包
+  - packages/components/* # 业务组件包
   - packages/schemas/* # schema包

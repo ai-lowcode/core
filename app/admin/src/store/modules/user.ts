@@ -17,7 +17,7 @@ export const useUserStore = defineStore('user', () => {
   const route = useRoute()
   const token = ref()
   const isLogin = ref()
-  const userInfo = ref()
+  const userInfo = ref(webStorage.getStorageFromKey('userInfo'))
   const menuInfo = ref([])
 
   const handleStorage = ({ isClear, storageRecord }: {
@@ -26,7 +26,10 @@ export const useUserStore = defineStore('user', () => {
   }) => {
     for (const storageRecordKey in storageRecord) {
       isClear ? webStorage.removeStorageFromKey(storageRecordKey) : webStorage.setStorage(storageRecordKey, storageRecord[storageRecordKey])
-      menuInfo.value = isClear ? [] : storageRecord[storageRecordKey]
+      if (storageRecordKey === 'menu')
+        menuInfo.value = isClear ? [] : storageRecord[storageRecordKey]
+      if (storageRecordKey === 'userInfo')
+        userInfo.value = isClear ? [] : storageRecord[storageRecordKey]
     }
   }
 
@@ -78,10 +81,14 @@ export const useUserStore = defineStore('user', () => {
   }
 
   const initUserInfo = async () => {
-    if (!webStorage.getStorageFromKey('user')) {
+    if (!webStorage.getStorageFromKey('userInfo')) {
       const { data, code } = await oauth2Api.userInfo()
-      if (code === ResponseCodeEnum.SUCCESS)
-        webStorage.setStorage('user', data)
+      if (code === ResponseCodeEnum.SUCCESS) {
+        // 设置授权信息
+        handleStorage({
+          storageRecord: { userInfo: data },
+        })
+      }
     }
   }
 

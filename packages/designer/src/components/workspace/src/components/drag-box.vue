@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { AlIcon } from '@ai-lowcode/element-plus'
 import { Icon } from '@iconify/vue'
-import { computed, getCurrentInstance, inject, ref } from 'vue'
+import { computed, getCurrentInstance, inject, ref, useSlots } from 'vue'
 
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'
 import { DesignerContext } from '@/types'
@@ -14,9 +14,11 @@ const context = inject<DesignerContext>(DESIGNER_CTX)
 
 const instance = getCurrentInstance()
 
+const slots = useSlots()
+
 const currentField = computed({
   get() {
-    return instance?.slots?.default?.()?.[0]?.children?.[0]?.props?.['component-schema']
+    return (slots?.default?.() as any)?.[0]?.children?.[0]?.props?.['component-schema']
   },
   set() {},
 })

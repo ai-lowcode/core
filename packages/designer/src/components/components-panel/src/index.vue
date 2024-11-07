@@ -11,7 +11,6 @@ import {
   AlTooltip,
   AlTree,
 } from '@ai-lowcode/element-plus'
-import { CompSchema } from '@ai-lowcode/schemas-element-plus'
 import { Icon } from '@iconify/vue'
 import { VueDraggable } from 'vue-draggable-plus'
 
@@ -94,7 +93,7 @@ const {
               >
                 <div
                   class="w-1/2 flex justify-center items-center"
-                  @click="insertComponent(element as CompSchema)"
+                  @click="insertComponent(element as any)"
                 >
                   <div style="color: var(--el-text-color-primary)" class="rounded-md text-gray-600 border hover:border-dashed border-basic-color border-solid w-full mx-1 my-1 flex justify-center items-center cursor-move px-2 py-1 hover:border-active-color duration-300">
                     <div class="text-sm">

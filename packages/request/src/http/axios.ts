@@ -1,4 +1,4 @@
-import { AlLoadingService, AlMessage } from '@ai-lowcode/element-plus'
+import { AlLoadingService, AlMessage } from '@ai-lowcode/component-adapter'
 import { webStorage } from '@ai-lowcode/hooks'
 import axios from 'axios'
 import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios'

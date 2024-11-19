@@ -20,7 +20,11 @@
     "type": "git",
     "url": "https://github.com/ai-lowcode/core"
   },
-  "keywords": ["ai-lowcode", "ai", "lowcode"],
+  "keywords": [
+    "ai-lowcode",
+    "ai",
+    "lowcode"
+  ],
   "engines": {
     "node": ">=18.20.0",
     "npm": ">=9.4.0"
@@ -63,6 +67,7 @@
     "lint-staged": "^15.2.7",
     "rimraf": "^5.0.7",
     "stylelint": "^16.8.0",
+    "syncpack": "^13.0.0",
     "ts-node": "^10.9.2",
     "turbo": "^2.0.9",
     "typescript": "^5.5.4",

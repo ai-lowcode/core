@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlIcon, AlMenuItem } from '@ai-lowcode/element-plus'
+import { AlIcon, AlMenuItem } from '@ai-lowcode/component-adapter'
 import { MenuMeta } from '@ai-lowcode/request'
 import { Icon } from '@iconify/vue'
 import { useRouter } from 'vue-router'
@@ -23,7 +23,7 @@ function handlePage(menu: MenuMeta) {
 <template>
   <AlMenuItem :index="String(menu?.id)" @click="handlePage(menu)">
     <template #title>
-      <AlIcon>
+      <AlIcon class="mr-2">
         <Icon :icon="menu?.menuIcon" />
       </AlIcon>
       {{ menu?.menuName }}

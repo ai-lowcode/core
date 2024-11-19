@@ -1,6 +1,6 @@
+import { AlMessage } from '@ai-lowcode/component-adapter'
 import { Schema } from '@ai-lowcode/core'
-import { AlMessage } from '@ai-lowcode/element-plus'
-import componentSchemaList from '@ai-lowcode/schemas-element-plus'
+import componentSchemaList from '@ai-lowcode/schemas-component-adapter'
 import { deepCopy } from '@ai-lowcode/utils'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 

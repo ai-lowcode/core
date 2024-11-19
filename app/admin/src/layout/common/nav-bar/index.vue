@@ -7,7 +7,7 @@ import {
   AlMessageBox,
   Expand,
   Fold,
-} from '@ai-lowcode/element-plus'
+} from '@ai-lowcode/component-adapter'
 
 import { Icon } from '@iconify/vue'
 
@@ -109,14 +109,14 @@ async function handleLogout() {
       <Logo v-if="appSettingConfig.logo" class="w-[100px] h-[50px]" />
       <MenuTop />
     </div>
-    <AlIcon v-if="appSettingConfig.menuMode === 'left'" class="cursor-pointer h-full w-[40px] hover:bg-gray-100 hover:bg-hover-color duration-300" @click="changeAppSettingConfig('isCollapse', !appSettingConfig.isCollapse)">
+    <AlIcon v-if="appSettingConfig.menuMode === 'left'" class="cursor-pointer flex justify-center items-center h-full w-[40px] hover:bg-gray-100 hover:bg-hover-color duration-300" @click="changeAppSettingConfig('isCollapse', !appSettingConfig.isCollapse)">
       <Expand v-if="appSettingConfig.isCollapse" />
       <Fold v-else />
     </AlIcon>
     <div class="mr-2 flex h-full items-center">
       <template v-for="(operation, index) in rightOperationConfig" :key="index">
         <AlIcon
-          v-if="operation.type === 'button'" class="cursor-pointer h-full w-[40px] duration-300 " :class="{
+          v-if="operation.type === 'button'" class="cursor-pointer flex justify-center items-center h-full w-[40px] duration-300 " :class="{
             'hover:bg-hover-color': appSettingConfig.menuMode === 'left',
             'hover:bg-active-color': appSettingConfig.menuMode === 'top',
           }" @click="operation.click()"

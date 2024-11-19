@@ -1,4 +1,4 @@
-import { AlMessage } from '@ai-lowcode/element-plus'
+import { AlMessage } from '@ai-lowcode/component-adapter'
 import { webStorage } from '@ai-lowcode/hooks'
 import { LoginParamType, ResponseCodeEnum, oauth2Api, sysConfigApi } from '@ai-lowcode/request'
 import { isJsonStringTryCatch } from '@ai-lowcode/utils'

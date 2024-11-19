@@ -1,6 +1,6 @@
 <script lang="ts" setup>
+import { AlButton, AlIcon, AlPopover } from '@ai-lowcode/component-adapter'
 import { AlRenderer, Schema } from '@ai-lowcode/core'
-import { AlButton, AlIcon, AlPopover } from '@ai-lowcode/element-plus'
 import { Icon } from '@iconify/vue'
 import { ref, watch } from 'vue'
 

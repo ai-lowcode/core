@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { AlMain } from '@ai-lowcode/component-adapter'
 import { AlRenderer } from '@ai-lowcode/core'
-import { AlMain } from '@ai-lowcode/element-plus'
 
 import { useWorkspace } from './hooks/use-workspace.ts'
 

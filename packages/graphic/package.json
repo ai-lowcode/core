@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@ai-lowcode/core": "workspace:^",
-    "@ai-lowcode/element-plus": "workspace:^",
+    "@ai-lowcode/component-adapter": "workspace:^",
     "@ai-lowcode/styles": "workspace:^",
     "@ai-lowcode/utils": "workspace:^",
     "@antv/x6": "^2.18.1",

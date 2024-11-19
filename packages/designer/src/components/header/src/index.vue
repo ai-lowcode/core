@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { AlRenderer } from '@ai-lowcode/core'
 import {
   AlButton,
   AlDialog,
   AlHeader,
   AlIcon,
   AlPopconfirm,
-} from '@ai-lowcode/element-plus'
+} from '@ai-lowcode/component-adapter'
+import { AlRenderer } from '@ai-lowcode/core'
 import { Icon } from '@iconify/vue'
 
 import Page from './components/page.vue'

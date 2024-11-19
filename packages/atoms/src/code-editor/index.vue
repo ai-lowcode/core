@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlMessage } from '@ai-lowcode/element-plus'
+import { AlMessage } from '@ai-lowcode/component-adapter'
 import Codemirror from 'codemirror-editor-vue3'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlIcon, AlSubMenu } from '@ai-lowcode/element-plus'
+import { AlIcon, AlSubMenu } from '@ai-lowcode/component-adapter'
 import { MenuMeta } from '@ai-lowcode/request'
 import { Icon } from '@iconify/vue'
 

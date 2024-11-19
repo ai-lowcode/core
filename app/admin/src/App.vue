@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlWatermark } from '@ai-lowcode/element-plus'
+import { AlWatermark } from '@ai-lowcode/component-adapter'
 import { reactive } from 'vue'
 
 const font = reactive({

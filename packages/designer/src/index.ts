@@ -1,12 +1,12 @@
 import * as Atoms from '@ai-lowcode/atoms'
 
-import * as elementPlus from '@ai-lowcode/element-plus'
+import * as componentAdapter from '@ai-lowcode/component-adapter'
 
-import '@ai-lowcode/element-plus/css'
+import '@ai-lowcode/component-adapter/css'
 
-import { schemaComponent } from '@ai-lowcode/schemas-element-plus'
+import { schemaComponent } from '@ai-lowcode/schemas-component-adapter'
 
-import '@ai-lowcode/schemas-element-plus/css'
+import '@ai-lowcode/schemas-component-adapter/css'
 
 import '@ai-lowcode/styles/tailwindCss'
 
@@ -30,8 +30,8 @@ export const AlDesigner = Designer
 
 export function initComponents(app: App) {
   // 全局组成基础组件库
-  for (const elementPlusKey in elementPlus) {
-    app.component(elementPlusKey, (elementPlus as Record<string, Component>)[elementPlusKey] as Component)
+  for (const componentAdapterKey in componentAdapter) {
+    app.component(componentAdapterKey, (componentAdapter as Record<string, Component>)[componentAdapterKey] as Component)
   }
   // 注册设计器组件
   app.component(AlDragBox.name as string, AlDragBox)

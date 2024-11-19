@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@ai-lowcode/core": "workspace:^",
-    "@ai-lowcode/element-plus": "workspace:^",
+    "@ai-lowcode/component-adapter": "workspace:^",
     "codemirror": "^5",
     "codemirror-editor-vue3": "^2.7.1",
     "jsonlint-mod": "^1.7.6"

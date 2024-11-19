@@ -48,8 +48,8 @@ export default defineConfig({
           link: '/packages/request/markdown/index.md',
         },
         {
-          text: 'element-plus',
-          link: '/packages/components/element-plus/markdown/index.md',
+          text: 'component-adapter',
+          link: '/packages/components/markdown/index.md',
         },
         {
           text: 'graphic',
@@ -68,8 +68,8 @@ export default defineConfig({
           link: '/packages/designer/markdown/index.md',
         },
         {
-          text: 'schemas-element-plus',
-          link: '/packages/schemas/element-plus/markdown/index.md',
+          text: 'schemas-component-adapter',
+          link: '/packages/schemas/markdown/index.md',
         },
         {
           text: 'schemas-naive-ui',

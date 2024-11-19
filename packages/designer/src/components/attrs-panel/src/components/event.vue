@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { AlCodeEditorAtom } from '@ai-lowcode/atoms'
-import { AlButton, AlCollapse, AlCollapseItem, AlDialog, AlIcon } from '@ai-lowcode/element-plus'
+import { AlButton, AlCollapse, AlCollapseItem, AlDialog, AlIcon } from '@ai-lowcode/component-adapter'
 
 import { Icon } from '@iconify/vue'
 

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlIcon } from '@ai-lowcode/element-plus'
+import { AlIcon } from '@ai-lowcode/component-adapter'
 import { Icon } from '@iconify/vue'
 import { computed, getCurrentInstance, inject, ref, useSlots } from 'vue'
 

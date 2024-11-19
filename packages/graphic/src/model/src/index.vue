@@ -1,6 +1,6 @@
 <script lang="ts" setup>
+import { AlButton, AlTree } from '@ai-lowcode/component-adapter'
 import { AlRenderer, Schema } from '@ai-lowcode/core'
-import { AlButton, AlTree } from '@ai-lowcode/element-plus'
 import { deepCopy } from '@ai-lowcode/utils'
 import { Graph } from '@antv/x6'
 import { History } from '@antv/x6-plugin-history'

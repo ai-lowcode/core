@@ -4,10 +4,12 @@ import {
   AlColorPicker,
   AlDrawer,
   AlIcon,
+  AlOption,
   AlRadioButton,
   AlRadioGroup,
+  AlSelect,
   AlSwitch,
-} from '@ai-lowcode/element-plus'
+} from '@ai-lowcode/component-adapter'
 import { Icon } from '@iconify/vue'
 import { ref, toRefs } from 'vue'
 
@@ -21,6 +23,10 @@ const { appSettingConfig, settingConfig, changeAppSettingConfig } = toRefs(appSt
 
 function showSetting() {
   settingVisible.value = true
+}
+
+function reload() {
+  location.reload()
 }
 
 defineExpose({
@@ -49,6 +55,16 @@ defineExpose({
           </div>
         </AlRadioButton>
       </AlRadioGroup>
+      <AlSelect v-if="config.type === 'select'" v-model="appSettingConfig[config.slug]" @change="reload()">
+        <AlOption v-for="(item, configIndex) in config.value" :key="configIndex" :value="item.slug">
+          <div class="flex justify-right items-center">
+            <AlIcon class="mr-1">
+              <Icon :icon="item.icon" />
+            </AlIcon>
+            <span>{{ item.title }}</span>
+          </div>
+        </AlOption>
+      </AlSelect>
       <div v-if="config.type === 'menu'" class="flex">
         <div class="bg-[#f0f2f5] rounded-md overflow-hidden mr-4 cursor-pointer h-[36px] w-[46px] relative shadow-md" :style="appSettingConfig[config.slug] === 'left' ? 'border: 2px solid var(--el-border-color)' : ''" @click="changeAppSettingConfig(config.slug, 'left')">
           <div class="bg-[#1b2a47] h-full w-[30%]" />

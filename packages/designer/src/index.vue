@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlContainer } from '@ai-lowcode/element-plus'
+import { AlContainer } from '@ai-lowcode/component-adapter'
 import { provide, ref } from 'vue'
 
 import { AlAttrsPanel, AlComponentsPanel, AlHeader, AlWorkspace } from '@/components'

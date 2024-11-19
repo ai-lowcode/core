@@ -10,7 +10,7 @@ import {
   AlPopover,
   AlTabPane,
   AlTabs,
-} from '@ai-lowcode/element-plus'
+} from '@ai-lowcode/component-adapter'
 import { Icon } from '@iconify/vue'
 
 import { usePage } from '../hooks/use-page.ts'

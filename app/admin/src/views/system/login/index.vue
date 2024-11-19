@@ -10,7 +10,7 @@ import {
   SuccessFilled,
   User,
   View,
-} from '@ai-lowcode/element-plus'
+} from '@ai-lowcode/component-adapter'
 
 import { AlHttp, ResponseCodeEnum } from '@ai-lowcode/request'
 import { onMounted, ref } from 'vue'

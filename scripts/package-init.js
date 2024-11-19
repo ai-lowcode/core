@@ -10,7 +10,7 @@ const buildPkg = [
   '@ai-lowcode/request',
   '@ai-lowcode/atoms',
   '@ai-lowcode/core',
-  '@ai-lowcode/schemas-element-plus',
+  '@ai-lowcode/schemas-component-adapter',
   '@ai-lowcode/graphic',
   '@ai-lowcode/designer',
 ]

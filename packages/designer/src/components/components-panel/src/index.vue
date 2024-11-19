@@ -10,7 +10,7 @@ import {
   AlTabs,
   AlTooltip,
   AlTree,
-} from '@ai-lowcode/element-plus'
+} from '@ai-lowcode/component-adapter'
 import { Icon } from '@iconify/vue'
 import { VueDraggable } from 'vue-draggable-plus'
 

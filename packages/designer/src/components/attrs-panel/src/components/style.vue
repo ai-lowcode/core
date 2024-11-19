@@ -12,7 +12,7 @@ import {
   AlRadioGroup,
   AlSlider,
   AlTooltip,
-} from '@ai-lowcode/element-plus'
+} from '@ai-lowcode/component-adapter'
 
 import { Icon } from '@iconify/vue'
 

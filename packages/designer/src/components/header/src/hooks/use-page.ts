@@ -1,4 +1,4 @@
-import { AlLoading, AlMessage, AlMessageBox } from '@ai-lowcode/element-plus'
+import { AlLoading, AlMessage, AlMessageBox } from '@ai-lowcode/component-adapter'
 import { ResponseCodeEnum, lowCodePageApi } from '@ai-lowcode/request'
 import { inject, ref } from 'vue'
 

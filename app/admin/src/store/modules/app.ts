@@ -1,3 +1,4 @@
+import { webStorage } from '@ai-lowcode/hooks'
 import { sysConfigApi } from '@ai-lowcode/request'
 import { defineStore } from 'pinia'
 import { onMounted, ref, watch } from 'vue'
@@ -7,6 +8,7 @@ import { displayStrategy, globalStyleStrategy, themeColorStrategy } from '@/util
 export const useAppStore = defineStore('app', () => {
   const appSettingConfig = ref({
     isCollapse: true,
+    componentType: 'element-plus',
     globalStyle: 'sun',
     themeColor: 'bg-white',
     menuMode: 'left',
@@ -20,6 +22,28 @@ export const useAppStore = defineStore('app', () => {
   })
 
   const settingConfig: any = [
+    {
+      title: '组件主题',
+      slug: 'componentType',
+      type: 'select',
+      value: [
+        {
+          icon: 'ep:element-plus',
+          title: 'element-plus',
+          slug: 'element-plus',
+        },
+        {
+          icon: 'ph:moon-fill',
+          title: 'arco-design',
+          slug: 'arco-design',
+        },
+        {
+          icon: 'logos:naiveui',
+          title: 'naive-ui',
+          slug: 'naive-ui',
+        },
+      ],
+    },
     {
       title: '整体风格',
       slug: 'globalStyle',
@@ -113,6 +137,8 @@ export const useAppStore = defineStore('app', () => {
   }
 
   watch(() => appSettingConfig.value, (newValue) => {
+    // 全局主题
+    webStorage.setStorage('themeComp', appSettingConfig.value.componentType)
     // 全局颜色策略
     themeColorStrategy(appSettingConfig.value.themeColor)
     // 全局主题策略
@@ -129,6 +155,8 @@ export const useAppStore = defineStore('app', () => {
   }, { deep: true })
 
   onMounted(() => {
+    // 全局主题
+    webStorage.setStorage('themeComp', appSettingConfig.value.componentType)
     // 初始化全局颜色策略
     themeColorStrategy(appSettingConfig.value.themeColor)
     // 初始化全局主题策略

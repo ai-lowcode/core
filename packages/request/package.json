@@ -30,7 +30,7 @@
     "clean:dist": "rimraf dist"
   },
   "dependencies": {
-    "@ai-lowcode/element-plus": "workspace:^",
+    "@ai-lowcode/component-adapter": "workspace:^",
     "@ai-lowcode/hooks": "workspace:^",
     "axios": "^1.7.2"
   },

@@ -85,7 +85,7 @@ git clone https://github.com/ai-lowcode/core
 pnpm install
 
 # 启动开发服务器
-pnpm --filter "ai-lowcode-admin" "dev"
+pnpm dev
 ```
 
 ### 加入社区

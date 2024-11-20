@@ -44,13 +44,13 @@
     "@zero-dim/utils": "workspace:^"
   },
   "devDependencies": {
-    "@zero-dim/types": "workspace:^",
     "@al-config/lint": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",
     "@antfu/eslint-config": "^2.24.0",
     "@iconify/json": "^2.2.233",
     "@iconify/vue": "^4.1.2",
+    "@zero-dim/types": "workspace:^",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.8.0",
     "postcss": "^8.4.45",

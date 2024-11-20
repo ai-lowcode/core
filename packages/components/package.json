@@ -37,19 +37,19 @@
     "vue": "^3.5.3"
   },
   "dependencies": {
-    "@zero-dim/hooks": "workspace:^",
     "@arco-design/web-vue": "^2.56.3",
     "@element-plus/icons-vue": "^2.3.1",
+    "@zero-dim/hooks": "workspace:^",
     "element-plus": "2.8.0",
     "naive-ui": "^2.40.1"
   },
   "devDependencies": {
-    "@zero-dim/types": "workspace:^",
     "@al-config/lint": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",
     "@iconify/json": "^2.2.233",
     "@iconify/vue": "^4.1.2",
+    "@zero-dim/types": "workspace:^",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.8.0",
     "postcss": "^8.4.45",

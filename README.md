@@ -60,9 +60,23 @@ pnpm --filter "zero-dim-admin" "dev"
 <details>
 <summary>点击查看界面预览</summary>
 
-![界面预览](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031408.png)
-![设计器](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031335.png)
-![组件配置](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031638.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031408.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031335.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031638.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031611.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031551.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031538.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031530.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031514.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031452.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031443.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031430.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031023.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031840.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031800.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031858.png)
+![](https://cdn.jsdelivr.net/gh/axelulu/images@master/2024/20241007031847.png)
+
 </details>
 
 ## 🌍 浏览器支持

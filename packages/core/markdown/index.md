@@ -19,7 +19,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[@ai-lowcode/core](./core.md)
+[@zero-dim/core](./core.md)
 
 
 </td><td>

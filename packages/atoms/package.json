@@ -1,27 +1,27 @@
 {
-  "name": "@ai-lowcode/atoms",
+  "name": "@zero-dim/atoms",
   "type": "module",
   "version": "1.0.0",
-  "description": "@ai-lowcode/atoms for ai-lowcode",
+  "description": "@zero-dim/atoms for ZeroDim NoCode",
   "license": "MIT",
-  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "homepage": "https://github.com/zero-dim/core/#readme",
   "repository": {
     "type": "http",
-    "url": "https://github.com/ai-lowcode/core"
+    "url": "https://github.com/zero-dim/core"
   },
-  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "bugs": "https://github.com/zero-dim/core/issues",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/ai-lowcode-atoms.js",
-      "require": "./dist/ai-lowcode-atoms.js"
+      "import": "./dist/zero-dim-atoms.js",
+      "require": "./dist/zero-dim-atoms.js"
     },
     "./css": {
       "import": "./dist/style.css"
     }
   },
-  "main": "./dist/ai-lowcode-atoms.js",
-  "module": "./dist/ai-lowcode-atoms.js",
+  "main": "./dist/zero-dim-atoms.js",
+  "module": "./dist/zero-dim-atoms.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -38,14 +38,14 @@
     "vue": "^3.5.3"
   },
   "dependencies": {
-    "@ai-lowcode/component-adapter": "workspace:^",
-    "@ai-lowcode/core": "workspace:^",
+    "@zero-dim/component-adapter": "workspace:^",
+    "@zero-dim/core": "workspace:^",
     "codemirror": "^5",
     "codemirror-editor-vue3": "^2.7.1",
     "jsonlint-mod": "^1.7.6"
   },
   "devDependencies": {
-    "@ai-lowcode/types": "workspace:^",
+    "@zero-dim/types": "workspace:^",
     "@al-config/lint": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",

@@ -1,5 +1,5 @@
-import { AlLoadingService, AlMessage } from '@ai-lowcode/component-adapter'
-import { webStorage } from '@ai-lowcode/hooks'
+import { AlLoadingService, AlMessage } from '@zero-dim/component-adapter'
+import { webStorage } from '@zero-dim/hooks'
 import axios from 'axios'
 import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
@@ -21,7 +21,7 @@ import { CommonResultType, CreateAxiosOptionsType, RequestConfigType, RequestOpt
  * @example
  * 基础用法：
  * ```typescript
- * import { AlAxios } from '@ai-lowcode/request'
+ * import { AlAxios } from '@zero-dim/request'
  *
  * const request = new AlAxios({
  *   requestOptions: {

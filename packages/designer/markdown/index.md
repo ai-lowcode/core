@@ -19,7 +19,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[@ai-lowcode/designer](./designer.md)
+[@zero-dim/designer](./designer.md)
 
 
 </td><td>

@@ -19,7 +19,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[@ai-lowcode/graphic](./graphic.md)
+[@zero-dim/graphic](./graphic.md)
 
 
 </td><td>

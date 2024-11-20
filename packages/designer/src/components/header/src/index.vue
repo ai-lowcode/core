@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue'
 import {
   AlButton,
   AlDialog,
   AlHeader,
   AlIcon,
   AlPopconfirm,
-} from '@ai-lowcode/component-adapter'
-import { AlRenderer } from '@ai-lowcode/core'
-import { Icon } from '@iconify/vue'
+} from '@zero-dim/component-adapter'
+import { AlRenderer } from '@zero-dim/core'
 
 import Page from './components/page.vue'
 import { useHeader } from './hooks/use-header.ts'

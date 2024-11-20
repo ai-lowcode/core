@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlRadio, AlRadioButton, AlRadioGroup } from '@ai-lowcode/component-adapter'
+import { AlRadio, AlRadioButton, AlRadioGroup } from '@zero-dim/component-adapter'
 import { computed } from 'vue'
 
 defineOptions({

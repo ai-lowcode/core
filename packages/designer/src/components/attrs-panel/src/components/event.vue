@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import { AlCodeEditorAtom } from '@ai-lowcode/atoms'
-import { AlButton, AlCollapse, AlCollapseItem, AlDialog, AlIcon } from '@ai-lowcode/component-adapter'
-
 import { Icon } from '@iconify/vue'
+import { AlCodeEditorAtom } from '@zero-dim/atoms'
+import { AlButton, AlCollapse, AlCollapseItem, AlDialog, AlIcon } from '@zero-dim/component-adapter'
 
 import { useEvent } from '../hooks/use-event.ts'
 

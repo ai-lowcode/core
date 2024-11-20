@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlTabPane, AlTabs } from '@ai-lowcode/component-adapter'
+import { AlTabPane, AlTabs } from '@zero-dim/component-adapter'
 
 defineOptions({
   name: 'AlTabsSchema',

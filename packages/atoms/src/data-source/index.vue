@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlButton, AlForm, AlFormItem, AlInput, AlRadioButton, AlRadioGroup } from '@ai-lowcode/component-adapter'
+import { AlButton, AlForm, AlFormItem, AlInput, AlRadioButton, AlRadioGroup } from '@zero-dim/component-adapter'
 import { onMounted, ref } from 'vue'
 
 import { AlCodeEditorAtom } from '../index.ts'

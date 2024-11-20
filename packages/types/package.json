@@ -1,25 +1,25 @@
 {
-  "name": "@ai-lowcode/types",
+  "name": "@zero-dim/types",
   "version": "1.0.0",
-  "description": "@ai-lowcode/types for ai-lowcode",
-  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "description": "@zero-dim/types for ZeroDim NoCode",
+  "homepage": "https://github.com/zero-dim/core/#readme",
   "repository": {
     "type": "http",
-    "url": "https://github.com/ai-lowcode/core"
+    "url": "https://github.com/zero-dim/core"
   },
-  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "bugs": "https://github.com/zero-dim/core/issues",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/ai-lowcode-types.js",
-      "require": "./dist/ai-lowcode-types.cjs"
+      "import": "./dist/zero-dim-types.js",
+      "require": "./dist/zero-dim-types.cjs"
     },
     "./shims/vue.d.ts": {
       "types": "./shims/vue.d.ts"
     }
   },
-  "main": "./dist/ai-lowcode-types.cjs",
-  "module": "./dist/ai-lowcode-types.js",
+  "main": "./dist/zero-dim-types.cjs",
+  "module": "./dist/zero-dim-types.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",

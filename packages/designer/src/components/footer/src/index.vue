@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue'
 import {
   AlHeader,
   AlIcon,
   AlSlider,
-} from '@ai-lowcode/component-adapter'
-import { Icon } from '@iconify/vue'
+} from '@zero-dim/component-adapter'
 
 import { computed, inject } from 'vue'
 

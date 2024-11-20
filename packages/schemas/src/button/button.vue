@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlButton } from '@ai-lowcode/component-adapter'
+import { AlButton } from '@zero-dim/component-adapter'
 
 defineOptions({
   name: 'AlButtonSchema',

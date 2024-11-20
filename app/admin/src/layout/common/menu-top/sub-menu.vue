@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { AlIcon, AlSubMenu } from '@ai-lowcode/component-adapter'
-import { MenuMeta } from '@ai-lowcode/request'
 import { Icon } from '@iconify/vue'
+import { AlIcon, AlSubMenu } from '@zero-dim/component-adapter'
+import { MenuMeta } from '@zero-dim/request'
 
 import MenuItem from './menu-item.vue'
 

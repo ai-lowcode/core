@@ -1,7 +1,7 @@
-import { AlMessage } from '@ai-lowcode/component-adapter'
-import { Schema } from '@ai-lowcode/core'
-import componentSchemaList from '@ai-lowcode/schemas-component-adapter'
-import { deepCopy } from '@ai-lowcode/utils'
+import { AlMessage } from '@zero-dim/component-adapter'
+import { Schema } from '@zero-dim/core'
+import componentSchemaList from '@zero-dim/schemas-component-adapter'
+import { deepCopy } from '@zero-dim/utils'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 
 import { EventGroup } from '@/components/attrs-panel/src/types'

@@ -1,16 +1,16 @@
-import * as Atoms from '@ai-lowcode/atoms'
-
-import * as componentAdapter from '@ai-lowcode/component-adapter'
-
-import '@ai-lowcode/component-adapter/css'
-
-import { schemaComponent } from '@ai-lowcode/schemas-component-adapter'
-
-import '@ai-lowcode/schemas-component-adapter/css'
-
-import '@ai-lowcode/styles/tailwindCss'
-
 import { Icon } from '@iconify/vue'
+
+import * as Atoms from '@zero-dim/atoms'
+
+import * as componentAdapter from '@zero-dim/component-adapter'
+
+import '@zero-dim/component-adapter/css'
+
+import { schemaComponent } from '@zero-dim/schemas-component-adapter'
+
+import '@zero-dim/schemas-component-adapter/css'
+
+import '@zero-dim/styles/tailwindCss'
 
 import { App, Component } from 'vue'
 

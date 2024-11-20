@@ -1,5 +1,5 @@
-import { Schema } from '@ai-lowcode/core'
-import { deepCopy } from '@ai-lowcode/utils'
+import { Schema } from '@zero-dim/core'
+import { deepCopy } from '@zero-dim/utils'
 import { inject, nextTick, onMounted, ref, watch } from 'vue'
 
 import { DESIGNER_CTX } from '@/global'

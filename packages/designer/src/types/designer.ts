@@ -1,4 +1,4 @@
-import type { Schema } from '@ai-lowcode/core'
+import type { Schema } from '@zero-dim/core'
 import { Ref } from 'vue'
 
 export interface DesignerContext {

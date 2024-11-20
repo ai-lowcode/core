@@ -1,6 +1,6 @@
-import { Schema } from '@ai-lowcode/core'
-import { lowCodePageApi } from '@ai-lowcode/request'
-import { convertFunctionsToStrings, deepCopy } from '@ai-lowcode/utils'
+import { Schema } from '@zero-dim/core'
+import { lowCodePageApi } from '@zero-dim/request'
+import { convertFunctionsToStrings, deepCopy } from '@zero-dim/utils'
 import { computed, inject, ref } from 'vue'
 
 import { DESIGNER_CTX } from '@/global'

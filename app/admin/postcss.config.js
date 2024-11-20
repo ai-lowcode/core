@@ -1,3 +1,3 @@
-import { postCssConfig } from '@ai-lowcode/styles'
+import { postCssConfig } from '@zero-dim/styles'
 
 export default postCssConfig

@@ -1,26 +1,26 @@
 {
-  "name": "@ai-lowcode/component-adapter",
+  "name": "@zero-dim/component-adapter",
   "type": "module",
   "version": "1.0.0",
-  "description": "@ai-lowcode/component-adapter for ai-lowcode",
-  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "description": "@zero-dim/component-adapter for ZeroDim NoCode",
+  "homepage": "https://github.com/zero-dim/core/#readme",
   "repository": {
     "type": "http",
-    "url": "https://github.com/ai-lowcode/core"
+    "url": "https://github.com/zero-dim/core"
   },
-  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "bugs": "https://github.com/zero-dim/core/issues",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/ai-lowcode-component-adapter.js",
-      "require": "./dist/ai-lowcode-component-adapter.js"
+      "import": "./dist/zero-dim-component-adapter.js",
+      "require": "./dist/zero-dim-component-adapter.js"
     },
     "./css": {
       "import": "./dist/style.css"
     }
   },
-  "main": "./dist/ai-lowcode-component-adapter.js",
-  "module": "./dist/ai-lowcode-component-adapter.js",
+  "main": "./dist/zero-dim-component-adapter.js",
+  "module": "./dist/zero-dim-component-adapter.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -37,14 +37,14 @@
     "vue": "^3.5.3"
   },
   "dependencies": {
-    "@ai-lowcode/hooks": "workspace:^",
+    "@zero-dim/hooks": "workspace:^",
     "@arco-design/web-vue": "^2.56.3",
     "@element-plus/icons-vue": "^2.3.1",
     "element-plus": "2.8.0",
     "naive-ui": "^2.40.1"
   },
   "devDependencies": {
-    "@ai-lowcode/types": "workspace:^",
+    "@zero-dim/types": "workspace:^",
     "@al-config/lint": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",

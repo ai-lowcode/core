@@ -19,7 +19,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[@ai-lowcode/hooks](./hooks.md)
+[@zero-dim/hooks](./hooks.md)
 
 
 </td><td>

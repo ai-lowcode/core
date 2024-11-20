@@ -1,7 +1,7 @@
 # Pull Request 提交规范指南
 
 ## 概述
-本文档规定了向 Vue 3 低代码平台项目提交 Pull Request (PR) 时应遵循的规范。遵循这些规范可以帮助维护者更好地理解您的更改并更高效地审查您的 PR。
+本文档规定了向 Vue 3 零代码平台项目提交 Pull Request (PR) 时应遵循的规范。遵循这些规范可以帮助维护者更好地理解您的更改并更高效地审查您的 PR。
 
 ## PR 标题格式
 格式：`type(scope): description`

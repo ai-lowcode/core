@@ -1,5 +1,5 @@
-import type { Schema } from '@ai-lowcode/core'
-import { MaterType } from '@ai-lowcode/types'
+import type { Schema } from '@zero-dim/core'
+import { MaterType } from '@zero-dim/types'
 /**
  * 拖拽组件描述规则结构
  */

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { deepCopy } from '@ai-lowcode/utils'
+import { deepCopy } from '@zero-dim/utils'
 import {
   computed,
   inject,

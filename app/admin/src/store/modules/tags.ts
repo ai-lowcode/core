@@ -1,5 +1,5 @@
-import { webStorage } from '@ai-lowcode/hooks'
-import { MenuMeta } from '@ai-lowcode/request'
+import { webStorage } from '@zero-dim/hooks'
+import { MenuMeta } from '@zero-dim/request'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'

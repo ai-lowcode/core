@@ -1,7 +1,7 @@
-import { Schema } from '@ai-lowcode/core'
-import { webStorage } from '@ai-lowcode/hooks'
-import { lowCodePageApi } from '@ai-lowcode/request'
-import { convertStringsToFunctions, deepCopy, isJsonStringTryCatch, uniqueId } from '@ai-lowcode/utils'
+import { Schema } from '@zero-dim/core'
+import { webStorage } from '@zero-dim/hooks'
+import { lowCodePageApi } from '@zero-dim/request'
+import { convertStringsToFunctions, deepCopy, isJsonStringTryCatch, uniqueId } from '@zero-dim/utils'
 import { onMounted, ref } from 'vue'
 
 import { DeviceEnum } from '@/enums'

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlTreeSelect } from '@ai-lowcode/component-adapter'
+import { AlTreeSelect } from '@zero-dim/component-adapter'
 import { onMounted, ref, useAttrs } from 'vue'
 
 import { dataRequestStrategy } from '../common/data-request-strategy.ts'

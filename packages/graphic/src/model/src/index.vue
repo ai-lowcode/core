@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import { AlButton, AlTree } from '@ai-lowcode/component-adapter'
-import { AlRenderer, Schema } from '@ai-lowcode/core'
-import { deepCopy } from '@ai-lowcode/utils'
 import { Graph } from '@antv/x6'
 import { History } from '@antv/x6-plugin-history'
 import { MiniMap } from '@antv/x6-plugin-minimap'
@@ -12,6 +9,9 @@ import { Transform } from '@antv/x6-plugin-transform'
 import { getTeleport, register } from '@antv/x6-vue-shape'
 
 import { Icon } from '@iconify/vue'
+import { AlButton, AlTree } from '@zero-dim/component-adapter'
+import { AlRenderer, Schema } from '@zero-dim/core'
+import { deepCopy } from '@zero-dim/utils'
 import { onMounted, ref, watch } from 'vue'
 
 import EntityNode from './components/entity-node.vue'

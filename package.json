@@ -1,9 +1,9 @@
 {
-  "name": "ailowcode",
+  "name": "zero-dim-no-code",
   "version": "1.0.0",
   "private": true,
   "packageManager": "pnpm@9.4.0",
-  "description": "a ai lowcode project",
+  "description": "A ZeroDim NoCode Project",
   "author": {
     "name": "A.L",
     "email": "https://x.com/axelulue",
@@ -18,23 +18,24 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ai-lowcode/core"
+    "url": "https://github.com/zero-dim/core"
   },
   "keywords": [
-    "ai-lowcode",
+    "ZeroDim",
+    "ZeroDim NoCode",
     "ai",
-    "lowcode"
+    "NoCode"
   ],
   "engines": {
     "node": ">=18.20.0",
     "npm": ">=9.4.0"
   },
   "scripts": {
-    "dev": "pnpm --filter ai-lowcode-admin dev",
-    "dev:server": "pnpm --filter \"ai-lowcode-server\" \"dev\"",
+    "dev": "pnpm --filter zero-dim-admin dev",
+    "dev:server": "pnpm --filter \"zero-dim-server\" \"dev\"",
     "package-init": "node ./scripts/package-init.js",
     "build": "node ./scripts/build.js",
-    "build:server": "pnpm --filter \"ai-lowcode-server\" \"build\"",
+    "build:server": "pnpm --filter \"zero-dim-server\" \"build\"",
     "change": "changeset",
     "version-packages": "changeset version",
     "release": "pnpm build && pnpm release:only",

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue'
 import {
   AlDropdown,
   AlDropdownItem,
@@ -7,9 +8,7 @@ import {
   AlMessageBox,
   Expand,
   Fold,
-} from '@ai-lowcode/component-adapter'
-
-import { Icon } from '@iconify/vue'
+} from '@zero-dim/component-adapter'
 
 import { ref, toRefs } from 'vue'
 

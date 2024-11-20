@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlModelGraphic } from '@ai-lowcode/graphic'
+import { AlModelGraphic } from '@zero-dim/graphic'
 </script>
 
 <template>

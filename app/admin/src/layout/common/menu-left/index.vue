@@ -2,7 +2,7 @@
 import {
   AlMenu,
   AlScrollbar,
-} from '@ai-lowcode/component-adapter'
+} from '@zero-dim/component-adapter'
 
 import { toRefs } from 'vue'
 

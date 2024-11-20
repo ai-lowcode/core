@@ -1,23 +1,23 @@
 {
-  "name": "@ai-lowcode/request",
+  "name": "@zero-dim/request",
   "type": "module",
   "version": "1.0.0",
-  "description": "@ai-lowcode/request for ai-lowcode",
-  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "description": "@zero-dim/request for ZeroDim NoCode",
+  "homepage": "https://github.com/zero-dim/core/#readme",
   "repository": {
     "type": "http",
-    "url": "https://github.com/ai-lowcode/core"
+    "url": "https://github.com/zero-dim/core"
   },
-  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "bugs": "https://github.com/zero-dim/core/issues",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/ai-lowcode-request.js",
-      "require": "./dist/ai-lowcode-request.cjs"
+      "import": "./dist/zero-dim-request.js",
+      "require": "./dist/zero-dim-request.cjs"
     }
   },
-  "main": "./dist/ai-lowcode-request.cjs",
-  "module": "./dist/ai-lowcode-request.js",
+  "main": "./dist/zero-dim-request.cjs",
+  "module": "./dist/zero-dim-request.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -30,8 +30,8 @@
     "clean:dist": "rimraf dist"
   },
   "dependencies": {
-    "@ai-lowcode/component-adapter": "workspace:^",
-    "@ai-lowcode/hooks": "workspace:^",
+    "@zero-dim/component-adapter": "workspace:^",
+    "@zero-dim/hooks": "workspace:^",
     "axios": "^1.7.2"
   },
   "devDependencies": {

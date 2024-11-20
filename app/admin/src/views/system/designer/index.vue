@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlDesigner } from '@ai-lowcode/designer'
+import { AlDesigner } from '@zero-dim/designer'
 </script>
 
 <template>

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { AlButton, AlDropdown, AlDropdownItem, AlDropdownMenu, AlIcon, AlTooltip } from '@ai-lowcode/component-adapter'
 import { Icon } from '@iconify/vue'
+import { AlButton, AlDropdown, AlDropdownItem, AlDropdownMenu, AlIcon, AlTooltip } from '@zero-dim/component-adapter'
 import { useAttrs } from 'vue'
 
 defineOptions({
@@ -16,7 +16,7 @@ const attrs = useAttrs()
 
 async function operationClick(btn: any) {
   const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor
-  const { AlHttp } = await import('@ai-lowcode/request')
+  const { AlHttp } = await import('@zero-dim/request')
   new AsyncFunction(btn.props?.onClick).bind({
     ...props,
     attrs,

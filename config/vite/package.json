@@ -1,13 +1,13 @@
 {
   "name": "@al-config/vite",
   "version": "1.0.0",
-  "license": "MIT",
-  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "description": "vite for ZeroDim NoCode",
+  "homepage": "https://github.com/zero-dim/core/#readme",
   "repository": {
     "type": "http",
-    "url": "https://github.com/ai-lowcode/core"
+    "url": "https://github.com/zero-dim/core"
   },
-  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "bugs": "https://github.com/zero-dim/core/issues",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

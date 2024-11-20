@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { AlButton, AlIcon } from '@ai-lowcode/component-adapter'
-import { deepCopy } from '@ai-lowcode/utils'
 import { Icon } from '@iconify/vue'
+import { AlButton, AlIcon } from '@zero-dim/component-adapter'
+import { deepCopy } from '@zero-dim/utils'
 import { ref } from 'vue'
 
 import { getExposeApi, removeAlDragBoxAndPromoteChildren } from '@/utils'

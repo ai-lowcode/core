@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { Schema } from '@ai-lowcode/core'
-import { deepCopy } from '@ai-lowcode/utils'
+import type { Schema } from '@zero-dim/core'
+import { deepCopy } from '@zero-dim/utils'
 import {
   inject,
   ref,

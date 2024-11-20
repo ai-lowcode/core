@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { AlButton, AlInput, AlTree } from '@ai-lowcode/component-adapter'
 import { Icon } from '@iconify/vue'
+import { AlButton, AlInput, AlTree } from '@zero-dim/component-adapter'
 import { onMounted, ref, useAttrs } from 'vue'
 
 import { dataRequestStrategy } from '../common/data-request-strategy.ts'
@@ -28,7 +28,7 @@ async function handleData(params?: any, options?: any) {
 async function loadData(...args: any) {
   const AsyncFunction = Object.getPrototypeOf(async () => {
   }).constructor
-  const { AlHttp } = await import('@ai-lowcode/request')
+  const { AlHttp } = await import('@zero-dim/request')
   new AsyncFunction(attrs?.loadData).bind({
     ...props,
     attrs,

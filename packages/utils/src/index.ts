@@ -1,7 +1,7 @@
 // Copyright (c) Example Company. All rights reserved. Licensed under the MIT license.
 
 /**
- * @ai-lowcode/utils - 前端通用工具函数库
+ * @zero-dim/utils - 前端通用工具函数库
  *
  * @remarks
  * 这是一个全面的前端工具函数库，提供了丰富的工具函数集合，包括：
@@ -23,14 +23,14 @@
  *
  * 安装使用:
  * ```bash
- * npm install @ai-lowcode/utils
+ * npm install @zero-dim/utils
  * # 或者
- * yarn add @ai-lowcode/utils
+ * yarn add @zero-dim/utils
  * ```
  *
  * 基础使用:
  * ```typescript
- * import { isObject, deepCopy, uniqueId } from '@ai-lowcode/utils'
+ * import { isObject, deepCopy, uniqueId } from '@zero-dim/utils'
  *
  * // 类型判断
  * isObject({}) // true

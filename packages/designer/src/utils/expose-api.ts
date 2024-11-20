@@ -1,7 +1,7 @@
 export async function getExposeApi() {
-  const componentAdapter = await import('@ai-lowcode/component-adapter')
+  const componentAdapter = await import('@zero-dim/component-adapter')
   const vue = await import('vue')
-  const { AlHttp } = await import('@ai-lowcode/request')
+  const { AlHttp } = await import('@zero-dim/request')
   return {
     componentAdapter,
     vue,

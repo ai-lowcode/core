@@ -1,16 +1,16 @@
 ---
 layout: home
 
-title: AI LowCode
-titleTemplate: 新一代 AI 驱动的低代码开发平台
+title: ZeroDim NoCode
+titleTemplate: 新一代 AI 驱动的零代码开发平台
 
 hero:
-  name: AI LowCode
-  text: 智能化低代码平台
-  tagline: 用 AI 重新定义低代码开发体验
+  name: ZeroDim NoCode
+  text: 智能化零代码平台
+  tagline: 用 AI 重新定义零代码开发体验
   image:
     src: /docs/public/logo.png
-    alt: AI LowCode Logo
+    alt: ZeroDim NoCode Logo
   actions:
     - theme: brand
       text: 快速开始
@@ -20,7 +20,7 @@ hero:
       link: https://api.ailowcode.app/
     - theme: alt
       text: GitHub
-      link: https://github.com/ai-lowcode/core
+      link: https://github.com/zero-dim/core
 
 features:
   - icon: 🛠️
@@ -64,9 +64,9 @@ footer: MIT Licensed | Copyright © 2024 AI LowCode 团队
 订阅我们的更新通知，第一时间获取最新特性和版本发布信息！
 :::
 
-## 🌟 为什么选择 AI LowCode？
+## 🌟 为什么选择 ZeroDim NoCode？
 
-AI LowCode 将现代 Web 技术与人工智能相结合，打造下一代开发平台。我们的目标是让开发变得更快、更智能、更易用，同时保持专业开发人员所需的灵活性。
+ZeroDim NoCode 将现代 Web 技术与人工智能相结合，打造下一代开发平台。我们的目标是让开发变得更快、更智能、更易用，同时保持专业开发人员所需的灵活性。
 
 ### 核心优势
 
@@ -79,13 +79,13 @@ AI LowCode 将现代 Web 技术与人工智能相结合，打造下一代开发�
 
 ```bash
 # 克隆仓库
-git clone https://github.com/ai-lowcode/core
+git clone https://github.com/zero-dim/core
 
 # 安装依赖
 pnpm install
 
 # 启动开发服务器
-pnpm --filter "ai-lowcode-admin" "dev"
+pnpm --filter "zero-dim-admin" "dev"
 ```
 
 ### 加入社区
@@ -100,5 +100,5 @@ pnpm --filter "ai-lowcode-admin" "dev"
 如果您在使用过程中遇到任何问题，欢迎通过以下方式获取帮助：
 
 - 📖 [开发文档](https://docs.ailowcode.app)
-- 🤝 [社区讨论](https://github.com/ai-lowcode/core/discussions)
+- 🤝 [社区讨论](https://github.com/zero-dim/core/discussions)
 - 📧 [邮件支持](mailto:support@ailowcode.app)

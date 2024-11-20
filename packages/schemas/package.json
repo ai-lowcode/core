@@ -1,26 +1,26 @@
 {
-  "name": "@ai-lowcode/schemas-component-adapter",
+  "name": "@zero-dim/schemas-component-adapter",
   "type": "module",
   "version": "1.0.0",
-  "description": "@ai-lowcode/schemas-component-adapter for ai-lowcode",
-  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "description": "@zero-dim/schemas-component-adapter for ZeroDim NoCode",
+  "homepage": "https://github.com/zero-dim/core/#readme",
   "repository": {
     "type": "http",
-    "url": "https://github.com/ai-lowcode/core"
+    "url": "https://github.com/zero-dim/core"
   },
-  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "bugs": "https://github.com/zero-dim/core/issues",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/ai-lowcode-schemas-component-adapter.js",
-      "require": "./dist/ai-lowcode-schemas-component-adapter.js"
+      "import": "./dist/zero-dim-schemas-component-adapter.js",
+      "require": "./dist/zero-dim-schemas-component-adapter.js"
     },
     "./css": {
       "import": "./dist/style.css"
     }
   },
-  "main": "./dist/ai-lowcode-schemas-component-adapter.js",
-  "module": "./dist/ai-lowcode-schemas-component-adapter.js",
+  "main": "./dist/zero-dim-schemas-component-adapter.js",
+  "module": "./dist/zero-dim-schemas-component-adapter.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -37,14 +37,14 @@
     "vue": "^3.5.3"
   },
   "dependencies": {
-    "@ai-lowcode/component-adapter": "workspace:^",
-    "@ai-lowcode/core": "workspace:^",
-    "@ai-lowcode/request": "workspace:^",
-    "@ai-lowcode/styles": "workspace:^",
-    "@ai-lowcode/utils": "workspace:^"
+    "@zero-dim/component-adapter": "workspace:^",
+    "@zero-dim/core": "workspace:^",
+    "@zero-dim/request": "workspace:^",
+    "@zero-dim/styles": "workspace:^",
+    "@zero-dim/utils": "workspace:^"
   },
   "devDependencies": {
-    "@ai-lowcode/types": "workspace:^",
+    "@zero-dim/types": "workspace:^",
     "@al-config/lint": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",

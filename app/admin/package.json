@@ -1,5 +1,5 @@
 {
-  "name": "ai-lowcode-admin",
+  "name": "zero-dim-admin",
   "type": "module",
   "version": "1.0.0",
   "private": true,
@@ -15,13 +15,13 @@
     "clean:dist": "rimraf dist"
   },
   "dependencies": {
-    "@ai-lowcode/component-adapter": "workspace:^",
-    "@ai-lowcode/core": "workspace:^",
-    "@ai-lowcode/designer": "workspace:^",
-    "@ai-lowcode/graphic": "workspace:^",
-    "@ai-lowcode/hooks": "workspace:^",
-    "@ai-lowcode/request": "workspace:^",
-    "@ai-lowcode/styles": "workspace:^",
+    "@zero-dim/component-adapter": "workspace:^",
+    "@zero-dim/core": "workspace:^",
+    "@zero-dim/designer": "workspace:^",
+    "@zero-dim/graphic": "workspace:^",
+    "@zero-dim/hooks": "workspace:^",
+    "@zero-dim/request": "workspace:^",
+    "@zero-dim/styles": "workspace:^",
     "@vueuse/core": "^11.0.3",
     "codemirror": "^5",
     "jsonlint-mod": "^1.7.6",
@@ -31,7 +31,7 @@
     "vue-router": "4"
   },
   "devDependencies": {
-    "@ai-lowcode/utils": "workspace:^",
+    "@zero-dim/utils": "workspace:^",
     "@al-config/lint": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
     "@iconify/json": "^2.2.233",

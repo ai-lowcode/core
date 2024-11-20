@@ -1,5 +1,5 @@
-import { AlLoading, AlMessage, AlMessageBox } from '@ai-lowcode/component-adapter'
-import { ResponseCodeEnum, lowCodePageApi } from '@ai-lowcode/request'
+import { AlLoading, AlMessage, AlMessageBox } from '@zero-dim/component-adapter'
+import { ResponseCodeEnum, lowCodePageApi } from '@zero-dim/request'
 import { inject, ref } from 'vue'
 
 import { DESIGNER_CTX } from '@/global'

@@ -19,7 +19,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[@ai-lowcode/schemas-component-adapter](./schemas-component-adapter.md)
+[@zero-dim/schemas-component-adapter](./schemas-component-adapter.md)
 
 
 </td><td>

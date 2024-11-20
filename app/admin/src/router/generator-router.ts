@@ -1,5 +1,5 @@
-import { MenuMeta, MenuType } from '@ai-lowcode/request'
-import { treeToArray } from '@ai-lowcode/utils'
+import { MenuMeta, MenuType } from '@zero-dim/request'
+import { treeToArray } from '@zero-dim/utils'
 
 import { routes } from './routes'
 

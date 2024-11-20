@@ -1,4 +1,4 @@
-import { webStorage } from '@ai-lowcode/hooks'
+import { webStorage } from '@zero-dim/hooks'
 
 export function storage() {
   webStorage.setStorage('config', {

@@ -1,4 +1,4 @@
-import { webStorage } from '@ai-lowcode/hooks'
+import { webStorage } from '@zero-dim/hooks'
 import { Component, Ref } from 'vue'
 
 import { ComponentType } from '@/common'

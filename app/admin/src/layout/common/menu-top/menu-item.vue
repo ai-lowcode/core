@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { AlIcon, AlMenuItem } from '@ai-lowcode/component-adapter'
-import { MenuMeta } from '@ai-lowcode/request'
 import { Icon } from '@iconify/vue'
+import { AlIcon, AlMenuItem } from '@zero-dim/component-adapter'
+import { MenuMeta } from '@zero-dim/request'
 import { useRouter } from 'vue-router'
 
 import { useTagsStore } from '@/store/modules/tags'

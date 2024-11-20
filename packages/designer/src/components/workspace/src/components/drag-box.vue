@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { AlIcon } from '@ai-lowcode/component-adapter'
 import { Icon } from '@iconify/vue'
+import { AlIcon } from '@zero-dim/component-adapter'
 import { computed, getCurrentInstance, inject, ref, useSlots } from 'vue'
 
 import { DESIGNER_CTX, PAGE_COMP } from '@/global'

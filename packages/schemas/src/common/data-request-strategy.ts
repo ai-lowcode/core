@@ -1,5 +1,5 @@
-import { AlHttp, RequestOptionsType } from '@ai-lowcode/request'
-import { isJsonStringTryCatch } from '@ai-lowcode/utils'
+import { AlHttp, RequestOptionsType } from '@zero-dim/request'
+import { isJsonStringTryCatch } from '@zero-dim/utils'
 
 import { getExposeApi } from '@/utils'
 

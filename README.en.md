@@ -1,16 +1,16 @@
-# AiLowCode
+# ZeroDim NoCode
 > Next-generation AI-powered Low-Code Development Platform
 
 [![Author](https://img.shields.io/badge/Author-Axelu-orange.svg)](https://ailowcode.app)
-[![Version](https://img.shields.io/badge/version-In%20Development-brightgreen.svg)](https://github.com/ai-lowcode/core/releases/tag/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ai-lowcode/core/blob/master/LICENSE)
+[![Version](https://img.shields.io/badge/version-In%20Development-brightgreen.svg)](https://github.com/zero-dim/core/releases/tag/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/zero-dim/core/blob/master/LICENSE)
 [![Blog](https://img.shields.io/badge/Blog-axelu.me-yellow.svg)](https://axelu.me)
 
 English | [简体中文](./README.md)
 
 ## 📚 Project Overview
 
-AiLowCode is a modern, AI-powered low-code development platform designed to enhance development efficiency through artificial intelligence capabilities. This repository contains the frontend portion of the project. For the backend code, please visit [ai-lowcode/server](https://github.com/ai-lowcode/server).
+ZeroDim NoCode is a modern, AI-powered low-code development platform designed to enhance development efficiency through artificial intelligence capabilities. This repository contains the frontend portion of the project. For the backend code, please visit [zero-dim/server](https://github.com/zero-dim/server).
 
 ### ✨ Features
 
@@ -41,7 +41,7 @@ pnpm package-init
 ### Run the Project
 
 ```bash
-pnpm --filter "ai-lowcode-admin" "dev"
+pnpm --filter "zero-dim-admin" "dev"
 ```
 
 ## 🔧 Technology Stack
@@ -83,4 +83,4 @@ This project utilizes the following technologies:
 
 ## 📄 License
 
-[MIT](https://github.com/ai-lowcode/core/blob/main/LICENSE) License © 2024 [Axelu](https://github.com/ai-lowcode)
+[MIT](https://github.com/zero-dim/core/blob/main/LICENSE) License © 2024 [Axelu](https://github.com/zero-dim)

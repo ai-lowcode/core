@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlCascader } from '@ai-lowcode/component-adapter'
+import { AlCascader } from '@zero-dim/component-adapter'
 import { onMounted, ref, useAttrs } from 'vue'
 
 import { dataRequestStrategy } from '../common/data-request-strategy.ts'

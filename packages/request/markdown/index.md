@@ -19,7 +19,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[@ai-lowcode/request](./request.md)
+[@zero-dim/request](./request.md)
 
 
 </td><td>

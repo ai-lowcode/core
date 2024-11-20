@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlButton, AlInput, AlTree } from '@ai-lowcode/component-adapter'
+import { AlButton, AlInput, AlTree } from '@zero-dim/component-adapter'
 import { inject, ref } from 'vue'
 
 import { DESIGNER_CTX } from '../../../designer/src/global'

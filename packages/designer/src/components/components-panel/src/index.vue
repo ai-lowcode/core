@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { AlCodeEditorAtom } from '@ai-lowcode/atoms'
+import { Icon } from '@iconify/vue'
+import { AlCodeEditorAtom } from '@zero-dim/atoms'
 import {
   AlDropdown,
   AlDropdownItem,
@@ -10,8 +11,7 @@ import {
   AlTabs,
   AlTooltip,
   AlTree,
-} from '@ai-lowcode/component-adapter'
-import { Icon } from '@iconify/vue'
+} from '@zero-dim/component-adapter'
 import { VueDraggable } from 'vue-draggable-plus'
 
 import { slideMenu } from './config/menu.ts'

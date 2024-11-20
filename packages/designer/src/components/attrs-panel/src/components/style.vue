@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { AlCodeEditorAtom } from '@ai-lowcode/atoms'
+import { Icon } from '@iconify/vue'
+import { AlCodeEditorAtom } from '@zero-dim/atoms'
 import {
   AlCollapse,
   AlCollapseItem,
@@ -12,9 +13,7 @@ import {
   AlRadioGroup,
   AlSlider,
   AlTooltip,
-} from '@ai-lowcode/component-adapter'
-
-import { Icon } from '@iconify/vue'
+} from '@zero-dim/component-adapter'
 
 import { useStyle } from '../hooks/use-style.ts'
 

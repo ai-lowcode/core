@@ -1,7 +1,7 @@
-import { AlMessage } from '@ai-lowcode/component-adapter'
-import { Schema } from '@ai-lowcode/core'
-import componentSchemaList, { CompSchema } from '@ai-lowcode/schemas-component-adapter'
-import { deepCopy } from '@ai-lowcode/utils'
+import { AlMessage } from '@zero-dim/component-adapter'
+import { Schema } from '@zero-dim/core'
+import componentSchemaList, { CompSchema } from '@zero-dim/schemas-component-adapter'
+import { deepCopy } from '@zero-dim/utils'
 import { computed, inject, nextTick, onMounted, ref, watch } from 'vue'
 
 import { createMenu } from '@/components/components-panel/src/config/menu.ts'

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue'
 import {
   AlButton,
   AlEmpty,
@@ -8,10 +9,9 @@ import {
   AlScrollbar,
   AlTabPane,
   AlTabs,
-} from '@ai-lowcode/component-adapter'
-import { deepCopy, isEmpty } from '@ai-lowcode/utils'
+} from '@zero-dim/component-adapter'
+import { deepCopy, isEmpty } from '@zero-dim/utils'
 
-import { Icon } from '@iconify/vue'
 import { CSSProperties, computed, ref, watch } from 'vue'
 
 import { IconJson } from './data.ts'

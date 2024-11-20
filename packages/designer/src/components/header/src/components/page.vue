@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue'
 import {
   AlButton,
   AlDialog,
@@ -10,8 +11,7 @@ import {
   AlPopover,
   AlTabPane,
   AlTabs,
-} from '@ai-lowcode/component-adapter'
-import { Icon } from '@iconify/vue'
+} from '@zero-dim/component-adapter'
 
 import { usePage } from '../hooks/use-page.ts'
 

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlImage } from '@ai-lowcode/component-adapter'
+import { AlImage } from '@zero-dim/component-adapter'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

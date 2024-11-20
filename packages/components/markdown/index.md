@@ -19,7 +19,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[@ai-lowcode/component-adapter](./component-adapter.md)
+[@zero-dim/component-adapter](./component-adapter.md)
 
 
 </td><td>

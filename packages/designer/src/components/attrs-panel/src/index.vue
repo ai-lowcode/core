@@ -2,7 +2,7 @@
 import {
   AlTabPane,
   AlTabs,
-} from '@ai-lowcode/component-adapter'
+} from '@zero-dim/component-adapter'
 import { inject, ref } from 'vue'
 
 import CompAttrs from './components/attrs.vue'

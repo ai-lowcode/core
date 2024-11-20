@@ -2,17 +2,17 @@ import { execa } from 'execa'
 
 const buildPkg = [
   '@al-config/vite',
-  '@ai-lowcode/styles',
-  '@ai-lowcode/types',
-  '@ai-lowcode/utils',
-  '@ai-lowcode/element-plus',
-  '@ai-lowcode/hooks',
-  '@ai-lowcode/request',
-  '@ai-lowcode/atoms',
-  '@ai-lowcode/core',
-  '@ai-lowcode/schemas-component-adapter',
-  '@ai-lowcode/graphic',
-  '@ai-lowcode/designer',
+  '@zero-dim/styles',
+  '@zero-dim/types',
+  '@zero-dim/utils',
+  '@zero-dim/hooks',
+  '@zero-dim/component-adapter',
+  '@zero-dim/request',
+  '@zero-dim/atoms',
+  '@zero-dim/core',
+  '@zero-dim/schemas-component-adapter',
+  '@zero-dim/graphic',
+  '@zero-dim/designer',
 ]
 
 // 使用 async/await 和 for...of

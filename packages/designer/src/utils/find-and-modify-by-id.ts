@@ -1,5 +1,5 @@
-import type { Schema } from '@ai-lowcode/core'
-import { uniqueId } from '@ai-lowcode/utils'
+import type { Schema } from '@zero-dim/core'
+import { uniqueId } from '@zero-dim/utils'
 
 /**
  * 根据targetId搜索nodes的节点，修改targetId节点的值

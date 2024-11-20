@@ -1,4 +1,4 @@
-import '@ai-lowcode/styles/tailwindCss'
+import '@zero-dim/styles/tailwindCss'
 
 import { ActionBarSchema, AlActionBar } from './action-bar'
 import { AutocompleteSchema } from './autocomplete'

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { deepCopy, generateObjectFromPath, getValueFromPath, setValueAtPath } from '@ai-lowcode/utils'
+import { deepCopy, generateObjectFromPath, getValueFromPath, setValueAtPath } from '@zero-dim/utils'
 
 import { nextTick, onMounted, provide, ref, watch } from 'vue'
 

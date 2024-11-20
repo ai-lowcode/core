@@ -10,9 +10,9 @@ import {
   SuccessFilled,
   User,
   View,
-} from '@ai-lowcode/component-adapter'
+} from '@zero-dim/component-adapter'
 
-import { AlHttp, ResponseCodeEnum } from '@ai-lowcode/request'
+import { AlHttp, ResponseCodeEnum } from '@zero-dim/request'
 import { onMounted, ref } from 'vue'
 
 import loginBg from '@/assets/img/login-bg.png'

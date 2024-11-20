@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlOption, AlSelect } from '@ai-lowcode/component-adapter'
+import { AlOption, AlSelect } from '@zero-dim/component-adapter'
 import { onMounted, ref, useAttrs } from 'vue'
 
 import { dataRequestStrategy } from '../common/data-request-strategy.ts'

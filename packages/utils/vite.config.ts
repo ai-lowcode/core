@@ -3,7 +3,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig(async () => {
   return definePkgConfig({
-    name: 'AiLowcodeUtils',
+    name: 'ZeroDimUtils',
     defaultFormats: ['es', 'cjs'],
     externalDeps: false,
   })

@@ -1,4 +1,4 @@
-import type { Schema } from '@ai-lowcode/core'
+import type { Schema } from '@zero-dim/core'
 
 export function FieldAttrsSchema(changeFieldData: Function) {
   return <Array<Schema>>[

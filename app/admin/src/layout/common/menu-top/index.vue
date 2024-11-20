@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {
   AlMenu,
-} from '@ai-lowcode/component-adapter'
+} from '@zero-dim/component-adapter'
 
 import SubMenu from './sub-menu.vue'
 

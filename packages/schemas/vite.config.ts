@@ -8,7 +8,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig(async () => {
   return definePkgConfig({
-    name: 'AiLowcodeSchemasComponentAdapter',
+    name: 'ZeroDimSchemasComponentAdapter',
     defaultFormats: ['es'],
     options: {
       resolve: {

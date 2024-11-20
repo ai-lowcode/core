@@ -7,7 +7,7 @@
         "src/*"
       ]
     },
-    "types": ["@ai-lowcode/types/shims/vue.d.ts"],
+    "types": ["@zero-dim/types/shims/vue.d.ts"],
     "outDir": "dist"
   },
   "include": ["src"]

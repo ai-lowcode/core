@@ -1,22 +1,22 @@
-# AiLowCode
-> 新一代 AI 驱动的低代码开发平台
+# ZeroDim NoCode
+> 新一代 AI 驱动的零代码开发平台
 
 [![Author](https://img.shields.io/badge/Author-Axelu-orange.svg)](https://ailowcode.app)
-[![Version](https://img.shields.io/badge/version-开发中-brightgreen.svg)](https://github.com/ai-lowcode/core/releases/tag/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ai-lowcode/core/blob/master/LICENSE)
+[![Version](https://img.shields.io/badge/version-开发中-brightgreen.svg)](https://github.com/zero-dim/core/releases/tag/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/zero-dim/core/blob/master/LICENSE)
 [![Blog](https://img.shields.io/badge/Blog-axelu.me-yellow.svg)](https://axelu.me)
 
 [English](./README.en.md) | 简体中文
 
 ## 📚 项目简介
 
-AiLowCode 是一个基于人工智能的现代化低代码开发平台，旨在通过 AI 能力提升开发效率。本仓库为项目的前端部分，后端代码请访问 [ai-lowcode/server](https://github.com/ai-lowcode/server)。
+ZeroDim NoCode 是一个基于人工智能的现代化零代码开发平台，旨在通过 AI 能力提升开发效率。本仓库为项目的前端部分，后端代码请访问 [zero-dim/server](https://github.com/zero-dim/server)。
 
 ### ✨ 特性
 
 - 🛠️ **现代化技术栈**：基于 Vue 3.4、Vite 5.0、Element-Plus、TypeScript
 - 📦 **先进的工程化**：采用 monorepo + pnpm + turbo 实现高效的包管理
-- 🤖 **AI 驱动**：深度集成 AI 模型，从底层重新设计低代码渲染器
+- 🤖 **AI 驱动**：深度集成 AI 模型，从底层重新设计零代码渲染器
 - 🎨 **优雅的架构**：经过精心设计的 hooks、request、styles、types、utils 等模块
 
 ## 🚀 快速开始
@@ -41,7 +41,7 @@ pnpm package-init
 ### 启动开发服务器
 
 ```bash
-pnpm --filter "ai-lowcode-admin" "dev"
+pnpm --filter "zero-dim-admin" "dev"
 ```
 
 ## 🔧 技术栈
@@ -103,4 +103,4 @@ pnpm --filter "ai-lowcode-admin" "dev"
 
 ## 📄 开源协议
 
-[MIT](https://github.com/ai-lowcode/core/blob/main/LICENSE) License © 2024 [Axelu](https://github.com/ai-lowcode)
+[MIT](https://github.com/zero-dim/core/blob/main/LICENSE) License © 2024 [Axelu](https://github.com/zero-dim)

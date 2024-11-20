@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { AlButton, AlLoading, AlTable, AlTableColumn } from '@ai-lowcode/component-adapter'
-import { AlRenderer } from '@ai-lowcode/core'
+import { AlButton, AlLoading, AlTable, AlTableColumn } from '@zero-dim/component-adapter'
+import { AlRenderer } from '@zero-dim/core'
 import { computed, onMounted, ref, useAttrs } from 'vue'
 
 import { dataRequestStrategy } from '../common/data-request-strategy.ts'

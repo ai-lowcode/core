@@ -8,7 +8,7 @@
         "src/*"
       ]
     },
-    "types": ["@ai-lowcode/types/shims/vue.d.ts"],
+    "types": ["@zero-dim/types/shims/vue.d.ts"],
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "temp",

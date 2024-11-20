@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { AlRenderer } from '@ai-lowcode/core'
-import { removeAlDragBoxAndPromoteChildren } from '@ai-lowcode/designer'
-import { lowCodePageApi } from '@ai-lowcode/request'
-import { convertStringsToFunctions, isJsonStringTryCatch } from '@ai-lowcode/utils'
+import { AlRenderer } from '@zero-dim/core'
+import { removeAlDragBoxAndPromoteChildren } from '@zero-dim/designer'
+import { lowCodePageApi } from '@zero-dim/request'
+import { convertStringsToFunctions, isJsonStringTryCatch } from '@zero-dim/utils'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 

@@ -1,4 +1,4 @@
-import { webStorage } from '@ai-lowcode/hooks'
+import { webStorage } from '@zero-dim/hooks'
 
 export function addEditorThemeListener(callbackListener: any) {
   callbackListener(webStorage.getStorageFromKey('settingConfig')?.globalStyle === 'sun')

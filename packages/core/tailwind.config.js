@@ -1,3 +1,3 @@
-import tailwindCssConfig from '@ai-lowcode/styles/tailwindConfig'
+import tailwindCssConfig from '@zero-dim/styles/tailwindConfig'
 
 export default tailwindCssConfig

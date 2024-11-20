@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { AlCollapse, AlCollapseItem } from '@ai-lowcode/component-adapter'
-import { AlRenderer } from '@ai-lowcode/core'
+import { AlCollapse, AlCollapseItem } from '@zero-dim/component-adapter'
+import { AlRenderer } from '@zero-dim/core'
 
 import { useAttrs } from '../hooks/use-attrs.ts'
 

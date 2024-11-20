@@ -1,5 +1,5 @@
-import type { Schema } from '@ai-lowcode/core'
-import { uniqueId } from '@ai-lowcode/utils'
+import type { Schema } from '@zero-dim/core'
+import { uniqueId } from '@zero-dim/utils'
 
 import { CompSchema } from '@/types'
 

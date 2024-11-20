@@ -1,19 +1,19 @@
 {
-  "name": "@ai-lowcode/styles",
+  "name": "@zero-dim/styles",
   "type": "module",
   "version": "1.0.0",
-  "description": "@ai-lowcode/styles for ai-lowcode",
-  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "description": "@zero-dim/styles for ZeroDim NoCode",
+  "homepage": "https://github.com/zero-dim/core/#readme",
   "repository": {
     "type": "http",
-    "url": "https://github.com/ai-lowcode/core"
+    "url": "https://github.com/zero-dim/core"
   },
-  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "bugs": "https://github.com/zero-dim/core/issues",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/ai-lowcode-styles.js",
-      "require": "./dist/ai-lowcode-styles.js"
+      "import": "./dist/zero-dim-styles.js",
+      "require": "./dist/zero-dim-styles.js"
     },
     "./css": {
       "import": "./dist/style.css"
@@ -27,8 +27,8 @@
       "require": "./src/tailwind.config.ts"
     }
   },
-  "main": "./dist/ai-lowcode-styles.js",
-  "module": "./dist/ai-lowcode-styles.js",
+  "main": "./dist/zero-dim-styles.js",
+  "module": "./dist/zero-dim-styles.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

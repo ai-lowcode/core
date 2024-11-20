@@ -1,5 +1,5 @@
-import { webStorage } from '@ai-lowcode/hooks'
-import { nProgress } from '@ai-lowcode/utils'
+import { webStorage } from '@zero-dim/hooks'
+import { nProgress } from '@zero-dim/utils'
 import { App } from 'vue'
 import { NavigationGuardNext, RouteLocationNormalized, Router } from 'vue-router'
 

@@ -19,12 +19,12 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[@ai-lowcode/utils](./utils.md)
+[@zero-dim/utils](./utils.md)
 
 
 </td><td>
 
-@<!-- -->ai-lowcode/utils - 前端通用工具函数库
+@<!-- -->zero-dim/utils - 前端通用工具函数库
 
 
 </td></tr>

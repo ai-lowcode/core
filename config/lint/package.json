@@ -1,7 +1,7 @@
 {
   "name": "@al-config/lint",
   "version": "1.0.0",
-  "description": "lint for ai-lowcode",
+  "description": "lint for ZeroDim NoCode",
   "files": [
     "commitlint.js",
     "eslint.config.mjs",

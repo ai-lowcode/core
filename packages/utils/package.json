@@ -1,23 +1,23 @@
 {
-  "name": "@ai-lowcode/utils",
+  "name": "@zero-dim/utils",
   "type": "module",
   "version": "1.0.0",
-  "description": "@ai-lowcode/utils for ai-lowcode",
-  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "description": "@zero-dim/utils for ZeroDim NoCode",
+  "homepage": "https://github.com/zero-dim/core/#readme",
   "repository": {
     "type": "http",
-    "url": "https://github.com/ai-lowcode/core"
+    "url": "https://github.com/zero-dim/core"
   },
-  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "bugs": "https://github.com/zero-dim/core/issues",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/ai-lowcode-utils.js",
-      "require": "./dist/ai-lowcode-utils.cjs"
+      "import": "./dist/zero-dim-utils.js",
+      "require": "./dist/zero-dim-utils.cjs"
     }
   },
-  "main": "./dist/ai-lowcode-utils.cjs",
-  "module": "./dist/ai-lowcode-utils.js",
+  "main": "./dist/zero-dim-utils.cjs",
+  "module": "./dist/zero-dim-utils.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

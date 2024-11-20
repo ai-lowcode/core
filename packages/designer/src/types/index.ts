@@ -1,5 +1,5 @@
 // 基础类型
-import { MaterType } from '@ai-lowcode/types'
+import { MaterType } from '@zero-dim/types'
 
 import { ComponentMenu } from '@/enums'
 // 设计器类型

@@ -1,26 +1,26 @@
 {
-  "name": "@ai-lowcode/designer",
+  "name": "@zero-dim/designer",
   "type": "module",
   "version": "1.0.0",
-  "description": "@ai-lowcode/designer for ai-lowcode",
-  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "description": "@zero-dim/designer for ZeroDim NoCode",
+  "homepage": "https://github.com/zero-dim/core/#readme",
   "repository": {
     "type": "http",
-    "url": "https://github.com/ai-lowcode/core"
+    "url": "https://github.com/zero-dim/core"
   },
-  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "bugs": "https://github.com/zero-dim/core/issues",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/ai-lowcode-designer.js",
-      "require": "./dist/ai-lowcode-designer.js"
+      "import": "./dist/zero-dim-designer.js",
+      "require": "./dist/zero-dim-designer.js"
     },
     "./css": {
       "import": "./dist/style.css"
     }
   },
-  "main": "./dist/ai-lowcode-designer.js",
-  "module": "./dist/ai-lowcode-designer.js",
+  "main": "./dist/zero-dim-designer.js",
+  "module": "./dist/zero-dim-designer.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -36,18 +36,18 @@
     "vue": "^3.5.3"
   },
   "dependencies": {
-    "@ai-lowcode/atoms": "workspace:^",
-    "@ai-lowcode/component-adapter": "workspace:^",
-    "@ai-lowcode/core": "workspace:^",
-    "@ai-lowcode/hooks": "workspace:^",
-    "@ai-lowcode/request": "workspace:^",
-    "@ai-lowcode/schemas-component-adapter": "workspace:^",
-    "@ai-lowcode/styles": "workspace:^",
-    "@ai-lowcode/utils": "workspace:^",
+    "@zero-dim/atoms": "workspace:^",
+    "@zero-dim/component-adapter": "workspace:^",
+    "@zero-dim/core": "workspace:^",
+    "@zero-dim/hooks": "workspace:^",
+    "@zero-dim/request": "workspace:^",
+    "@zero-dim/schemas-component-adapter": "workspace:^",
+    "@zero-dim/styles": "workspace:^",
+    "@zero-dim/utils": "workspace:^",
     "vue-draggable-plus": "^0.5.3"
   },
   "devDependencies": {
-    "@ai-lowcode/types": "workspace:^",
+    "@zero-dim/types": "workspace:^",
     "@al-config/lint": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",

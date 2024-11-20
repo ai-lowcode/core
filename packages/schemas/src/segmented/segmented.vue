@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlSegmented } from '@ai-lowcode/component-adapter'
+import { AlSegmented } from '@zero-dim/component-adapter'
 import { onMounted, ref, useAttrs } from 'vue'
 
 import { dataRequestStrategy } from '../common/data-request-strategy.ts'

@@ -1,23 +1,23 @@
 {
-  "name": "@ai-lowcode/hooks",
+  "name": "@zero-dim/hooks",
   "type": "module",
   "version": "1.0.0",
-  "description": "@ai-lowcode/hooks for ai-lowcode",
-  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "description": "@zero-dim/hooks for ZeroDim NoCode",
+  "homepage": "https://github.com/zero-dim/core/#readme",
   "repository": {
     "type": "http",
-    "url": "https://github.com/ai-lowcode/core"
+    "url": "https://github.com/zero-dim/core"
   },
-  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "bugs": "https://github.com/zero-dim/core/issues",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/ai-lowcode-hooks.js",
-      "require": "./dist/ai-lowcode-hooks.cjs"
+      "import": "./dist/zero-dim-hooks.js",
+      "require": "./dist/zero-dim-hooks.cjs"
     }
   },
-  "main": "./dist/ai-lowcode-hooks.cjs",
-  "module": "./dist/ai-lowcode-hooks.js",
+  "main": "./dist/zero-dim-hooks.cjs",
+  "module": "./dist/zero-dim-hooks.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

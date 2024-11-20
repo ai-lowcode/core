@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AlWatermark } from '@ai-lowcode/component-adapter'
+import { AlWatermark } from '@zero-dim/component-adapter'
 import { reactive } from 'vue'
 
 const font = reactive({
@@ -8,7 +8,7 @@ const font = reactive({
 </script>
 
 <template>
-  <AlWatermark :font="font" :content="['AiLowCode']" class="h-full">
+  <AlWatermark :font="font" :content="['ZeroDim']" class="h-full">
     <router-view />
   </AlWatermark>
 </template>

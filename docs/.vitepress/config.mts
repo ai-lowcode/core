@@ -2,8 +2,8 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'AI 低代码平台(开发中)',
-  description: 'a ai-lowcode project | ai低代码 | ai 无代码平台 ｜ ai 低代码设计器',
+  title: 'AI 零代码平台(开发中)',
+  description: 'A ZeroDim NoCode Project | ai零代码 | ai 无代码平台 ｜ ai 零代码设计器',
   markdown: {
     lineNumbers: true,
     languages: [],
@@ -79,7 +79,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/ai-lowcode/core' },
+      { icon: 'github', link: 'https://github.com/zero-dim/core' },
     ],
   },
 })

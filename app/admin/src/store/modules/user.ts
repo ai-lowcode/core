@@ -1,7 +1,7 @@
-import { AlMessage } from '@ai-lowcode/component-adapter'
-import { webStorage } from '@ai-lowcode/hooks'
-import { LoginParamType, ResponseCodeEnum, oauth2Api, sysConfigApi } from '@ai-lowcode/request'
-import { isJsonStringTryCatch } from '@ai-lowcode/utils'
+import { AlMessage } from '@zero-dim/component-adapter'
+import { webStorage } from '@zero-dim/hooks'
+import { LoginParamType, ResponseCodeEnum, oauth2Api, sysConfigApi } from '@zero-dim/request'
+import { isJsonStringTryCatch } from '@zero-dim/utils'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 

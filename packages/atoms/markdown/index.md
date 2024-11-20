@@ -19,7 +19,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[@ai-lowcode/atoms](./atoms.md)
+[@zero-dim/atoms](./atoms.md)
 
 
 </td><td>

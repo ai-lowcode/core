@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { AlIcon } from '@ai-lowcode/component-adapter'
-import { MenuMeta } from '@ai-lowcode/request'
 import { Icon } from '@iconify/vue'
 import { onClickOutside } from '@vueuse/core'
+import { AlIcon } from '@zero-dim/component-adapter'
+import { MenuMeta } from '@zero-dim/request'
 import { nextTick, ref, toRefs } from 'vue'
 
 import { useRoute, useRouter } from 'vue-router'

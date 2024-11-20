@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue'
 import {
   AlButton,
   AlColorPicker,
@@ -9,8 +10,7 @@ import {
   AlRadioGroup,
   AlSelect,
   AlSwitch,
-} from '@ai-lowcode/component-adapter'
-import { Icon } from '@iconify/vue'
+} from '@zero-dim/component-adapter'
 import { ref, toRefs } from 'vue'
 
 import { useAppStore } from '@/store/modules/app'

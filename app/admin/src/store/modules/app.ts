@@ -1,5 +1,5 @@
-import { webStorage } from '@ai-lowcode/hooks'
-import { sysConfigApi } from '@ai-lowcode/request'
+import { webStorage } from '@zero-dim/hooks'
+import { sysConfigApi } from '@zero-dim/request'
 import { defineStore } from 'pinia'
 import { onMounted, ref, watch } from 'vue'
 

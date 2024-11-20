@@ -1,26 +1,26 @@
 {
-  "name": "@ai-lowcode/graphic",
+  "name": "@zero-dim/graphic",
   "type": "module",
   "version": "1.0.0",
-  "description": "@ai-lowcode/graphic for ai-lowcode",
-  "homepage": "https://github.com/ai-lowcode/core/#readme",
+  "description": "@zero-dim/graphic for ZeroDim NoCode",
+  "homepage": "https://github.com/zero-dim/core/#readme",
   "repository": {
     "type": "http",
-    "url": "https://github.com/ai-lowcode/core"
+    "url": "https://github.com/zero-dim/core"
   },
-  "bugs": "https://github.com/ai-lowcode/core/issues",
+  "bugs": "https://github.com/zero-dim/core/issues",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/ai-lowcode-graphic.js",
-      "require": "./dist/ai-lowcode-graphic.js"
+      "import": "./dist/zero-dim-graphic.js",
+      "require": "./dist/zero-dim-graphic.js"
     },
     "./css": {
       "import": "./dist/style.css"
     }
   },
-  "main": "./dist/ai-lowcode-graphic.js",
-  "module": "./dist/ai-lowcode-graphic.js",
+  "main": "./dist/zero-dim-graphic.js",
+  "module": "./dist/zero-dim-graphic.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -36,10 +36,10 @@
     "vue": "^3.5.3"
   },
   "dependencies": {
-    "@ai-lowcode/component-adapter": "workspace:^",
-    "@ai-lowcode/core": "workspace:^",
-    "@ai-lowcode/styles": "workspace:^",
-    "@ai-lowcode/utils": "workspace:^",
+    "@zero-dim/component-adapter": "workspace:^",
+    "@zero-dim/core": "workspace:^",
+    "@zero-dim/styles": "workspace:^",
+    "@zero-dim/utils": "workspace:^",
     "@antv/x6": "^2.18.1",
     "@antv/x6-plugin-history": "^2.2.4",
     "@antv/x6-plugin-minimap": "^2.0.7",
@@ -50,7 +50,7 @@
     "@antv/x6-vue-shape": "^2.1.2"
   },
   "devDependencies": {
-    "@ai-lowcode/types": "workspace:^",
+    "@zero-dim/types": "workspace:^",
     "@al-config/lint": "workspace:^",
     "@al-config/tsconfig": "workspace:^",
     "@al-config/vite": "workspace:^",

@@ -156,7 +156,7 @@ export const useAppStore = defineStore('app', () => {
 
   onMounted(() => {
     // 全局主题
-    webStorage.setStorage('themeComp', appSettingConfig.value.componentType)
+    // webStorage.setStorage('themeComp', appSettingConfig.value.componentType)
     // 初始化全局颜色策略
     themeColorStrategy(appSettingConfig.value.themeColor)
     // 初始化全局主题策略

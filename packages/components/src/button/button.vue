@@ -5,7 +5,7 @@ import { ElButton } from 'element-plus'
 
 import { useSlots } from 'vue'
 
-import { AlIcon } from '../icon'
+import { AlIcon } from '@/icon'
 
 defineProps<{
   icon?: string

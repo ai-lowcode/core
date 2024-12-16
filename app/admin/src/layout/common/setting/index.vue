@@ -55,7 +55,7 @@ defineExpose({
           </div>
         </AlRadioButton>
       </AlRadioGroup>
-      <AlSelect v-if="config.type === 'select'" v-model="appSettingConfig[config.slug]" @change="reload()">
+      <AlSelect v-if="config.type === 'select'" v-model="appSettingConfig[config.slug]" :options="config.value" label-field="title" value-field="slug" @change="reload()">
         <AlOption v-for="(item, configIndex) in config.value" :key="configIndex" :value="item.slug">
           <div class="flex justify-right items-center">
             <AlIcon class="mr-1">

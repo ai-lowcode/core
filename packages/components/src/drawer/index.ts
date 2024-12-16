@@ -1,6 +1,8 @@
 import { componentFactory } from '@/common'
-import { config } from '@/drawer/config.ts'
+import { drawerConfig } from '@/drawer/config.ts'
+
+export * from './props.ts'
 
 export const AlDrawer = componentFactory('AlDrawer', {
-  componentConfig: config,
+  componentConfig: drawerConfig,
 })

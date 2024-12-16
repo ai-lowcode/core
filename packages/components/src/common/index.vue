@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, useAttrs, watch } from 'vue'
 
-import { componentStrategy, getModelValue } from '@/common/strategy.ts'
+import { componentStrategy, getBindMapping, getModelValue } from '@/common/strategy.ts'
 
 const props = defineProps<{
   modelValue: boolean
@@ -26,6 +26,7 @@ function onUpdate(val: any) {
 const attrsValue = ref({
   ...attrs,
   ...getModelValue(value, onUpdate, props.componentConfig),
+  ...getBindMapping(attrs, props.componentConfig),
 })
 
 const comp = componentStrategy(props.componentConfig)

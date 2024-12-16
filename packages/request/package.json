@@ -24,6 +24,7 @@
   ],
   "scripts": {
     "build": "vite build",
+    "build:watch": "vite build --watch",
     "build:all": "vite build && pnpm build:dts",
     "build:dts": "rimraf temp && tsc -p tsconfig.declaration.json && rollup-dts",
     "clean": "rimraf node_modules",

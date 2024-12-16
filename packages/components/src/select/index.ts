@@ -1,21 +1,11 @@
-import { Optgroup, Option, Select } from '@arco-design/web-vue'
-import { ElOption, ElOptionGroup, ElSelect } from 'element-plus'
-import { NSelect } from 'naive-ui'
+import { Optgroup, Option } from '@arco-design/web-vue'
+import { ElOption, ElOptionGroup } from 'element-plus'
 
 import { ComponentType, componentFactory } from '@/common'
+import { selectConfig } from '@/select/select.ts'
 
 export const AlSelect = componentFactory('AlSelect', {
-  componentConfig: {
-    [ComponentType.ElementPlus]: {
-      component: ElSelect,
-    },
-    [ComponentType.ArcoDesign]: {
-      component: Select,
-    },
-    [ComponentType.NaiveUi]: {
-      component: NSelect,
-    },
-  },
+  componentConfig: selectConfig,
 })
 
 export const AlOption = componentFactory('AlOption', {

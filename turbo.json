@@ -1,25 +1,31 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "serve": {
+    "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "dependsOn": [
+        "^build:all"
+      ]
     },
-    "serve:test": {
-      "cache": false,
-      "persistent": true
-    },
-    "serve:prod": {
-      "cache": false,
-      "persistent": true
-    },
-    "build": {
+    "build:all": {
+      "dependsOn": [
+        "^build:all"
+      ],
       "outputs": ["dist/**"]
     },
-    "build:dev": {
+    "build:dts": {
+      "dependsOn": [
+        "^build:dts"
+      ],
       "outputs": ["dist/**"]
     },
-    "build:test": {
+    "build:watch": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": [
+        "^build:all"
+      ],
       "outputs": ["dist/**"]
     },
     "clean": {

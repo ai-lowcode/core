@@ -60,7 +60,7 @@ const {
         placement="right"
       >
         <AlIcon
-          size="20" class="h-[45px] cursor-pointer hover:bg-active-color hover:text-white duration-300 w-full"
+          size="20" class="h-[45px] cursor-pointer flex justify-center items-center hover:bg-active-color hover:text-white duration-300 w-full"
           :class="activeComponentMenu.menu === item.slug ? 'bg-active-color text-white' : 'text-gray-500'"
           @click="changeComponentSlide(item.slug)"
         >

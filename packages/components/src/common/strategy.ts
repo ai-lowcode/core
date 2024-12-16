@@ -25,3 +25,18 @@ export function getModelValue(value: Ref<any>, onUpdate: any, config: Record<Com
     [`onUpdate:${config[themeComp || ComponentType.ElementPlus]?.modelValue ?? 'modelValue'}`]: onUpdate,
   }
 }
+
+/**
+ * attrs 映射
+ * @param attrs 组件 attrs 值
+ * @param config 组件配置
+ */
+export function getBindMapping(attrs: Record<string, any>, config: Record<ComponentType, Record<string, any>>) {
+  const themeComp: ComponentType = webStorage.getStorageFromKey('themeComp')
+  const bindMapping = config[themeComp || ComponentType.ElementPlus].bindMapping || {}
+  for (const bindMappingKey in bindMapping) {
+    attrs[bindMapping[bindMappingKey]] = attrs[bindMappingKey]
+    delete attrs[bindMappingKey]
+  }
+  return attrs
+}
